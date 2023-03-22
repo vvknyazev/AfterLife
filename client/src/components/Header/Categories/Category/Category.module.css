@@ -13,6 +13,7 @@
     margin-top: 38px;
     font-family: 'Nunito', sans-serif;
     font-size: 18px;
+    cursor: pointer;
 }
 .box img{
     width: 40px;

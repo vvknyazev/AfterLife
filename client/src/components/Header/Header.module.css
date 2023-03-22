@@ -4,5 +4,14 @@
     background-color: #0F0F0F;
     border-radius: 32px;
     color: white;
+    font-family: 'Nunito', sans-serif;
+}
+.title{
+    font-size: 48px;
+    margin-left: 5%;
+    font-weight: bold;
+}
+.gif{
+    margin-left: 150px;
 
 }
