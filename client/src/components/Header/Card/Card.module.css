@@ -1,0 +1,18 @@
+.card {
+    width: 278px;
+    height: 440px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+}
+.cardImg{
+    height: 365px;
+    border-radius: 12px;
+}
+.name{
+    font-size: 22px;
+    margin: 5px 0 3px 10px;
+}
+.desc{
+    margin: 0 0 0 10px;
+    font-size: 14px;
+}

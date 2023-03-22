@@ -1,4 +1,4 @@
-.header{
+.header {
     margin-top: 100px;
     height: 100vh;
     background-color: #0F0F0F;
@@ -6,12 +6,28 @@
     color: white;
     font-family: 'Nunito', sans-serif;
 }
-.title{
+
+.title {
     font-size: 48px;
     margin-left: 5%;
     font-weight: bold;
 }
-.gif{
-    margin-left: 150px;
 
+.gif {
+    margin-left: 150px;
+}
+
+.cardPosition {
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+}
+
+.cardPosition:first-child{
+    background-color: white;
+}
+
+.content {
+    display: flex;
+    justify-content: space-around;
 }
