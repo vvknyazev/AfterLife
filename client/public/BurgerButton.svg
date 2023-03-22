@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16">
+  <g id="Burger_Button_" data-name="Burger Button " transform="translate(-30 -24.75)">
+    <rect id="Прямоугольник_1" data-name="Прямоугольник 1" width="20" height="2" rx="1" transform="translate(30 24.75)" fill="#fff"/>
+    <rect id="Прямоугольник_2" data-name="Прямоугольник 2" width="20" height="2" rx="1" transform="translate(30 31.75)" fill="#fff"/>
+    <rect id="Прямоугольник_3" data-name="Прямоугольник 3" width="20" height="2" rx="1" transform="translate(30 38.75)" fill="#fff"/>
+  </g>
+</svg>
