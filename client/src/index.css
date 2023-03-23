@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+body::-webkit-scrollbar {
+  width: 11px;               /* ширина всей полосы прокрутки */
+}
+
+body::-webkit-scrollbar-track {
+  background: #272727;        /* цвет зоны отслеживания */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(21, 20, 20, 0.93);    /* цвет бегунка */
+  border-radius: 20px;       /* округлось бегунка */
+  border: 3px solid #272727;  /* отступ вокруг бегунка */
+}
