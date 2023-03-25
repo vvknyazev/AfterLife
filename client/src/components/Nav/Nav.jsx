@@ -16,23 +16,23 @@ function NavItem(props) {
 
     // useOnClickOutside(dropdownRef, () => setOpen(false));
 
-    useEffect(() => {
-        function handleClickOutside(event) {
-            console.log(dropdownRef.current.contains(event.target));
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                console.log(dropdownRef.current);
+     useEffect(() => {
+         function handleClickOutside(event) {
+             console.log(dropdownRef.current.contains(event.target));
+             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                 console.log(dropdownRef.current);
 
-                setOpen(false);
-                setIsFistTimeOpen(true);
-            }
-        }
+                 setOpen(false);
+                 setIsFistTimeOpen(true);
+             }
+         }
 
-        document.addEventListener('mousedown', handleClickOutside);
+         document.addEventListener('mousedown', handleClickOutside);
 
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [dropdownRef]);
+         return () => {
+             document.removeEventListener('mousedown', handleClickOutside);
+         };
+     }, [dropdownRef]);
 
     function calcHeight(el) {
         const height = el.offsetHeight;
@@ -53,12 +53,12 @@ function NavItem(props) {
     return (
         <div>
             {!isFistTimeOpen &&
-                <a href="#" className={n.profile} onClick={() => setOpen(!open)}>
+                <a href="javascript://" className={n.profile} onClick={() => setOpen(!open)}>
                     {props.icon}
                 </a>
             }
             {isFistTimeOpen &&
-                <a href="#" className={n.profile} onClick={() => {
+                <a href="javascript://" className={n.profile} onClick={() => {
                     toggleFirstTimeOpenVar();
                     setOpen(true)
                 }
