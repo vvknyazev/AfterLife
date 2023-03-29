@@ -1,11 +1,15 @@
 .header {
     margin-top: 100px;
-    height: 100vh;
+    height: 90vh;
     background-color: #0F0F0F;
     border-radius: 32px;
     color: white;
     font-family: 'Nunito', sans-serif;
-    margin-bottom: 300px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 }
 
 .title {
@@ -17,18 +21,33 @@
 .gif {
     margin-left: 150px;
 }
-
-.cardPosition {
-    display: flex;
-    justify-content: center;
-    gap: 70px;
-}
-
-.cardPosition:first-child{
-    background-color: white;
-}
-
 .content {
     display: flex;
-    justify-content: space-around;
+    margin: auto 0;
+
+}
+.greetings{
+    /*display: flex;*/
+    flex:1;
+}
+.greetings h1{
+    margin-left: 50px;
+    font-weight: 600;
+    font-size: 60px;
+    text-align: left;
+
+}
+.cardPosition {
+    display: flex;
+    flex: 1;
+
+}
+.logo{
+    font-family: 'dymaxon', sans-serif;
+    font-weight: normal;
+}
+.firstCard{
+}
+.secondCard{
+
 }
