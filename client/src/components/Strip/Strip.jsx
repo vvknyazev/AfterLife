@@ -1,9 +1,9 @@
 import React from 'react';
 import s from './Strip.module.css'
 
-const Strip = (props) => {
+const Strip = () => {
     return (
-        <div>
+        <div className={s.strip}>
             <div className={s.marqueeInfinite}>
                 <div className={s.anim}>
                     <span>
