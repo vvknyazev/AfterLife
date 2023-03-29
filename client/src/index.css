@@ -7,6 +7,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
+@font-face {
+  font-family: 'dymaxon';
+  src: url('../fonts/Dymaxion scriptС.ttf') format('truetype');
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -25,4 +29,9 @@ body::-webkit-scrollbar-thumb {
   background-color: rgba(21, 20, 20, 0.93);    /* цвет бегунка */
   border-radius: 20px;       /* округлось бегунка */
   border: 3px solid #272727;  /* отступ вокруг бегунка */
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root{
+    scroll-behavior: smooth;
+  }
 }
