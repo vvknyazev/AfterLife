@@ -13,7 +13,7 @@
 .anim{
     display: flex;
     width: 200%;
-    animation: marquee-infinite 20s linear infinite;
+    animation: marquee-infinite 23s linear infinite;
 
 }
 .anim2{
