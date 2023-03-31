@@ -1,4 +1,5 @@
 .card {
+    position: relative;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.1);
     margin: 2% 4%;
@@ -6,16 +7,38 @@
 }
 
 .cardImg {
-    height: 300px;
+    height: 280px;
     border-radius: 12px;
 }
 
 .name {
     font-size: 22px;
     margin: 5px 0 3px 10px;
+
 }
 
 .desc {
     margin: 0 0 10px 10px;
     font-size: 14px;
+
+}
+.section{
+    position: absolute;
+    height: 26px;
+    border-radius: 12px;
+    /* Note: currently only Safari supports backdrop-filter */
+    backdrop-filter: blur(30px);
+    --webkit-backdrop-filter: blur(30px);
+    background-color: rgba(255, 255, 255, 0.15);
+    display: inline-block;
+    /*padding: 2px 5px 5px;*/
+
+    bottom: 80px;
+    left: 10px;
+    padding-bottom: 8px;
+
+}
+.section img{
+    width: 25px;
+    padding: 5px;
 }
