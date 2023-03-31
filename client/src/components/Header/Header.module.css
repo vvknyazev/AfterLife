@@ -18,12 +18,11 @@
     font-weight: bold;
 }
 
-.gif {
-    margin-left: 150px;
-}
+
 .content {
     display: flex;
     margin: auto 0;
+    gap: 70px;
 
 }
 .greetings{
@@ -31,10 +30,10 @@
     flex:1;
 }
 .greetings h1{
-    margin-left: 50px;
     font-weight: 600;
     font-size: 60px;
     text-align: left;
+    max-width: 700px;
 
 }
 .cardPosition {
