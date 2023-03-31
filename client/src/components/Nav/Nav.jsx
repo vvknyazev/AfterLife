@@ -18,7 +18,6 @@ function NavItem(props) {
 
      useEffect(() => {
          function handleClickOutside(event) {
-             console.log(dropdownRef.current.contains(event.target));
              if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                  console.log(dropdownRef.current);
 
@@ -53,12 +52,12 @@ function NavItem(props) {
     return (
         <div>
             {!isFistTimeOpen &&
-                <a href="javascript://" className={n.profile} onClick={() => setOpen(!open)}>
+                <a href={undefined} className={n.profile} onClick={() => setOpen(!open)}>
                     {props.icon}
                 </a>
             }
             {isFistTimeOpen &&
-                <a href="javascript://" className={n.profile} onClick={() => {
+                <a href={undefined} className={n.profile} onClick={() => {
                     toggleFirstTimeOpenVar();
                     setOpen(true)
                 }

@@ -7,30 +7,30 @@ const Strip = () => {
             <div className={s.marqueeInfinite}>
                 <div className={s.anim}>
                     <span>
-                        <img src='/strip/strip1.png' alt=""/>
+                        <img src='/strip/strip1.webp' alt=""/>
                     </span>
                     <span>
-                        <img src='/strip/strip1.png' alt=""/>
+                        <img src='/strip/strip1.webp' alt=""/>
                     </span>
                 </div>
             </div>
             <div className={s.marqueeInfinite}>
                 <div className={s.anim2}>
                     <span>
-                        <img src='/strip/strip2.png' alt=""/>
+                        <img src='/strip/strip2.webp' alt=""/>
                     </span>
                     <span>
-                        <img src='/strip/strip2.png' alt=""/>
+                        <img src='/strip/strip2.webp' alt=""/>
                     </span>
                 </div>
             </div>
             <div className={s.marqueeInfinite}>
                 <div className={s.anim3}>
                     <span>
-                        <img src='/strip/strip3.png' alt=""/>
+                        <img src='/strip/strip3.webp' alt=""/>
                     </span>
                     <span>
-                        <img src='/strip/strip3.png' alt=""/>
+                        <img src='/strip/strip3.webp' alt=""/>
                     </span>
                 </div>
             </div>

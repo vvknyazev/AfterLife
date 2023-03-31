@@ -17,9 +17,9 @@ const Header = () => {
                 <div className={s.cardPosition}>
                     <div className={`${s.card} + ${s.firstCard}`}>
                         <div>
-                            <img src={'/girls/6.png'} alt="girl" className={s.cardImg}/>
+                            <img src={'/girls/6.jpeg'} alt="girl" className={s.cardImg}/>
                             <div className={s.section}>
-                                <img src={'/gameIcons/apex-legends.svg'} alt="game"/>
+                                <img src={'/gameIcons/apex-legends.ico'} alt="game"/>
                                 <img src={'/gameIcons/pubg.svg'} alt="game"/>
                             </div>
                         </div>
@@ -28,9 +28,9 @@ const Header = () => {
                     </div>
                     <div className={`${s.card} + ${s.secondCard}`}>
                         <div>
-                            <img src={'/girls/7.png'} alt="girl" className={s.cardImg}/>
+                            <img src={'/girls/7.jpeg'} alt="girl" className={s.cardImg}/>
                             <div className={s.section}>
-                                <img src={'/gameIcons/LoL.svg'} alt="game"/>
+                                <img src={'/gameIcons/LoL.ico'} alt="game"/>
                                 <img src={'/gameIcons/csgo-icon.ico'} alt="game"/>
                                 <img src={'/gameIcons/fortnite.svg'} alt="game"/>
                             </div>

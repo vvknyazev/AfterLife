@@ -1,0 +1,18 @@
+.container{
+    font-family: Nunito, sans-serif;
+    height: 100vh;
+    margin: 0 auto 2%;
+}
+.container h1{
+    font-weight: 600;
+    font-size: 60px;
+    color: #fff;
+    margin-left: 5%;
+}
+.concept{
+    height: 80%;
+    border-radius: 12px;
+    background: #0f0f0f;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+}
