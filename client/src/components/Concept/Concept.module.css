@@ -1,7 +1,7 @@
 .container{
     font-family: Nunito, sans-serif;
     height: 100vh;
-    margin: 0 auto 2%;
+    margin: 0 auto 8%;
 }
 .container h1{
     font-weight: 600;
@@ -10,9 +10,32 @@
     margin-left: 5%;
 }
 .concept{
-    height: 80%;
+    height: 90%;
     border-radius: 12px;
     background: #0f0f0f;
     margin-left: 1.5%;
     margin-right: 1.5%;
+    display: flex;
+
+}
+.defaultService{
+    display: flex;
+    flex: 2;
+    flex-wrap: wrap;
+    margin-left: 30px;
+    margin-top: 30px;
+
+    align-items: center;
+}
+.defaultService img{
+    width: 80%;
+}
+.streamService{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+.streamService img{
+    height: 90%;
 }
