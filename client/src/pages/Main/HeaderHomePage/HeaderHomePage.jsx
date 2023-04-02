@@ -1,8 +1,8 @@
 import React from 'react';
-import s from './Header.module.css';
-import Caregories from "./Categories/Caregories";
+import s from './HeaderHomePage.module.css';
+import Caregories from "../../../components/Categories/Caregories";
 
-const Header = () => {
+const HeaderHomePage = () => {
     return (
         <div className={s.header}>
             <Caregories/>
@@ -45,4 +45,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default HeaderHomePage;

@@ -5,6 +5,7 @@ import {ReactComponent as SignUpIcon} from '../../icons/signup.svg';
 import {ReactComponent as LoginIcon} from '../../icons/login.svg';
 import n from './Nav.module.css'
 import {CSSTransition} from 'react-transition-group';
+import {NavLink} from "react-router-dom";
 
 function NavItem(props) {
     const [open, setOpen] = useState(false);
@@ -40,10 +41,10 @@ function NavItem(props) {
 
     function DropdownItem(props) {
         return (
-            <a href="#" className="menu-item">
+            <NavLink to={props.auth} className="menu-item">
                 <span className="icon-button">{props.leftIcon}</span>
                 {props.children}
-            </a>
+            </NavLink>
         );
     }
     function toggleFirstTimeOpenVar(){
@@ -66,8 +67,6 @@ function NavItem(props) {
                 </a>
             }
 
-
-
             {open &&
                 <div className="dropdown" style={{height: menuHeight}} ref={dropdownRef}>
 
@@ -80,11 +79,13 @@ function NavItem(props) {
                         <div className="menu">
                             <DropdownItem
                                 leftIcon={<SignUpIcon/>}
+                                auth='/register'
                             >
                                 Sign Up
                             </DropdownItem>
                             <DropdownItem
                                 leftIcon={<LoginIcon/>}
+                                auth='/login'
                             >
                                 Log In
                             </DropdownItem>
@@ -104,10 +105,10 @@ const Nav = () => {
                 <div>
                     <a href="#"><img src="/Afterlife-logo.svg" alt="logo" className={n.logo}/></a>
                     <ul>
-                        <li><a href="#">Выбрать пару</a></li>
-                        <li><a href="#">Подписки</a></li>
-                        <li><a href="#">О нас</a></li>
-                        <li><a href="#">FAQs</a></li>
+                        <li><NavLink to="#">Выбрать пару</NavLink></li>
+                        <li><NavLink to="#">Подписки</NavLink></li>
+                        <li><NavLink to="#">О нас</NavLink></li>
+                        <li><NavLink to="#">FAQs</NavLink></li>
                     </ul>
                     <a href="#"><img src="/lang.svg" alt="lang" className={n.lang}/></a>
                     {/*<a href="#"><img src="/profile.svg" alt="profile" className={n.profile}/></a>*/}

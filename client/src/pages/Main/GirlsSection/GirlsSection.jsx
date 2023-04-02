@@ -1,7 +1,8 @@
 import React from 'react';
 import s from './GirlsSection.module.css'
-import Card from "../Header/Card/Card";
+
 import {useSelector} from "react-redux";
+import Card from "../../../components/Card/Card";
 const GirlsSection = () => {
     const girls = useSelector((state) => state.girls);
 

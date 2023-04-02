@@ -1,7 +1,7 @@
 import React from 'react';
-import s from './Concept.module.css'
+import s from './ConceptHomePage.module.css'
 
-const Concept = () => {
+const ConceptHomePage = () => {
     return (
         <div className={s.container}>
             <h1>Концепция</h1>
@@ -21,4 +21,4 @@ const Concept = () => {
     );
 };
 
-export default Concept;
+export default ConceptHomePage;
