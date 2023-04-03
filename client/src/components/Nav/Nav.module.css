@@ -2,8 +2,8 @@
     position: fixed;
     top: 0;
     width: 100%;
-    backdrop-filter: blur(36.94200134277344px);
-    --webkit-backdrop-filter: blur(36.94200134277344px);
+    backdrop-filter: blur(37px);
+    --webkit-backdrop-filter: blur(37px);
     background-color: rgba(255, 255, 255, 0.02);
     z-index: 999;
     height: 66px;
