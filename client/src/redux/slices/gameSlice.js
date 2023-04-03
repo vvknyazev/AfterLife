@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const games = createSlice({
+const gameSlice = createSlice({
     name: 'games',
     initialState: [
             {id: 1, img: "/gameIcons/dota2-icon.svg", name: 'Dota 2'},
@@ -15,4 +15,4 @@ const games = createSlice({
         // define your reducers here
     }
 });
-export const gamesReducer = games.reducer;
+export const gamesReducer = gameSlice.reducer;

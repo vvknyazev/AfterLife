@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const girls = createSlice({
+const girlSlice = createSlice({
     name: 'girls',
     initialState: [
         {id: 1, img: "/girls/1.jpeg", name: 'Софья', desc: 'Твоя бывшая - тупая сука', g1:'/gameIcons/dota2-icon.svg', g2:'/gameIcons/LoL.ico', g3:'/gameIcons/fortnite.svg'},
@@ -17,4 +17,4 @@ const girls = createSlice({
         // define your reducers here
     }
 });
-export const girlsReducer = girls.reducer;
+export const girlsReducer = girlSlice.reducer;

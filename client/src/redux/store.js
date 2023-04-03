@@ -1,6 +1,6 @@
 import {configureStore} from "@reduxjs/toolkit";
-import {gamesReducer} from './slices/games';
-import {girlsReducer} from "./slices/girls";
+import {gamesReducer} from './slices/gameSlice';
+import {girlsReducer} from "./slices/girlSlice";
 
 const store = configureStore({
     reducer: {
