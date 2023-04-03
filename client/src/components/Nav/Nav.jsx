@@ -103,7 +103,7 @@ const Nav = () => {
             <Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>
             <div className={n.nav}>
                 <div>
-                    <a href="#"><img src="/Afterlife-logo.svg" alt="logo" className={n.logo}/></a>
+                    <NavLink to='/' className={n.logo}>Afterlife</NavLink>
                     <ul>
                         <li><NavLink to="#">Выбрать пару</NavLink></li>
                         <li><NavLink to="#">Подписки</NavLink></li>
