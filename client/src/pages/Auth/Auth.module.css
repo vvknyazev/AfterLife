@@ -1,0 +1,16 @@
+.container{
+    display: flex;
+    height: calc(100vh - 66px);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Nunito", sans-serif;
+    font-size: 1.5em;
+    margin-top: 66px;
+}
+.title{
+    width: 100%;
+    text-align: center;
+    color: white;
+    margin-top: 0;
+}
