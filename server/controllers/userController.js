@@ -3,16 +3,16 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 
-const generateJwt = (id, email, role) => {
+const generateJwt = (id, username ,email, role) => {
     return jwt.sign(
-        {id, email, role},
+        {id, username, email, role},
         process.env.ACCESS_SECRET_KEY,
-        {expiresIn: '30s'}
+        {expiresIn: '15m'}
     )
 }
-const generateRefreshJwt = (id, email, role) => {
+const generateRefreshJwt = (id, username, email, role) => {
     return jwt.sign(
-        {id, email, role},
+        {id, username, email, role},
         process.env.REFRESH_SECRET_KEY,
         {expiresIn: '30d'}
     )
@@ -31,13 +31,16 @@ class UserController {
         }
         const hashPassword = await bcrypt.hash(password, 5)
         const user = await User.create({username, email, role, password: hashPassword})
-        const accessToken = generateJwt(user.id, user.email, user.role);
-        const refreshToken = generateRefreshJwt(user.id, user.email, user.role);
+        const accessToken = generateJwt(user.id, user.username, user.email, user.role);
+        const refreshToken = generateRefreshJwt(user.id, user.username, user.email, user.role);
         return res.json({accessToken})
     }
 
     async login(req, res, next) {
         const {email, password} = req.body
+        console.log(req.body);
+        console.log(email);
+        console.log(password);
         const user = await User.findOne({email});
         if (!user) {
             return next(ApiError.internal('Пользователь не найден'))
@@ -46,8 +49,8 @@ class UserController {
         if (!comparePassword || email !== user.email) {
             return next(ApiError.internal('Указан неверный пароль или имя пользователя'))
         }
-        const accessToken = generateJwt(user.id, user.email, user.role);
-        const refreshToken = generateRefreshJwt(user.id, user.email, user.role);
+        const accessToken = generateJwt(user.id, user.username, user.email, user.role);
+        const refreshToken = generateRefreshJwt(user.id, user.username, user.email, user.role);
         user.refreshToken = refreshToken;
         const result = await user.save();
         console.log(result);
@@ -77,7 +80,7 @@ class UserController {
             process.env.REFRESH_SECRET_KEY,
             (err, decoded) => {
                 if (err || user.email !== decoded.email) return res.sendStatus(403);
-                const accessToken = generateJwt(user.id, user.email, user.role);
+                const accessToken = generateJwt(user.id, user.username, user.email, user.role);
                 res.json({accessToken})
             }
         );
@@ -102,6 +105,7 @@ class UserController {
         console.log(result);
 
         res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+        // res.redirect('/api/user/login');
         res.sendStatus(204);
     }
 

@@ -6,9 +6,13 @@ import Strip from "./Strip/Strip";
 import ConceptHomePage from "./ConceptHomePage/ConceptHomePage";
 import GirlsSection from "./GirlsSection/GirlsSection";
 import FooterHomePage from "./FooterHomePage/FooterHomePage";
+import {useOutletContext} from "react-router-dom";
 
 const Home = () => {
     const [isLoading, setIsLoading] = useState(true);
+    const isLoggedIn = useOutletContext();
+
+    console.log("ISLOGGEDIN IN FUCKING HOME ",isLoggedIn);
 
     useEffect(() => {
         setTimeout(() => setIsLoading(false), 500); // имитируем загрузку страницы
@@ -24,7 +28,7 @@ const Home = () => {
                 </div>
             ) : (
                 <div>
-                    <Nav/>
+                    <Nav isLoggedIn={isLoggedIn}/>
                     <HeaderHomePage/>
                     <ConceptHomePage/>
                     <GirlsSection/>

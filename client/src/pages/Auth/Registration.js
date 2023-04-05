@@ -2,12 +2,11 @@ import React, {useEffect, useState} from 'react';
 import Nav from "../../components/Nav/Nav";
 import s from "./Auth.module.css";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
-import {login, registration} from "../../http/userAPI";
 
-const Auth = () => {
-    const location = useLocation();
-    const isLoginPage = location.pathname === '/login';
-    const navigate = useNavigate();
+const Registration = () => {
+    // const location = useLocation();
+    // const isLoginPage = location.pathname === '/login';
+    // const navigate = useNavigate();
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -15,19 +14,6 @@ const Auth = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleSubmit = async () => {
-        // try {
-        //     let data;
-        //     if (isLoginPage) {
-        //         data = await login(username, email, password);
-        //     } else {
-        //         data = await registration(username, email, password);
-        //     }
-        //     user.setUser(user)
-        //     user.setIsAuth(true)
-        //     navigate('/');
-        // } catch (e) {
-        //     alert(e.response.data.message)
-        // }
 
     }
 
@@ -36,8 +22,8 @@ const Auth = () => {
             <Nav/>
             <div className={s.container}>
                 <form className='login-form' onSubmit={handleSubmit}>
-                    <h2 className={s.title}>{isLoginPage ? 'Авторизация' : "Регистрация"}</h2>
-                    {!isLoginPage &&
+                    <h2 className={s.title}>Регистрация</h2>
+
                         <div className="flex-row">
                             <label className="lf--label" htmlFor="username">
                                 <svg x="0px" y="0px" width="12px" height="13px">
@@ -48,7 +34,7 @@ const Auth = () => {
                             <input id="email" className='lf--input' placeholder='Email' type='text' value={email}
                                    onChange={(e) => setEmail(e.target.value)}/>
                         </div>
-                    }
+
                     <div className="flex-row">
                         <label className="lf--label" htmlFor="username">
                             <svg x="0px" y="0px" width="12px" height="13px">
@@ -71,7 +57,7 @@ const Auth = () => {
                         <input id="password" className='lf--input' placeholder='Password' type='password' value={password}
                                onChange={(e) => setPassword(e.target.value)}/>
                     </div>
-                    {!isLoginPage &&
+
                         <div className="flex-row">
                             <label className="lf--label" htmlFor="confirm-password">
                                 <svg x="0px" y="0px" width="15px" height="5px">
@@ -84,21 +70,21 @@ const Auth = () => {
                             <input id="password" className='lf--input' placeholder='Confirm password' type='password' value={confirmPassword}
                                    onChange={(e) => setConfirmPassword(e.target.value)}/>
                         </div>
-                    }
-                    <button className='lf--submit' type='submit'> {isLoginPage ? 'LOGIN' : 'REGISTER'}</button>
+
+                    <button className='lf--submit' type='submit'>REGISTER</button>
                 </form>
-                {isLoginPage ?
-                    <div className='lf--forgot'>
-                        Нет аккаунта? <NavLink to={'/register'}>Зарегистрируйся!</NavLink>
-                    </div>
-                    :
+
+                    {/*<div className='lf--forgot'>*/}
+                    {/*    Нет аккаунта? <NavLink to={'/register'}>Зарегистрируйся!</NavLink>*/}
+                    {/*</div>*/}
+
                     <div className='lf--forgot'>
                         Есть аккаунт? <NavLink to={'/login'}>Войдите!</NavLink>
                     </div>
-                }
+
             </div>
         </div>
     );
 };
 
-export default Auth;
+export default Registration;

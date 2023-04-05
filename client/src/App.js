@@ -2,17 +2,43 @@ import './App.css';
 import React from "react";
 import {Route, Routes} from "react-router-dom";
 import Home from "./pages/Main/Home";
-import Auth from "./pages/Auth/Auth";
+import Registration from "./pages/Auth/Registration";
+import Login from "./pages/Auth/Login";
+import RequireAuth from "./features/auth/RequireAuth";
+import Welcome from "./features/auth/Welcome";
+import UsersList from "./features/users/UsersList";
+
+import PersistLogin from "./features/auth/PersistLogin";
+import PrivateRoute from "./features/auth/PrivateRoute";
+
+// import Login from "./features/auth/Login";
 
 function App() {
     return (
-       <div>
+        <div>
             <Routes>
-                <Route path='/' element={<Home/>}/>
-                <Route path='/login' element={<Auth/>}/>
-                <Route path='/register' element={<Auth/>}/>
+
+
+                {/*<PrivateRoute path="/register" element={<Login/>}/>*/}
+                <Route element={<PrivateRoute/>}>
+                    <Route path='/login' element={<Login/>}/>
+                    <Route path='/register' element={<Registration/>}/>
+                </Route>
+
+                {/*<Route element={<PrivateRoute/>}>*/}
+
+                {/*</Route>*/}
+                <Route element={<PersistLogin/>}>
+                    <Route path='/' element={<Home/>}/>
+
+                    <Route element={<RequireAuth/>}>
+                        <Route path="welcome" element={<Welcome/>}/>
+                        <Route path="userslist" element={<UsersList/>}/>
+                    </Route>
+                </Route>
+
             </Routes>
-       </div>
+        </div>
     );
 }
 

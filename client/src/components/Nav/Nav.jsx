@@ -69,35 +69,54 @@ function NavItem(props) {
 
             {open &&
                 <div className="dropdown" style={{height: menuHeight}} ref={dropdownRef}>
+                    {!props.isLoggedIn
+                        ? <CSSTransition
+                            in={activeMenu === 'main'}
+                            timeout={500}
+                            classNames="menu-primary"
+                            unmountOnExit
+                            onEnter={calcHeight}>
+                            <div className="menu">
+                                <DropdownItem
+                                    leftIcon={<SignUpIcon/>}
+                                    auth='/register'
+                                >
+                                    Sign Up
+                                </DropdownItem>
+                                <DropdownItem
+                                    leftIcon={<LoginIcon/>}
+                                    auth='/login'
+                                >
+                                    Log In
+                                </DropdownItem>
+                            </div>
+                        </CSSTransition>
+                        :
+                        <CSSTransition
+                            in={activeMenu === 'main'}
+                            timeout={500}
+                            classNames="menu-primary"
+                            unmountOnExit
+                            onEnter={calcHeight}>
+                            <div className="menu">
+                                <DropdownItem
+                                    leftIcon={<CaretIcon/>}
+                                    auth='/welcome'
+                                >
+                                    Profile
+                                </DropdownItem>
+                            </div>
+                        </CSSTransition>
+                    }
 
-                    <CSSTransition
-                        in={activeMenu === 'main'}
-                        timeout={500}
-                        classNames="menu-primary"
-                        unmountOnExit
-                        onEnter={calcHeight}>
-                        <div className="menu">
-                            <DropdownItem
-                                leftIcon={<SignUpIcon/>}
-                                auth='/register'
-                            >
-                                Sign Up
-                            </DropdownItem>
-                            <DropdownItem
-                                leftIcon={<LoginIcon/>}
-                                auth='/login'
-                            >
-                                Log In
-                            </DropdownItem>
-                        </div>
-                    </CSSTransition>
                 </div>}
         </div>
 
     );
 }
 
-const Nav = () => {
+const Nav = (props) => {
+    console.log('ISLOGGED IN IN NAV', props.isLoggedIn);
     return (
         <div>
             <Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>
@@ -112,7 +131,7 @@ const Nav = () => {
                     </ul>
                     <a href="#"><img src="/lang.svg" alt="lang" className={n.lang}/></a>
                     {/*<a href="#"><img src="/profile.svg" alt="profile" className={n.profile}/></a>*/}
-                    <NavItem icon={<CaretIcon/>}/>
+                    <NavItem icon={<CaretIcon/>} isLoggedIn={props.isLoggedIn}/>
                 </div>
 
             </div>
