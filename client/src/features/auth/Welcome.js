@@ -1,11 +1,10 @@
 import {useSelector} from "react-redux"
 import {selectCurrentToken} from "./authSlice"
 import {Link, useLocation, useNavigate} from "react-router-dom"
-import {useSendLogoutMutation} from "./authApiSlice";
+import {useGetUserQuery, useSendLogoutMutation} from "./authApiSlice";
 import {useEffect} from "react";
 import {faRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import jwt_decode from 'jwt-decode';
 
 const DASH_REGEX = /^\/dash(\/)?$/
 const NOTES_REGEX = /^\/dash\/notes(\/)?$/
@@ -14,21 +13,13 @@ const USERS_REGEX = /^\/dash\/users(\/)?$/
 
 const Welcome = () => {
     const token = useSelector(selectCurrentToken)
-    const auth = useSelector((state) => state.auth);
     const tokenAbbr = `${token.slice(0, 9)}...`
 
-    // take data using jwt decode
 
-    const decoded = auth?.token ? jwt_decode(auth.token) : undefined;
-    const username = decoded?.username;
-    const email = decoded?.email;
-    console.log("username: ", username);
-    console.log("email: ", email);
-
-    // end jwt decode
 
     const navigate = useNavigate()
     const {pathname} = useLocation()
+
 
     const [sendLogout, {
         isLoading,
@@ -37,9 +28,11 @@ const Welcome = () => {
         error
     }] = useSendLogoutMutation()
 
+    const { data: user, isLoading: isLoadingUser, isError: isErrorUser, error: errorUser } = useGetUserQuery();
+
     const handleBothClicks = () => {
-       sendLogout();
-       navigate('/login')
+        sendLogout();
+        navigate('/login')
     };
 
     useEffect(() => {
@@ -49,6 +42,16 @@ const Welcome = () => {
     if (isLoading) return <p>Logging Out...</p>
 
     if (isError) return <p>Error: {error.data?.message}</p>
+
+    if (isLoadingUser) {
+        return <div>Loading...</div>;
+    }
+
+    if (isErrorUser) {
+        return <div>Error: {errorUser.message}</div>;
+    }
+
+     console.log(user);
 
     let dashClass = null
     if (!DASH_REGEX.test(pathname) && !NOTES_REGEX.test(pathname) && !USERS_REGEX.test(pathname)) {
@@ -66,12 +69,11 @@ const Welcome = () => {
     )
 
 
-
-
     return (
         <section className="welcome">
-            <h1>Welcome {username} !</h1>
-            <h2>Your email {email}</h2>
+            <h1>Welcome {user.username} !</h1>
+            <h2>Your email {user.email}</h2>
+            <p>Your Activation Status: {user.isActivated.toString()}</p>
             <p>Token: {tokenAbbr}</p>
             <p><Link to="/userslist">Go to the Users List</Link></p>
             <p><Link to="/">Go to the Home page</Link></p>
