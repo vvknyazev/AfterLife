@@ -22,18 +22,9 @@ const Login = () => {
 
     const dispatch = useDispatch();
 
-    // const auth = useSelector((state) => state.auth);
-
-
     useEffect(() => {
         userRef.current.focus()
         setPersist(true);
-        // if (auth.token){
-        //     navigate('/welcome');
-        // } else{
-        //     console.log("Oh, you are not even authorized ", auth)
-        // }
-
     }, [])
 
     useEffect(() => {
