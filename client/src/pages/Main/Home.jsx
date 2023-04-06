@@ -12,8 +12,6 @@ const Home = () => {
     const [isLoading, setIsLoading] = useState(true);
     const isLoggedIn = useOutletContext();
 
-    console.log("ISLOGGEDIN IN FUCKING HOME ",isLoggedIn);
-
     useEffect(() => {
         setTimeout(() => setIsLoading(false), 500); // имитируем загрузку страницы
     }, []);

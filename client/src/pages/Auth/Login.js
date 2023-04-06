@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import {useLoginMutation} from "../../features/auth/authApiSlice";
 import {setCredentials} from "../../features/auth/authSlice";
 import usePersist from "../../hooks/usePersist";
+import {InfinitySpin} from "react-loader-spinner";
 
 
 const Login = () => {
@@ -51,7 +52,7 @@ const Login = () => {
             } else if (err.originalStatus === 400) {
                 setErrMsg('Missing Username or Password');
             } else if (err.originalStatus === 401) {
-                setErrMsg('Unauthorized');
+                setErrMsg('Неверный логин или пароль');
             } else {
                 setErrMsg('Login Failed');
             }
@@ -65,7 +66,12 @@ const Login = () => {
     //     console.log("persist: ", persist);
     // }
 
-    return isLoading ? <h1>Loading...</h1> : (
+    return isLoading ? <div className={'loader'}>
+        <InfinitySpin
+            width='200'
+            color="#000"
+        />
+    </div> : (
         <div>
             <Nav/>
             <div className={s.container}>
@@ -86,7 +92,7 @@ const Login = () => {
                             className='lf--input'
                             placeholder='Email'
                             ref={userRef}
-                            type='text'
+                            type='email'
                             value={email}
                             onChange={handleUserInput}
                             autoComplete="off"

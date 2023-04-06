@@ -6,6 +6,8 @@ import {ReactComponent as LoginIcon} from '../../icons/login.svg';
 import n from './Nav.module.css'
 import {CSSTransition} from 'react-transition-group';
 import {NavLink} from "react-router-dom";
+import {useGetUserQuery} from "../../features/auth/authApiSlice";
+import {InfinitySpin} from "react-loader-spinner";
 
 function NavItem(props) {
     const [open, setOpen] = useState(false);
@@ -14,6 +16,9 @@ function NavItem(props) {
     const [activeMenu, setActiveMenu] = useState('main');
     const [menuHeight, setMenuHeight] = useState(null);
     const dropdownRef = useRef(null);
+
+    const { data: user, isLoading: isLoadingUser, isError: isErrorUser, error: errorUser } = useGetUserQuery();
+
 
     // useOnClickOutside(dropdownRef, () => setOpen(false));
 
@@ -34,6 +39,14 @@ function NavItem(props) {
          };
      }, [dropdownRef]);
 
+    // if (isLoadingUser) {
+    //     return <div className={'loader'}>
+    //         <InfinitySpin
+    //             width='200'
+    //             color="#000"
+    //         />
+    //     </div>
+    // }
     function calcHeight(el) {
         const height = el.offsetHeight;
         setMenuHeight(height);
@@ -69,7 +82,7 @@ function NavItem(props) {
 
             {open &&
                 <div className="dropdown" style={{height: menuHeight}} ref={dropdownRef}>
-                    {!props.isLoggedIn
+                    {!props.isLoggedIn || !user.isActivated // или аккаунт не активирован
                         ? <CSSTransition
                             in={activeMenu === 'main'}
                             timeout={500}
@@ -116,7 +129,7 @@ function NavItem(props) {
 }
 
 const Nav = (props) => {
-    console.log('ISLOGGED IN IN NAV', props.isLoggedIn);
+    // console.log('ISLOGGED IN IN NAV', props.isLoggedIn);
     return (
         <div>
             <Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>

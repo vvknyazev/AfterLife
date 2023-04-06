@@ -1,9 +1,10 @@
 import {Outlet, Link, useLocation, useNavigate} from "react-router-dom"
-import {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {useRefreshMutation} from "./authApiSlice"
 import usePersist from "../../hooks/usePersist"
 import {useSelector} from 'react-redux'
 import {selectCurrentToken} from "./authSlice"
+import {InfinitySpin} from "react-loader-spinner";
 
 const PersistLogin = () => {
 
@@ -71,7 +72,12 @@ const PersistLogin = () => {
         console.log('loading')
         //setIsLoggedIn(false);
         isLoggedIn = false;
-        content = <p>Loading...</p>
+        content = <div className={'loader'}>
+            <InfinitySpin
+                width='200'
+                color="#000"
+            />
+        </div>
     } else if (isError) { //persist: yes, token: no
         console.log('error')
         //setIsLoggedIn(false);

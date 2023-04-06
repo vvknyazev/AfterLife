@@ -10,6 +10,9 @@ import UsersList from "./features/users/UsersList";
 
 import PersistLogin from "./features/auth/PersistLogin";
 import PrivateRoute from "./features/auth/PrivateRoute";
+import Activate from "./pages/Auth/Activate";
+import PrivateActivateRoute from "./features/auth/PrivateActivateRoute";
+import RequireActivatedAuth from "./features/auth/RequireActivatedAuth";
 
 // import Login from "./features/auth/Login";
 
@@ -17,8 +20,6 @@ function App() {
     return (
         <div>
             <Routes>
-
-
                 {/*<PrivateRoute path="/register" element={<Login/>}/>*/}
                 <Route element={<PrivateRoute/>}>
                     <Route path='/login' element={<Login/>}/>
@@ -32,8 +33,14 @@ function App() {
                     <Route path='/' element={<Home/>}/>
 
                     <Route element={<RequireAuth/>}>
-                        <Route path="welcome" element={<Welcome/>}/>
-                        <Route path="userslist" element={<UsersList/>}/>
+                        <Route element={<PrivateActivateRoute/>}>
+                            <Route path="activate" element={<Activate/>}/>
+                        </Route>
+                        <Route element={<RequireActivatedAuth/>}>
+                            <Route path="welcome" element={<Welcome/>}/>
+                            <Route path="userslist" element={<UsersList/>}/>
+                        </Route>
+
                     </Route>
                 </Route>
 

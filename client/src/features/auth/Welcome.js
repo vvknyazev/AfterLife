@@ -2,9 +2,10 @@ import {useSelector} from "react-redux"
 import {selectCurrentToken} from "./authSlice"
 import {Link, useLocation, useNavigate} from "react-router-dom"
 import {useGetUserQuery, useSendLogoutMutation} from "./authApiSlice";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {faRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {InfinitySpin} from "react-loader-spinner";
 
 const DASH_REGEX = /^\/dash(\/)?$/
 const NOTES_REGEX = /^\/dash\/notes(\/)?$/
@@ -20,6 +21,12 @@ const Welcome = () => {
     const navigate = useNavigate()
     const {pathname} = useLocation()
 
+    const { data: user, isLoading: isLoadingUser, isError: isErrorUser, error: errorUser } = useGetUserQuery();
+
+    // useEffect(() => {
+    //     if ()
+    //     navigate('/login')
+    // },[])
 
     const [sendLogout, {
         isLoading,
@@ -28,7 +35,7 @@ const Welcome = () => {
         error
     }] = useSendLogoutMutation()
 
-    const { data: user, isLoading: isLoadingUser, isError: isErrorUser, error: errorUser } = useGetUserQuery();
+
 
     const handleBothClicks = () => {
         sendLogout();
@@ -39,12 +46,24 @@ const Welcome = () => {
         if (isSuccess) navigate('/')
     }, [isSuccess, navigate])
 
-    if (isLoading) return <p>Logging Out...</p>
+    if (isLoading) {
+        return <div className={'loader'}>
+            <InfinitySpin
+                width='200'
+                color="#000"
+            />
+        </div>
+    }
 
     if (isError) return <p>Error: {error.data?.message}</p>
 
     if (isLoadingUser) {
-        return <div>Loading...</div>;
+        return <div className={'loader'}>
+            <InfinitySpin
+                width='200'
+                color="#000"
+            />
+        </div>;
     }
 
     if (isErrorUser) {

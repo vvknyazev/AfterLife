@@ -1,4 +1,3 @@
-const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
@@ -26,11 +25,13 @@ class UserController {
 
         const {username, email, password, role} = req.body;
         if (!username || !email || !password) {
-            return next(ApiError.badRequest('Некорректный email или password'))
+            // return next(ApiError.badRequest('Некорректный email или password'))
+            return res.status(400).json({ 'message': 'Username and password are required.' });
         }
         const candidate = await User.findOne({email});
         if (candidate) {
-            return next(ApiError.badRequest('Пользователь с таким email уже существует'))
+            // return next(ApiError.badRequest('Пользователь с таким email уже существует'))
+            return res.sendStatus(409);
         }
         const hashPassword = await bcrypt.hash(password, 5)
         const activationLink = uuid.v4();
@@ -60,11 +61,13 @@ class UserController {
         console.log(password);
         const user = await User.findOne({email});
         if (!user) {
-            return next(ApiError.internal('Пользователь не найден'))
+            // return next(ApiError.internal('Пользователь не найден'))
+            return res.sendStatus(401);
         }
         let comparePassword = bcrypt.compareSync(password, user.password)
         if (!comparePassword || email !== user.email) {
-            return next(ApiError.internal('Указан неверный пароль или имя пользователя'))
+            // return next(ApiError.internal('Указан неверный пароль или имя пользователя'))
+            return res.sendStatus(401);
         }
         const accessToken = generateJwt(user.id, user.username, user.email, user.role);
         const refreshToken = generateRefreshJwt(user.id, user.username, user.email, user.role);

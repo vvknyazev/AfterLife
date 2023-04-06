@@ -1,8 +1,11 @@
 import React from 'react';
 import s from './HeaderHomePage.module.css';
 import Caregories from "../../../components/Categories/Caregories";
+import {useGetUserQuery} from "../../../features/auth/authApiSlice";
+import {InfinitySpin} from "react-loader-spinner";
 
 const HeaderHomePage = () => {
+
     return (
         <div className={s.header}>
             <Caregories/>
@@ -12,6 +15,7 @@ const HeaderHomePage = () => {
                     <h1>You will feel pleasure,
                         pain and fun <br/>
                         welcome to <span className={s.logo}>AfterLife</span></h1>
+
                 </div>
 
                 <div className={s.cardPosition}>
