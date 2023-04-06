@@ -131,13 +131,15 @@ class UserController {
         console.log('activate route');
         const activationLink = req.params.link;
         const user = await User.findOne({activationLink});
-        if (!user){
-            throw new Error('Неккоректная ссылка активации')
+        if (user){
+            user.isActivated = true;
+            await user.save();
+            // await userService.activate(activationLink);
+            return res.redirect(process.env.CLIENT_URL);
+        } else{
+            console.log("Ссылка активации говно");
         }
-        user.isActivated = true;
-        await user.save();
-        // await userService.activate(activationLink);
-        return res.redirect(process.env.CLIENT_URL);
+
     }
 
     async check(req, res) {
