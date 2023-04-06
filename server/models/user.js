@@ -6,6 +6,8 @@ const User = new Schema({
     password: {type: String, require: true},
     role: {type: String, default: 'USER'},
     refreshToken: String,
+    activationLink: String,
+    isActivated: {type: Boolean, default: false},
 })
 
 module.exports = model('User', User);

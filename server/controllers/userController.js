@@ -2,6 +2,9 @@ const ApiError = require('../error/ApiError');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
+const uuid = require('uuid');
+const mailService = require('../service/mail-service');
+const UserDto = require('../dtos/user-dto');
 
 const generateJwt = (id, username ,email, role) => {
     return jwt.sign(
@@ -30,9 +33,23 @@ class UserController {
             return next(ApiError.badRequest('Пользователь с таким email уже существует'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
-        const user = await User.create({username, email, role, password: hashPassword})
+        const activationLink = uuid.v4();
+        const user = await User.create({username, email, role, password: hashPassword, activationLink: activationLink});
+        await mailService.sendActivationToMail(email, `${process.env.API_URL}/api/user/activate/${activationLink}`);
+
+        const userDto = new UserDto(user); //email, id, isActivated
+
         const accessToken = generateJwt(user.id, user.username, user.email, user.role);
+
         const refreshToken = generateRefreshJwt(user.id, user.username, user.email, user.role);
+        user.refreshToken = refreshToken;
+        const result = await user.save();
+        console.log(result);
+        res.cookie('jwt', refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            maxAge: 30 * 24 * 60 * 60 * 1000,
+        });
         return res.json({accessToken})
     }
 
@@ -59,6 +76,7 @@ class UserController {
         res.cookie('jwt', refreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
+            maxAge: 30 * 24 * 60 * 60 * 1000,
 
         });
         res.json({accessToken});
@@ -105,12 +123,35 @@ class UserController {
         console.log(result);
 
         res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
-        // res.redirect('/api/user/login');
         res.sendStatus(204);
     }
 
+    async activate(req, res, next) {
+        console.log('activate route');
+        console.log('activate route');
+        const activationLink = req.params.link;
+        const user = await User.findOne({activationLink});
+        if (!user){
+            throw new Error('Неккоректная ссылка активации')
+        }
+        user.isActivated = true;
+        await user.save();
+        // await userService.activate(activationLink);
+        return res.redirect(process.env.CLIENT_URL);
+    }
+
     async check(req, res) {
-        return res.json({message: "only access for auth users, and you are in"})
+        const cookies_jwt = req.cookies.jwt;
+        if (!cookies_jwt) return res.sendStatus(204); // No Content
+        const refreshToken = cookies_jwt;
+
+        // Is refreshToken in db?
+        const user = await User.findOne({refreshToken});
+        if (!user){
+            throw new Error('Не авторизован')
+        }
+        const userDto = new UserDto(user);
+        return res.json(userDto);
     }
 }
 
