@@ -58,6 +58,9 @@ const PrivateRoute = () => {
     }, [])
     const { data: user, isLoading: isLoadingUser, isError: isErrorUser, error: errorUser } = useGetUserQuery();
 
+
+
+
     if (isLoadingUser) {
         return <div className={'loader'}>
             <InfinitySpin
@@ -66,16 +69,28 @@ const PrivateRoute = () => {
             />
         </div>;
     }
-
-    if (isErrorUser) {
-        return <div>Error: {errorUser.message}</div>;
-    }
-
-    if (auth.token && user.isActivated){
-        navigate('/');
+    // if (isErrorUser) {
+    //     return <div>Error: {errorUser.message}</div>;
+    // }
+// && user.isActivated
+    console.log("user ", user);
+    if (auth.token){
+        if (user) {
+            if (user.isActivated) {
+                navigate('/');
+            }
+            else{
+                return <Outlet/>
+            }
+        }
+        else{
+            return <Outlet/>
+        }
     } else{
         return <Outlet/>
     }
+
+
 
 
 
