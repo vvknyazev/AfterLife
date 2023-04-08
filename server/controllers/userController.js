@@ -5,7 +5,7 @@ const uuid = require('uuid');
 const mailService = require('../service/mail-service');
 const UserDto = require('../dtos/user-dto');
 
-const generateJwt = (id, username ,email, role) => {
+const generateJwt = (id, username, email, role) => {
     return jwt.sign(
         {id, username, email, role},
         process.env.ACCESS_SECRET_KEY,
@@ -26,10 +26,11 @@ class UserController {
         const {username, email, password, role} = req.body;
         if (!username || !email || !password) {
             // return next(ApiError.badRequest('Некорректный email или password'))
-            return res.status(400).json({ 'message': 'Username and password are required.' });
+            return res.status(400).json({'message': 'Username and password are required.'});
         }
-        const candidate = await User.findOne({email});
-        if (candidate) {
+        const candidateEmail = await User.findOne({email});
+        const candidateUsername = await User.findOne({username});
+        if (candidateEmail || candidateUsername) {
             // return next(ApiError.badRequest('Пользователь с таким email уже существует'))
             return res.sendStatus(409);
         }
@@ -53,6 +54,7 @@ class UserController {
         });
         return res.json({accessToken})
     }
+
 
     async login(req, res, next) {
         const {email, password} = req.body
@@ -116,7 +118,7 @@ class UserController {
         // Is refreshToken in db?
         const user = await User.findOne({refreshToken});
         if (!user) {
-            res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+            res.clearCookie('jwt', {httpOnly: true, sameSite: 'None', secure: true});
             return res.sendStatus(204);
         }
 
@@ -125,7 +127,7 @@ class UserController {
         const result = await user.save();
         console.log(result);
 
-        res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+        res.clearCookie('jwt', {httpOnly: true, sameSite: 'None', secure: true});
         res.sendStatus(204);
     }
 
@@ -134,12 +136,12 @@ class UserController {
         console.log('activate route');
         const activationLink = req.params.link;
         const user = await User.findOne({activationLink});
-        if (user){
+        if (user) {
             user.isActivated = true;
             await user.save();
             // await userService.activate(activationLink);
             return res.redirect(process.env.CLIENT_URL);
-        } else{
+        } else {
             console.log("Ссылка активации говно");
         }
 
@@ -152,7 +154,7 @@ class UserController {
 
         // Is refreshToken in db?
         const user = await User.findOne({refreshToken});
-        if (!user){
+        if (!user) {
             throw new Error('Не авторизован')
         }
         const userDto = new UserDto(user);
