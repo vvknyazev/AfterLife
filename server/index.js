@@ -1,17 +1,27 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieSession = require("cookie-session");
 const router = require('./routes/index');
 const path = require("path");
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const credentials = require("./middlware/credentials");
 const corsOptions = require("./config/corsOptions");
+const passport = require("passport");
 
-require('dotenv').config()
+require('dotenv').config();
 
 const PORT = process.env.PORT || 5000;
 
 const app = express();
+
+app.use(
+    cookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(credentials);
 app.use(cors(corsOptions));
 
