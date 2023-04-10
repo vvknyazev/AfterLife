@@ -17,27 +17,25 @@ function NavItem(props) {
     const [menuHeight, setMenuHeight] = useState(null);
     const dropdownRef = useRef(null);
 
-    const { data: user, isLoading: isLoadingUser, isError: isErrorUser, error: errorUser } = useGetUserQuery();
-
 
     // useOnClickOutside(dropdownRef, () => setOpen(false));
 
-     useEffect(() => {
-         function handleClickOutside(event) {
-             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                 console.log(dropdownRef.current);
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                console.log(dropdownRef.current);
 
-                 setOpen(false);
-                 setIsFistTimeOpen(true);
-             }
-         }
+                setOpen(false);
+                setIsFistTimeOpen(true);
+            }
+        }
 
-         document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('mousedown', handleClickOutside);
 
-         return () => {
-             document.removeEventListener('mousedown', handleClickOutside);
-         };
-     }, [dropdownRef]);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [dropdownRef]);
 
     // if (isLoadingUser) {
     //     return <div className={'loader'}>
@@ -60,9 +58,11 @@ function NavItem(props) {
             </NavLink>
         );
     }
-    function toggleFirstTimeOpenVar(){
+
+    function toggleFirstTimeOpenVar() {
         setIsFistTimeOpen(false);
     }
+
     return (
         <div>
             {!isFistTimeOpen &&
@@ -82,44 +82,44 @@ function NavItem(props) {
 
             {open &&
                 <div className="dropdown" style={{height: menuHeight}} ref={dropdownRef}>
-                    {!props.isLoggedIn || !user.isActivated // или аккаунт не активирован
-                        ? <CSSTransition
-                            in={activeMenu === 'main'}
-                            timeout={500}
-                            classNames="menu-primary"
-                            unmountOnExit
-                            onEnter={calcHeight}>
-                            <div className="menu">
-                                <DropdownItem
-                                    leftIcon={<SignUpIcon/>}
-                                    auth='/register'
-                                >
-                                    Sign Up
-                                </DropdownItem>
-                                <DropdownItem
-                                    leftIcon={<LoginIcon/>}
-                                    auth='/login'
-                                >
-                                    Log In
-                                </DropdownItem>
-                            </div>
-                        </CSSTransition>
-                        :
-                        <CSSTransition
-                            in={activeMenu === 'main'}
-                            timeout={500}
-                            classNames="menu-primary"
-                            unmountOnExit
-                            onEnter={calcHeight}>
-                            <div className="menu">
-                                <DropdownItem
-                                    leftIcon={<CaretIcon/>}
-                                    auth='/welcome'
-                                >
-                                    Profile
-                                </DropdownItem>
-                            </div>
-                        </CSSTransition>
+                    {!props.isLoggedIn || props.isActivated === null || props.isActivated === undefined || !props.isActivated   // или аккаунт не активирован
+                            ? <CSSTransition
+                                in={activeMenu === 'main'}
+                                timeout={500}
+                                classNames="menu-primary"
+                                unmountOnExit
+                                onEnter={calcHeight}>
+                                <div className="menu">
+                                    <DropdownItem
+                                        leftIcon={<SignUpIcon/>}
+                                        auth='/register'
+                                    >
+                                        Sign Up
+                                    </DropdownItem>
+                                    <DropdownItem
+                                        leftIcon={<LoginIcon/>}
+                                        auth='/login'
+                                    >
+                                        Log In
+                                    </DropdownItem>
+                                </div>
+                            </CSSTransition>
+                            :
+                            <CSSTransition
+                                in={activeMenu === 'main'}
+                                timeout={500}
+                                classNames="menu-primary"
+                                unmountOnExit
+                                onEnter={calcHeight}>
+                                <div className="menu">
+                                    <DropdownItem
+                                        leftIcon={<CaretIcon/>}
+                                        auth='/welcome'
+                                    >
+                                        Profile
+                                    </DropdownItem>
+                                </div>
+                            </CSSTransition>
                     }
 
                 </div>}
@@ -144,7 +144,7 @@ const Nav = (props) => {
                     </ul>
                     <a href="#"><img src="/lang.svg" alt="lang" className={n.lang}/></a>
                     {/*<a href="#"><img src="/profile.svg" alt="profile" className={n.profile}/></a>*/}
-                    <NavItem icon={<CaretIcon/>} isLoggedIn={props.isLoggedIn}/>
+                    <NavItem icon={<CaretIcon/>} isLoggedIn={props.isLoggedIn} isActivated={props.isActivated}/>
                 </div>
 
             </div>

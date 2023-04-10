@@ -1,6 +1,6 @@
 import {Outlet, Link, useLocation, useNavigate} from "react-router-dom"
 import React, {useEffect, useRef, useState} from 'react'
-import {useRefreshMutation} from "./authApiSlice"
+import {useGetUserQuery, useRefreshMutation} from "./authApiSlice"
 import usePersist from "../../hooks/usePersist"
 import {useSelector} from 'react-redux'
 import {selectCurrentToken} from "./authSlice"
@@ -17,7 +17,7 @@ const PersistLogin = () => {
 
     const [trueSuccess, setTrueSuccess] = useState(false)
 
-
+    const {data: user, isLoading: isLoadingUser, isError: isErrorUser, error: errorUser} = useGetUserQuery();
     let isLoggedIn = false;
 
     const [refresh, {
@@ -67,7 +67,7 @@ const PersistLogin = () => {
         console.log('no persist')
         //setIsLoggedIn(false);
         isLoggedIn = false;
-        return <Outlet context={isLoggedIn}/>
+        return <Outlet context={[isLoggedIn, user?.isActivated]}/>
     } else if (isLoading) { //persist: yes, token: no
         console.log('loading')
         //setIsLoggedIn(false);
@@ -83,7 +83,7 @@ const PersistLogin = () => {
         //setIsLoggedIn(false);
         isLoggedIn = false;
         if (isHomePage) {
-            return <Outlet context={isLoggedIn}/>
+            return <Outlet context={[isLoggedIn, user?.isActivated]}/>
         }
 
         content = (
@@ -95,13 +95,13 @@ const PersistLogin = () => {
     } else if (isSuccess && trueSuccess) { //persist: yes, token: yes
         console.log('success')
          isLoggedIn = true;
-        return <Outlet context={isLoggedIn}/>
+        return <Outlet context={[isLoggedIn, user?.isActivated]}/>
     } else if (token && isUninitialized) { //persist: yes, token: yes
         console.log('token and uninit')
         console.log(isUninitialized)
         //setIsLoggedIn(true);
         isLoggedIn = true;
-        return <Outlet context={isLoggedIn}/>
+        return <Outlet context={[isLoggedIn, user?.isActivated]}/>
     }
     return content
 

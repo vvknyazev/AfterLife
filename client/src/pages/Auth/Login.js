@@ -44,7 +44,7 @@ const Login = () => {
             setIsLoggedIn(true);
             setEmail('');
             setPassword('');
-            navigate('/welcome')
+            navigate('/')
         } catch (err) {
             if (!err?.originalStatus) {
                 // isLoading: true until timeout occurs

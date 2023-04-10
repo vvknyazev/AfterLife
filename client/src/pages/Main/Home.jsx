@@ -10,7 +10,7 @@ import {useOutletContext} from "react-router-dom";
 
 const Home = () => {
     const [isLoading, setIsLoading] = useState(true);
-    const isLoggedIn = useOutletContext();
+    const [isLoggedIn, isActivated] = useOutletContext();
 
     useEffect(() => {
         setTimeout(() => setIsLoading(false), 500); // имитируем загрузку страницы
@@ -26,7 +26,7 @@ const Home = () => {
                 </div>
             ) : (
                 <div>
-                    <Nav isLoggedIn={isLoggedIn}/>
+                    <Nav isLoggedIn={isLoggedIn} isActivated={isActivated}/>
                     <HeaderHomePage/>
                     <ConceptHomePage/>
                     <GirlsSection/>
