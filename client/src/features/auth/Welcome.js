@@ -70,7 +70,7 @@ const Welcome = () => {
         return <div>Error: {errorUser.message}</div>;
     }
 
-     console.log(user);
+     // console.log(user);
 
     let dashClass = null
     if (!DASH_REGEX.test(pathname) && !NOTES_REGEX.test(pathname) && !USERS_REGEX.test(pathname)) {

@@ -5,23 +5,23 @@ const uuid = require('uuid');
 const mailService = require('../service/mail-service');
 const UserDto = require('../dtos/user-dto');
 
-const generateJwt = (id, username, email, role) => {
+const generateJwt = (id, username, email, role, isActivated) => {
     return jwt.sign(
-        {id, username, email, role},
+        {id, username, email, role, isActivated},
         process.env.ACCESS_SECRET_KEY,
         {expiresIn: '15m'}
     )
 }
-const generateRefreshJwt = (id, username, email, role) => {
+const generateRefreshJwt = (id, username, email, role, isActivated) => {
     return jwt.sign(
-        {id, username, email, role},
+        {id, username, email, role, isActivated},
         process.env.REFRESH_SECRET_KEY,
         {expiresIn: '30d'}
     )
 }
 
 class UserController {
-    async registration(req, res, next) {
+    async registration(req, res) {
 
         const {username, email, password, role} = req.body;
         if (!username || !email || !password) {
@@ -41,9 +41,9 @@ class UserController {
 
         const userDto = new UserDto(user); //email, id, isActivated
 
-        const accessToken = generateJwt(user.id, user.username, user.email, user.role);
+        const accessToken = generateJwt(user.id, user.username, user.email, user.role, user.isActivated);
 
-        const refreshToken = generateRefreshJwt(user.id, user.username, user.email, user.role);
+        const refreshToken = generateRefreshJwt(user.id, user.username, user.email, user.role, user.isActivated);
         user.refreshToken = refreshToken;
         const result = await user.save();
         console.log(result);
@@ -71,8 +71,8 @@ class UserController {
             // return next(ApiError.internal('Указан неверный пароль или имя пользователя'))
             return res.sendStatus(401);
         }
-        const accessToken = generateJwt(user.id, user.username, user.email, user.role);
-        const refreshToken = generateRefreshJwt(user.id, user.username, user.email, user.role);
+        const accessToken = generateJwt(user.id, user.username, user.email, user.role, user.isActivated);
+        const refreshToken = generateRefreshJwt(user.id, user.username, user.email, user.role, user.isActivated);
         user.refreshToken = refreshToken;
         const result = await user.save();
         console.log(result);
@@ -103,7 +103,7 @@ class UserController {
             process.env.REFRESH_SECRET_KEY,
             (err, decoded) => {
                 if (err || user.email !== decoded.email) return res.sendStatus(403);
-                const accessToken = generateJwt(user.id, user.username, user.email, user.role);
+                const accessToken = generateJwt(user.id, user.username, user.email, user.role, user.isActivated);
                 res.json({accessToken})
             }
         );

@@ -48,7 +48,7 @@ const Registration = () => {
             setEmail('');
             setPassword('');
             console.log("NAVIGATE /ACTIVE");
-            return navigate('/activate')
+            navigate('/activate')
 
         } catch (err) {
             if (!err?.originalStatus) {

@@ -8,6 +8,8 @@ const RequireAuth = () => {
     const token = useSelector(selectCurrentToken)
     const location = useLocation()
 
+    // console.log("going to requareAuth + token: ", token);
+
     return (
         token
             ? <Outlet/>

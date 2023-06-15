@@ -21,16 +21,18 @@ function App() {
         <div>
             <Routes>
                 {/*<PrivateRoute path="/register" element={<Login/>}/>*/}
+
                 <Route element={<PrivateRoute/>}>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/register' element={<Registration/>}/>
                 </Route>
-
                 {/*<Route element={<PrivateRoute/>}>*/}
 
                 {/*</Route>*/}
                 <Route element={<PersistLogin/>}>
                     <Route path='/' element={<Home/>}/>
+
+
 
                     <Route element={<RequireAuth/>}>
                         <Route element={<PrivateActivateRoute/>}>

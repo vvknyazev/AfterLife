@@ -44,7 +44,10 @@ const Login = () => {
             setIsLoggedIn(true);
             setEmail('');
             setPassword('');
+
             navigate('/welcome')
+            window.location.reload(false);
+
         } catch (err) {
             if (!err?.originalStatus) {
                 // isLoading: true until timeout occurs

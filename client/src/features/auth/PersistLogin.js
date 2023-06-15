@@ -1,4 +1,4 @@
-import {Outlet, Link, useLocation, useNavigate} from "react-router-dom"
+import {Outlet, Link, useLocation} from "react-router-dom"
 import React, {useEffect, useRef, useState} from 'react'
 import {useGetUserQuery, useRefreshMutation} from "./authApiSlice"
 import usePersist from "../../hooks/usePersist"
@@ -17,7 +17,7 @@ const PersistLogin = () => {
 
     const [trueSuccess, setTrueSuccess] = useState(false)
 
-    const {data: user, isLoading: isLoadingUser, isError: isErrorUser, error: errorUser} = useGetUserQuery();
+    const {data: user, isLoading: isLoadingUser, isFetching} = useGetUserQuery();
     let isLoggedIn = false;
 
     const [refresh, {
@@ -27,7 +27,6 @@ const PersistLogin = () => {
         isError,
         error
     }] = useRefreshMutation()
-
 
     useEffect(() => {
 
@@ -50,26 +49,41 @@ const PersistLogin = () => {
 
         return () => effectRan.current = true
 
-        // eslint-disable-next-line
     }, [])
 
+    if (isLoadingUser) {
+        return <div className={'loader'}>
+            <InfinitySpin
+                width='200'
+                color="#000"
+            />
+        </div>
+    }
+    if (isFetching) {
+        return <div className={'loader'}>
+            <InfinitySpin
+                width='200'
+                color="#000"
+            />
+        </div>
+    }
 
     let content
 
-    // if (isLoginOrRegisterPage && !isLoggedIn){
-    //     return <Outlet context={isLoggedIn}/>
-    // } else
-    // if (isLoginOrRegisterPage && isLoggedIn){
-    //     navigate("/");
+    // if (isErrorUser) {
+    //     console.log("This is Persist Login Page (error): ", errorUser);
+    //     if (errorUser.status === 401) {
+    //         return <Login/>
+    //     }
     // }
 
     if (!persist) { // persist: no
-        console.log('no persist')
+        // console.log('no persist')
         //setIsLoggedIn(false);
         isLoggedIn = false;
         return <Outlet context={[isLoggedIn, user?.isActivated]}/>
     } else if (isLoading) { //persist: yes, token: no
-        console.log('loading')
+        // console.log('loading')
         //setIsLoggedIn(false);
         isLoggedIn = false;
         content = <div className={'loader'}>
@@ -79,7 +93,7 @@ const PersistLogin = () => {
             />
         </div>
     } else if (isError) { //persist: yes, token: no
-        console.log('error')
+        // console.log('error')
         //setIsLoggedIn(false);
         isLoggedIn = false;
         if (isHomePage) {
@@ -93,12 +107,12 @@ const PersistLogin = () => {
             </p>
         );
     } else if (isSuccess && trueSuccess) { //persist: yes, token: yes
-        console.log('success')
+        // console.log('success')
          isLoggedIn = true;
         return <Outlet context={[isLoggedIn, user?.isActivated]}/>
     } else if (token && isUninitialized) { //persist: yes, token: yes
-        console.log('token and uninit')
-        console.log(isUninitialized)
+        // console.log('token and uninit')
+        // console.log(isUninitialized)
         //setIsLoggedIn(true);
         isLoggedIn = true;
         return <Outlet context={[isLoggedIn, user?.isActivated]}/>

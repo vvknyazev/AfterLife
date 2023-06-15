@@ -1,33 +1,26 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useGetUserQuery} from "./authApiSlice";
 import {Outlet, useNavigate} from "react-router-dom";
 import {InfinitySpin} from "react-loader-spinner";
 
 const RequireActivatedAuth = () => {
     const navigate = useNavigate();
-    const {data: user, isLoading: isLoadingUser, isFetching, isSuccess, isError: isErrorUser, error: errorUser} = useGetUserQuery();
+    const { data: user, isLoading: isLoadingUser, isFetching, isSuccess} = useGetUserQuery();
 
     const [renderOutlet, setRenderOutlet] = React.useState(false);
-    const [navg, setNavg] = useState(false);
-    // useEffect(()=>{
-    //    setNavg(false);
-    // },[])
+    // const [navg, setNavg] = useState(false);
 
-    // useEffect(()=>{
-    //     if (isSuccess){
-    //         if (user){
-    //             if (user.isActivated){
-    //                 setRenderOutlet(true);
-    //             }else{
-    //                 navigate('/')
-    //             }
-    //         }
-    //     }
-    // },[user])
-
-    // useEffect(()=>{
-    //     navigate('/');
-    // },[navg])
+    useEffect(() => {
+        if (isSuccess) {
+            if (user) {
+                if (user.isActivated) {
+                    setRenderOutlet(true);
+                } else {
+                    navigate('/');
+                }
+            } else navigate('/');
+        }
+    }, [isSuccess, user, navigate]);
 
     if (isLoadingUser) {
         return <div className={'loader'}>
@@ -45,27 +38,15 @@ const RequireActivatedAuth = () => {
             />
         </div>
     }
-    if (isSuccess){
-        console.log(user);
+
+    if (isSuccess && renderOutlet) {
+        return <Outlet />;
+    } else {
+        return <div>not isSuccess</div>;
     }
 
 
-    // if (renderOutlet) {
-    //     return <Outlet />;
-    // } else {
-    //     return null;
-    // }
 
-
-    if (isSuccess) {
-        if (user) {
-            if (user.isActivated) {
-                return <Outlet/>
-            } else {
-                navigate('/');
-            }
-        } else navigate('/');
-    } else return <div>not isSuccess</div>
 };
 
 export default RequireActivatedAuth;
