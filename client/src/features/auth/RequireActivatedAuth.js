@@ -2,10 +2,13 @@ import React, {useEffect} from 'react';
 import {useGetUserQuery} from "./authApiSlice";
 import {Outlet, useNavigate} from "react-router-dom";
 import {InfinitySpin} from "react-loader-spinner";
+import {useGetGoogleUserQuery} from "./googleApiSlice";
 
 const RequireActivatedAuth = () => {
     const navigate = useNavigate();
     const { data: user, isLoading: isLoadingUser, isFetching, isSuccess} = useGetUserQuery();
+
+    const { data: googleUserData, error: googleUserError, isLoading: isGoogleUserLoading } = useGetGoogleUserQuery();
 
     const [renderOutlet, setRenderOutlet] = React.useState(false);
     // const [navg, setNavg] = useState(false);
@@ -18,7 +21,9 @@ const RequireActivatedAuth = () => {
                 } else {
                     navigate('/');
                 }
-            } else navigate('/');
+            } else if (googleUserData){
+                setRenderOutlet(true);
+            }else navigate('/');
         }
     }, [isSuccess, user, navigate]);
 
@@ -42,7 +47,7 @@ const RequireActivatedAuth = () => {
     if (isSuccess && renderOutlet) {
         return <Outlet />;
     } else {
-        return <div>not isSuccess</div>;
+        return <div></div>;
     }
 
 

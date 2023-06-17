@@ -6,6 +6,7 @@ import React, {useEffect} from "react";
 import {faRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {InfinitySpin} from "react-loader-spinner";
+import {useGetGoogleUserQuery} from "./googleApiSlice";
 
 const DASH_REGEX = /^\/dash(\/)?$/
 const NOTES_REGEX = /^\/dash\/notes(\/)?$/
@@ -14,7 +15,7 @@ const USERS_REGEX = /^\/dash\/users(\/)?$/
 
 const Welcome = () => {
     const token = useSelector(selectCurrentToken)
-    const tokenAbbr = `${token.slice(0, 9)}...`
+    const tokenAbbr = `${token?.slice(0, 9)}...`
 
 
 
@@ -22,6 +23,7 @@ const Welcome = () => {
     const {pathname} = useLocation()
 
     const { data: user, isLoading: isLoadingUser, isError: isErrorUser, error: errorUser } = useGetUserQuery();
+    const { data: googleUserData, error: googleUserError, isLoading: isGoogleUserLoading } = useGetGoogleUserQuery();
 
     // useEffect(() => {
     //     if ()
@@ -36,10 +38,13 @@ const Welcome = () => {
     }] = useSendLogoutMutation()
 
 
-
     const handleBothClicks = () => {
-        sendLogout();
-        navigate('/login')
+        if (user) {
+            sendLogout();
+            navigate('/login')
+        } else if (googleUserData){
+            window.open(`${process.env.REACT_APP_API_URL}api/user/google/logout`, "_self");
+        }
     };
 
     useEffect(() => {
@@ -90,10 +95,8 @@ const Welcome = () => {
 
     return (
         <section className="welcome">
-            <h1>Welcome {user.username} !</h1>
-            <h2>Your email {user.email}</h2>
-            <p>Your Activation Status: {user.isActivated.toString()}</p>
-            <p>Token: {tokenAbbr}</p>
+            <h1>Welcome {user?.username || googleUserData?.user.username} !</h1>
+            <h2>Your email {user?.email || googleUserData?.user.email}</h2>
             <p><Link to="/userslist">Go to the Users List</Link></p>
             <p><Link to="/">Go to the Home page</Link></p>
             {logoutButton}

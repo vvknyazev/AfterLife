@@ -3,10 +3,12 @@ import Nav from "../../components/Nav/Nav";
 import s from "./Auth.module.css";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {useLoginMutation} from "../../features/auth/authApiSlice";
+import {useGoogleLoginMutation, useLoginMutation} from "../../features/auth/authApiSlice";
 import {setCredentials} from "../../features/auth/authSlice";
 import usePersist from "../../hooks/usePersist";
 import {InfinitySpin} from "react-loader-spinner";
+import axios from "axios";
+import {useMutation} from "react-query";
 
 
 const Login = () => {
@@ -21,6 +23,8 @@ const Login = () => {
 
     const [login, {isLoading}] = useLoginMutation();
 
+
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -33,6 +37,15 @@ const Login = () => {
     }, [email, password])
 
 
+    // async function googleLogin(){
+    //     return axios.get(`${process.env.REACT_APP_API_URL}api/user/login/google`)
+    // }
+    // const mutation = useMutation(googleLogin);
+    function handleGoogleLogin(){
+        window.open(`${process.env.REACT_APP_API_URL}api/user/login/google`, "_self");
+        // window.location.href = `${process.env.REACT_APP_API_URL}api/user/login/google`
+         // googleLogin();
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -139,7 +152,7 @@ const Login = () => {
                 <div className='lf--forgot'>
                     Нет аккаунта? <NavLink to={'/register'}>Зарегистрируйся!</NavLink>
                 </div>
-
+                <button className='lf--submit google' onClick={handleGoogleLogin}>LOGIN VIA GOOGLE</button>
             </div>
         </div>
     );

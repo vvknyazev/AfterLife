@@ -6,6 +6,7 @@ import {useSelector} from 'react-redux'
 import {selectCurrentToken} from "./authSlice"
 import {InfinitySpin} from "react-loader-spinner";
 import nav from "../../components/Nav/Nav";
+import {useGetGoogleUserQuery} from "./googleApiSlice";
 
 const   PrivateRoute = () => {
 
@@ -58,7 +59,7 @@ const   PrivateRoute = () => {
     //     // eslint-disable-next-line
     // }, [])
     const { data: user, isLoading: isLoadingUser, isError: isErrorUser, error: errorUser } = useGetUserQuery();
-
+    const { data: googleUserData, error: googleUserError, isLoading: isGoogleUserLoading } = useGetGoogleUserQuery();
 
 
 
@@ -69,7 +70,10 @@ const   PrivateRoute = () => {
         } else {
             return <Outlet/>
         }
-    } else{
+    } else if (googleUserData){
+        navigate('/');
+    }
+    else{
         return <Outlet/>
     }
 

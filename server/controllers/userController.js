@@ -4,6 +4,7 @@ const User = require('../models/user')
 const uuid = require('uuid');
 const mailService = require('../service/mail-service');
 const UserDto = require('../dtos/user-dto');
+const UserGoogle = require('../models/userGoogle');
 
 const generateJwt = (id, username, email, role, isActivated) => {
     return jwt.sign(
@@ -154,11 +155,19 @@ class UserController {
 
         // Is refreshToken in db?
         const user = await User.findOne({refreshToken});
-        if (!user) {
+        const userGoogle = await UserGoogle.findOne({refreshToken});
+        console.log("userGoogle: ", userGoogle)
+        if (!user && !userGoogle) {
             throw new Error('Не авторизован')
         }
-        const userDto = new UserDto(user);
-        return res.json(userDto);
+        if (user){
+            const userDto = new UserDto(user);
+            return res.json(userDto);
+        } else if (userGoogle){
+            const userDto = new UserDto(userGoogle);
+            return res.json(userDto);
+        }
+
     }
 }
 

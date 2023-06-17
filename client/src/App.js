@@ -1,5 +1,5 @@
 import './App.css';
-import React from "react";
+import React, {useEffect} from "react";
 import {Route, Routes} from "react-router-dom";
 import Home from "./pages/Main/Home";
 import Registration from "./pages/Auth/Registration";
@@ -17,6 +17,8 @@ import RequireActivatedAuth from "./features/auth/RequireActivatedAuth";
 // import Login from "./features/auth/Login";
 
 function App() {
+
+
     return (
         <div>
             <Routes>
@@ -31,8 +33,6 @@ function App() {
                 {/*</Route>*/}
                 <Route element={<PersistLogin/>}>
                     <Route path='/' element={<Home/>}/>
-
-
 
                     <Route element={<RequireAuth/>}>
                         <Route element={<PrivateActivateRoute/>}>

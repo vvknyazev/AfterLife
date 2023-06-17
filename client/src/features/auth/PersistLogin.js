@@ -5,6 +5,7 @@ import usePersist from "../../hooks/usePersist"
 import {useSelector} from 'react-redux'
 import {selectCurrentToken} from "./authSlice"
 import {InfinitySpin} from "react-loader-spinner";
+import {useGetGoogleUserQuery} from "./googleApiSlice";
 
 const PersistLogin = () => {
 
@@ -16,8 +17,14 @@ const PersistLogin = () => {
     // const isLoginOrRegisterPage = location.pathname === '/login' || location.pathname === '/register';
 
     const [trueSuccess, setTrueSuccess] = useState(false)
+    // const [googleUser, setGoogleUser] = useState(null);
 
     const {data: user, isLoading: isLoadingUser, isFetching} = useGetUserQuery();
+
+    const { data: googleUserData, error: googleUserError, isLoading: isGoogleUserLoading } = useGetGoogleUserQuery();
+
+    console.log("googleUserData: ", googleUserData?.user);
+
     let isLoggedIn = false;
 
     const [refresh, {
@@ -59,6 +66,14 @@ const PersistLogin = () => {
             />
         </div>
     }
+    // if (isGoogleUserLoading) {
+    //     return <div className={'loader'}>
+    //         <InfinitySpin
+    //             width='200'
+    //             color="#000"
+    //         />
+    //     </div>
+    // }
     if (isFetching) {
         return <div className={'loader'}>
             <InfinitySpin
@@ -68,6 +83,8 @@ const PersistLogin = () => {
         </div>
     }
 
+    // console.log("googleUser: ", googleUser)
+
     let content
 
     // if (isErrorUser) {
@@ -76,6 +93,10 @@ const PersistLogin = () => {
     //         return <Login/>
     //     }
     // }
+    if (googleUserData){
+        isLoggedIn = true;
+        return <Outlet context={[isLoggedIn, true]}/>
+    }
 
     if (!persist) { // persist: no
         // console.log('no persist')
@@ -100,12 +121,12 @@ const PersistLogin = () => {
             return <Outlet context={[isLoggedIn, user?.isActivated]}/>
         }
 
-        content = (
-            <p className='errmsg'>
-                {error.data?.message}
-                <Link to="/login">Please login again</Link>.
-            </p>
-        );
+        // content = (
+        //     <p className='errmsg'>
+        //         {error.data?.message}
+        //         <Link to="/login">Please login again</Link>.
+        //     </p>
+        // );
     } else if (isSuccess && trueSuccess) { //persist: yes, token: yes
         // console.log('success')
          isLoggedIn = true;
