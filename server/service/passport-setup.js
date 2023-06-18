@@ -80,11 +80,17 @@ passportSetup.serializeUser((user, done) => {
     done(null, user.id);
 });
 
-passportSetup.deserializeUser((id, done) => {
-    UserGoogle.findById(id).then((user) => {
-        done(null, user);
-    })
-    UserDiscord.findById(id).then((user) => {
-        done(null, user);
-    })
+passportSetup.deserializeUser(async (id, done) => {
+    try {
+        const userGoogle = await UserGoogle.findById(id);
+        if (userGoogle) {
+            done(null, userGoogle);
+            return;
+        }
+
+        const userDiscord = await UserDiscord.findById(id);
+        done(null, userDiscord);
+    } catch (error) {
+        done(error, null);
+    }
 });

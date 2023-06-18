@@ -23,7 +23,7 @@ const PersistLogin = () => {
 
     const { data: oauthUserData } = useGetOauthUserQuery();
 
-    console.log("oauthUserData: ", oauthUserData?.user);
+    console.log("oauthUserData on persist-page: ", oauthUserData?.user);
 
     let isLoggedIn = false;
 

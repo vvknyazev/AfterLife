@@ -20,7 +20,7 @@ function App() {
 
 
     return (
-        <div>
+        <div >
             <Routes>
                 {/*<PrivateRoute path="/register" element={<Login/>}/>*/}
 

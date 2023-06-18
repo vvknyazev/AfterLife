@@ -10,7 +10,6 @@ const   PrivateRoute = () => {
     const { data: user} = useGetUserQuery();
     const { data: oauthUserData } = useGetOauthUserQuery();
 
-
     if (user) {
         if (user.isActivated) {
             navigate('/');

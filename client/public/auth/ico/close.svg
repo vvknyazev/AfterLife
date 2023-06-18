@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="41.678" height="55.556" viewBox="0 0 41.678 55.556">
+  <defs>
+    <filter id="Прямоугольник_80" x="0" y="13.879" width="41.678" height="41.678" filterUnits="userSpaceOnUse">
+      <feOffset dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feFlood flood-color="#fff" flood-opacity="0.502"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Прямоугольник_81" x="0" y="0" width="41.678" height="41.678" filterUnits="userSpaceOnUse">
+      <feOffset dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="4" result="blur-2"/>
+      <feFlood flood-color="#fff" flood-opacity="0.502"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Close" transform="translate(-358.136 -17.257)">
+    <g transform="matrix(1, 0, 0, 1, 358.14, 17.26)" filter="url(#Прямоугольник_80)">
+      <rect id="Прямоугольник_80-2" data-name="Прямоугольник 80" width="3" height="22" rx="1.5" transform="translate(12 26) rotate(-45)" fill="#fff"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 358.14, 17.26)" filter="url(#Прямоугольник_81)">
+      <rect id="Прямоугольник_81-2" data-name="Прямоугольник 81" width="3" height="22" rx="1.5" transform="translate(14.12 27.68) rotate(-135)" fill="#fff"/>
+    </g>
+  </g>
+</svg>
