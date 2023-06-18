@@ -40,7 +40,8 @@ router.get("/login/success", (req, res) => {
             user: req.user,
             //   cookies: req.cookies
         });
-
+    } else{
+        res.sendStatus(204);
     }
 });
 
