@@ -1,6 +1,9 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const DiscordStrategy = require('passport-discord').Strategy;
 const passportSetup = require("passport");
 const UserGoogle = require('../models/userGoogle');
+const UserDiscord = require('../models/userDiscord');
+const User = require("../models/user");
 
 passportSetup.use(
     new GoogleStrategy(
@@ -10,24 +13,61 @@ passportSetup.use(
             callbackURL: "/api/user/login/google/redirect",
         },
         (accessToken, refreshToken, profile, done) => {
-            UserGoogle.findOne({googleId: profile.id}).then((currentUser) => {
-                if (currentUser){
-                    console.log("refreshToken: ", refreshToken);
-                    console.log("accessToken: ", accessToken);
+            UserGoogle.findOne({googleId: profile.id}).then(async (currentUser) => {
+                console.log(profile);
+                if (currentUser) {
                     console.log("user is: ", currentUser)
                     done(null, currentUser);
-                }else{
-                    console.log("refreshToken: ", refreshToken);
-                    console.log("accessToken: ", accessToken);
-                    new UserGoogle({
-                        username: profile.displayName,
-                        googleId: profile.id,
-                        email: profile.emails[0].value,
-                        refreshToken: refreshToken,
-                    }).save().then((newUser)=>{
-                        console.log('new user created' + newUser);
-                        done(null, newUser);
-                    })
+                } else {
+                    const user = await User.findOne({email: profile.emails[0].value});
+                    const userDiscord = await UserDiscord.findOne({email: profile.emails[0].value});
+                    if (user || userDiscord) {
+                        done(null, false);
+                    } else {
+                        new UserGoogle({
+                            username: profile.displayName,
+                            googleId: profile.id,
+                            email: profile.emails[0].value,
+                        }).save().then((newUser) => {
+                            console.log('new user created' + newUser);
+                            done(null, newUser);
+                        })
+                    }
+
+                }
+            })
+        }
+    )
+);
+
+passportSetup.use(
+    new DiscordStrategy(
+        {
+            clientID: process.env.DISCORD_CLIENT_ID,
+            clientSecret: process.env.DISCORD_CLIENT_SECRET,
+            callbackURL: "/api/user/login/discord/redirect",
+        },
+        (accessToken, refreshToken, profile, done) => {
+            UserDiscord.findOne({discordId: profile.id}).then(async (currentUser) => {
+                if (currentUser) {
+                    console.log("user is: ", currentUser)
+                    done(null, currentUser);
+                } else {
+                    const user = await User.findOne({email: profile.email});
+                    const userGoogle = await UserGoogle.findOne({email: profile.email});
+                    if (user || userGoogle) {
+                        done(null, false);
+                    } else {
+                        new UserDiscord({
+                            username: profile.username,
+                            discordId: profile.id,
+                            email: profile.email,
+                        }).save().then((newUser) => {
+                            console.log('new user created' + newUser);
+                            done(null, newUser);
+                        })
+                    }
+
                 }
             })
 
@@ -41,7 +81,10 @@ passportSetup.serializeUser((user, done) => {
 });
 
 passportSetup.deserializeUser((id, done) => {
-    UserGoogle.findById(id).then((user)=>{
+    UserGoogle.findById(id).then((user) => {
+        done(null, user);
+    })
+    UserDiscord.findById(id).then((user) => {
         done(null, user);
     })
 });

@@ -6,7 +6,7 @@ import React, {useEffect} from "react";
 import {faRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {InfinitySpin} from "react-loader-spinner";
-import {useGetGoogleUserQuery} from "./googleApiSlice";
+import {useGetOauthUserQuery} from "./commonApiSlice";
 
 const DASH_REGEX = /^\/dash(\/)?$/
 const NOTES_REGEX = /^\/dash\/notes(\/)?$/
@@ -14,8 +14,8 @@ const USERS_REGEX = /^\/dash\/users(\/)?$/
 
 
 const Welcome = () => {
-    const token = useSelector(selectCurrentToken)
-    const tokenAbbr = `${token?.slice(0, 9)}...`
+    // const token = useSelector(selectCurrentToken)
+    // const tokenAbbr = `${token?.slice(0, 9)}...`
 
 
 
@@ -23,7 +23,7 @@ const Welcome = () => {
     const {pathname} = useLocation()
 
     const { data: user, isLoading: isLoadingUser, isError: isErrorUser, error: errorUser } = useGetUserQuery();
-    const { data: googleUserData, error: googleUserError, isLoading: isGoogleUserLoading } = useGetGoogleUserQuery();
+    const { data: oauthUserData } = useGetOauthUserQuery();
 
     // useEffect(() => {
     //     if ()
@@ -42,7 +42,7 @@ const Welcome = () => {
         if (user) {
             sendLogout();
             navigate('/login')
-        } else if (googleUserData){
+        } else if (oauthUserData){
             window.open(`${process.env.REACT_APP_API_URL}api/user/google/logout`, "_self");
         }
     };
@@ -95,8 +95,8 @@ const Welcome = () => {
 
     return (
         <section className="welcome">
-            <h1>Welcome {user?.username || googleUserData?.user.username} !</h1>
-            <h2>Your email {user?.email || googleUserData?.user.email}</h2>
+            <h1>Welcome {user?.username || oauthUserData?.user.username} !</h1>
+            <h2>Your email {user?.email || oauthUserData?.user.email}</h2>
             <p><Link to="/userslist">Go to the Users List</Link></p>
             <p><Link to="/">Go to the Home page</Link></p>
             {logoutButton}

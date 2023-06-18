@@ -10,12 +10,26 @@ router.post('/login', userController.login)
 
 router.get('/login/google', passport.authenticate('google', {
     scope: ['profile', 'email'],
-    accessType: 'offline'
-}))
+    accessType: 'offline',
+    failureMessage: true,
+}));
 
 router.get('/login/google/redirect', passport.authenticate("google", {
     successRedirect: `${process.env.CLIENT_URL}/welcome`,
     failureRedirect: `${process.env.CLIENT_URL}/login`,
+    failureMessage: true,
+}));
+
+router.get('/login/discord', passport.authenticate('discord', {
+    scope: ['identify', 'email'],
+    accessType: 'offline',
+    failureMessage: true,
+}));
+
+router.get('/login/discord/redirect', passport.authenticate("discord", {
+    successRedirect: `${process.env.CLIENT_URL}/welcome`,
+    failureRedirect: `${process.env.CLIENT_URL}/login`,
+    failureMessage: true,
 }));
 
 router.get("/login/success", (req, res) => {
@@ -26,15 +40,13 @@ router.get("/login/success", (req, res) => {
             user: req.user,
             //   cookies: req.cookies
         });
+
     }
 });
 
 router.get('/google/logout', function (req, res){
     req.session = null;
     res.redirect(process.env.CLIENT_URL);
-    // req.session.destroy(function (err) {
-    //     res.redirect(process.env.CLIENT_URL);
-    // });
 });
 
 router.post('/logout', userController.logout)

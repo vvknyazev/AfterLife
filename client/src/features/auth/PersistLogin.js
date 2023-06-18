@@ -1,11 +1,11 @@
-import {Outlet, Link, useLocation} from "react-router-dom"
+import {Outlet, useLocation} from "react-router-dom"
 import React, {useEffect, useRef, useState} from 'react'
 import {useGetUserQuery, useRefreshMutation} from "./authApiSlice"
 import usePersist from "../../hooks/usePersist"
 import {useSelector} from 'react-redux'
 import {selectCurrentToken} from "./authSlice"
 import {InfinitySpin} from "react-loader-spinner";
-import {useGetGoogleUserQuery} from "./googleApiSlice";
+import {useGetOauthUserQuery} from "./commonApiSlice";
 
 const PersistLogin = () => {
 
@@ -21,9 +21,9 @@ const PersistLogin = () => {
 
     const {data: user, isLoading: isLoadingUser, isFetching} = useGetUserQuery();
 
-    const { data: googleUserData, error: googleUserError, isLoading: isGoogleUserLoading } = useGetGoogleUserQuery();
+    const { data: oauthUserData } = useGetOauthUserQuery();
 
-    console.log("googleUserData: ", googleUserData?.user);
+    console.log("oauthUserData: ", oauthUserData?.user);
 
     let isLoggedIn = false;
 
@@ -32,7 +32,6 @@ const PersistLogin = () => {
         isLoading,
         isSuccess,
         isError,
-        error
     }] = useRefreshMutation()
 
     useEffect(() => {
@@ -93,7 +92,7 @@ const PersistLogin = () => {
     //         return <Login/>
     //     }
     // }
-    if (googleUserData){
+    if (oauthUserData){
         isLoggedIn = true;
         return <Outlet context={[isLoggedIn, true]}/>
     }

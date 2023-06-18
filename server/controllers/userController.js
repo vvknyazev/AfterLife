@@ -5,6 +5,7 @@ const uuid = require('uuid');
 const mailService = require('../service/mail-service');
 const UserDto = require('../dtos/user-dto');
 const UserGoogle = require('../models/userGoogle');
+const UserDiscord = require('../models/userDiscord');
 
 const generateJwt = (id, username, email, role, isActivated) => {
     return jwt.sign(
@@ -28,6 +29,11 @@ class UserController {
         if (!username || !email || !password) {
             // return next(ApiError.badRequest('Некорректный email или password'))
             return res.status(400).json({'message': 'Username and password are required.'});
+        }
+        const userGoogle = await UserGoogle.findOne({email});
+        const userDiscord = await UserDiscord.findOne({email});
+        if (userGoogle || userDiscord) {
+            return res.sendStatus(409);
         }
         const candidateEmail = await User.findOne({email});
         const candidateUsername = await User.findOne({username});
@@ -63,7 +69,9 @@ class UserController {
         console.log(email);
         console.log(password);
         const user = await User.findOne({email});
-        if (!user) {
+        const userGoogle = await UserGoogle.findOne({email});
+        const userDiscord = await UserDiscord.findOne({email});
+        if (!user || userGoogle || userDiscord) {
             // return next(ApiError.internal('Пользователь не найден'))
             return res.sendStatus(401);
         }
@@ -155,18 +163,14 @@ class UserController {
 
         // Is refreshToken in db?
         const user = await User.findOne({refreshToken});
-        const userGoogle = await UserGoogle.findOne({refreshToken});
-        console.log("userGoogle: ", userGoogle)
-        if (!user && !userGoogle) {
+        // const userGoogle = await UserGoogle.findOne({refreshToken});
+        if (!user) {
             throw new Error('Не авторизован')
         }
-        if (user){
-            const userDto = new UserDto(user);
-            return res.json(userDto);
-        } else if (userGoogle){
-            const userDto = new UserDto(userGoogle);
-            return res.json(userDto);
-        }
+
+        const userDto = new UserDto(user);
+        return res.json(userDto);
+
 
     }
 }

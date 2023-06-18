@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const googleApiSlice = createApi({
+const commonApiSlice = createApi({
     reducerPath: 'googleApi',
     baseQuery: fetchBaseQuery({
         baseUrl: process.env.REACT_APP_API_URL,
@@ -11,12 +11,12 @@ const googleApiSlice = createApi({
         },
     }),
     endpoints: (builder) => ({
-        getGoogleUser: builder.query({
+        getOauthUser: builder.query({
             query: () => '/api/user/login/success',
         }),
     }),
 });
 
-export const { useGetGoogleUserQuery } = googleApiSlice;
+export const { useGetOauthUserQuery } = commonApiSlice;
 
-export default googleApiSlice;
+export default commonApiSlice;
