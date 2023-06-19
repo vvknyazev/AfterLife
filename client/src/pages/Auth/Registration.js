@@ -29,11 +29,30 @@ const Registration = () => {
 
     const dispatch = useDispatch();
 
+    const PWD_REGEX = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$/;
+    const EMAIL_REGEX = new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$");
+
+    const [validEmail, setValidEmail] = useState(false);
+    const [emailFocus, setEmailFocus] = useState(false);
+
+    const [validPwd, setValidPwd] = useState(false);
+    const [pwdFocus, setPwdFocus] = useState(false);
+
     useEffect(() => {
-        userRef.current.focus()
+        // userRef.current.focus()
         setPersist(true);
     }, [])
+    useEffect(() => {
+        setValidEmail(EMAIL_REGEX.test(email));
+    }, [email])
 
+    useEffect(() => {
+        setValidPwd(PWD_REGEX.test(password));
+    }, [password])
+
+    useEffect(() => {
+        setErrMsg('');
+    }, [email, password])
     useEffect(() => {
         setErrMsg('');
     }, [email, password])
@@ -66,7 +85,12 @@ const Registration = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        const v1 = EMAIL_REGEX.test(email);
+        const v2 = PWD_REGEX.test(password);
+        if (!v1 || !v2) {
+            setErrMsg("Invalid Entry");
+            return;
+        }
         try {
             const userData = await register({username, email, password}).unwrap();
             dispatch(setCredentials({...userData, email}));
@@ -145,39 +169,60 @@ const Registration = () => {
                         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                         <form onSubmit={handleSubmit}>
                             <div className={`${s.formInputs} ${s.formRegisterInputs}`}>
-                                <input
-                                    id="first_name"
-                                    placeholder='Username'
-                                    ref={userRef}
-                                    type='text'
-                                    value={username}
-                                    onChange={handleUserInput}
-                                    autoComplete="off"
-                                    required
-                                />
-                                <input
-                                    id="email"
-                                    placeholder='Email'
-                                    ref={userRef}
-                                    type='email'
-                                    value={email}
-                                    onChange={handleEmailInput}
-                                    autoComplete="off"
-                                    required/>
-                                <input
-                                    id="password"
-                                    placeholder='Пароль'
-                                    type='password'
-                                    value={password}
-                                    onChange={handlePwdInput}
-                                    required/>
+                                <label>
+                                    <input
+                                        id="first_name"
+                                        placeholder='Username'
+                                        type='text'
+                                        value={username}
+                                        onChange={handleUserInput}
+                                        autoComplete="off"
+                                        required
+                                    />
+                                </label>
+                                <label>
+                                    <input
+                                        id="email"
+                                        className=''
+                                        placeholder='Email'
+                                        autoFocus={false}
+                                        type='email'
+                                        value={email}
+                                        onChange={handleEmailInput}
+                                        autoComplete="off"
+                                        required
+                                        aria-invalid={validEmail ? "false" : "true"}
+                                        aria-describedby="uidnote"
+                                        onFocus={() => setEmailFocus(true)}
+                                        //onBlur={() => setEmailFocus(false)}
+                                    />
+                                    <p id="uidnote"
+                                       className={emailFocus && !validEmail ? s.instructions : s.offscreen}>
+                                        Неверный формат электронной почты
+                                    </p>
+                                </label>
+                                <label>
+                                    <input
+                                        id="password"
+                                        placeholder='Пароль'
+                                        type='password'
+                                        value={password}
+                                        onChange={handlePwdInput}
+                                        required
+                                        aria-invalid={validPwd ? "false" : "true"}
+                                        aria-describedby="pwdnote"
+                                        onFocus={() => setPwdFocus(true)}
+                                    />
+                                    <p id="pwdnote" className={pwdFocus && !validPwd ? s.instructions : s.offscreen}>
+                                        Пожалуйста, введите 6-17 букв или цифр
+                                    </p>
+                                </label>
 
                             </div>
-                            {isLoading ?
-                                <button className={s.loginButtonLoading} type='submit' style={{marginTop: "20px"}}>
-                                    <InfinitySpin width='150' color="#000"/></button> :
-                                <button className={s.loginButton} type='submit'
-                                        style={{marginTop: "20px"}}>Зарегистрироваться</button>}
+                            {isLoading ? <button disabled={!validEmail || !validPwd} className={s.loginButtonLoading}
+                                                 type='submit'><InfinitySpin width='150' color="#000"/></button> :
+                                <button disabled={!validEmail || !validPwd} className={s.loginButton}
+                                        type='submit'>Зарегистрироваться</button>}
 
                             {/*<button className={s.loginButton} type='submit'*/}
                             {/*        style={{marginTop: "20px"}}>Зарегистрироваться*/}
