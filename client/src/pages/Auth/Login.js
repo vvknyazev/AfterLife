@@ -1,5 +1,4 @@
 import React, {useEffect, useRef, useState} from 'react';
-import Nav from "../../components/Nav/Nav";
 import s from "./Auth.module.css";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
@@ -7,7 +6,8 @@ import {useLoginMutation} from "../../features/auth/authApiSlice";
 import {setCredentials} from "../../features/auth/authSlice";
 import usePersist from "../../hooks/usePersist";
 import {InfinitySpin} from "react-loader-spinner";
-
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const userRef = useRef();
@@ -33,13 +33,32 @@ const Login = () => {
         setErrMsg('');
     }, [email, password])
 
+    useEffect(() => {
+        if (errMsg) {
+            console.log("errMsg changed? ", errMsg);
+            toast.error(`${errMsg}`, {
+                toastId: 'error1',
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            setErrMsg('');
+        }
+    })
+
     function handleGoogleLogin() {
-        window.open(`${process.env.REACT_APP_API_URL}api/user/login/google`, "_self");
+        window.open(`${process.env.REACT_APP_API_URL}api/user/login/google`, '_self');
     }
 
     function handleDiscordLogin() {
         window.open(`${process.env.REACT_APP_API_URL}api/user/login/discord`, "_self");
     }
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -72,22 +91,33 @@ const Login = () => {
     }
     const handleUserInput = (e) => setEmail(e.target.value)
     const handlePwdInput = (e) => setPassword(e.target.value)
-    // const handleToggle = () => {
-    //     setPersist(prev => !prev);
-    //     console.log("persist: ", persist);
-    // }
-
-    return isLoading ? <div className={'loader'}>
-        <InfinitySpin
-            width='200'
-            color="#000"
-        />
-    </div> : (
+    // isLoading ? <div className={'loader'}>
+    //     <InfinitySpin
+    //         width='200'
+    //         color="#000"
+    //     />
+    // </div> :
+    return (
         <div style={{
             backgroundImage: `url(auth/auth-back.png)`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover"
         }}>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                limit={1}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+
+            />
+            {/*<p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>*/}
             <div className={s.container}>
                 <div className={s.authForm}>
 
@@ -111,7 +141,7 @@ const Login = () => {
                     </div>
                     <h4>Войдите</h4>
                     <div className={s.authContainer}>
-                        <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+
                         <form onSubmit={handleSubmit}>
                             <div className={s.formInputs}>
                                 <input
@@ -137,8 +167,8 @@ const Login = () => {
                             <div className={s.forgot}>
                                 <NavLink to='/'>Не помню</NavLink>
                             </div>
+                            {isLoading ? <button className={s.loginButtonLoading} type='submit'><InfinitySpin width='150' color="#000"/></button> : <button className={s.loginButton} type='submit'>Войти</button>}
 
-                            <button className={s.loginButton} type='submit'>Войти</button>
 
                         </form>
                         <NavLink to={'/register'} className={s.secondButton}>Зарегистрироваться</NavLink>

@@ -7,6 +7,8 @@ import {useDispatch} from "react-redux";
 import usePersist from "../../hooks/usePersist";
 import {setCredentials} from "../../features/auth/authSlice";
 import {InfinitySpin} from "react-loader-spinner";
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Registration = () => {
     // const location = useLocation();
@@ -35,6 +37,25 @@ const Registration = () => {
     useEffect(() => {
         setErrMsg('');
     }, [email, password])
+
+    useEffect(() => {
+        if (errMsg) {
+            console.log("errMsg changed? ", errMsg);
+            toast.error(`${errMsg}`, {
+                toastId: 'error1',
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            setErrMsg('');
+        }
+    })
+
     function handleGoogleLogin() {
         window.open(`${process.env.REACT_APP_API_URL}api/user/login/google`, "_self");
     }
@@ -66,7 +87,7 @@ const Registration = () => {
             } else if (err.originalStatus === 401) {
                 setErrMsg('Unauthorized');
             } else if (err.originalStatus === 409) {
-                setErrMsg('Пользователь с таким email или username уже существует');
+                setErrMsg('Пользователь с такими данными уже существует');
             } else {
                 setErrMsg('Ошибка регистрации');
             }
@@ -78,17 +99,26 @@ const Registration = () => {
     const handleEmailInput = (e) => setEmail(e.target.value)
     const handlePwdInput = (e) => setPassword(e.target.value)
 
-    return isLoading ? <div className={'loader'}>
-        <InfinitySpin
-            width='200'
-            color="#000"
-        />
-    </div>
-        : (<div style={{
+    return (
+        <div style={{
             backgroundImage: `url(auth/auth-back.png)`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover"
         }}>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                limit={1}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+
+            />
             <div className={s.container}>
                 <div className={s.authForm}>
 
@@ -143,8 +173,15 @@ const Registration = () => {
                                     required/>
 
                             </div>
+                            {isLoading ?
+                                <button className={s.loginButtonLoading} type='submit' style={{marginTop: "20px"}}>
+                                    <InfinitySpin width='150' color="#000"/></button> :
+                                <button className={s.loginButton} type='submit'
+                                        style={{marginTop: "20px"}}>Зарегистрироваться</button>}
 
-                            <button className={s.loginButton} type='submit' style={{marginTop: "20px"}}>Зарегистрироваться</button>
+                            {/*<button className={s.loginButton} type='submit'*/}
+                            {/*        style={{marginTop: "20px"}}>Зарегистрироваться*/}
+                            {/*</button>*/}
 
                         </form>
                         <NavLink to={'/login'} className={s.secondButton}>Есть акаунт?</NavLink>

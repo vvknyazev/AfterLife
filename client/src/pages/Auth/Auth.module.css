@@ -114,6 +114,24 @@ input {
     margin: 10px auto 0;
     font-family: Nunito;
 }
+.loginButtonLoading{
+    width: 90%;
+    height: 50px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 2px 30px rgba(105, 209, 255, 0.4);
+    cursor: pointer;
+    color: #191919;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto 0;
+    font-family: Nunito;
+    padding-right: 30px;
+    padding-top: 5px;
+
+}
 
 .secondButton {
     width: 90%;
