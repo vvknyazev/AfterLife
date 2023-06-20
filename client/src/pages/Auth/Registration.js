@@ -214,7 +214,7 @@ const Registration = () => {
                                         onFocus={() => setPwdFocus(true)}
                                     />
                                     <p id="pwdnote" className={pwdFocus && !validPwd ? s.instructions : s.offscreen}>
-                                        Пожалуйста, введите 6-17 букв или цифр
+                                       Пароль должен иметь не меньше 6 символов, содержать хотя бы одну заглавную и цифры
                                     </p>
                                 </label>
 
