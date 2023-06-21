@@ -1,5 +1,4 @@
 import React, {useEffect, useRef, useState} from 'react';
-import Nav from "../../components/Nav/Nav";
 import s from "./Auth.module.css";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useRegisterMutation} from "../../features/auth/authApiSlice";
@@ -20,7 +19,7 @@ const Registration = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    // const [confirmPassword, setConfirmPassword] = useState('');
     const [persist, setPersist] = usePersist();
     const [errMsg, setErrMsg] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -164,7 +163,7 @@ const Registration = () => {
                         {/*    <img src="auth/ico/lang.svg" alt="lang"/>*/}
                         {/*</div>*/}
                     </div>
-                    <h4 className={s.authRegisterFormText}>Зарегистрируйтесь</h4>
+                    <h4 className={s.authRegisterFormText}>Зарегистрироваться</h4>
                     <div className={s.authContainer}>
                         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                         <form onSubmit={handleSubmit}>
@@ -197,7 +196,7 @@ const Registration = () => {
                                         //onBlur={() => setEmailFocus(false)}
                                     />
                                     <p id="uidnote"
-                                       className={emailFocus && !validEmail ? s.instructions : s.offscreen}>
+                                       className={emailFocus && !validEmail && email ? s.instructions : s.offscreen}>
                                         Неверный формат электронной почты
                                     </p>
                                 </label>
@@ -213,7 +212,7 @@ const Registration = () => {
                                         aria-describedby="pwdnote"
                                         onFocus={() => setPwdFocus(true)}
                                     />
-                                    <p id="pwdnote" className={pwdFocus && !validPwd ? s.instructions : s.offscreen}>
+                                    <p id="pwdnote" className={pwdFocus && !validPwd && password ? s.instructions : s.offscreen}>
                                        Пароль должен иметь не меньше 6 символов, содержать хотя бы одну заглавную и цифры
                                     </p>
                                 </label>

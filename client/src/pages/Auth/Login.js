@@ -124,11 +124,7 @@ const Login = () => {
     //     />
     // </div> :
     return (
-        <div style={{
-            backgroundImage: `url(auth/auth-back.png)`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover"
-        }}>
+        <div className={s.background}>
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -148,7 +144,7 @@ const Login = () => {
                 <div className={s.authForm}>
 
                     <div className={s.topRow}>
-                        <div>
+                        <div className={s.back}>
                             <NavLink to='/'>
                                 <img src="auth/ico/close.svg" alt="close"/>
                             </NavLink>
@@ -156,7 +152,7 @@ const Login = () => {
                         <div className={s.name}>
                             <img src="auth/afterlife.svg" alt="afterlife"/>
                         </div>
-                        <div>
+                        <div className={s.langForm}>
                             <a href="">
                                 <img src="auth/ico/lang3.svg" alt="lang"/>
                             </a>
@@ -165,7 +161,7 @@ const Login = () => {
                         {/*    <img src="auth/ico/lang.svg" alt="lang"/>*/}
                         {/*</div>*/}
                     </div>
-                    <h4>Войдите</h4>
+                    <h4>Войти</h4>
                     <div className={s.authContainer}>
 
                         <form onSubmit={handleSubmit}>
@@ -188,7 +184,7 @@ const Login = () => {
                                         //onBlur={() => setEmailFocus(false)}
                                     />
                                     <p id="uidnote"
-                                       className={emailFocus && !validEmail ? s.instructions : s.offscreen}>
+                                       className={emailFocus && !validEmail && email ? s.instructions : s.offscreen}>
                                         Неверный формат электронной почты
                                     </p>
                                 </label>
@@ -206,7 +202,7 @@ const Login = () => {
                                         onFocus={() => setPwdFocus(true)}
                                         //onBlur={() => setPwdFocus(false)}
                                     />
-                                    <p id="pwdnote" className={pwdFocus && !validPwd ? s.instructions : s.offscreen}>
+                                    <p id="pwdnote" className={pwdFocus && !validPwd && password ? s.instructions : s.offscreen}>
                                         Пожалуйста, введите 6-17 букв или цифр
                                     </p>
                                 </label>
