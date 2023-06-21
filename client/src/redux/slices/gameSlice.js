@@ -9,7 +9,7 @@ const gameSlice = createSlice({
             {id: 4, img: "/gameIcons/fortnite.svg", name: 'Fortnite'},
             {id: 5, img: "/gameIcons/apex-legends.ico", name: 'Apex'},
             {id: 6, img: "/gameIcons/pubg.svg", name: 'PUBG'},
-            {id: 7, img: "/gameIcons/question.svg", name: 'Any wish'}
+            {id: 7, img: "/gameIcons/valorant.svg", name: 'Valorant'}
     ],
     reducer: {
         // define your reducers here

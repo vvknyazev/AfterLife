@@ -132,19 +132,24 @@ const Nav = (props) => {
     // console.log('ISLOGGED IN IN NAV', props.isLoggedIn);
     return (
         <div>
-            <Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>
+            {/*<Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>*/}
             <div className={n.nav}>
                 <div>
-                    <NavLink to='/' className={n.logo}>Afterlife</NavLink>
                     <ul>
                         <li><NavLink to="#">Выбрать пару</NavLink></li>
                         <li><NavLink to="#">Подписки</NavLink></li>
+                        <li><NavLink to='/' className={n.logo}>Afterlife</NavLink></li>
                         <li><NavLink to="#">О нас</NavLink></li>
                         <li><NavLink to="#">FAQs</NavLink></li>
                     </ul>
-                    <a href="#"><img src="/lang.svg" alt="lang" className={n.lang}/></a>
-                    {/*<a href="#"><img src="/profile.svg" alt="profile" className={n.profile}/></a>*/}
-                    <NavItem icon={<CaretIcon/>} isLoggedIn={props.isLoggedIn} isActivated={props.isActivated}/>
+
+                    {/*<div className={n.rightSide}>*/}
+                        <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
+                        <NavLink to={'/login'}><img src="/nav/login-button.svg" alt="profile" className={n.profile}/></NavLink>
+                    {/*</div>*/}
+                    {/*<a href="#"><img src="/lang.svg" alt="lang" className={n.lang}/></a>*/}
+                    {/*/!*<a href="#"><img src="/profile.svg" alt="profile" className={n.profile}/></a>*!/*/}
+                    {/*<NavItem icon={<CaretIcon/>} isLoggedIn={props.isLoggedIn} isActivated={props.isActivated}/>*/}
                 </div>
 
             </div>

@@ -30,14 +30,16 @@ const Home = () => {
             {/*        />*/}
             {/*    </div>*/}
             {/*) : (*/}
-                <div>
+            <div>
+                <div style={{backgroundImage: "url(/home-background.png)", backgroundRepeat: "no-repeat", backgroundSize: "cover"}}>
                     <Nav isLoggedIn={isLoggedIn} isActivated={isActivated}/>
                     <HeaderHomePage/>
-                    <ConceptHomePage/>
-                    <GirlsSection/>
-                    <Strip/>
-                    <FooterHomePage/>
                 </div>
+                <ConceptHomePage/>
+                <GirlsSection/>
+                <Strip/>
+                <FooterHomePage/>
+            </div>
             {/*)}*/}
         </div>
     );
