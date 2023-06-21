@@ -1,3 +1,9 @@
+.background {
+    background-image: url("../../../public/auth/auth-back.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .container {
     display: flex;
     height: 100vh;
@@ -17,10 +23,8 @@
 
 .authForm {
     width: 415px;
-
     border-radius: 18px;
     background: #151517;
-
 }
 
 .authContainer {
@@ -36,20 +40,20 @@
 }
 
 .topRegisterRow {
-    //margin-top: 20px !important;
+    /*margin-top: 20 px !important;*/
 }
 
-.lang {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0px 2px 8px rgba(255, 255, 255, 0.45);
-    filter: drop-shadow(0px 2px 8px rgba(255, 255, 255, 0.45));
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+/*.lang {*/
+/*    width: 50px;*/
+/*    height: 50px;*/
+/*    border-radius: 12px;*/
+/*    background: rgba(255, 255, 255, 0.1);*/
+/*    box-shadow: 0px 2px 8px rgba(255, 255, 255, 0.45);*/
+/*    filter: drop-shadow(0px 2px 8px rgba(255, 255, 255, 0.45));*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
 
 .lang img {
     width: 60%;
@@ -63,13 +67,15 @@
     text-align: center;
     font-size: 25px;
     color: #fff;
-    margin:0;
+    margin: 0;
 }
-.authRegisterFormText{
+
+.authRegisterFormText {
     /*margin-top: 10px !important;*/
 }
 
 .formInputs {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -77,13 +83,16 @@
     margin-top: 30px;
     gap: 20px;
 }
-.formRegisterInputs{
+label{
+    width: 100%;
+}
+
+.formRegisterInputs {
     margin-top: 20px !important;
 }
 
 input {
     width: 335px;
-
     height: 60px;
     background: #151517;
     border: 1px solid #7dabc3;
@@ -91,7 +100,6 @@ input {
     font-size: 24px;
     color: #fff;
     padding-left: 15px;
-
 }
 
 /*input::placeholder {*/
@@ -103,11 +111,13 @@ input {
 
 
 .loginButton {
-    width: 90%;
+    width: 100%;
     height: 50px;
     border-radius: 18px;
     background: rgba(255, 255, 255, 0.94);
     box-shadow: 0 2px 30px rgba(105, 209, 255, 0.4);
+    filter: drop-shadow(0px 2px 30px rgba(105, 209, 255, 0.4));
+    border: none;
     cursor: pointer;
     color: #191919;
     font-size: 24px;
@@ -117,12 +127,14 @@ input {
     margin: 10px auto 0;
     font-family: Nunito;
 }
-.loginButtonLoading{
-    width: 90%;
+
+.loginButtonLoading {
+    width: 100%;
     height: 50px;
     border-radius: 18px;
     background: rgba(255, 255, 255, 0.94);
     box-shadow: 0 2px 30px rgba(105, 209, 255, 0.4);
+    filter: drop-shadow(0px 2px 30px rgba(105, 209, 255, 0.4));
     cursor: pointer;
     color: #191919;
     font-size: 24px;
@@ -137,7 +149,7 @@ input {
 }
 
 .secondButton {
-    width: 90%;
+    width: 100%;
     height: 50px;
     border-radius: 18px;
     background: #151517;
@@ -158,7 +170,7 @@ input {
     color: #8a8a8d;
     text-align: center;
     margin-top: 20px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .social {
@@ -170,6 +182,7 @@ input {
 .social a {
     cursor: pointer;
 }
+
 .offscreen {
     position: relative;
     top: -5px;
@@ -180,7 +193,8 @@ input {
     display: none;
     transition: all ease 2s;
 }
-.instructions{
+
+.instructions {
     position: relative;
     color: #ff4d4f;
     font-size: 14px;
@@ -188,4 +202,78 @@ input {
     margin: 9px 0 0 5px;
     display: inline-block;
     transition: all ease 2s;
+}
+
+@media screen and (max-width: 480px) {
+    .background {
+        background: #101010 none;
+    }
+
+    .authForm {
+        background: #101010;
+        width: 100%;
+        border-radius: 0;
+    }
+
+    .authContainer {
+
+    }
+
+    .container {
+        justify-content: flex-start;
+        flex-direction: column;
+        font-family: "Nunito", sans-serif;
+        font-size: 1.5em;
+    }
+
+    .authForm h4 {
+        margin-top: 30px;
+    }
+
+    .authRegisterFormText {
+        margin-bottom: 30px !important;
+    }
+
+    input {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 22px;
+        width: 100%;
+    }
+
+    .loginButton {
+        margin-top: 25px;
+        width: 95%;
+    }
+
+
+    .secondButton {
+        width: 95%;
+    }
+}
+.langForm{
+
+}
+@media screen and (max-width: 346px) {
+    .langForm img{
+       width: 50px;
+    }
+    .name img{
+        width: 150px;
+    }
+    .back img{
+        width: 25px;
+        margin-left: 10px;
+    }
+    .secondButton{
+        font-size: 18px;
+    }
+    .loginButton{
+        font-size: 20px;
+    }
+    input{
+        height: 50px;
+        font-size: 20px;
+    }
 }
