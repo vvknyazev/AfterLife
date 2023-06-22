@@ -136,11 +136,11 @@ const Nav = (props) => {
             <div className={n.nav}>
                 <div>
                     <ul>
-                        <li><NavLink to="#">Выбрать пару</NavLink></li>
-                        <li><NavLink to="#">Подписки</NavLink></li>
+                        <li><NavLink to="#" className={n.navItem}>Выбрать пару</NavLink></li>
+                        <li><NavLink to="#" className={n.navItem}>Подписки</NavLink></li>
                         <li><NavLink to='/' className={n.logo}>Afterlife</NavLink></li>
-                        <li><NavLink to="#">О нас</NavLink></li>
-                        <li><NavLink to="#">FAQs</NavLink></li>
+                        <li><NavLink to="#" className={n.navItem}>О нас</NavLink></li>
+                        <li><NavLink to="#" className={n.navItem}>FAQs</NavLink></li>
                     </ul>
                     {props.userPicture ? <div className={n.rightSide}>
                         <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
