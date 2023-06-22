@@ -51,18 +51,27 @@ a {
     font-family: 'Nunito', sans-serif;
 }
 .rightSide{
-    position: relative;
+    position: absolute;
+    top: 3.6%;
+    right: 2%;
 }
 
-.lang {
+.lang{
+    position: relative;
+
+    border-radius: 12px;
+
+    /* Note: currently only Safari supports backdrop-filter */
+    backdrop-filter: blur(10px);
+    --webkit-backdrop-filter: blur(10px);
+
+
     z-index: 9999;
-    position: absolute;
-    right: 8.6%;
-    top: 3.6%;
+
 }
+
 .profile {
-    position: absolute;
-    right: 3.2%;
-    top: 3.6%;
+    position: relative;
+    right: 12%;
     cursor: pointer !important;
 }

@@ -143,10 +143,10 @@ const Nav = (props) => {
                         <li><NavLink to="#">FAQs</NavLink></li>
                     </ul>
 
-                    {/*<div className={n.rightSide}>*/}
+                    <div className={n.rightSide}>
                         <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
                         <NavLink to={'/login'}><img src="/nav/login-button.svg" alt="profile" className={n.profile}/></NavLink>
-                    {/*</div>*/}
+                    </div>
                     {/*<a href="#"><img src="/lang.svg" alt="lang" className={n.lang}/></a>*/}
                     {/*/!*<a href="#"><img src="/profile.svg" alt="profile" className={n.profile}/></a>*!/*/}
                     {/*<NavItem icon={<CaretIcon/>} isLoggedIn={props.isLoggedIn} isActivated={props.isActivated}/>*/}
