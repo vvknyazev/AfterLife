@@ -12,8 +12,7 @@ import {useOutletContext} from "react-router-dom";
 
 const Home = () => {
     // const [isLoading, setIsLoading] = useState(true);
-    const [isLoggedIn, isActivated] = useOutletContext();
-
+    const [isLoggedIn, isActivated, oauthUser, userPicture] = useOutletContext();
     // const token = useSelector(selectCurrentToken)
     // const location = useLocation()
 
@@ -32,7 +31,7 @@ const Home = () => {
             {/*) : (*/}
             <div>
                 <div style={{backgroundImage: "url(/home-background.png)", backgroundRepeat: "no-repeat", backgroundSize: "cover"}}>
-                    <Nav isLoggedIn={isLoggedIn} isActivated={isActivated}/>
+                    <Nav isLoggedIn={isLoggedIn} isActivated={isActivated} user={oauthUser} userPicture={userPicture}/>
                     <HeaderHomePage/>
                 </div>
                 <ConceptHomePage/>

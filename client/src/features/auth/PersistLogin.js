@@ -94,14 +94,14 @@ const PersistLogin = () => {
     // }
     if (oauthUserData){
         isLoggedIn = true;
-        return <Outlet context={[isLoggedIn, true]}/>
+        return <Outlet context={[isLoggedIn, true, oauthUserData]}/>
     }
 
     if (!persist) { // persist: no
         // console.log('no persist')
         //setIsLoggedIn(false);
         isLoggedIn = false;
-        return <Outlet context={[isLoggedIn, user?.isActivated]}/>
+        return <Outlet context={[isLoggedIn, user?.isActivated, null, user?.photo]}/>
     } else if (isLoading) { //persist: yes, token: no
         // console.log('loading')
         //setIsLoggedIn(false);
@@ -117,7 +117,7 @@ const PersistLogin = () => {
         //setIsLoggedIn(false);
         isLoggedIn = false;
         if (isHomePage) {
-            return <Outlet context={[isLoggedIn, user?.isActivated]}/>
+            return <Outlet context={[isLoggedIn, user?.isActivated, null, user?.photo]}/>
         }
 
         // content = (
@@ -129,13 +129,13 @@ const PersistLogin = () => {
     } else if (isSuccess && trueSuccess) { //persist: yes, token: yes
         // console.log('success')
          isLoggedIn = true;
-        return <Outlet context={[isLoggedIn, user?.isActivated]}/>
+        return <Outlet context={[isLoggedIn, user?.isActivated, null, user?.photo]}/>
     } else if (token && isUninitialized) { //persist: yes, token: yes
         // console.log('token and uninit')
         // console.log(isUninitialized)
         //setIsLoggedIn(true);
         isLoggedIn = true;
-        return <Outlet context={[isLoggedIn, user?.isActivated]}/>
+        return <Outlet context={[isLoggedIn, user?.isActivated, null, user?.photo]}/>
     }
     return content
 

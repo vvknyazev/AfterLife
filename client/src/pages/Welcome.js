@@ -1,12 +1,13 @@
 import {useSelector} from "react-redux"
-import {selectCurrentToken} from "./authSlice"
-import {Link, useLocation, useNavigate} from "react-router-dom"
-import {useGetUserQuery, useSendLogoutMutation} from "./authApiSlice";
+import {selectCurrentToken} from "../features/auth/authSlice"
+import {Link, NavLink, useLocation, useNavigate} from "react-router-dom"
+import {useGetUserQuery, useSendLogoutMutation} from "../features/auth/authApiSlice";
 import React, {useEffect} from "react";
 import {faRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {InfinitySpin} from "react-loader-spinner";
-import {useGetOauthUserQuery} from "./commonApiSlice";
+import {useGetOauthUserQuery} from "../features/auth/commonApiSlice";
+import Nav from "../components/Nav/Nav";
 
 const DASH_REGEX = /^\/dash(\/)?$/
 const NOTES_REGEX = /^\/dash\/notes(\/)?$/
@@ -18,12 +19,11 @@ const Welcome = () => {
     // const tokenAbbr = `${token?.slice(0, 9)}...`
 
 
-
     const navigate = useNavigate()
     const {pathname} = useLocation()
 
-    const { data: user, isLoading: isLoadingUser, isError: isErrorUser, error: errorUser } = useGetUserQuery();
-    const { data: oauthUserData } = useGetOauthUserQuery();
+    const {data: user, isLoading: isLoadingUser, isError: isErrorUser, error: errorUser} = useGetUserQuery();
+    const {data: oauthUserData} = useGetOauthUserQuery();
 
     // useEffect(() => {
     //     if ()
@@ -42,7 +42,7 @@ const Welcome = () => {
         if (user) {
             sendLogout();
             navigate('/login')
-        } else if (oauthUserData){
+        } else if (oauthUserData) {
             window.open(`${process.env.REACT_APP_API_URL}api/user/google/logout`, "_self");
         }
     };
@@ -75,7 +75,7 @@ const Welcome = () => {
         return <div>Error: {errorUser.message}</div>;
     }
 
-     // console.log(user);
+    // console.log(user);
 
     let dashClass = null
     if (!DASH_REGEX.test(pathname) && !NOTES_REGEX.test(pathname) && !USERS_REGEX.test(pathname)) {
@@ -91,16 +91,19 @@ const Welcome = () => {
             <FontAwesomeIcon icon={faRightFromBracket}/>
         </button>
     )
-
+    console.log(oauthUserData)
 
     return (
-        <section className="welcome">
-            <h1>Welcome {user?.username || oauthUserData?.user.username} !</h1>
-            <h2>Your email {user?.email || oauthUserData?.user.email}</h2>
-            <p><Link to="/userslist">Go to the Users List</Link></p>
-            <p><Link to="/">Go to the Home page</Link></p>
-            {logoutButton}
-        </section>
+        <div style={{background: "#000"}}>
+            <Nav photo={user?.photo || oauthUserData?.user.photo}/>
+            <section className="welcome">
+                <h1>Добро пожаловать <span>{user?.username || oauthUserData?.user.username}</span></h1>
+                <h2>Your email {user?.email || oauthUserData?.user.email}</h2>
+                {/*<p><Link to="/userslist">Go to the Users List</Link></p>*/}
+                <NavLink to="/" style={{marginTop: '15px'}}>Go to the Home page</NavLink>
+                {logoutButton}
+            </section>
+        </div>
     );
 }
 export default Welcome

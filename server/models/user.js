@@ -8,6 +8,7 @@ const User = new Schema({
     refreshToken: String,
     activationLink: String,
     isActivated: {type: Boolean, default: false},
+    photo: {type: String, default: 'nav/user-photo.png'}
 })
 
 module.exports = model('User', User);

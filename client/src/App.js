@@ -5,7 +5,7 @@ import Home from "./pages/Main/Home";
 import Registration from "./pages/Auth/Registration";
 import Login from "./pages/Auth/Login";
 import RequireAuth from "./features/auth/RequireAuth";
-import Welcome from "./features/auth/Welcome";
+import Welcome from "./pages/Welcome";
 import UsersList from "./features/users/UsersList";
 
 import PersistLogin from "./features/auth/PersistLogin";

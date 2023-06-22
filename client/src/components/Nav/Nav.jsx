@@ -83,43 +83,43 @@ function NavItem(props) {
             {open &&
                 <div className="dropdown" style={{height: menuHeight}} ref={dropdownRef}>
                     {!props.isLoggedIn || props.isActivated === null || props.isActivated === undefined || !props.isActivated   // или аккаунт не активирован
-                            ? <CSSTransition
-                                in={activeMenu === 'main'}
-                                timeout={500}
-                                classNames="menu-primary"
-                                unmountOnExit
-                                onEnter={calcHeight}>
-                                <div className="menu">
-                                    <DropdownItem
-                                        leftIcon={<SignUpIcon/>}
-                                        auth='/register'
-                                    >
-                                        Sign Up
-                                    </DropdownItem>
-                                    <DropdownItem
-                                        leftIcon={<LoginIcon/>}
-                                        auth='/login'
-                                    >
-                                        Log In
-                                    </DropdownItem>
-                                </div>
-                            </CSSTransition>
-                            :
-                            <CSSTransition
-                                in={activeMenu === 'main'}
-                                timeout={500}
-                                classNames="menu-primary"
-                                unmountOnExit
-                                onEnter={calcHeight}>
-                                <div className="menu">
-                                    <DropdownItem
-                                        leftIcon={<CaretIcon/>}
-                                        auth='/welcome'
-                                    >
-                                        Profile
-                                    </DropdownItem>
-                                </div>
-                            </CSSTransition>
+                        ? <CSSTransition
+                            in={activeMenu === 'main'}
+                            timeout={500}
+                            classNames="menu-primary"
+                            unmountOnExit
+                            onEnter={calcHeight}>
+                            <div className="menu">
+                                <DropdownItem
+                                    leftIcon={<SignUpIcon/>}
+                                    auth='/register'
+                                >
+                                    Sign Up
+                                </DropdownItem>
+                                <DropdownItem
+                                    leftIcon={<LoginIcon/>}
+                                    auth='/login'
+                                >
+                                    Log In
+                                </DropdownItem>
+                            </div>
+                        </CSSTransition>
+                        :
+                        <CSSTransition
+                            in={activeMenu === 'main'}
+                            timeout={500}
+                            classNames="menu-primary"
+                            unmountOnExit
+                            onEnter={calcHeight}>
+                            <div className="menu">
+                                <DropdownItem
+                                    leftIcon={<CaretIcon/>}
+                                    auth='/welcome'
+                                >
+                                    Profile
+                                </DropdownItem>
+                            </div>
+                        </CSSTransition>
                     }
 
                 </div>}
@@ -142,11 +142,45 @@ const Nav = (props) => {
                         <li><NavLink to="#">О нас</NavLink></li>
                         <li><NavLink to="#">FAQs</NavLink></li>
                     </ul>
-
-                    <div className={n.rightSide}>
+                    {props.userPicture ? <div className={n.rightSide}>
                         <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
-                        <NavLink to={'/login'}><img src="/nav/login-button.svg" alt="profile" className={n.profile}/></NavLink>
-                    </div>
+                        <div className={n.profile}><NavLink to={'/welcome'}>
+                            <img src={props.userPicture} alt="profile"
+                                 className={n.profileLogin}/></NavLink>
+                        </div>
+                    </div> : props.photo ? <div className={n.rightSide} style={{marginRight: "40px", marginTop: "1px"}}>
+                            <NavLink to={'/welcome'}>
+                                <img src={props.photo} alt="profile"
+                                     className={n.profileLogin}/>
+                            </NavLink>
+
+                        </div>
+                        : props.user ? <div className={n.rightSide}>
+                            <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
+                            <div className={n.profile}><NavLink to={'/welcome'}>
+                                <img src={props.user.user.photo} alt="profile"
+                                     className={n.profileLogin}/></NavLink>
+                            </div>
+                        </div> : <div className={n.rightSide}>
+                            <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
+                            <div className={n.profile}>
+                                <NavLink to={'/login'} className={n.profileText}>Войти</NavLink>
+                            </div>
+                        </div>}
+
+
+                    {/*{props.photo ? <div className={n.rightSide}>*/}
+                    {/*    <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>*/}
+                    {/*    <NavLink to={'/login'}><img src="/nav/profile-logo-back.svg" alt="profile"*/}
+                    {/*                                className={n.profile}/></NavLink>*/}
+                    {/*</div> : <div className={n.rightSide}>*/}
+                    {/*    <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>*/}
+                    {/*    <NavLink to={'/login'}><img src="/nav/login-button.svg" alt="profile"*/}
+                    {/*                                className={n.profile}/></NavLink>*/}
+                    {/*</div>*/}
+                    {/*}*/}
+
+
                     {/*<a href="#"><img src="/lang.svg" alt="lang" className={n.lang}/></a>*/}
                     {/*/!*<a href="#"><img src="/profile.svg" alt="profile" className={n.profile}/></a>*!/*/}
                     {/*<NavItem icon={<CaretIcon/>} isLoggedIn={props.isLoggedIn} isActivated={props.isActivated}/>*/}

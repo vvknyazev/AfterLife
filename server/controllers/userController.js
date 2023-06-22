@@ -165,7 +165,9 @@ class UserController {
         const user = await User.findOne({refreshToken});
         // const userGoogle = await UserGoogle.findOne({refreshToken});
         if (!user) {
-            throw new Error('Не авторизован')
+            console.log("не авторизован");
+            return res.sendStatus(403);
+            // throw new Error('Не авторизован')
         }
 
         const userDto = new UserDto(user);

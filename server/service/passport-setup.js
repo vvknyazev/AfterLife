@@ -24,10 +24,12 @@ passportSetup.use(
                     if (user || userDiscord) {
                         done(null, false);
                     } else {
+                        const ImgUrl = profile._json['picture'].replace("=s96-c", "")
                         new UserGoogle({
                             username: profile.displayName,
                             googleId: profile.id,
                             email: profile.emails[0].value,
+                            photo: ImgUrl,
                         }).save().then((newUser) => {
                             console.log('new user created' + newUser);
                             done(null, newUser);
@@ -49,6 +51,7 @@ passportSetup.use(
         },
         (accessToken, refreshToken, profile, done) => {
             UserDiscord.findOne({discordId: profile.id}).then(async (currentUser) => {
+                console.log(profile);
                 if (currentUser) {
                     console.log("user is: ", currentUser)
                     done(null, currentUser);
@@ -62,6 +65,7 @@ passportSetup.use(
                             username: profile.username,
                             discordId: profile.id,
                             email: profile.email,
+                            photo: `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`,
                         }).save().then((newUser) => {
                             console.log('new user created' + newUser);
                             done(null, newUser);
