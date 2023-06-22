@@ -5,7 +5,7 @@ import {ReactComponent as SignUpIcon} from '../../icons/signup.svg';
 import {ReactComponent as LoginIcon} from '../../icons/login.svg';
 import n from './Nav.module.css'
 import {CSSTransition} from 'react-transition-group';
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import {useGetUserQuery} from "../../features/auth/authApiSlice";
 import {InfinitySpin} from "react-loader-spinner";
 
@@ -130,43 +130,48 @@ function NavItem(props) {
 
 const Nav = (props) => {
     // console.log('ISLOGGED IN IN NAV', props.isLoggedIn);
+    const location = useLocation();
+    // const isHomePage = location.pathname === '/';
+    const isModelsPage = location.pathname === '/models';
     return (
         <div>
             {/*<Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>*/}
             <div className={n.nav}>
                 <div>
                     <ul>
-                        <li><NavLink to="#" className={n.navItem}>Выбрать пару</NavLink></li>
+                        <li><NavLink to="/models" className={isModelsPage ? `${n.navItem} ${n.active}` : n.navItem}>Выбрать пару</NavLink></li>
                         <li><NavLink to="#" className={n.navItem}>Подписки</NavLink></li>
                         <li><NavLink to='/' className={n.logo}>Afterlife</NavLink></li>
                         <li><NavLink to="#" className={n.navItem}>О нас</NavLink></li>
                         <li><NavLink to="#" className={n.navItem}>FAQs</NavLink></li>
-                    </ul>
-                    {props.userPicture ? <div className={n.rightSide}>
-                        <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
-                        <div className={n.profile}><NavLink to={'/welcome'}>
-                            <img src={props.userPicture} alt="profile"
-                                 className={n.profileLogin}/></NavLink>
-                        </div>
-                    </div> : props.photo ? <div className={n.rightSide} style={{marginRight: "40px", marginTop: "1px"}}>
-                            <NavLink to={'/welcome'}>
-                                <img src={props.photo} alt="profile"
-                                     className={n.profileLogin}/>
-                            </NavLink>
-
-                        </div>
-                        : props.user ? <div className={n.rightSide}>
+                        {props.userPicture ? <li className={n.rightSide}>
                             <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
                             <div className={n.profile}><NavLink to={'/welcome'}>
-                                <img src={props.user.user.photo} alt="profile"
+                                <img src={props.userPicture} alt="profile"
                                      className={n.profileLogin}/></NavLink>
                             </div>
-                        </div> : <div className={n.rightSide}>
-                            <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
-                            <div className={n.profile}>
-                                <NavLink to={'/login'} className={n.profileText}>Войти</NavLink>
-                            </div>
-                        </div>}
+                        </li> : props.photo ? <li className={n.rightSide} style={{marginRight: "40px", marginTop: "1px", paddingLeft:"53px"}}>
+                                <NavLink to={'/welcome'}>
+                                    <img src={props.photo} alt="profile"
+                                         className={n.profileLogin}/>
+                                </NavLink>
+
+                            </li>
+                            : props.user ? <li className={n.rightSide}>
+                                <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
+                                <div className={n.profile}><NavLink to={'/welcome'}>
+                                    <img src={props.user.user.photo} alt="profile"
+                                         className={n.profileLogin}/></NavLink>
+                                </div>
+                            </li> : <li className={n.rightSide}>
+                                <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
+                                <div className={n.profile}>
+                                    <NavLink to={'/login'} className={n.profileText}>Войти</NavLink>
+                                </div>
+                            </li>}
+
+                    </ul>
+
 
 
                     {/*{props.photo ? <div className={n.rightSide}>*/}
