@@ -23,7 +23,7 @@ const PersistLogin = () => {
 
     const { data: oauthUserData } = useGetOauthUserQuery();
 
-    console.log("oauthUserData on persist-page: ", oauthUserData?.user);
+    // console.log("oauthUserData on persist-page: ", oauthUserData?.user);
 
     let isLoggedIn = false;
 
@@ -116,9 +116,9 @@ const PersistLogin = () => {
         // console.log('error')
         //setIsLoggedIn(false);
         isLoggedIn = false;
-        if (isHomePage) {
+        //if (isHomePage) {
             return <Outlet context={[isLoggedIn, user?.isActivated, null, user?.photo]}/>
-        }
+       // }
 
         // content = (
         //     <p className='errmsg'>

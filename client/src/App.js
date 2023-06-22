@@ -13,6 +13,7 @@ import PrivateRoute from "./features/auth/PrivateRoute";
 import Activate from "./pages/Auth/Activate";
 import PrivateActivateRoute from "./features/auth/PrivateActivateRoute";
 import RequireActivatedAuth from "./features/auth/RequireActivatedAuth";
+import Models from "./pages/Models/Models";
 
 // import Login from "./features/auth/Login";
 
@@ -33,6 +34,7 @@ function App() {
                 {/*</Route>*/}
                 <Route element={<PersistLogin/>}>
                     <Route path='/' element={<Home/>}/>
+                    <Route path='/models' element={<Models/>}/>
 
                     <Route element={<RequireAuth/>}>
                         <Route element={<PrivateActivateRoute/>}>
