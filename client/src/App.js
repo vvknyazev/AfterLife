@@ -14,6 +14,7 @@ import Activate from "./pages/Auth/Activate";
 import PrivateActivateRoute from "./features/auth/PrivateActivateRoute";
 import RequireActivatedAuth from "./features/auth/RequireActivatedAuth";
 import Models from "./pages/Models/Models";
+import Settings from "./pages/Settings/Settings";
 
 // import Login from "./features/auth/Login";
 
@@ -42,6 +43,7 @@ function App() {
                         </Route>
                         <Route element={<RequireActivatedAuth/>}>
                             <Route path="welcome" element={<Welcome/>}/>
+                            <Route path="settings" element={<Settings/>}/>
                             <Route path="userslist" element={<UsersList/>}/>
                         </Route>
 

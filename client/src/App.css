@@ -146,7 +146,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
   justify-content: center;
   transition: filter 300ms;
   cursor: pointer;
-  margin: 20px 2px 2px;
+  margin: 4px 0 0 3px;
 }
 
 .icon-button:hover {
@@ -163,7 +163,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 .dropdown {
   position: absolute;
-  top: 95%;
+  top: 105%;
   width: 150px;
   right: 2%;
   background-color: var(--bg);
@@ -181,12 +181,13 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 
 .menu-item {
-  height: 40px;
+  height: 30px;
   display: flex;
   align-items: center;
   border-radius: var(--border-radius);
   transition: background var(--speed);
   padding: 0.5rem;
+  margin-bottom: 7px;
 }
 
 .menu-item .icon-button {
@@ -366,6 +367,30 @@ body {
 .Toastify__toast{
   border-radius: 12px !important;
 }
-
+/*profile button style*/
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 105px;
+  height: 50px;
+  background: #0f202b;
+  border-radius: 12px;
+  right: 12%;
+  cursor: pointer !important;
+}
+.profileBlack{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 105px;
+  height: 50px;
+  background: #1a1a1d !important;
+  border-radius: 12px;
+  right: 12%;
+  cursor: pointer !important;
+}
 
 
