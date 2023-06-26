@@ -239,17 +239,11 @@ input {
         justify-content: center;
         align-items: center;
         font-size: 22px;
-        width: 92%;
+        width: 95%;
     }
 
     .loginButton {
         margin-top: 25px;
-        width: 95%;
-    }
-
-
-    .secondButton {
-        width: 95%;
     }
 }
 .langForm{

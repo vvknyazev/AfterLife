@@ -1,14 +1,20 @@
 import React from 'react';
 import s from './HeaderHomePage.module.css';
-import Caregories from "../../../components/Categories/Caregories";
+import Categories from "../../../components/Categories/Categories";
 import {useGetUserQuery} from "../../../features/auth/authApiSlice";
 import {InfinitySpin} from "react-loader-spinner";
+import {useNavigate} from "react-router-dom";
 
 const HeaderHomePage = () => {
+    const navigate = useNavigate()
+
+    function chooseCategory(category) {
+        navigate('/models');
+    }
 
     return (
         <div className={s.header}>
-            <Caregories/>
+            <Categories chooseCategory={chooseCategory}/>
             {/*<div><p className={s.title}>Мы поможем найти вам идеальную игровую пару</p></div>*/}
             <div className={s.content}>
                 <div className={s.greetings}>

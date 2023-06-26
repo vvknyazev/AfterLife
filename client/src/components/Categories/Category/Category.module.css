@@ -29,3 +29,10 @@
     width: 40px;
     height: 40px;
 }
+.box:hover{
+    background: rgba(255, 255, 255, 0.1);
+    transition: 0.1s ease all;
+}
+.active{
+    background: rgba(255, 255, 255, 0.1);
+}

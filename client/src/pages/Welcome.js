@@ -94,7 +94,7 @@ const Welcome = () => {
     console.log(oauthUserData)
 
     return (
-        <div style={{background: "#000"}}>
+        <div>
             <Nav photo={user?.photo || oauthUserData?.user.photo}/>
             <section className="welcome">
                 <h1>Добро пожаловать <span>{user?.username || oauthUserData?.user.username}</span></h1>
