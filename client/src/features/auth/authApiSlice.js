@@ -10,12 +10,6 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 body: { ...credentials }
             })
         }),
-        googleLogin:builder.mutation({
-            query: () => ({
-                url: '/api/user/login/google',
-                method: 'GET',
-            }),
-        }),
         register: builder.mutation({
             query: credentials => ({
                 url: '/api/user/register',

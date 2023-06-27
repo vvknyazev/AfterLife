@@ -30,7 +30,8 @@ app.use(cors(corsOptions));
 
 app.use(express.json())
 app.use(express.static(path.resolve(__dirname, 'static')))
-
+app.use(express.static(path.join(__dirname, 'uploads')));
+app.use(process.env.CLIENT_URL, express.static(path.join(__dirname, 'uploads')));
 app.use(express.urlencoded({extended: true}))
 
 

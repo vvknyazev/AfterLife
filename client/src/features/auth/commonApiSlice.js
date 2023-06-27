@@ -1,12 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const commonApiSlice = createApi({
-    reducerPath: 'googleApi',
+    reducerPath: 'commonApi',
     baseQuery: fetchBaseQuery({
         baseUrl: process.env.REACT_APP_API_URL,
         credentials: 'include',
         headers: {
-            'Content-Type': 'application/json',
             'Access-Control-Allow-Credentials': true,
         },
     }),
@@ -14,9 +13,16 @@ const commonApiSlice = createApi({
         getOauthUser: builder.query({
             query: () => '/api/user/login/success',
         }),
+        uploadPhoto: builder.mutation({
+            query: (data) => ({
+                url: '/api/user/upload-photo',
+                method: 'POST',
+                body: data,
+            })
+        }),
     }),
 });
 
-export const { useGetOauthUserQuery } = commonApiSlice;
+export const { useGetOauthUserQuery, useUploadPhotoMutation } = commonApiSlice;
 
 export default commonApiSlice;
