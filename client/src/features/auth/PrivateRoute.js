@@ -7,6 +7,8 @@ const   PrivateRoute = () => {
 
     const navigate = useNavigate();
 
+    console.log('privateRoute');
+
     const { data: user} = useGetUserQuery();
     const { data: oauthUserData } = useGetOauthUserQuery();
 

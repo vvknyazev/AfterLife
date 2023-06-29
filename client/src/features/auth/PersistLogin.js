@@ -13,7 +13,7 @@ const PersistLogin = () => {
     const token = useSelector(selectCurrentToken)
     const effectRan = useRef(false)
     const location = useLocation();
-    const isHomePage = location.pathname === '/';
+    // const isHomePage = location.pathname === '/';
     // const isLoginOrRegisterPage = location.pathname === '/login' || location.pathname === '/register';
 
     const [trueSuccess, setTrueSuccess] = useState(false)
@@ -36,6 +36,7 @@ const PersistLogin = () => {
 
     useEffect(() => {
 
+
         if (effectRan.current === true || process.env.NODE_ENV !== 'development') { // React 18 Strict Mode
 
             const verifyRefreshToken = async () => {
@@ -51,11 +52,14 @@ const PersistLogin = () => {
             }
 
             if (!token && persist) verifyRefreshToken()
+
         }
 
         return () => effectRan.current = true
 
     }, [])
+
+
 
     if (isLoadingUser) {
         return <div className={'loader'}>
@@ -64,6 +68,11 @@ const PersistLogin = () => {
                 color="#000"
             />
         </div>
+    }
+    if (oauthUserData){
+        console.log('oauthUserData if worked')
+        isLoggedIn = true;
+        return <Outlet context={[isLoggedIn, true, oauthUserData]}/>
     }
     // if (isGoogleUserLoading) {
     //     return <div className={'loader'}>
@@ -92,10 +101,7 @@ const PersistLogin = () => {
     //         return <Login/>
     //     }
     // }
-    if (oauthUserData){
-        isLoggedIn = true;
-        return <Outlet context={[isLoggedIn, true, oauthUserData]}/>
-    }
+
 
     if (!persist) { // persist: no
         // console.log('no persist')
