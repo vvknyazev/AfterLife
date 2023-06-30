@@ -1,5 +1,4 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {slide as Menu} from 'react-burger-menu'
 import {ReactComponent as CaretIcon} from '../../icons/profile.svg';
 import {ReactComponent as SettingsIcon} from '../../icons/settings.svg';
 import {ReactComponent as SignUpIcon} from '../../icons/signup.svg';
@@ -7,8 +6,6 @@ import {ReactComponent as LoginIcon} from '../../icons/login.svg';
 import n from './Nav.module.css'
 import {CSSTransition} from 'react-transition-group';
 import {NavLink, useLocation} from "react-router-dom";
-import {useGetUserQuery} from "../../features/auth/authApiSlice";
-import {InfinitySpin} from "react-loader-spinner";
 
 function NavItem(props) {
     const [open, setOpen] = useState(false);
@@ -68,8 +65,14 @@ function NavItem(props) {
         <div>
             {!isFistTimeOpen &&
                 <a href={undefined} className={n.profile} onClick={() => setOpen(!open)}>
-                    <img src={props.icon} alt="profile"
-                         className={n.profileLogin}/>
+                    {props.isActivated ?
+                        <img src={props.icon} alt="profile"
+                                              className={n.profileLogin}/>
+                        :
+                        <img src={'profile.svg'} alt="profile"
+                             className={n.profileLogin}/>
+                    }
+
                 </a>
             }
             {isFistTimeOpen &&
@@ -78,8 +81,13 @@ function NavItem(props) {
                     setOpen(true)
                 }
                 }>
-                    <img src={props.icon} alt="profile"
-                         className={n.profileLogin}/>
+                    {props.isActivated ?
+                        <img src={props.icon} alt="profile"
+                             className={n.profileLogin}/>
+                        :
+                        <img src={'profile.svg'} alt="profile"
+                             className={n.profileLogin}/>
+                    }
                 </a>
             }
 
@@ -142,58 +150,83 @@ const Nav = (props) => {
     const location = useLocation();
     // const isHomePage = location.pathname === '/';
     const isModelsPage = location.pathname === '/models';
+    // const isSettingsPage = location.pathname === '/settings';
+    // const isWelcomePage = location.pathname === '/welcome';
     let profileButtonStyle;
-    if (isModelsPage){
+    if (isModelsPage) {
         profileButtonStyle = 'profileBlack'
-    } else{
+    } else {
         profileButtonStyle = 'profile';
     }
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isActivated, setIsActivated] = useState(false);
+    // const [isLoggedIn, setIsLoggedIn] = useState(false);
+    // const [isActivated, setIsActivated] = useState(false);
+    //
+    // useEffect(() => {
+    //     if (props.user || props.photo || props.userPicture) {
+    //         setIsLoggedIn(true);
+    //         setIsActivated(true);
+    //     }
+    // })
 
-    useEffect(()=>{
-           if (props.user || props.photo || props.userPicture){
-               setIsLoggedIn(true);
-               setIsActivated(true);
-           }
-    })
+    console.log("USER: ", props.user)
+    console.log("oauthUser: ", props.oauthUser)
     return (
         <div>
             {/*<Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>*/}
             <div className={n.nav}>
                 <div>
                     <ul>
-                        <li><NavLink to="/models" className={isModelsPage ? `${n.navItem} ${n.active}` : n.navItem}>Выбрать пару</NavLink></li>
+                        <li><NavLink to="/models" className={isModelsPage ? `${n.navItem} ${n.active}` : n.navItem}>Выбрать
+                            пару</NavLink></li>
                         <li><NavLink to="#" className={n.navItem}>Подписки</NavLink></li>
                         <li><NavLink to='/' className={n.logo}>Afterlife</NavLink></li>
                         <li><NavLink to="#" className={n.navItem}>О нас</NavLink></li>
                         <li><NavLink to="#" className={n.navItem}>FAQs</NavLink></li>
-                        {props.userPicture ? <li className={n.rightSide}>
+                        {props.user ? <li className={n.rightSide}>
                             <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
                             <div className={`${profileButtonStyle}`}>
-                                <NavItem icon={props.userPicture} isLoggedIn={isLoggedIn} isActivated={isActivated}></NavItem>
+                                <NavItem icon={props.user.photo} isLoggedIn={true}
+                                         isActivated={props.user.isActivated}></NavItem>
                             </div>
-                            {/*style here*/}
-                        </li> : props.photo ? <li className={n.rightSide} style={{marginRight: "40px", marginTop: "1px", paddingLeft:"53px"}}>
-                                <NavItem icon={props.photo} isLoggedIn={isLoggedIn} isActivated={isActivated}>
+                        </li> : props.oauthUser ? <li className={n.rightSide}>
+                            <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
+                            <div className={`${profileButtonStyle}`}>
+                                <NavItem icon={props.oauthUser.user.photo} isLoggedIn={true}
+                                         isActivated={true}></NavItem>
+                            </div>
+                        </li> : <li className={n.rightSide}>
+                            <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
+                            <div className={`${profileButtonStyle}`}>
+                                <NavLink to={'/login'} className={n.profileText}>Войти</NavLink>
+                            </div>
+                        </li>}
 
-                                </NavItem>
 
-                            </li>
-                            : props.user ? <li className={n.rightSide}>
-                                <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
-                                <div className={`${profileButtonStyle}`}>
-                                    <NavItem icon={props.user.user.photo} isLoggedIn={isLoggedIn} isActivated={isActivated}></NavItem>
-                                </div>
-                            </li> : <li className={n.rightSide}>
-                                <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
-                                <div className={`${profileButtonStyle}`}>
-                                    <NavLink to={'/login'} className={n.profileText}>Войти</NavLink>
-                                </div>
-                            </li>}
+                        {/*{props.userPicture ? <li className={n.rightSide}>*/}
+                        {/*    <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>*/}
+                        {/*    <div className={`${profileButtonStyle}`}>*/}
+                        {/*        <NavItem icon={props.userPicture} isLoggedIn={isLoggedIn} isActivated={isActivated}></NavItem>*/}
+                        {/*    </div>*/}
+                        {/*    /!*style here*!/*/}
+                        {/*</li> : props.photo ? <li className={n.rightSide} style={{marginRight: "40px", marginTop: "1px", paddingLeft:"53px"}}>*/}
+                        {/*        <NavItem icon={props.photo} isLoggedIn={isLoggedIn} isActivated={isActivated}>*/}
+
+                        {/*        </NavItem>*/}
+
+                        {/*    </li>*/}
+                        {/*    : props.user ? <li className={n.rightSide}>*/}
+                        {/*        <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>*/}
+                        {/*        <div className={`${profileButtonStyle}`}>*/}
+                        {/*            <NavItem icon={props.user.user.photo} isLoggedIn={isLoggedIn} isActivated={isActivated}></NavItem>*/}
+                        {/*        </div>*/}
+                        {/*    </li> : <li className={n.rightSide}>*/}
+                        {/*        <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>*/}
+                        {/*        <div className={`${profileButtonStyle}`}>*/}
+                        {/*            <NavLink to={'/login'} className={n.profileText}>Войти</NavLink>*/}
+                        {/*        </div>*/}
+                        {/*    </li>}*/}
 
                     </ul>
-
 
 
                     {/*{props.photo ? <div className={n.rightSide}>*/}

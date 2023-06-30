@@ -1,12 +1,9 @@
-import {useSelector} from "react-redux"
-import {selectCurrentToken} from "../features/auth/authSlice"
-import {Link, NavLink, useLocation, useNavigate} from "react-router-dom"
-import {useGetUserQuery, useSendLogoutMutation} from "../features/auth/authApiSlice";
+import {NavLink, useLocation, useNavigate, useOutletContext} from "react-router-dom"
+import {useSendLogoutMutation} from "../features/auth/authApiSlice";
 import React, {useEffect} from "react";
 import {faRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {InfinitySpin} from "react-loader-spinner";
-import {useGetOauthUserQuery} from "../features/auth/commonApiSlice";
 import Nav from "../components/Nav/Nav";
 
 const DASH_REGEX = /^\/dash(\/)?$/
@@ -22,8 +19,9 @@ const Welcome = () => {
     const navigate = useNavigate()
     const {pathname} = useLocation()
 
-    const {data: user, isLoading: isLoadingUser, isError: isErrorUser, error: errorUser} = useGetUserQuery();
-    const {data: oauthUserData} = useGetOauthUserQuery();
+    // const {data: user, isLoading: isLoadingUser, isError: isErrorUser, error: errorUser} = useGetUserQuery();
+    // const {data: oauthUserData} = useGetOauthUserQuery();
+    const [user, oauthUser] = useOutletContext();
 
     // useEffect(() => {
     //     if ()
@@ -42,7 +40,7 @@ const Welcome = () => {
         if (user) {
             sendLogout();
             navigate('/login')
-        } else if (oauthUserData) {
+        } else if (oauthUser) {
             window.open(`${process.env.REACT_APP_API_URL}api/user/google/logout`, "_self");
         }
     };
@@ -62,19 +60,6 @@ const Welcome = () => {
 
     if (isError) return <p>Error: {error.data?.message}</p>
 
-    if (isLoadingUser) {
-        return <div className={'loader'}>
-            <InfinitySpin
-                width='200'
-                color="#000"
-            />
-        </div>;
-    }
-
-    if (isErrorUser) {
-        return <div>Error: {errorUser.message}</div>;
-    }
-
     // console.log(user);
 
     let dashClass = null
@@ -91,14 +76,13 @@ const Welcome = () => {
             <FontAwesomeIcon icon={faRightFromBracket}/>
         </button>
     )
-    console.log(oauthUserData)
 
     return (
         <div>
-            <Nav photo={user?.photo || oauthUserData?.user.photo}/>
+            <Nav user={user} oauthUser={oauthUser}/>
             <section className="welcome">
-                <h1>Добро пожаловать <span>{user?.username || oauthUserData?.user.username}</span></h1>
-                <h2>Your email {user?.email || oauthUserData?.user.email}</h2>
+                <h1>Добро пожаловать <span>{user?.username || oauthUser?.user.username}</span></h1>
+                <h2>Your email {user?.email || oauthUser?.user.email}</h2>
                 {/*<p><Link to="/userslist">Go to the Users List</Link></p>*/}
                 <NavLink to="/" style={{marginTop: '15px'}}>Go to the Home page</NavLink>
                 {logoutButton}

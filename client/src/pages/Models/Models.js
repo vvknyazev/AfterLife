@@ -8,7 +8,7 @@ import GirlsSection from "../Main/GirlsSection/GirlsSection";
 const Models = () => {
     console.log('Models page');
     // const [isLoggedIn, isActivated, oauthUser, userPicture] = useOutletContext();
-    const [isLoggedIn, isActivated, oauthUser, userPicture] = useOutletContext();
+    const [user, oauthUser] = useOutletContext();
 
     const [currentItems, setCurrentItems] = useState([]);
 
@@ -29,7 +29,7 @@ const Models = () => {
 
     return (
         <div style={{background: "#000"}}>
-            <Nav user={oauthUser} userPicture={userPicture}/>
+            <Nav user={user} oauthUser={oauthUser}/>
             <section className={s.models}>
                 <Categories chooseCategory={chooseCategory} selectedCategory={selectedCategory}/>
                 <GirlsSection girlsCategory={currentItems}/>

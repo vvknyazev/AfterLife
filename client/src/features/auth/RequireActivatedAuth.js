@@ -45,7 +45,7 @@ const RequireActivatedAuth = () => {
     }
 
     if (isSuccess && renderOutlet) {
-        return <Outlet />;
+        return <Outlet context={[user, oauthUserData]}/>;
     } else {
         return <div></div>;
     }

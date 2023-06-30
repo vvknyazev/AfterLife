@@ -12,7 +12,7 @@ const PersistLogin = () => {
     const [persist] = usePersist()
     const token = useSelector(selectCurrentToken)
     const effectRan = useRef(false)
-    const location = useLocation();
+    // const location = useLocation();
     // const isHomePage = location.pathname === '/';
     // const isLoginOrRegisterPage = location.pathname === '/login' || location.pathname === '/register';
 
@@ -71,8 +71,8 @@ const PersistLogin = () => {
     }
     if (oauthUserData){
         console.log('oauthUserData if worked')
-        isLoggedIn = true;
-        return <Outlet context={[isLoggedIn, true, oauthUserData]}/>
+        // isLoggedIn = true;
+        return <Outlet context={[null, oauthUserData]}/>
     }
     // if (isGoogleUserLoading) {
     //     return <div className={'loader'}>
@@ -106,12 +106,12 @@ const PersistLogin = () => {
     if (!persist) { // persist: no
         // console.log('no persist')
         //setIsLoggedIn(false);
-        isLoggedIn = false;
-        return <Outlet context={[isLoggedIn, user?.isActivated, null, user?.photo]}/>
+        // isLoggedIn = false;
+        return <Outlet context={[null, null]}/>
     } else if (isLoading) { //persist: yes, token: no
         // console.log('loading')
         //setIsLoggedIn(false);
-        isLoggedIn = false;
+        // isLoggedIn = false;
         content = <div className={'loader'}>
             <InfinitySpin
                 width='200'
@@ -121,9 +121,9 @@ const PersistLogin = () => {
     } else if (isError) { //persist: yes, token: no
         // console.log('error')
         //setIsLoggedIn(false);
-        isLoggedIn = false;
+        // isLoggedIn = false;
         //if (isHomePage) {
-            return <Outlet context={[isLoggedIn, user?.isActivated, null, user?.photo]}/>
+            return <Outlet context={[null, null]}/>
        // }
 
         // content = (
@@ -134,14 +134,14 @@ const PersistLogin = () => {
         // );
     } else if (isSuccess && trueSuccess) { //persist: yes, token: yes
         // console.log('success')
-         isLoggedIn = true;
-        return <Outlet context={[isLoggedIn, user?.isActivated, null, user?.photo]}/>
+        //  isLoggedIn = true;
+        return <Outlet context={[user, null]}/>
     } else if (token && isUninitialized) { //persist: yes, token: yes
         // console.log('token and uninit')
         // console.log(isUninitialized)
         //setIsLoggedIn(true);
-        isLoggedIn = true;
-        return <Outlet context={[isLoggedIn, user?.isActivated, null, user?.photo]}/>
+        // isLoggedIn = true;
+        return <Outlet context={[user, null]}/>
     }
     return content
 

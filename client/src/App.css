@@ -393,4 +393,17 @@ body {
   cursor: pointer !important;
 }
 
+.cropper-box{
+  height: 500px;
+  width: 100%;
+  position: relative;
+  background: #7dabc3;
+}
+.cropper-box__buttons{
+  position: relative;
+
+}
+.cropper-box__buttons button {
+  cursor: pointer;
+}
 

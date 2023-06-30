@@ -24,17 +24,20 @@ router.post('/upload-photo', upload.single('pic'), async (req, res) => {
         const userGoogle = await UserGoogle.findOne({googleId: req.user.googleId});
         userGoogle.photo = `${process.env.API_URL}/${req.file.originalname}`;
         await userGoogle.save();
-        // return res.redirect(process.env.CLIENT_URL);
+        return res.sendStatus(204);
+        // res.redirect(req.get('referer'));
     } else if (req.user?.discordId){
         const userDiscord = await UserDiscord.findOne({discordId: req.user.discordId});
         userDiscord.photo = `${process.env.API_URL}/${req.file.originalname}`;
         await userDiscord.save();
-        // return res.redirect(process.env.CLIENT_URL);
+        return res.sendStatus(204);
+         // return res.redirect(process.env.CLIENT_URL);
     } else if (req.user.email){
         const user = await User.findOne({email: req.user.email});
         user.photo = `${process.env.API_URL}/${req.file.originalname}`;
         await user.save();
-        // return res.redirect(process.env.CLIENT_URL);
+        return res.sendStatus(204);
+         // return res.redirect(process.env.CLIENT_URL);
     }
 
 })
