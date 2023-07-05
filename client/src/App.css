@@ -243,11 +243,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 .loader{
   /*left: 50%;*/
-  /*position: absolute;*/
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 
@@ -394,16 +393,61 @@ body {
 }
 
 .cropper-box{
-  height: 500px;
+  height: 70vh;
   width: 100%;
   position: relative;
-  background: #7dabc3;
+  background: #0f0f0f;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+}
+.cropper-box h2{
+  text-align: center;
+  color: white;
+  position: absolute;
+  top: -15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 25;
+  font-size: 24px;
+  font-weight: normal;
+
+}
+.box{
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  background: #0f0f0f;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  z-index: 20;
 }
 .cropper-box__buttons{
-  position: relative;
-
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .cropper-box__buttons button {
   cursor: pointer;
+  min-width: 128px;
+  height: 48px;
+
+  margin: 10px;
+  padding: 5px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 2px 30px rgba(105, 209, 255, 0.4);
+  border: 2px solid black;
+  color: #191919;
+  font-size: 24px;
+  transition: all 0.3s ease;
+}
+.cropper-box__buttons button:hover{
+  background: rgb(241, 237, 237);
+  transition: all 0.3s ease;
 }
 

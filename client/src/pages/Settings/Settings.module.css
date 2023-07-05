@@ -1,35 +1,79 @@
 .container {
-    position: relative;
     background: #0f0f0f;
-    margin-top: 100px;
-    min-height: 70vh;
+    margin-top: 30px;
+    min-height: 100vh;
     color: white;
+
 }
 
 .content {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: column;
-
+    width: 700px;
+    padding: 15px;
+    margin: 0 auto;
+    background: #272727;
+    border-radius: 25px;
+    min-height: 80vh;
+}
+.content h2{
+    margin-left: 40px;
 }
 
 .uploadForm {
-    display: flex;
-    justify-content: center;
-    gap: 50px;
+    position: relative;
+    left: 78%;
+    margin-bottom: 50px;
+    margin-top: 10px;
+}
+
+.labelInputFile {
+    color: black;
+    background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+    border: 1px solid #999;
+    border-radius: 25px;
+    padding: 15px 38px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
+
+}
+
+.inputFile {
+    display: none;
+}
+
+.labelInputFile:active {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 
 .photoPreview {
-    position: relative;
-    top: 5%;
-    left: 5%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.photoPreview p {
+    margin-left: 25px;
+    font-size: 20px;
 }
 
 .photoPreview img {
-    width: 400px;
+    width: 100px;
+    border-radius: 100px;
 }
 
-.container button {
+.textAndButton {
+    align-self: center;
+}
 
+.inputFileSubmit {
+    cursor: pointer;
+    min-width: 128px;
+    height: 48px;
+    border-radius: 48px;
+    padding: 5px;
+    font-size: 25px;
 }

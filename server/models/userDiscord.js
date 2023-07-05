@@ -6,7 +6,8 @@ const UserDiscord = new Schema({
     email: {type: String, unique: true, require: true},
     role: {type: String, default: 'USER'},
     isActivated: {type: Boolean, default: true},
-    photo: {type: String}
+    photo: {type: String},
+    refreshToken: {type: String},
 })
 
 module.exports = model('UserDiscord', UserDiscord);

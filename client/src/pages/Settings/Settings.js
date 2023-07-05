@@ -1,21 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import commonApiSlice, {useUploadPhotoMutation} from "../../features/auth/commonApiSlice";
-import {useDispatch} from "react-redux";
-import {NavLink, useOutletContext} from "react-router-dom";
+import {useUploadPhotoMutation} from "../../features/auth/commonApiSlice";
+import {useOutletContext} from "react-router-dom";
 import {InfinitySpin} from "react-loader-spinner";
 import s from "./Settings.module.css"
 import Nav from "../../components/Nav/Nav";
 import CropEasy from "../../components/crop/CropEasy";
+import {toast, ToastContainer} from "react-toastify";
 
 
 const Settings = () => {
     const [upload, {isLoading}] = useUploadPhotoMutation();
-    // const [file, setFile] = useState();
 
     const [user, oauthUser] = useOutletContext();
-
-
-    const dispatch = useDispatch();
 
     const [selectedImage, setSelectedImage] = useState();
     const [photoURL, setPhotoURL] = useState(null);
@@ -24,19 +20,54 @@ const Settings = () => {
 
     const [fileName, setFileName] = useState('');
 
-
     function handleFileChange(e) {
         setSelectedImage(e.target.files[0]);
-        setFileName(e.target.files[0].name);
-        console.log('fileName: ', fileName)
-        console.log("selected image: ", selectedImage);
-        setOpenCrop(true);
-        setPhotoURL(URL.createObjectURL(e.target.files[0]));
+        setFileName(e.target.files[0]?.name);
+
+        if (checkFileSize(e) && isValidFileType(e.target.files[0])) {
+            console.log('file checked... everything is alright');
+            setOpenCrop(true);
+            setPhotoURL(URL.createObjectURL(e.target.files[0]));
+        } else {
+            toast.error('image too large or file type is incorrect', {
+                toastId: 'fileSize',
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
+
+    }
+
+    const isValidFileType = (file) => {
+        const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+        return allowedTypes.includes(file?.type);
+    };
+    const checkFileSize = (e) => {
+        let file = e.target.files[0];
+        let size = 5000000;
+        let err = "";
+        if (file?.size > size) {
+            err += file?.type + 'is too large, please pick a smaller file\n';
+            console.log('file.size: ', file.size)
+            console.log(size);
+        }
+        if (err !== "") {
+            console.log(err)
+            return false
+        }
+
+        return true;
     }
 
     useEffect(() => {
-        console.log('selectedImage was updated', selectedImage);
-    }, [selectedImage])
+        setPhotoURL(user?.photo || oauthUser?.user?.photo);
+    }, [])
 
     if (isLoading) {
         return <div className={'loader'}>
@@ -47,44 +78,61 @@ const Settings = () => {
         </div>
     }
 
-    async function handleSubmit(e) {
-        e.preventDefault();
-
-        const myFile = new File([selectedImage], fileName, {
-            type: selectedImage.type,
-        });
-        console.log('myNewFile: ', myFile)
-
-        const formData = new FormData();
-        formData.append('pic', myFile);
-        await upload(formData);
-        dispatch(commonApiSlice.util.resetApiState())
-    }
-
 
     return (
         <div>
             <Nav user={user} oauthUser={oauthUser}/>
-            <div className={s.container}>
-                <div className={s.content}>
-                    <h2>Settings page</h2>
-                    {!openCrop ? <form onSubmit={handleSubmit} encType={"multipart/form-data"} className={s.uploadForm}>
-                        <div><label htmlFor="pic">Select image:</label></div>
-                        <div><input onChange={handleFileChange} type="file" id="pic" name="pic" accept="image/*"/></div>
-                        {/*<button type="submit"/>*/}
-                        <div>
-                            <button type='submit'>Send</button>
-                        </div>
-                    </form> : <CropEasy {...{photoURL, setOpenCrop, setPhotoURL, setSelectedImage}}/>}
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                limit={1}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
 
-                    <NavLink to={'/welcome'}>To the profile</NavLink>
-                </div>
-                <div className={s.photoPreview}>
-                    {photoURL ?
-                        <img src={photoURL} alt="photo"/>
-                        : <></>
+            />
+            <div className={s.container}>
+                <h2>Settings page</h2>
+                <div className={s.content}>
+                    <h2>Avatar</h2>
+                    <div className={s.photoPreview}>
+                        {/*<img src={photoURL} alt="photo"/>*/}
+
+                        {photoURL === user?.photo || photoURL === oauthUser?.user?.photo ?
+                            <img src={photoURL} alt="photo"/>
+                            : <></>
+                        }
+                        <div className={s.textAndButton}>
+                            <p>Avatar must be .JPG, .JPEG or .PNG and cannot exceed 5M</p>
+                        </div>
+
+                    </div>
+                    {!openCrop ?
+                        <form encType={"multipart/form-data"} className={s.uploadForm}>
+                            <input onChange={handleFileChange} type="file" id="pic" name="pic"
+                                   accept=".png, .jpg, .jpeg"
+                                   className={s.inputFile}/>
+                            <label htmlFor="pic" className={s.labelInputFile}>Change</label>
+                        </form>
+                        :
+                        <CropEasy {...{
+                            photoURL,
+                            setOpenCrop,
+                            setPhotoURL,
+                            setSelectedImage,
+                            user,
+                            oauthUser,
+                            fileName
+                        }}/>
                     }
+                    <hr/>
                 </div>
+
             </div>
 
         </div>

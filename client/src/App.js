@@ -1,12 +1,12 @@
 import './App.css';
-import React, {useEffect} from "react";
+import React from "react";
 import {Route, Routes} from "react-router-dom";
 import Home from "./pages/Main/Home";
 import Registration from "./pages/Auth/Registration";
 import Login from "./pages/Auth/Login";
 import RequireAuth from "./features/auth/RequireAuth";
 import Welcome from "./pages/Welcome";
-import UsersList from "./features/users/UsersList";
+// import UsersList from "./features/users/UsersList";
 
 import PersistLogin from "./features/auth/PersistLogin";
 import PrivateRoute from "./features/auth/PrivateRoute";
@@ -44,7 +44,7 @@ function App() {
                         <Route element={<RequireActivatedAuth/>}>
                             <Route path="welcome" element={<Welcome/>}/>
                             <Route path="settings" element={<Settings/>}/>
-                            <Route path="userslist" element={<UsersList/>}/>
+                            {/*<Route path="userslist" element={<UsersList/>}/>*/}
                         </Route>
 
                     </Route>

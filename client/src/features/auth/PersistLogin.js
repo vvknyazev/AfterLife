@@ -1,4 +1,4 @@
-import {Outlet, useLocation} from "react-router-dom"
+import {Outlet} from "react-router-dom"
 import React, {useEffect, useRef, useState} from 'react'
 import {useGetUserQuery, useRefreshMutation} from "./authApiSlice"
 import usePersist from "../../hooks/usePersist"
@@ -21,7 +21,7 @@ const PersistLogin = () => {
 
     const {data: user, isLoading: isLoadingUser, isFetching} = useGetUserQuery();
 
-    const { data: oauthUserData } = useGetOauthUserQuery();
+    const { data: oauthUserData, isLoading: isLoadingOauthUser } = useGetOauthUserQuery();
 
     // console.log("oauthUserData on persist-page: ", oauthUserData?.user);
 
@@ -61,7 +61,7 @@ const PersistLogin = () => {
 
 
 
-    if (isLoadingUser) {
+    if (isLoadingUser || isLoadingOauthUser) {
         return <div className={'loader'}>
             <InfinitySpin
                 width='200'

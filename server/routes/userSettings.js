@@ -32,7 +32,7 @@ router.post('/upload-photo', upload.single('pic'), async (req, res) => {
         await userDiscord.save();
         return res.sendStatus(204);
          // return res.redirect(process.env.CLIENT_URL);
-    } else if (req.user.email){
+    } else if (req.user?.email){
         const user = await User.findOne({email: req.user.email});
         user.photo = `${process.env.API_URL}/${req.file.originalname}`;
         await user.save();

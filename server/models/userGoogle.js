@@ -7,6 +7,7 @@ const UserGoogle = new Schema({
     role: {type: String, default: 'USER'},
     isActivated: {type: Boolean, default: true},
     photo: {type: String},
+    refreshToken: {type: String},
 })
 
 module.exports = model('UserGoogle', UserGoogle);

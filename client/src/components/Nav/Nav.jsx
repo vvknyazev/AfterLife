@@ -168,8 +168,6 @@ const Nav = (props) => {
     //     }
     // })
 
-    console.log("USER: ", props.user)
-    console.log("oauthUser: ", props.oauthUser)
     return (
         <div>
             {/*<Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>*/}
