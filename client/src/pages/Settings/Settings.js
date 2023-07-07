@@ -7,6 +7,7 @@ import Nav from "../../components/Nav/Nav";
 import CropEasy from "../../components/crop/CropEasy";
 import {toast, ToastContainer} from "react-toastify";
 import {useDispatch} from "react-redux";
+import {apiSlice} from "../../app/api/apiSlice";
 
 
 const Settings = () => {
@@ -39,6 +40,7 @@ const Settings = () => {
                 setName(oauthUser.user.name)
             }
         } else if (user) {
+            console.log(user);
             if (user?.name) {
                 setName(user.name)
             }
@@ -121,6 +123,7 @@ const Settings = () => {
         console.log('bio: ', bio)
         await saveInfo({name, bio});
         dispatch(commonApiSlice.util.resetApiState())
+        dispatch(apiSlice.util.resetApiState())
     }
 
 

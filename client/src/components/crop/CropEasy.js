@@ -5,6 +5,7 @@ import s from "../../pages/Settings/Settings.module.css";
 import {InfinitySpin} from "react-loader-spinner";
 import commonApiSlice, {useUploadPhotoMutation} from "../../features/auth/commonApiSlice";
 import {useDispatch} from "react-redux";
+import {apiSlice} from "../../app/api/apiSlice";
 // import commonApiSlice from "../../features/auth/commonApiSlice";
 // import {useDispatch} from "react-redux";
 // import {InfinitySpin} from "react-loader-spinner";
@@ -46,8 +47,11 @@ const CropEasy = ({photoURL, setOpenCrop, setPhotoURL, setSelectedImage, user, o
 
             const formData = new FormData();
             formData.append('pic', myFile);
+            console.log('before upload')
             await upload(formData);
+            console.log('after upload')
             dispatch(commonApiSlice.util.resetApiState())
+            dispatch(apiSlice.util.resetApiState())
             setOpenCrop(false);
 
         } catch (error) {

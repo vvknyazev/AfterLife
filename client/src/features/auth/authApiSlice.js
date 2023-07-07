@@ -1,4 +1,4 @@
-import { apiSlice } from "../../app/api/apiSlice";
+import {apiSlice} from "../../app/api/apiSlice";
 import {logOut, setCredentials} from "./authSlice";
 
 export const authApiSlice = apiSlice.injectEndpoints({
@@ -7,14 +7,14 @@ export const authApiSlice = apiSlice.injectEndpoints({
             query: credentials => ({
                 url: '/api/user/login',
                 method: 'POST',
-                body: { ...credentials }
+                body: {...credentials}
             })
         }),
         register: builder.mutation({
             query: credentials => ({
                 url: '/api/user/register',
                 method: 'POST',
-                body: { ...credentials }
+                body: {...credentials}
             })
         }),
         sendLogout: builder.mutation({
@@ -22,9 +22,9 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 url: '/api/user/logout',
                 method: 'POST',
             }),
-            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+            async onQueryStarted(arg, {dispatch, queryFulfilled}) {
                 try {
-                    const { data } = await queryFulfilled
+                    const {data} = await queryFulfilled
                     console.log(data)
                     dispatch(logOut())
                     setTimeout(() => {
@@ -40,22 +40,36 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 url: '/api/user/refresh',
                 method: 'GET',
             }),
-            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+            async onQueryStarted(arg, {dispatch, queryFulfilled}) {
                 try {
-                    const { data } = await queryFulfilled
+                    const {data} = await queryFulfilled
                     // console.log(data)
-                    const { accessToken } = data
-                    dispatch(setCredentials({ accessToken }))
+                    const {accessToken} = data
+                    dispatch(setCredentials({accessToken}))
                 } catch (err) {
                     console.log(err)
                 }
             }
         }),
-            getUser: builder.query({
+        getUser: builder.query({
             query: () => ({
                 url: '/api/user/auth',
                 // providesTags:['Auth']
             }),
+        }),
+        uploadPhoto: builder.mutation({
+            query: (data) => ({
+                url: '/api/user/upload-photo',
+                method: 'POST',
+                body: data,
+            })
+        }),
+        saveInfo: builder.mutation({
+            query: (data) => ({
+                url: '/api/user/save-info',
+                method: 'PUT',
+                body: data,
+            })
         }),
     })
 })
@@ -66,4 +80,6 @@ export const {
     useSendLogoutMutation,
     useRefreshMutation,
     useGetUserQuery,
+    useUploadPhotoMutation,
+    useSaveInfoMutation,
 } = authApiSlice

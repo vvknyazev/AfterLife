@@ -4,11 +4,15 @@ module.exports = class UserDto{
     id;
     isActivated;
     photo;
+    name;
+    bio;
     constructor(model) {
         this.email = model.email;
         this.username = model.username;
         this.id = model._id;
         this.isActivated = model.isActivated;
         this.photo = model.photo;
+        this.name = model.name;
+        this.bio = model.bio;
     }
 }
