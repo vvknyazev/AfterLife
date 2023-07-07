@@ -1,15 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {useUploadPhotoMutation} from "../../features/auth/commonApiSlice";
+import commonApiSlice, {useSaveInfoMutation, useUploadPhotoMutation} from "../../features/auth/commonApiSlice";
 import {useOutletContext} from "react-router-dom";
 import {InfinitySpin} from "react-loader-spinner";
 import s from "./Settings.module.css"
 import Nav from "../../components/Nav/Nav";
 import CropEasy from "../../components/crop/CropEasy";
 import {toast, ToastContainer} from "react-toastify";
+import {useDispatch} from "react-redux";
 
 
 const Settings = () => {
-    const [upload, {isLoading}] = useUploadPhotoMutation();
+    const [upload, {isLoading: isUploadPhotoLoading}] = useUploadPhotoMutation();
+    const [saveInfo, {isLoading: isSaveInfoLoading}] = useSaveInfoMutation();
+
+    const dispatch = useDispatch();
 
     const [user, oauthUser] = useOutletContext();
 
@@ -19,6 +23,31 @@ const Settings = () => {
     const [openCrop, setOpenCrop] = useState(false);
 
     const [fileName, setFileName] = useState('');
+
+    const [name, setName] = useState('');
+    const [bio, setBio] = useState('');
+    const [buttonActive, setButtonActive] = useState(false);
+
+
+
+    useEffect(() => {
+        if (oauthUser) {
+            if (oauthUser?.user?.bio) {
+                setBio(oauthUser.user.bio)
+            }
+            if (oauthUser?.user?.name) {
+                setName(oauthUser.user.name)
+            }
+        } else if (user) {
+            if (user?.name) {
+                setName(user.name)
+            }
+            if (user?.bio) {
+                setBio(user.bio);
+            }
+        }
+        setButtonActive(false);
+    }, [])
 
     function handleFileChange(e) {
         setSelectedImage(e.target.files[0]);
@@ -69,13 +98,29 @@ const Settings = () => {
         setPhotoURL(user?.photo || oauthUser?.user?.photo);
     }, [])
 
-    if (isLoading) {
+    if (isUploadPhotoLoading || isSaveInfoLoading) {
         return <div className={'loader'}>
             <InfinitySpin
                 width='200'
                 color="#000"
             />
         </div>
+    }
+    const handleNameChange = (e) => {
+        setName(e.target.value)
+        setButtonActive(true);
+    }
+    const handleBioChange = (e) => {
+        setBio(e.target.value)
+        setButtonActive(true);
+    }
+
+    async function saveChanges(e) {
+        e.preventDefault();
+        console.log('name: ', name)
+        console.log('bio: ', bio)
+        await saveInfo({name, bio});
+        dispatch(commonApiSlice.util.resetApiState())
     }
 
 
@@ -99,38 +144,63 @@ const Settings = () => {
             <div className={s.container}>
                 <h2>Settings page</h2>
                 <div className={s.content}>
-                    <h2>Avatar</h2>
-                    <div className={s.photoPreview}>
-                        {/*<img src={photoURL} alt="photo"/>*/}
+                    <div className={s.adjust}>
+                        <h2>Avatar</h2>
+                        <div className={s.photoPreview}>
+                            {/*<img src={photoURL} alt="photo"/>*/}
 
-                        {photoURL === user?.photo || photoURL === oauthUser?.user?.photo ?
-                            <img src={photoURL} alt="photo"/>
-                            : <></>
-                        }
-                        <div className={s.textAndButton}>
-                            <p>Avatar must be .JPG, .JPEG or .PNG and cannot exceed 5M</p>
+                            {photoURL === user?.photo || photoURL === oauthUser?.user?.photo ?
+                                <img src={photoURL} alt="photo"/>
+                                : <></>
+                            }
+                            <div className={s.textAndButton}>
+                                <p>Avatar must be .JPG, .JPEG or .PNG and cannot exceed 5M</p>
+                            </div>
+
                         </div>
+                        {!openCrop ?
+                            <form encType={"multipart/form-data"} className={s.uploadForm}>
+                                <input onChange={handleFileChange} type="file" id="pic" name="pic"
+                                       accept=".png, .jpg, .jpeg"
+                                       className={s.inputFile}/>
+                                <label htmlFor="pic" className={s.labelInputFile}>Change</label>
+                            </form>
+                            :
+                            <CropEasy {...{
+                                photoURL,
+                                setOpenCrop,
+                                setPhotoURL,
+                                setSelectedImage,
+                                user,
+                                oauthUser,
+                                fileName
+                            }}/>
+                        }
+                        <hr/>
+                        <h2>Profile information</h2>
+                        <form onSubmit={saveChanges} className={s.profileInfo}>
+                            <div className={s.name}>
+                                <label htmlFor="name">Name</label>
+                                <input type="text" id='name' className={s.inputField} maxLength={20}
+                                       onChange={handleNameChange}
+                                       value={name}
+                                       autoComplete="off"
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="bio">Bio</label>
+                                <textarea id='bio' className={s.textField} maxLength={200}
+                                          onChange={handleBioChange}
+                                          value={bio}
+                                          autoComplete="off"/>
+                            </div>
+                            {buttonActive
+                                ? <button type={"submit"} disabled={false} className={s.labelInputFile}>Save</button>
+                                : <button type={"submit"} disabled={true} className={s.disabledButton}>Save</button>
+                            }
 
-                    </div>
-                    {!openCrop ?
-                        <form encType={"multipart/form-data"} className={s.uploadForm}>
-                            <input onChange={handleFileChange} type="file" id="pic" name="pic"
-                                   accept=".png, .jpg, .jpeg"
-                                   className={s.inputFile}/>
-                            <label htmlFor="pic" className={s.labelInputFile}>Change</label>
                         </form>
-                        :
-                        <CropEasy {...{
-                            photoURL,
-                            setOpenCrop,
-                            setPhotoURL,
-                            setSelectedImage,
-                            user,
-                            oauthUser,
-                            fileName
-                        }}/>
-                    }
-                    <hr/>
+                    </div>
                 </div>
 
             </div>

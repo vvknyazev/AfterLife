@@ -20,9 +20,16 @@ const commonApiSlice = createApi({
                 body: data,
             })
         }),
+        saveInfo: builder.mutation({
+            query: (data) => ({
+                url: '/api/user/save-info',
+                method: 'PUT',
+                body: data,
+            })
+        }),
     }),
 });
 
-export const { useGetOauthUserQuery, useUploadPhotoMutation } = commonApiSlice;
+export const { useGetOauthUserQuery, useUploadPhotoMutation, useSaveInfoMutation } = commonApiSlice;
 
 export default commonApiSlice;

@@ -101,5 +101,3 @@ passportSetup.deserializeUser(async (id, done) => {
         done(error, null);
     }
 });
-// refresh.use(googlestrategy);
-// refresh.use(discordstrategy);

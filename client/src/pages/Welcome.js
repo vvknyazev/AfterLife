@@ -84,6 +84,8 @@ const Welcome = () => {
                 <h1>Добро пожаловать <span>{user?.username || oauthUser?.user.username}</span></h1>
                 <h2>Your email {user?.email || oauthUser?.user.email}</h2>
                 {/*<p><Link to="/userslist">Go to the Users List</Link></p>*/}
+                <h3>Name: {user?.name || oauthUser?.user?.name}</h3>
+                <h3>BIO: {user?.bio || oauthUser?.user?.bio}</h3>
                 <NavLink to="/" style={{marginTop: '15px'}}>Go to the Home page</NavLink>
                 {logoutButton}
             </section>

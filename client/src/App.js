@@ -6,8 +6,6 @@ import Registration from "./pages/Auth/Registration";
 import Login from "./pages/Auth/Login";
 import RequireAuth from "./features/auth/RequireAuth";
 import Welcome from "./pages/Welcome";
-// import UsersList from "./features/users/UsersList";
-
 import PersistLogin from "./features/auth/PersistLogin";
 import PrivateRoute from "./features/auth/PrivateRoute";
 import Activate from "./pages/Auth/Activate";
@@ -19,7 +17,6 @@ import Settings from "./pages/Settings/Settings";
 // import Login from "./features/auth/Login";
 
 function App() {
-
 
     return (
         <div >
@@ -44,7 +41,6 @@ function App() {
                         <Route element={<RequireActivatedAuth/>}>
                             <Route path="welcome" element={<Welcome/>}/>
                             <Route path="settings" element={<Settings/>}/>
-                            {/*<Route path="userslist" element={<UsersList/>}/>*/}
                         </Route>
 
                     </Route>

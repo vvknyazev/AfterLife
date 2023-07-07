@@ -8,6 +8,8 @@ const UserGoogle = new Schema({
     isActivated: {type: Boolean, default: true},
     photo: {type: String},
     refreshToken: {type: String},
+    name: String,
+    bio: String,
 })
 
 module.exports = model('UserGoogle', UserGoogle);

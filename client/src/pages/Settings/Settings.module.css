@@ -3,7 +3,8 @@
     margin-top: 30px;
     min-height: 100vh;
     color: white;
-
+    font-family: Nunito, sans-serif;
+    transition: 0.3s all ease;
 }
 
 .content {
@@ -14,8 +15,14 @@
     border-radius: 25px;
     min-height: 80vh;
 }
+.adjust{
+    margin-left: 30px;
+}
 .content h2{
-    margin-left: 40px;
+
+    margin-bottom: 25px;
+    font-size: 21px;
+    font-weight: 600;
 }
 
 .uploadForm {
@@ -27,7 +34,7 @@
 
 .labelInputFile {
     color: black;
-    background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+    background: white;
     border: 1px solid #999;
     border-radius: 25px;
     padding: 15px 38px;
@@ -35,10 +42,27 @@
     white-space: nowrap;
     -webkit-user-select: none;
     cursor: pointer;
-    text-shadow: 1px 1px #fff;
+
     font-weight: 700;
     font-size: 10pt;
+    min-width: 125px;
+    transition: 0.5s all ease;
+}
+.disabledButton{
+    color: white;
+    background: #151517;
+    border: 1px solid #999;
+    border-radius: 25px;
+    padding: 15px 38px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
 
+    font-weight: 700;
+    font-size: 10pt;
+    min-width: 125px;
+    transition: 0.5s all ease;
 }
 
 .inputFile {
@@ -51,12 +75,12 @@
 
 .photoPreview {
     display: flex;
-    justify-content: center;
+    gap: 20px;
     align-content: center;
 }
 
 .photoPreview p {
-    margin-left: 25px;
+
     font-size: 20px;
 }
 
@@ -76,4 +100,43 @@
     border-radius: 48px;
     padding: 5px;
     font-size: 25px;
+}
+.inputField{
+    width: 350px;
+    height: 60px;
+    background: #151517;
+    border: 1px solid #7dabc3;
+    border-radius: 12px;
+    font-size: 20px;
+    color: #fff;
+    padding-left: 15px;
+    font-family: Nunito, sans-serif;
+}
+.textField{
+    width: 350px;
+    height: 110px;
+    background: #151517;
+    border: 1px solid #7dabc3;
+    border-radius: 12px;
+    font-size: 20px;
+    color: #fff;
+    padding-left: 15px;
+    font-family: Nunito, sans-serif;
+    padding-top: 10px;
+}
+.profileInfo{
+    font-family: Nunito, sans-serif;
+}
+.profileInfo div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.profileInfo label{
+
+}
+.profileInfo button{
+    position: relative;
+    left: 78%;
 }
