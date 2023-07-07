@@ -15,7 +15,7 @@ router.get('/login/google', passport.authenticate('google', {
 }));
 
 router.get('/login/google/redirect', passport.authenticate("google", {
-    successRedirect: `${process.env.CLIENT_URL}/welcome`,
+    successRedirect: `${process.env.CLIENT_URL}/profile`,
     failureRedirect: `${process.env.CLIENT_URL}/login`,
     failureMessage: true,
 }));
@@ -27,7 +27,7 @@ router.get('/login/discord', passport.authenticate('discord', {
 }));
 
 router.get('/login/discord/redirect', passport.authenticate("discord", {
-    successRedirect: `${process.env.CLIENT_URL}/welcome`,
+    successRedirect: `${process.env.CLIENT_URL}/profile`,
     failureRedirect: `${process.env.CLIENT_URL}/login`,
     failureMessage: true,
 }));

@@ -125,7 +125,7 @@ function NavItem(props) {
                             <div className="menu">
                                 <DropdownItem
                                     leftIcon={<CaretIcon/>}
-                                    auth='/welcome'
+                                    auth='/profile'
                                 >
                                     Profile
                                 </DropdownItem>
@@ -151,7 +151,6 @@ const Nav = (props) => {
     // const isHomePage = location.pathname === '/';
     const isModelsPage = location.pathname === '/models';
     // const isSettingsPage = location.pathname === '/settings';
-    // const isWelcomePage = location.pathname === '/welcome';
     let profileButtonStyle;
     if (isModelsPage) {
         profileButtonStyle = 'profileBlack'

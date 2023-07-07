@@ -11,7 +11,7 @@ const NOTES_REGEX = /^\/dash\/notes(\/)?$/
 const USERS_REGEX = /^\/dash\/users(\/)?$/
 
 
-const Welcome = () => {
+const Profile = () => {
     // const token = useSelector(selectCurrentToken)
     // const tokenAbbr = `${token?.slice(0, 9)}...`
 
@@ -92,4 +92,4 @@ const Welcome = () => {
         </div>
     );
 }
-export default Welcome
+export default Profile

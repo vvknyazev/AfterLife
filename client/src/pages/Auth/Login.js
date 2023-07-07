@@ -98,7 +98,7 @@ const Login = () => {
             setEmail('');
             setPassword('');
 
-            navigate('/welcome')
+            navigate('/profile')
             window.location.reload(false);
 
         } catch (err) {

@@ -5,7 +5,7 @@ import Home from "./pages/Main/Home";
 import Registration from "./pages/Auth/Registration";
 import Login from "./pages/Auth/Login";
 import RequireAuth from "./features/auth/RequireAuth";
-import Welcome from "./pages/Welcome";
+import Profile from "./pages/Profile";
 import PersistLogin from "./features/auth/PersistLogin";
 import PrivateRoute from "./features/auth/PrivateRoute";
 import Activate from "./pages/Auth/Activate";
@@ -39,7 +39,7 @@ function App() {
                             <Route path="activate" element={<Activate/>}/>
                         </Route>
                         <Route element={<RequireActivatedAuth/>}>
-                            <Route path="welcome" element={<Welcome/>}/>
+                            <Route path="profile" element={<Profile/>}/>
                             <Route path="settings" element={<Settings/>}/>
                         </Route>
 
