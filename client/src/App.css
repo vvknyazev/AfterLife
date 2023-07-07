@@ -349,19 +349,13 @@ body {
   height: 24px;
 }
 .welcome{
+  background-color: #0f0f0f;
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  margin: 30px;
-}
-.welcome h1{
-  font-size: 28px;
-}
-.welcome span{
-  font-family: DymaxionScript, serif;
-
+margin-top: 10px;
 }
 .Toastify__toast{
   border-radius: 12px !important;

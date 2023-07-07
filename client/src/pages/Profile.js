@@ -5,6 +5,7 @@ import {faRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {InfinitySpin} from "react-loader-spinner";
 import Nav from "../components/Nav/Nav";
+import s from "./Profile.module.css"
 
 const DASH_REGEX = /^\/dash(\/)?$/
 const NOTES_REGEX = /^\/dash\/notes(\/)?$/
@@ -80,8 +81,17 @@ const Profile = () => {
     return (
         <div>
             <Nav user={user} oauthUser={oauthUser}/>
+
             <section className="welcome">
-                <h1>Добро пожаловать <span>{user?.username || oauthUser?.user.username}</span></h1>
+                <div className={s.header}>
+                    <div>
+                        <img src={oauthUser?.user.photo || user.photo} alt="profile-photo"/>
+                    </div>
+                    <div>
+                        <span>{user?.username || oauthUser?.user.username}</span>
+                    </div>
+                </div>
+                <h1>Добро пожаловать </h1>
                 <h2>Your email {user?.email || oauthUser?.user.email}</h2>
                 {/*<p><Link to="/userslist">Go to the Users List</Link></p>*/}
                 <h3>Name: {user?.name || oauthUser?.user?.name}</h3>
