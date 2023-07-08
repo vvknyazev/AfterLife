@@ -8,7 +8,7 @@ const User = new Schema({
     refreshToken: String,
     activationLink: String,
     isActivated: {type: Boolean, default: false},
-    photo: {type: String, default: 'nav/user-photo.png'},
+    photo: {type: String, default: '/nav/user-photo.jpeg'},
     name: String,
     bio: String,
 })
