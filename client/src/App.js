@@ -13,6 +13,8 @@ import PrivateActivateRoute from "./features/auth/PrivateActivateRoute";
 import RequireActivatedAuth from "./features/auth/RequireActivatedAuth";
 import Models from "./pages/Models/Models";
 import Settings from "./pages/Settings/Settings";
+import Admin from "./pages/Admin/Admin";
+import RequireAdminRole from "./features/auth/RequireAdminRole";
 
 // import Login from "./features/auth/Login";
 
@@ -39,6 +41,9 @@ function App() {
                             <Route path="activate" element={<Activate/>}/>
                         </Route>
                         <Route element={<RequireActivatedAuth/>}>
+                            <Route element={<RequireAdminRole/>}>
+                                <Route path="admin" element={<Admin/>}/>
+                            </Route>
                             <Route path="profile" element={<Profile/>}/>
                             <Route path="settings" element={<Settings/>}/>
                         </Route>

@@ -1,6 +1,6 @@
 import {NavLink, useLocation, useNavigate, useOutletContext} from "react-router-dom"
 import {useSendLogoutMutation} from "../features/auth/authApiSlice";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {faRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {InfinitySpin} from "react-loader-spinner";
@@ -20,6 +20,8 @@ const Profile = () => {
     const navigate = useNavigate()
     const {pathname} = useLocation()
 
+    const [photoURL, setPhotoURL] = useState(null);
+
     // const {data: user, isLoading: isLoadingUser, isError: isErrorUser, error: errorUser} = useGetUserQuery();
     // const {data: oauthUserData} = useGetOauthUserQuery();
     const [user, oauthUser] = useOutletContext();
@@ -28,6 +30,10 @@ const Profile = () => {
     //     if ()
     //     navigate('/login')
     // },[])
+
+    useEffect(() => {
+        setPhotoURL(user?.photo || oauthUser?.user?.photo);
+    }, [])
 
     const [sendLogout, {
         isLoading,
@@ -78,6 +84,8 @@ const Profile = () => {
         </button>
     )
 
+
+
     return (
         <div>
             <Nav user={user} oauthUser={oauthUser}/>
@@ -85,7 +93,7 @@ const Profile = () => {
             <section className="welcome">
                 <div className={s.header}>
                     <div>
-                        <img src={oauthUser?.user.photo || user.photo} alt="profile-photo"/>
+                        <img src={photoURL} alt="profile-photo"/>
                     </div>
                     <div>
                         <span>{user?.username || oauthUser?.user.username}</span>
