@@ -9,17 +9,19 @@ const GirlsSection = (props) => {
 
 
     let cardGirls
-    if (props.girlsCategory !== [] && props.girlsCategory !== undefined) {
-        console.log('props detected ', props.girls1)
-        cardGirls = props.girlsCategory.map(el => <Card img={el.img} name={el.name} desc={el.desc} g1={el.g1} g2={el.g2}
-                                          g3={el.g3} g4={el.g4} key={el.id}/>);
-    } else {
-        cardGirls = girls.map(el => <Card img={el.img} name={el.name} desc={el.desc} g1={el.g1} g2={el.g2}
-                                          g3={el.g3} g4={el.g4} key={el.id}/>);
-    }
+    // if (props.girlsCategory !== [] && props.girlsCategory !== undefined) {
+    //     console.log('props detected ', props.girls1)
+    //     cardGirls = props.girlsCategory.map(el => <Card img={el.img} name={el.name} desc={el.desc} g1={el.g1} g2={el.g2}
+    //                                       g3={el.g3} g4={el.g4} key={el.id}/>);
+    // } else {
+    //     cardGirls = girls.map(el => <Card img={el.img} name={el.name} desc={el.desc} g1={el.g1} g2={el.g2}
+    //                                       g3={el.g3} g4={el.g4} key={el.id}/>);
+    // }
+    cardGirls = props.models.map(el => <Card img={el.photo} name={el.name} desc={el.bio}/>)
     return (
         <div className={s.container}>
             {cardGirls}
+
         </div>
     );
 };

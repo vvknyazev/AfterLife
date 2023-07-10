@@ -3,7 +3,7 @@ import Cropper from "react-easy-crop";
 import getCroppedImg from "./utils/cropImage";
 import s from "../../pages/Settings/Settings.module.css";
 import {InfinitySpin} from "react-loader-spinner";
-import commonApiSlice, {useUploadPhotoMutation} from "../../features/auth/commonApiSlice";
+import commonApiSlice, {useUploadPhotoMutation} from "../../features/commonApiSlice";
 import {useDispatch} from "react-redux";
 import {apiSlice} from "../../app/api/apiSlice";
 // import commonApiSlice from "../../features/auth/commonApiSlice";

@@ -3,7 +3,7 @@ import { apiSlice } from "./api/apiSlice"
 import authReducer from '../features/auth/authSlice'
 import {gamesReducer} from "../redux/slices/gameSlice";
 import {girlsReducer} from "../redux/slices/girlSlice";
-import commonApiSlice from "../features/auth/commonApiSlice";
+import commonApiSlice from "../features/commonApiSlice";
 
 export const store = configureStore({
     reducer: {

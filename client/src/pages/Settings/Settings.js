@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import commonApiSlice, {useSaveInfoMutation, useUploadPhotoMutation} from "../../features/auth/commonApiSlice";
+import commonApiSlice, {useSaveInfoMutation, useUploadPhotoMutation} from "../../features/commonApiSlice";
 import {useOutletContext} from "react-router-dom";
 import {InfinitySpin} from "react-loader-spinner";
 import s from "./Settings.module.css"

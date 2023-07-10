@@ -5,7 +5,7 @@ import usePersist from "../../hooks/usePersist"
 import {useSelector} from 'react-redux'
 import {selectCurrentToken} from "./authSlice"
 import {InfinitySpin} from "react-loader-spinner";
-import {useGetOauthUserQuery} from "./commonApiSlice";
+import {useGetOauthUserQuery} from "../commonApiSlice";
 
 const PersistLogin = () => {
 

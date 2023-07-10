@@ -5,8 +5,9 @@ import s from "./Models.module.css";
 import Categories from "../../components/Categories/Categories";
 import {useSelector} from "react-redux";
 import GirlsSection from "../Main/GirlsSection/GirlsSection";
+import {useGetModelsQuery} from "../../features/commonApiSlice";
+import {InfinitySpin} from "react-loader-spinner";
 const Models = () => {
-    console.log('Models page');
     // const [isLoggedIn, isActivated, oauthUser, userPicture] = useOutletContext();
     const [user, oauthUser] = useOutletContext();
 
@@ -14,6 +15,8 @@ const Models = () => {
 
     // const myGames = useSelector((state) => state.games);
     const girls = useSelector((state) => state.girls);
+
+    const { data: models, isLoading: isLoadingModels } = useGetModelsQuery();
 
     const [selectedCategory, setSelectedCategory] = useState('');
     const location = useLocation();
@@ -27,12 +30,21 @@ const Models = () => {
         }
     }
 
+    if (isLoadingModels) {
+        return <div className={'loader'}>
+            <InfinitySpin
+                width='200'
+                color="#000"
+            />
+        </div>
+    }
+
     return (
         <div style={{background: "#000"}}>
             <Nav user={user} oauthUser={oauthUser}/>
             <section className={s.models}>
-                <Categories chooseCategory={chooseCategory} selectedCategory={selectedCategory}/>
-                <GirlsSection girlsCategory={currentItems}/>
+                {/*<Categories chooseCategory={chooseCategory} selectedCategory={selectedCategory}/>*/}
+                <GirlsSection girlsCategory={currentItems} models={models}/>
             </section>
         </div>
     );

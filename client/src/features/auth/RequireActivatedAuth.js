@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useGetUserQuery} from "./authApiSlice";
 import {Outlet, useNavigate} from "react-router-dom";
 import {InfinitySpin} from "react-loader-spinner";
-import {useGetOauthUserQuery} from "./commonApiSlice";
+import {useGetOauthUserQuery} from "../commonApiSlice";
 
 const RequireActivatedAuth = () => {
     const navigate = useNavigate();

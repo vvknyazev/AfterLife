@@ -27,9 +27,12 @@ const commonApiSlice = createApi({
                 body: data,
             })
         }),
+        getModels: builder.query({
+            query: () => '/api/model/all',
+        }),
     }),
 });
 
-export const { useGetOauthUserQuery, useUploadPhotoMutation, useSaveInfoMutation } = commonApiSlice;
+export const { useGetOauthUserQuery, useUploadPhotoMutation, useSaveInfoMutation, useGetModelsQuery } = commonApiSlice;
 
 export default commonApiSlice;

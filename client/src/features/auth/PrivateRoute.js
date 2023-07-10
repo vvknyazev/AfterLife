@@ -1,7 +1,7 @@
 import {Outlet, useNavigate} from "react-router-dom"
 import React from 'react'
 import {useGetUserQuery} from "./authApiSlice"
-import {useGetOauthUserQuery} from "./commonApiSlice";
+import {useGetOauthUserQuery} from "../commonApiSlice";
 
 const   PrivateRoute = () => {
 

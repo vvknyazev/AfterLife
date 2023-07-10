@@ -35,7 +35,7 @@ const Home = () => {
                     <HeaderHomePage/>
                 </div>
                 <ConceptHomePage/>
-                <GirlsSection/>
+                {/*<GirlsSection/>*/}
                 <Strip/>
                 <FooterHomePage/>
             </div>

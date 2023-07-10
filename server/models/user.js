@@ -11,6 +11,7 @@ const User = new Schema({
     photo: {type: String, default: '/nav/user-photo.jpeg'},
     name: String,
     bio: String,
+    games: {type: [String]}
 })
 
 module.exports = model('User', User);
