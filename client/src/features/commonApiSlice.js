@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
 const commonApiSlice = createApi({
     reducerPath: 'commonApi',
@@ -30,9 +30,18 @@ const commonApiSlice = createApi({
         getModels: builder.query({
             query: () => '/api/model/all',
         }),
+        getFullModels: builder.query({
+            query: () => '/api/admin/getFullModels'
+        })
     }),
 });
 
-export const { useGetOauthUserQuery, useUploadPhotoMutation, useSaveInfoMutation, useGetModelsQuery } = commonApiSlice;
+export const {
+    useGetOauthUserQuery,
+    useUploadPhotoMutation,
+    useSaveInfoMutation,
+    useGetModelsQuery,
+    useGetFullModelsQuery,
+} = commonApiSlice;
 
 export default commonApiSlice;
