@@ -10,6 +10,7 @@ const UserGoogle = new Schema({
     refreshToken: {type: String},
     name: String,
     bio: String,
+    games: {type: [String]},
 })
 
 module.exports = model('UserGoogle', UserGoogle);

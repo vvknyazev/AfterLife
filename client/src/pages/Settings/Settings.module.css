@@ -1,7 +1,7 @@
 .container {
     background: #0f0f0f;
     margin-top: 30px;
-    min-height: 100vh;
+    min-height: 140vh;
     color: white;
     font-family: Nunito, sans-serif;
     transition: 0.3s all ease;
@@ -13,7 +13,7 @@
     margin: 0 auto;
     background: #272727;
     border-radius: 25px;
-    min-height: 80vh;
+    min-height: 100vh;
 }
 .adjust{
     margin-left: 30px;
@@ -130,13 +130,20 @@
 .profileInfo div{
     display: flex;
     flex-direction: column;
-    gap: 10px;
     margin-bottom: 20px;
 }
-.profileInfo label{
-
-}
 .profileInfo button{
+    position: relative;
+    left: 78%;
+}
+.divSelectorGames{
+    width: 400px;
+}
+.selectorGames{
+    color: black;
+}
+.btn{
+    margin-top: 30px;
     position: relative;
     left: 78%;
 }

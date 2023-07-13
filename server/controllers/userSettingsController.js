@@ -33,7 +33,8 @@ class UserSettingsController {
     }
 
     async saveInfo(req, res) {
-        const {name, bio} = req.body;
+        const {name, bio, games} = req.body;
+        console.log(req.body);
 
         const cookies_jwt = req.cookies.jwt;
 
@@ -44,6 +45,8 @@ class UserSettingsController {
 
             userGoogle.bio = bio;
 
+            userGoogle.games = games;
+
             await userGoogle.save();
             return res.sendStatus(204);
         } else if (req.user?.discordId) {
@@ -53,15 +56,21 @@ class UserSettingsController {
 
             userDiscord.bio = bio;
 
+            userDiscord.games = games;
+
             await userDiscord.save();
             return res.sendStatus(204);
         } else if (cookies_jwt) {
-
+            console.log("CHANGES")
             const refreshToken = cookies_jwt;
             const user = await User.findOne({refreshToken});
             user.name = name;
 
             user.bio = bio;
+
+            user.games = games;
+
+            console.log('games', games);
 
             await user.save();
             return res.sendStatus(204);

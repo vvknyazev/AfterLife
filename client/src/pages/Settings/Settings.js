@@ -8,6 +8,7 @@ import CropEasy from "../../components/crop/CropEasy";
 import {toast, ToastContainer} from "react-toastify";
 import {useDispatch} from "react-redux";
 import {apiSlice} from "../../app/api/apiSlice";
+import Select from "react-select";
 
 
 const Settings = () => {
@@ -29,6 +30,24 @@ const Settings = () => {
     const [bio, setBio] = useState('');
     const [buttonActive, setButtonActive] = useState(false);
 
+    const [selectedGames, setSelectedGames] = useState([]);
+
+    const gameOptions = [
+        {value: 'Dota 2', label: 'Dota 2'},
+        {value: 'CS:GO', label: 'CS:GO'},
+        {value: 'LOL', label: 'LOL'},
+        {value: 'Valorant', label: 'Valorant'},
+        {value: 'Fortnite', label: 'Fortnite'},
+        {value: 'PUBG', label: 'PUBG'},
+        {value: 'Apex', label: 'Apex'}
+    ]
+
+    useEffect(() => {
+        console.log(selectedGames);
+        if (selectedGames !== []) {
+            setButtonActive(true);
+        }
+    }, [selectedGames])
 
 
     useEffect(() => {
@@ -40,12 +59,20 @@ const Settings = () => {
                 setName(oauthUser.user.name)
             }
         } else if (user) {
-            console.log(user);
             if (user?.name) {
                 setName(user.name)
             }
             if (user?.bio) {
                 setBio(user.bio);
+            }
+            if (user?.games) {
+                const transformedGames = user.games.map(game => {
+                    return {
+                        value: game,
+                        label: game
+                    };
+                });
+                setSelectedGames(transformedGames);
             }
         }
         setButtonActive(false);
@@ -121,7 +148,12 @@ const Settings = () => {
         e.preventDefault();
         console.log('name: ', name)
         console.log('bio: ', bio)
-        await saveInfo({name, bio});
+        console.log('selectedGames: ', selectedGames)
+        let games = [];
+        for (let i in selectedGames) {
+            games.push(selectedGames[i].value);
+        }
+        await saveInfo({name, bio, games});
         dispatch(commonApiSlice.util.resetApiState())
         dispatch(apiSlice.util.resetApiState())
     }
@@ -181,27 +213,47 @@ const Settings = () => {
                         }
                         <hr/>
                         <h2>Profile information</h2>
-                        <form onSubmit={saveChanges} className={s.profileInfo}>
-                            <div className={s.name}>
-                                <label htmlFor="name">Name</label>
-                                <input type="text" id='name' className={s.inputField} maxLength={20}
-                                       onChange={handleNameChange}
-                                       value={name}
-                                       autoComplete="off"
-                                />
+                        <form onSubmit={saveChanges}>
+                            <div className={s.profileInfo}>
+                                <div className={s.name}>
+                                    <label htmlFor="name">Name</label>
+                                    <input type="text" id='name' className={s.inputField} maxLength={20}
+                                           onChange={handleNameChange}
+                                           value={name}
+                                           autoComplete="off"
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="bio">Bio</label>
+                                    <textarea id='bio' className={s.textField} maxLength={200}
+                                              onChange={handleBioChange}
+                                              value={bio}
+                                              autoComplete="off"/>
+                                </div>
                             </div>
-                            <div>
-                                <label htmlFor="bio">Bio</label>
-                                <textarea id='bio' className={s.textField} maxLength={200}
-                                          onChange={handleBioChange}
-                                          value={bio}
-                                          autoComplete="off"/>
-                            </div>
-                            {buttonActive
-                                ? <button type={"submit"} disabled={false} className={s.labelInputFile}>Save</button>
-                                : <button type={"submit"} disabled={true} className={s.disabledButton}>Save</button>
-                            }
+                            {user?.role === "MODEL" || oauthUser?.user?.role === "MODEL" ?
+                                <div className={s.divSelectorGames}>
+                                    <label htmlFor="games">Games:</label>
+                                    <Select
+                                        id='games'
+                                        isMulti
+                                        name="games"
+                                        options={gameOptions}
+                                        className={s.selectorGames}
+                                        classNamePrefix="select"
+                                        defaultValue={selectedGames}
+                                        onChange={setSelectedGames}
+                                        value={selectedGames}
+                                    />
+                                </div> : <></>}
 
+                            <div className={s.btn}>
+                                {buttonActive
+                                    ?
+                                    <button type={"submit"} disabled={false} className={s.labelInputFile}>Save</button>
+                                    : <button type={"submit"} disabled={true} className={s.disabledButton}>Save</button>
+                                }
+                            </div>
                         </form>
                     </div>
                 </div>

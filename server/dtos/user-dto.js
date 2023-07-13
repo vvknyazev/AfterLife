@@ -7,6 +7,7 @@ module.exports = class UserDto{
     name;
     bio;
     role;
+    games;
     constructor(model) {
         this.email = model.email;
         this.username = model.username;
@@ -16,5 +17,6 @@ module.exports = class UserDto{
         this.name = model.name;
         this.bio = model.bio;
         this.role = model.role;
+        this.games = model.games;
     }
 }
