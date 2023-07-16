@@ -15,7 +15,6 @@ function NavItem(props) {
     const [menuHeight, setMenuHeight] = useState(null);
     const dropdownRef = useRef(null);
 
-
     // useOnClickOutside(dropdownRef, () => setOpen(false));
 
     useEffect(() => {
@@ -35,14 +34,6 @@ function NavItem(props) {
         };
     }, [dropdownRef]);
 
-    // if (isLoadingUser) {
-    //     return <div className={'loader'}>
-    //         <InfinitySpin
-    //             width='200'
-    //             color="#000"
-    //         />
-    //     </div>
-    // }
     function calcHeight(el) {
         const height = el.offsetHeight;
         setMenuHeight(height);
@@ -148,29 +139,26 @@ function NavItem(props) {
 const Nav = (props) => {
     // console.log('ISLOGGED IN IN NAV', props.isLoggedIn);
     const location = useLocation();
-    // const isHomePage = location.pathname === '/';
+    const isHomePage = location.pathname === '/';
     const isModelsPage = location.pathname === '/models';
     // const isSettingsPage = location.pathname === '/settings';
     let profileButtonStyle;
+    let nav;
     if (isModelsPage) {
         profileButtonStyle = 'profileBlack'
     } else {
         profileButtonStyle = 'profile';
     }
-    // const [isLoggedIn, setIsLoggedIn] = useState(false);
-    // const [isActivated, setIsActivated] = useState(false);
-    //
-    // useEffect(() => {
-    //     if (props.user || props.photo || props.userPicture) {
-    //         setIsLoggedIn(true);
-    //         setIsActivated(true);
-    //     }
-    // })
+    if (isHomePage){
+        nav = 'nav'
+    } else{
+        nav = 'navBlack'
+    }
 
     return (
         <div>
             {/*<Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>*/}
-            <div className={n.nav}>
+            <div className={`${nav}`}>
                 <div>
                     <ul>
                         <li><NavLink to="/models" className={isModelsPage ? `${n.navItem} ${n.active}` : n.navItem}>Выбрать
@@ -180,17 +168,11 @@ const Nav = (props) => {
                         <li><NavLink to="#" className={n.navItem}>О нас</NavLink></li>
                         <li><NavLink to="#" className={n.navItem}>FAQs</NavLink></li>
                         {props.user ? <li className={n.rightSide}>
-                            <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
-                            <div className={`${profileButtonStyle}`}>
                                 <NavItem icon={props.user.photo} isLoggedIn={true}
                                          isActivated={props.user.isActivated}></NavItem>
-                            </div>
                         </li> : props.oauthUser ? <li className={n.rightSide}>
-                            <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
-                            <div className={`${profileButtonStyle}`}>
                                 <NavItem icon={props.oauthUser.user.photo} isLoggedIn={true}
                                          isActivated={true}></NavItem>
-                            </div>
                         </li> : <li className={n.rightSide}>
                             <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
                             <div className={`${profileButtonStyle}`}>
