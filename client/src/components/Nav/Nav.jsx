@@ -1,6 +1,4 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {ReactComponent as CaretIcon} from '../../icons/profile.svg';
-import {ReactComponent as SettingsIcon} from '../../icons/settings.svg';
 import {ReactComponent as SignUpIcon} from '../../icons/signup.svg';
 import {ReactComponent as LoginIcon} from '../../icons/login.svg';
 import n from './Nav.module.css'
@@ -42,7 +40,7 @@ function NavItem(props) {
     function DropdownItem(props) {
         return (
             <NavLink to={props.auth} className="menu-item">
-                <span className="icon-button">{props.leftIcon}</span>
+                {/*<span className="icon-button">{props.leftIcon}</span>*/}
                 {props.children}
             </NavLink>
         );
@@ -51,7 +49,7 @@ function NavItem(props) {
     function toggleFirstTimeOpenVar() {
         setIsFistTimeOpen(false);
     }
-
+    console.log("props: ", props)
     return (
         <div>
             {!isFistTimeOpen &&
@@ -114,17 +112,27 @@ function NavItem(props) {
                             unmountOnExit
                             onEnter={calcHeight}>
                             <div className="menu">
+                                <p className={'menu-item__text menu-greetings'}>Здравствуйте {props.name}</p>
+                                <p className={'menu-item__text menu-balance'}>Баланс: 0 <img src="/profile/currency.svg" alt="currency" className={n.currency}/>E$</p>
                                 <DropdownItem
-                                    leftIcon={<CaretIcon/>}
-                                    auth='/profile'
+                                    auth='/chats'
                                 >
-                                    Profile
+                                    Чаты
                                 </DropdownItem>
                                 <DropdownItem
-                                    leftIcon={<SettingsIcon/>}
+                                    auth='/sessions'
+                                >
+                                    Сессии
+                                </DropdownItem>
+                                <DropdownItem
+                                    auth='/profile'
+                                >
+                                    Профиль
+                                </DropdownItem>
+                                <DropdownItem
                                     auth='/settings'
                                 >
-                                    Settings
+                                    Настройки
                                 </DropdownItem>
                             </div>
                         </CSSTransition>
@@ -137,7 +145,6 @@ function NavItem(props) {
 }
 
 const Nav = (props) => {
-    // console.log('ISLOGGED IN IN NAV', props.isLoggedIn);
     const location = useLocation();
     const isHomePage = location.pathname === '/';
     const isModelsPage = location.pathname === '/models';
@@ -169,10 +176,10 @@ const Nav = (props) => {
                         <li><NavLink to="#" className={n.navItem}>FAQs</NavLink></li>
                         {props.user ? <li className={n.rightSide}>
                                 <NavItem icon={props.user.photo} isLoggedIn={true}
-                                         isActivated={props.user.isActivated}></NavItem>
+                                         isActivated={props.user.isActivated} name={props.user?.name}></NavItem>
                         </li> : props.oauthUser ? <li className={n.rightSide}>
                                 <NavItem icon={props.oauthUser.user.photo} isLoggedIn={true}
-                                         isActivated={true}></NavItem>
+                                         isActivated={true} name={props.user?.name}></NavItem>
                         </li> : <li className={n.rightSide}>
                             <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
                             <div className={`${profileButtonStyle}`}>

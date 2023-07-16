@@ -121,7 +121,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
   --nav-size: 60px;
   --border: 1px solid #474a4d;
   --border-radius: 8px;
-  --speed: 500ms;
+  --speed: 300ms;
 }
 
 
@@ -163,12 +163,12 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 .dropdown {
   position: absolute;
-  top: 105%;
-  width: 150px;
-  right: 2%;
-  background-color: var(--bg);
-  border: var(--border);
-  border-radius: var(--border-radius);
+  top: 115%;
+  width: 300px;
+  right: 25%;
+  background-color: #141414;
+
+  border-radius: 18px;
   padding: 1rem;
   overflow: hidden;
   transition: height var(--speed) ease;
@@ -180,14 +180,32 @@ Note: Beware of modifying this element as it can break the animations - you shou
   z-index: 1000;
 }
 
-.menu-item {
-  height: 30px;
+.menu-item__text{
+  color: white;
+  font-size: 18px;
+  height: 15px;
   display: flex;
   align-items: center;
   border-radius: var(--border-radius);
   transition: background var(--speed);
   padding: 0.5rem;
-  margin-bottom: 7px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+  margin: 0 0 7px 0;
+}
+
+.menu-item {
+  color: white;
+  font-size: 18px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius);
+  transition: background var(--speed);
+  padding: 0.5rem;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+  margin: 0 0 7px 0;
 }
 
 .menu-item .icon-button {
@@ -200,7 +218,29 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 
 .menu-item:hover {
-  background-color: #525357;
+  background-color: #1f1f1f;
+}
+.menu-greetings{
+  margin-bottom: 18px;
+}
+.menu-balance{
+  margin-bottom: 25px;
+  position: relative;
+}
+.menu-balance:before {
+  content: '';
+  width: 90%;
+  margin-left: 8px;
+  height: 1px;
+
+  background: rgba(255, 255, 255, 0.1);
+
+  bottom: -11px;
+  position: absolute;
+  left: 0;
+
+  transform-origin: center;
+  border-radius: 5px;
 }
 
 .icon-right {

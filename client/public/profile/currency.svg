@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28.283" height="27.863" viewBox="0 0 28.283 27.863">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.46" y1="0.577" x2="0.992" y2="0.535" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#a8e1ff"/>
+      <stop offset="1" stop-color="#28b1f8" stop-opacity="0.22"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.009" y1="0.569" x2="0.54" y2="0.566" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ff4350" stop-opacity="0.486"/>
+      <stop offset="1" stop-color="#cc3b78"/>
+    </linearGradient>
+  </defs>
+  <g id="Сгруппировать_14" data-name="Сгруппировать 14" transform="translate(-1616.716 -182.068)">
+    <path id="Контур_32" data-name="Контур 32" d="M9.824.043c5.426.024,9.838,3.126,9.854,6.929s-4.368,6.866-9.794,6.842S.047,10.688.03,6.885,4.4.019,9.824.043Z" transform="matrix(-0.656, 0.755, -0.755, -0.656, 1645.052, 195.108)" fill="url(#linear-gradient)"/>
+    <path id="Контур_33" data-name="Контур 33" d="M9.824.043c5.426.024,9.838,3.126,9.854,6.929s-4.368,6.866-9.794,6.842S.047,10.688.03,6.885,4.4.019,9.824.043Z" transform="matrix(-0.656, 0.755, -0.755, -0.656, 1640.052, 191.108)" fill="url(#linear-gradient-2)"/>
+  </g>
+</svg>

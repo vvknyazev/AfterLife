@@ -129,5 +129,9 @@ a {
     transform-origin: center;
     border-radius: 5px;
 }
+.currency{
+    margin-left: 4px;
+    margin-right: 2px;
+}
 
 
