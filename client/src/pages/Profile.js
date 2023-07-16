@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {InfinitySpin} from "react-loader-spinner";
 import Nav from "../components/Nav/Nav";
 import s from "./Profile.module.css"
+import MiniNav from "../components/MiniNav/MiniNav";
 
 const DASH_REGEX = /^\/dash(\/)?$/
 const NOTES_REGEX = /^\/dash\/notes(\/)?$/
@@ -87,18 +88,28 @@ const Profile = () => {
 
             <section className="welcome">
                 <div className={s.header}>
+                    {/*<div className={s.layer}></div>*/}
+                    <MiniNav/>
+                    <div className={s.greetings}>
+                        <span>Welcome <br/> {user?.username || oauthUser?.user.username}</span>
+                    </div>
                     <div>
                         <img src={user?.photo || oauthUser?.user?.photo} alt="profile-photo"/>
                     </div>
-                    <div>
-                        <span>{user?.username || oauthUser?.user.username}</span>
+                    <div className={s.description}>
+                        <p className={s.name}>{user?.name || oauthUser?.user.name}</p>
+                        <p className={s.bio}>{user?.bio || oauthUser?.user.bio}</p>
+                    </div>
+                    <div className={s.edit}>
+                        <NavLink to={'/settings'} className={s.secondButton}>Редактировать</NavLink>
                     </div>
                 </div>
-                <h1>Добро пожаловать </h1>
-                <h2>Your email {user?.email || oauthUser?.user.email}</h2>
-                <h3>Name: {user?.name || oauthUser?.user?.name}</h3>
-                <h3>BIO: {user?.bio || oauthUser?.user?.bio}</h3>
-                <NavLink to="/" style={{marginTop: '15px'}}>Go to the Home page</NavLink>
+
+                {/*<h1>Добро пожаловать </h1>*/}
+                {/*<h2>Your email {user?.email || oauthUser?.user.email}</h2>*/}
+                {/*<h3>Name: {user?.name || oauthUser?.user?.name}</h3>*/}
+                {/*<h3>BIO: {user?.bio || oauthUser?.user?.bio}</h3>*/}
+                {/*<NavLink to="/" style={{marginTop: '15px'}}>Go to the Home page</NavLink>*/}
                 {logoutButton}
             </section>
         </div>

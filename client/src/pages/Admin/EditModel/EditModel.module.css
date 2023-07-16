@@ -1,0 +1,45 @@
+.container {
+    color: white;
+    text-align: center;
+}
+.formInputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    gap: 20px;
+    font-size: 20px;
+}
+
+.createInput{
+    width: 280px;
+    height: 50px;
+    background: #151517;
+    border: 1px solid #7dabc3;
+    border-radius: 12px;
+    font-size: 20px;
+    color: #fff;
+    padding-left: 15px;
+}
+.createModelButton{
+    width: 200px;
+    height: 50px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 2px 30px rgba(105, 209, 255, 0.4);
+    filter: drop-shadow(0px 2px 30px rgba(105, 209, 255, 0.4));
+    border: none;
+    cursor: pointer;
+    color: #191919;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto 0;
+    font-family: Nunito, sans-serif;
+}
+.selectorGames{
+    color: black;
+}
