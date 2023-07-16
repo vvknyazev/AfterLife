@@ -9,6 +9,7 @@ import {toast, ToastContainer} from "react-toastify";
 import {useDispatch} from "react-redux";
 import {apiSlice} from "../../app/api/apiSlice";
 import Select from "react-select";
+import MiniNav from "../../components/MiniNav/MiniNav";
 
 
 const Settings = () => {
@@ -162,6 +163,7 @@ const Settings = () => {
     return (
         <div>
             <Nav user={user} oauthUser={oauthUser}/>
+            <MiniNav/>
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -177,8 +179,8 @@ const Settings = () => {
 
             />
             <div className={s.container}>
-                <h2>Settings page</h2>
                 <div className={s.content}>
+
                     <div className={s.adjust}>
                         <h2>Avatar</h2>
                         <div className={s.photoPreview}>

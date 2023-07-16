@@ -1,7 +1,7 @@
 .layer{
     position: absolute;
     left: 50%;
-    top: 8%;
+    top: 149px;
     transform: translate(-50%, -50%);
     width: 400px;
     height: 50px;
@@ -11,6 +11,7 @@
     text-align: center;
     justify-content: center;
     align-items: center;
+    z-index: 100;
 }
 .layer div{
     width: 100px;
@@ -19,14 +20,13 @@
     font-family: "Nunito Sans", sans-serif;
     font-weight: 500;
     font-size: 14px;
-
-}
-.active{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100px;
     height: 50px;
+}
+.active{
     border-radius: 18px;
     background: #1f1f1f;
 }

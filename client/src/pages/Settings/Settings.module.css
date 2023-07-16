@@ -1,6 +1,7 @@
 .container {
+    position: relative;
     background: #0f0f0f;
-    margin-top: 30px;
+    padding-top: 25px;
     min-height: 140vh;
     color: white;
     font-family: Nunito, sans-serif;

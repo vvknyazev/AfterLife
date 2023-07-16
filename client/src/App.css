@@ -349,6 +349,7 @@ body {
   height: 24px;
 }
 .welcome{
+  position: relative;
   background-color: #0f0f0f;
   color: white;
   display: flex;

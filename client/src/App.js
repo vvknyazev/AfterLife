@@ -16,6 +16,8 @@ import Settings from "./pages/Settings/Settings";
 import Admin from "./pages/Admin/Admin";
 import EditModel from "./pages/Admin/EditModel/EditModel";
 import RequireAdminRole from "./features/auth/RequireAdminRole";
+import Chats from "./pages/Chats/Chats";
+import Sessions from "./pages/Sessions/Sessions";
 
 // import Login from "./features/auth/Login";
 
@@ -48,6 +50,8 @@ function App() {
                             </Route>
                             <Route path="profile" element={<Profile/>}/>
                             <Route path="settings" element={<Settings/>}/>
+                            <Route path="sessions" element={<Sessions/>}/>
+                            <Route path="chats" element={<Chats/>}/>
                         </Route>
 
                     </Route>

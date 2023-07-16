@@ -85,11 +85,12 @@ const Profile = () => {
     return (
         <div>
             <Nav user={user} oauthUser={oauthUser}/>
-
+            <MiniNav/>
             <section className="welcome">
+
                 <div className={s.header}>
+
                     {/*<div className={s.layer}></div>*/}
-                    <MiniNav/>
                     <div className={s.greetings}>
                         <span>Welcome <br/> {user?.username || oauthUser?.user.username}</span>
                     </div>
