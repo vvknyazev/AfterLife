@@ -5,5 +5,6 @@ const router = new Router()
 
 router.get('/getFullModels', adminController.getFullAll)
 router.get('/getFullOne/:id', adminController.getFullOne)
+router.put('/changeModel/:id', adminController.changeModel)
 
 module.exports = router

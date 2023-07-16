@@ -35,7 +35,14 @@ const commonApiSlice = createApi({
         }),
         getFullOne: builder.query({
             query: (id) => '/api/admin/getFullOne/' + id
-        })
+        }),
+        changeModel: builder.mutation({
+            query: (data) => ({
+                url: '/api/admin/changeModel/' + data.id,
+                method: 'PUT',
+                body: data,
+            })
+        }),
     }),
 });
 
@@ -46,6 +53,7 @@ export const {
     useGetModelsQuery,
     useGetFullModelsQuery,
     useGetFullOneQuery,
+    useChangeModelMutation,
 } = commonApiSlice;
 
 export default commonApiSlice;

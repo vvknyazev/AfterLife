@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
-import {useGetFullOneQuery} from "../../../features/commonApiSlice";
+import {useChangeModelMutation, useGetFullOneQuery} from "../../../features/commonApiSlice";
 import {InfinitySpin} from "react-loader-spinner";
 import s from './EditModel.module.css'
 import Select from "react-select";
@@ -9,6 +9,7 @@ const EditModel = () => {
     const {modelId} = useParams();
 
     const {data: model, isLoading} = useGetFullOneQuery(modelId);
+    const [changeModel, {isLoading: isChangeModelLoading}] = useChangeModelMutation();
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -37,7 +38,14 @@ const EditModel = () => {
             setPhotoURL(model.photo);
             setName(model.name);
             setBio(model.bio);
-            setSelectedGames(model.games);
+
+            const transformedGames = model?.games.map(game => {
+                return {
+                    value: game,
+                    label: game
+                };
+            });
+            setSelectedGames(transformedGames);
         }
     }, [model]);
 
@@ -51,7 +59,7 @@ const EditModel = () => {
         setSelectedImage(e.target.files[0]);
     }
 
-    if (isLoading) {
+    if (isLoading || isChangeModelLoading) {
         return <div className={'loader'}>
             <InfinitySpin
                 width='200'
@@ -60,11 +68,19 @@ const EditModel = () => {
         </div>;
     }
 
+    async function handleModelChange(e) {
+        e.preventDefault();
+        let games = [];
+        for (let i in selectedGames) {
+            games.push(selectedGames[i].value);
+        }
+        await changeModel({id: modelId, username, email, name, bio, photoURL, games});
+    }
 
     return (
         <div className={s.container}>
             <h2>Change Model</h2>
-            <form>
+            <form onSubmit={handleModelChange}>
                 <div className={s.formInputs}>
                     <div className={s.fields}>
                         <label> Username <br/>
@@ -122,10 +138,10 @@ const EditModel = () => {
                             />
                         </label>
                     </div>
-                    <label> Фото Профиля </label>
-                    <input onChange={handleFileChange} type="file" id="pic" name="pic"
-                           accept=".png, .jpg, .jpeg"
-                           className={s.inputFile}/>
+                    {/*<label> Фото Профиля </label>*/}
+                    {/*<input onChange={handleFileChange} type="file" id="pic" name="pic"*/}
+                    {/*       accept=".png, .jpg, .jpeg"*/}
+                    {/*       className={s.inputFile}/>*/}
                     <img src={photoURL} alt="modelPhoto" className={s.photoView}/>
 
                     <label>Games:</label>
@@ -136,6 +152,7 @@ const EditModel = () => {
                         className={s.selectorGames}
                         classNamePrefix="select"
                         defaultValue={selectedGames}
+                        value={selectedGames}
                         onChange={setSelectedGames}
                     />
                     <button className={s.createModelButton}>Change</button>

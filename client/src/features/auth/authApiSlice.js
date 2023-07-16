@@ -71,6 +71,13 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 body: data,
             })
         }),
+        changeModel: builder.mutation({
+            query: (data) => ({
+                url: '/api/admin/changeModel' + data.id,
+                method: 'PUT',
+                body: data,
+            })
+        }),
     })
 })
 

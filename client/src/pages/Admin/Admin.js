@@ -45,7 +45,7 @@ const Admin = () => {
             />
         </div>
     }
-
+console.log("fullmodels: ", fullModels);
     if (isSuccessFullModels) {
         console.log("full: ", fullModels);
     }

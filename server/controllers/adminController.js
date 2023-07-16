@@ -20,6 +20,20 @@ class AdminController {
         res.json(model);
         console.log(model);
     }
+
+    async changeModel(req, res) {
+        const {id, username, email, name, bio, photoURL, games} = req.body;
+        console.log("req body: ", req.body);
+        const model = await User.findOne({_id: id});
+        model.username = username;
+        model.email = email;
+        model.name = name;
+        model.bio = bio;
+        model.photo = photoURL;
+        model.games = games;
+        await model.save();
+        return res.sendStatus(204);
+    }
 }
 
 module.exports = new AdminController()
