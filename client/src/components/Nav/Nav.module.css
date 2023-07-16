@@ -34,11 +34,11 @@ ul li {
 
 a {
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 18px;
     text-align: left;
     color: #fff;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
 }
 
 .rightSide {

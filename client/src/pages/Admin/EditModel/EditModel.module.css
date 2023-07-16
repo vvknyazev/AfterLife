@@ -12,6 +12,9 @@
     gap: 20px;
     font-size: 20px;
 }
+.formInputs label{
+    width: 350px;
+}
 
 .createInput{
     width: 280px;
@@ -42,4 +45,13 @@
 }
 .selectorGames{
     color: black;
+}
+.photoView{
+    position: absolute;
+    right: 5%;
+    top: 30%;
+}
+.fields{
+    display: flex;
+    flex-wrap: wrap;
 }

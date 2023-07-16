@@ -219,7 +219,7 @@ const Settings = () => {
                             <div className={s.profileInfo}>
                                 <div className={s.name}>
                                     <label htmlFor="name">Name</label>
-                                    <input type="text" id='name' className={s.inputField} maxLength={20}
+                                    <input type="text" id='name' className={s.inputField} maxLength={12}
                                            onChange={handleNameChange}
                                            value={name}
                                            autoComplete="off"
@@ -227,7 +227,7 @@ const Settings = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="bio">Bio</label>
-                                    <textarea id='bio' className={s.textField} maxLength={200}
+                                    <textarea id='bio' className={s.textField} maxLength={100}
                                               onChange={handleBioChange}
                                               value={bio}
                                               autoComplete="off"/>

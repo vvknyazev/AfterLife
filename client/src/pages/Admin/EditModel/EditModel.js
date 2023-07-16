@@ -66,65 +66,67 @@ const EditModel = () => {
             <h2>Change Model</h2>
             <form>
                 <div className={s.formInputs}>
-                    <label> Username <br/>
-                        <input
-                            id="first_name"
-                            placeholder='Username'
-                            type='text'
-                            value={username}
-                            onChange={handleUserInput}
-                            autoComplete="off"
-                            required
-                            className={s.createInput}
-                        />
-                    </label>
-                    <label> Email <br/>
-                        <input
-                            id="email"
-                            placeholder='Email'
-                            autoFocus={false}
-                            type='email'
-                            value={email}
-                            onChange={handleEmailInput}
-                            autoComplete="off"
-                            required
-                            aria-describedby="uidnote"
-                            className={s.createInput}
-                        />
-                    </label>
-                    <label> Name <br/>
-                        <input
-                            id="name"
-                            placeholder='Name'
-                            autoFocus={false}
-                            type='text'
-                            value={name}
-                            onChange={handleNameInput}
-                            autoComplete="off"
-                            required
-                            aria-describedby="uidnote"
-                            className={s.createInput}
-                        />
-                    </label>
-                    <label> Bio <br/>
-                        <input
-                            id="bio"
-                            placeholder='Bio'
-                            autoFocus={false}
-                            type='text'
-                            value={bio}
-                            onChange={handleBioInput}
-                            autoComplete="off"
-                            required
-                            aria-describedby="uidnote"
-                            className={s.createInput}
-                        />
-                    </label>
+                    <div className={s.fields}>
+                        <label> Username <br/>
+                            <input
+                                id="first_name"
+                                placeholder='Username'
+                                type='text'
+                                value={username}
+                                onChange={handleUserInput}
+                                autoComplete="off"
+                                required
+                                className={s.createInput}
+                            />
+                        </label>
+                        <label> Email <br/>
+                            <input
+                                id="email"
+                                placeholder='Email'
+                                autoFocus={false}
+                                type='email'
+                                value={email}
+                                onChange={handleEmailInput}
+                                autoComplete="off"
+                                required
+                                aria-describedby="uidnote"
+                                className={s.createInput}
+                            />
+                        </label>
+                        <label> Name <br/>
+                            <input
+                                id="name"
+                                placeholder='Name'
+                                autoFocus={false}
+                                type='text'
+                                value={name}
+                                onChange={handleNameInput}
+                                autoComplete="off"
+                                required
+                                aria-describedby="uidnote"
+                                className={s.createInput}
+                            />
+                        </label>
+                        <label> Bio <br/>
+                            <input
+                                id="bio"
+                                placeholder='Bio'
+                                autoFocus={false}
+                                type='text'
+                                value={bio}
+                                onChange={handleBioInput}
+                                autoComplete="off"
+                                required
+                                aria-describedby="uidnote"
+                                className={s.createInput}
+                            />
+                        </label>
+                    </div>
                     <label> Фото Профиля </label>
                     <input onChange={handleFileChange} type="file" id="pic" name="pic"
                            accept=".png, .jpg, .jpeg"
                            className={s.inputFile}/>
-                    <img src={photoURL} alt="modelPhoto"/>
+                    <img src={photoURL} alt="modelPhoto" className={s.photoView}/>
 
                     <label>Games:</label>
                     <Select
