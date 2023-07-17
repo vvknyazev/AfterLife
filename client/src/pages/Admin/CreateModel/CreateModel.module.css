@@ -2,7 +2,6 @@
     color: white;
     text-align: center;
 }
-
 .formInputs {
     width: 100%;
     display: flex;
@@ -12,6 +11,9 @@
     margin-top: 30px;
     gap: 20px;
     font-size: 20px;
+}
+.formInputs label{
+    width: 350px;
 }
 
 .createInput{
@@ -44,29 +46,12 @@
 .selectorGames{
     color: black;
 }
-.modelsTable{
-    margin: 0 auto;
-    background: #414150;
-    text-align: center;
-    padding: 15px 50px 15px 50px;
-    border-radius: 5px;
-}
-.modelsTable tr{
-    border: black 2px solid;
-}
-.modelsTable td{
-    border: black 2px solid;
-
-}
-.modelsTable img{
-    width: 40%;
-}
-.modelsTable button{
-    cursor: pointer;
-    margin: 0 10px 0 10px;
-}
-.topRight{
+.photoView{
     position: absolute;
-    top: 1%;
-    right: 3%;
+    right: 5%;
+    top: 30%;
+}
+.fields{
+    display: flex;
+    flex-wrap: wrap;
 }

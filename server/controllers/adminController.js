@@ -1,7 +1,17 @@
 const User = require("../models/user");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
-
+const generateRefreshJwt = (id, username, email, role, isActivated) => {
+    return jwt.sign(
+        {id, username, email, role, isActivated},
+        process.env.REFRESH_SECRET_KEY,
+        {expiresIn: '30d'}
+    )
+}
 class AdminController {
+
     async getFullAll(req, res) {
         try {
             const models = await User.find({role: 'MODEL'});
@@ -23,7 +33,7 @@ class AdminController {
 
     async changeModel(req, res) {
         const {id, username, email, name, bio, photoURL, games} = req.body;
-        console.log("req body: ", req.body);
+        // console.log("req body: ", req.body);
         const model = await User.findOne({_id: id});
         model.username = username;
         model.email = email;
@@ -32,6 +42,52 @@ class AdminController {
         model.photo = photoURL;
         model.games = games;
         await model.save();
+        return res.sendStatus(204);
+    }
+
+    async createModel(req, res) {
+        const {username, email, password, name, bio, games} = req.body;
+        // console.log("username: ", username)
+        // console.log("email: ", email)
+        // console.log("req.file: ", req.file);
+
+        if (req.file) {
+            fs.rename(req.file.path, 'uploads/' + req.file.originalname, function (err) {
+                if (err) throw err;
+            });
+        }
+
+        if (!username || !email || !password) {
+            return res.status(400).json({'message': 'Username and password are required.'});
+        }
+        const candidateEmail = await User.findOne({email});
+        const candidateUsername = await User.findOne({username});
+        if (candidateEmail || candidateUsername) {
+            return res.sendStatus(409);
+        }
+        const hashPassword = await bcrypt.hash(password, 5);
+
+        let parsedGames;
+
+        if (games){
+            parsedGames = JSON.parse(games);
+        }
+
+        const user = await User.create({
+            username,
+            email,
+            role: "MODEL",
+            password: hashPassword,
+            isActivated: true,
+            name,
+            bio,
+            photo: req.file ? `${process.env.API_URL}/${req.file.originalname}` : '/nav/user-photo.jpeg',
+            games: parsedGames,
+        });
+
+        user.refreshToken = generateRefreshJwt(user.id, user.username, user.email, user.role, user.isActivated);
+
+        await user.save();
         return res.sendStatus(204);
     }
 }

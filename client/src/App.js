@@ -18,6 +18,7 @@ import EditModel from "./pages/Admin/EditModel/EditModel";
 import RequireAdminRole from "./features/auth/RequireAdminRole";
 import Chats from "./pages/Chats/Chats";
 import Sessions from "./pages/Sessions/Sessions";
+import CreateModel from "./pages/Admin/CreateModel/CreateModel";
 
 // import Login from "./features/auth/Login";
 
@@ -46,6 +47,7 @@ function App() {
                         <Route element={<RequireActivatedAuth/>}>
                             <Route element={<RequireAdminRole/>}>
                                 <Route path="admin" element={<Admin/>}/>
+                                <Route path="admin/model/create" element={<CreateModel/>}/>
                                 <Route path="admin/model/:modelId" element={<EditModel/>}/>
                             </Route>
                             <Route path="profile" element={<Profile/>}/>

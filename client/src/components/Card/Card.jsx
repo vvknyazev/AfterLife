@@ -36,7 +36,7 @@ const Card = (props) => {
                 break;
         }
     }
-
+    console.log(props.games);
     return (
         <div className={s.card}>
             <div>

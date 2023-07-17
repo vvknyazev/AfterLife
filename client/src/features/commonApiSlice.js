@@ -43,6 +43,13 @@ const commonApiSlice = createApi({
                 body: data,
             })
         }),
+        createModel: builder.mutation({
+            query: (data) => ({
+                url: '/api/admin/createModel/',
+                method: 'POST',
+                body: data,
+            })
+        }),
     }),
 });
 
@@ -54,6 +61,7 @@ export const {
     useGetFullModelsQuery,
     useGetFullOneQuery,
     useChangeModelMutation,
+    useCreateModelMutation,
 } = commonApiSlice;
 
 export default commonApiSlice;
