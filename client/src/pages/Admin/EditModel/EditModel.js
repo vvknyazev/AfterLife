@@ -122,7 +122,21 @@ const EditModel = () => {
         for (let i in selectedGames) {
             games.push(selectedGames[i].value);
         }
-        await changeModel({id: modelId, username, email, name, bio, photoURL, games});
+
+        const myFile = new File([selectedImage], fileName, {
+            type: selectedImage?.type,
+        });
+
+        const formData = new FormData();
+        formData.append('pic', myFile);
+        formData.append('username', username);
+        formData.append('id', modelId);
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('name', name);
+        formData.append('bio', bio);
+        formData.append('games', JSON.stringify(games));
+        await changeModel(formData);
 
         dispatch(commonApiSlice.util.resetApiState())
         dispatch(apiSlice.util.resetApiState())
