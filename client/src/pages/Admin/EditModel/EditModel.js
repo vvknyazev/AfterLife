@@ -6,6 +6,8 @@ import s from './EditModel.module.css'
 import Select from "react-select";
 import {apiSlice} from "../../../app/api/apiSlice";
 import {useDispatch} from "react-redux";
+import CropAdmin from "../../../components/crop/CropAdmin";
+import {toast, ToastContainer} from "react-toastify";
 
 const EditModel = () => {
     const {modelId} = useParams();
@@ -21,6 +23,8 @@ const EditModel = () => {
     const [selectedImage, setSelectedImage] = useState();
     const [selectedGames, setSelectedGames] = useState([]);
     const [photoURL, setPhotoURL] = useState(null);
+    const [openCrop, setOpenCrop] = useState(false);
+    const [fileName, setFileName] = useState('');
 
     const dispatch = useDispatch();
 
@@ -61,6 +65,46 @@ const EditModel = () => {
 
     function handleFileChange(e) {
         setSelectedImage(e.target.files[0]);
+        setFileName(e.target.files[0]?.name);
+
+
+        if (checkFileSize(e) && isValidFileType(e.target.files[0])) {
+            console.log('file checked... everything is alright');
+            setOpenCrop(true);
+            setPhotoURL(URL.createObjectURL(e.target.files[0]));
+        } else {
+            toast.error('image too large or file type is incorrect', {
+                toastId: 'fileSize',
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
+    }
+    const isValidFileType = (file) => {
+        const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+        return allowedTypes.includes(file?.type);
+    };
+    const checkFileSize = (e) => {
+        let file = e.target.files[0];
+        let size = 5000000;
+        let err = "";
+        if (file?.size > size) {
+            err += file?.type + 'is too large, please pick a smaller file\n';
+            console.log('file.size: ', file.size)
+            console.log(size);
+        }
+        if (err !== "") {
+            console.log(err)
+            return false
+        }
+
+        return true;
     }
 
     if (isLoading || isChangeModelLoading) {
@@ -85,87 +129,108 @@ const EditModel = () => {
     }
 
     return (
-        <div className={s.container}>
-            <h2>Change Model</h2>
-            <form onSubmit={handleModelChange}>
-                <div className={s.formInputs}>
-                    <div className={s.fields}>
-                        <label> Username <br/>
-                            <input
-                                id="first_name"
-                                placeholder='Username'
-                                type='text'
-                                value={username}
-                                onChange={handleUserInput}
-                                autoComplete="off"
-                                required
-                                className={s.createInput}
-                            />
-                        </label>
-                        <label> Email <br/>
-                            <input
-                                id="email"
-                                placeholder='Email'
-                                autoFocus={false}
-                                type='email'
-                                value={email}
-                                onChange={handleEmailInput}
-                                autoComplete="off"
-                                required
-                                aria-describedby="uidnote"
-                                className={s.createInput}
-                            />
-                        </label>
-                        <label> Name <br/>
-                            <input
-                                id="name"
-                                placeholder='Name'
-                                autoFocus={false}
-                                type='text'
-                                value={name}
-                                onChange={handleNameInput}
-                                autoComplete="off"
-                                required
-                                aria-describedby="uidnote"
-                                className={s.createInput}
-                            />
-                        </label>
-                        <label> Bio <br/>
-                            <input
-                                id="bio"
-                                placeholder='Bio'
-                                autoFocus={false}
-                                type='text'
-                                value={bio}
-                                onChange={handleBioInput}
-                                autoComplete="off"
-                                required
-                                aria-describedby="uidnote"
-                                className={s.createInput}
-                            />
-                        </label>
-                    </div>
-                    {/*<label> Фото Профиля </label>*/}
-                    {/*<input onChange={handleFileChange} type="file" id="pic" name="pic"*/}
-                    {/*       accept=".png, .jpg, .jpeg"*/}
-                    {/*       className={s.inputFile}/>*/}
-                    <img src={photoURL} alt="modelPhoto" className={s.photoView}/>
+        !openCrop ?
+            <div className={s.container}>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    limit={1}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                />
+                <h2>Change Model</h2>
+                <form onSubmit={handleModelChange}>
+                    <div className={s.formInputs}>
+                        <div className={s.fields}>
+                            <label> Username <br/>
+                                <input
+                                    id="first_name"
+                                    placeholder='Username'
+                                    type='text'
+                                    value={username}
+                                    onChange={handleUserInput}
+                                    autoComplete="off"
+                                    required
+                                    className={s.createInput}
+                                />
+                            </label>
+                            <label> Email <br/>
+                                <input
+                                    id="email"
+                                    placeholder='Email'
+                                    autoFocus={false}
+                                    type='email'
+                                    value={email}
+                                    onChange={handleEmailInput}
+                                    autoComplete="off"
+                                    required
+                                    aria-describedby="uidnote"
+                                    className={s.createInput}
+                                />
+                            </label>
+                            <label> Name <br/>
+                                <input
+                                    id="name"
+                                    placeholder='Name'
+                                    autoFocus={false}
+                                    type='text'
+                                    value={name}
+                                    onChange={handleNameInput}
+                                    autoComplete="off"
+                                    required
+                                    aria-describedby="uidnote"
+                                    className={s.createInput}
+                                />
+                            </label>
+                            <label> Bio <br/>
+                                <input
+                                    id="bio"
+                                    placeholder='Bio'
+                                    autoFocus={false}
+                                    type='text'
+                                    value={bio}
+                                    onChange={handleBioInput}
+                                    autoComplete="off"
+                                    required
+                                    aria-describedby="uidnote"
+                                    className={s.createInput}
+                                />
+                            </label>
+                        </div>
+                        <label> Фото Профиля </label>
+                        <input onChange={handleFileChange} type="file" id="pic" name="pic"
+                               accept=".png, .jpg, .jpeg"
+                               className={s.inputFile}/>
+                        <img src={photoURL} alt="modelPhoto" className={s.photoView}/>
 
-                    <label>Games:</label>
-                    <Select
-                        isMulti
-                        name="games"
-                        options={gameOptions}
-                        className={s.selectorGames}
-                        classNamePrefix="select"
-                        defaultValue={selectedGames}
-                        value={selectedGames}
-                        onChange={setSelectedGames}
-                    />
-                    <button className={s.createModelButton}>Change</button>
-                </div>
-            </form>
-        </div>
+                        <label>Games:</label>
+                        <Select
+                            isMulti
+                            name="games"
+                            options={gameOptions}
+                            className={s.selectorGames}
+                            classNamePrefix="select"
+                            defaultValue={selectedGames}
+                            value={selectedGames}
+                            onChange={setSelectedGames}
+                        />
+                        <button className={s.createModelButton}>Change</button>
+                    </div>
+                </form>
+            </div> :
+            <CropAdmin {...{
+                photoURL,
+                setOpenCrop,
+                setPhotoURL,
+                setSelectedImage,
+                fileName
+            }}/>
     );
 };
 
