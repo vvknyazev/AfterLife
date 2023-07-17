@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
-import {useChangeModelMutation, useGetFullOneQuery} from "../../../features/commonApiSlice";
+import commonApiSlice, {useChangeModelMutation, useGetFullOneQuery} from "../../../features/commonApiSlice";
 import {InfinitySpin} from "react-loader-spinner";
 import s from './EditModel.module.css'
 import Select from "react-select";
+import {apiSlice} from "../../../app/api/apiSlice";
+import {useDispatch} from "react-redux";
 
 const EditModel = () => {
     const {modelId} = useParams();
@@ -19,6 +21,8 @@ const EditModel = () => {
     const [selectedImage, setSelectedImage] = useState();
     const [selectedGames, setSelectedGames] = useState([]);
     const [photoURL, setPhotoURL] = useState(null);
+
+    const dispatch = useDispatch();
 
     const gameOptions = [
         {value: 'Dota 2', label: 'Dota 2'},
@@ -75,6 +79,9 @@ const EditModel = () => {
             games.push(selectedGames[i].value);
         }
         await changeModel({id: modelId, username, email, name, bio, photoURL, games});
+
+        dispatch(commonApiSlice.util.resetApiState())
+        dispatch(apiSlice.util.resetApiState())
     }
 
     return (

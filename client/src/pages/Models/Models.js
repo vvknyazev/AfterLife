@@ -38,7 +38,6 @@ const Models = () => {
             />
         </div>
     }
-
     return (
         <div style={{background: "#000"}}>
             <Nav user={user} oauthUser={oauthUser}/>
