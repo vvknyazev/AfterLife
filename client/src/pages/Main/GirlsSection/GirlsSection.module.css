@@ -1,9 +1,36 @@
 .container{
-
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.filters{
+    flex: 1;
+    margin: 50px 0 0 50px;
+}
+.girlsPosition{
+    flex: 2;
+}
+.girls{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    margin: 0 auto 50px;
-
+    width: 1200px;
+}
+.filters select{
+    font-family: Nunito, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: left;
+    color: #fff;
+    width: 300px;
+    height: 50px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 5px;
+    margin-bottom: 30px;
+}
+.filters option{
+    background: rgba(255, 255, 255, 0.08);
+    color: black;
 }

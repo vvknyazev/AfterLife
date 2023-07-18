@@ -1,27 +1,43 @@
 import React from 'react';
 import s from './GirlsSection.module.css'
 
-import {useSelector} from "react-redux";
 import Card from "../../../components/Card/Card";
 
 const GirlsSection = (props) => {
-    const girls = useSelector((state) => state.girls);
+    // const girls = useSelector((state) => state.girls);
 
-    console.log("props.models: ", props.models)
+    console.log("girlsCategory:: ", props.girlsCategory)
     let cardGirls
-    // if (props.girlsCategory !== [] && props.girlsCategory !== undefined) {
-    //     console.log('props detected ', props.girls1)
-    //     cardGirls = props.girlsCategory.map(el => <Card img={el.img} name={el.name} desc={el.desc} g1={el.g1} g2={el.g2}
-    //                                       g3={el.g3} g4={el.g4} key={el.id}/>);
-    // } else {
-    //     cardGirls = girls.map(el => <Card img={el.img} name={el.name} desc={el.desc} g1={el.g1} g2={el.g2}
-    //                                       g3={el.g3} g4={el.g4} key={el.id}/>);
-    // }
-    cardGirls = props.models.map(el => <Card img={el.photo} name={el.name} desc={el.bio} games={el.games} key={el._id}/>)
+    if (props.girlsCategory !== [] && props.girlsCategory !== undefined && props.girlsCategory.length !== 0) {
+        console.log("")
+        cardGirls = props.girlsCategory.map(el => <Card img={el.photo} name={el.name} desc={el.bio} games={el.games}
+                                                        key={el._id}/>);
+    } else {
+        cardGirls = props.models.map(el => <Card img={el.photo} name={el.name} desc={el.bio} games={el.games}
+                                                 key={el._id}/>)
+    }
+
     return (
         <div className={s.container}>
-            {cardGirls}
-
+            <div className={s.filters}>
+                <select>
+                    <option disabled selected hidden>Выберите язык</option>
+                    <option value="someOption">Українська, москалику</option>
+                    <option value="someOption">Українська, москалику</option>
+                    <option value="someOption">Українська, москалику</option>
+                </select>
+                <select>
+                    <option disabled selected hidden>Выберите сервис</option>
+                    <option value="someOption">Сервис 1</option>
+                    <option value="someOption">Сервис 2</option>
+                    <option value="someOption">Сервис 3</option>
+                </select>
+            </div>
+            <div className={s.girlsPosition}>
+                <div className={s.girls}>
+                    {cardGirls}
+                </div>
+            </div>
         </div>
     );
 };
