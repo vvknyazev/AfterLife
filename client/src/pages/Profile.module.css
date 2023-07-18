@@ -19,11 +19,13 @@
 }
 .header img{
     width: 100px;
+    height: 100px;
     border-radius: 100px;
     margin-left: 55px;
     border: 1px solid rgba(170, 120, 186, 0.2);
     filter: drop-shadow(0px 2px 8px #a574b4);
     margin-bottom: 5px;
+    object-fit: cover;
 }
 .description{
     margin-left: 15px;
