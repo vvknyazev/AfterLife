@@ -3,7 +3,6 @@ import Nav from "../../components/Nav/Nav";
 import {useLocation, useNavigate, useOutletContext} from "react-router-dom";
 import s from "./Models.module.css";
 import Categories from "../../components/Categories/Categories";
-import {useSelector} from "react-redux";
 import GirlsSection from "../Main/GirlsSection/GirlsSection";
 import {useGetModelsQuery} from "../../features/commonApiSlice";
 import {InfinitySpin} from "react-loader-spinner";
@@ -14,7 +13,7 @@ const Models = () => {
     const [currentItems, setCurrentItems] = useState([]);
 
     // const myGames = useSelector((state) => state.games);
-    const girls = useSelector((state) => state.girls);
+    // const girls = useSelector((state) => state.girls);
 
     const { data: models, isLoading: isLoadingModels } = useGetModelsQuery();
 
@@ -23,7 +22,7 @@ const Models = () => {
     const navigate = useNavigate();
     const isHomePage = location.pathname === '/';
     function chooseCategory(category){
-        setCurrentItems(girls.filter(el => el.games.includes(category)))
+        setCurrentItems(models.filter(el => el.games.includes(category)))
         setSelectedCategory(category);
         if (isHomePage){
             navigate('/models')
@@ -38,11 +37,14 @@ const Models = () => {
             />
         </div>
     }
+
+
     return (
         <div style={{background: "#000"}}>
             <Nav user={user} oauthUser={oauthUser}/>
             <section className={s.models}>
-                {/*<Categories chooseCategory={chooseCategory} selectedCategory={selectedCategory}/>*/}
+                <Categories chooseCategory={chooseCategory} selectedCategory={selectedCategory}/>
+                {/*<Categories/>*/}
                 <GirlsSection girlsCategory={currentItems} models={models}/>
             </section>
         </div>

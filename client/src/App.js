@@ -13,6 +13,7 @@ import PrivateActivateRoute from "./features/auth/PrivateActivateRoute";
 import RequireActivatedAuth from "./features/auth/RequireActivatedAuth";
 import Models from "./pages/Models/Models";
 import Settings from "./pages/Settings/Settings";
+import ModelProfile from "./pages/ModelProfile/ModelProfile";
 import Admin from "./pages/Admin/Admin";
 import EditModel from "./pages/Admin/EditModel/EditModel";
 import RequireAdminRole from "./features/auth/RequireAdminRole";
@@ -51,6 +52,7 @@ function App() {
                                 <Route path="admin/model/:modelId" element={<EditModel/>}/>
                             </Route>
                             <Route path="profile" element={<Profile/>}/>
+                            <Route path="/:modelId" element={<ModelProfile/>}/>
                             <Route path="settings" element={<Settings/>}/>
                             <Route path="sessions" element={<Sessions/>}/>
                             <Route path="chats" element={<Chats/>}/>

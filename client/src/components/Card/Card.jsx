@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './Card.module.css'
+import {useNavigate} from "react-router-dom";
 
 const Card = (props) => {
     const dota = "/gameIcons/dota2-icon.svg";
@@ -36,8 +37,14 @@ const Card = (props) => {
                 break;
         }
     }
+
+    const navigate = useNavigate();
+    function handleModelProfile(id){
+        navigate('/' + id);
+    }
+    console.log('props id:', props.id);
     return (
-        <div className={s.card}>
+        <div className={s.card} onClick={() => handleModelProfile(props.id)}>
             <div>
                 <img src={props.img} alt="girl" className={s.cardImg}/>
                 <div className={s.section}>

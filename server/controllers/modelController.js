@@ -11,7 +11,12 @@ class ModelController {
         }
     }
     async getOne(req, res){
-        
+        const {id} = req.params; //id from route /:id
+
+        const model = await User.findOne({_id: id}, {password: 0, refreshToken: 0, email: 0, activationLink: 0, isActivated: 0});
+
+        res.json(model);
+        console.log(model);
     }
 }
 module.exports = new ModelController()

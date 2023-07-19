@@ -30,6 +30,9 @@ const commonApiSlice = createApi({
         getModels: builder.query({
             query: () => '/api/model/all',
         }),
+        getOneModel: builder.query({
+            query: (id) => '/api/model/getOne/' + id
+        }),
         getFullModels: builder.query({
             query: () => '/api/admin/getFullModels'
         }),
@@ -58,6 +61,7 @@ export const {
     useUploadPhotoMutation,
     useSaveInfoMutation,
     useGetModelsQuery,
+    useGetOneModelQuery,
     useGetFullModelsQuery,
     useGetFullOneQuery,
     useChangeModelMutation,
