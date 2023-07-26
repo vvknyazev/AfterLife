@@ -1,0 +1,25 @@
+.chats{
+    display: flex;
+    margin-top: 100px;
+    color: white;
+    min-height: 80vh;
+}
+.users{
+    display: flex;
+    gap: 10px;
+    flex: 1;
+    font-size: 30px;
+    background-color: #404044;
+    padding: 30px;
+}
+.users img{
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+
+}
+.dialog{
+    flex: 6;
+    background-color: #252528;
+}

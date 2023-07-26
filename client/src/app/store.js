@@ -12,7 +12,6 @@ export const store = configureStore({
         auth: authReducer,
         games: gamesReducer,
         girls: girlsReducer,
-
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware().concat(apiSlice.middleware,commonApiSlice.middleware),

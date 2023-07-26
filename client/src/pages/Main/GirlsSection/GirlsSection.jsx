@@ -13,7 +13,7 @@ const GirlsSection = (props) => {
         cardGirls = props.girlsCategory.map(el => <Card img={el.photo} name={el.name} desc={el.bio} games={el.games}
                                                         key={el._id} id={el._id}/>);
     } else {
-        console.log("asd", props.models);
+        console.log("models:", props.models);
         cardGirls = props.models.map(el => <Card img={el.photo} name={el.name} desc={el.bio} games={el.games}
                                                  key={el._id} id={el._id}/>)
     }

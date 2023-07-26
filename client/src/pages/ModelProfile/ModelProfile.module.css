@@ -89,3 +89,26 @@
     border-radius: 24px;
     background: #141414;
 }
+.edit{
+    position: absolute;
+    right: 58px;
+    bottom: 36px;
+
+}
+.secondButton {
+    width: 130px;
+    height: 50px;
+    border-radius: 25px;
+    background: #151517;
+    border: 1px solid #7dabc3;
+    cursor: pointer;
+    color: white;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto 0;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 500;
+
+}

@@ -1,14 +1,19 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Nav from "../../components/Nav/Nav";
 import s from "./ModelProfile.module.css";
-import {useOutletContext, useParams} from "react-router-dom";
+import {NavLink, useLocation, useNavigate, useOutletContext, useParams} from "react-router-dom";
 import {useGetOneModelQuery} from "../../features/commonApiSlice";
 import {InfinitySpin} from "react-loader-spinner";
+import io from 'socket.io-client';
+import {useDispatch} from "react-redux";
 
 const ModelProfile = () => {
 
     const [user, oauthUser] = useOutletContext();
     const {modelId} = useParams();
+    const navigate = useNavigate();
+    const location = useLocation();
+
 
     const {data: model, isLoading} = useGetOneModelQuery(modelId);
 
@@ -20,6 +25,18 @@ const ModelProfile = () => {
             />
         </div>;
     }
+
+    const addUser = () => {
+        if (user || oauthUser) {
+            navigate('/chats', {
+                state: {
+                    from: location
+                }
+            });
+        } else{
+            navigate('/login');
+        }
+    };
 
     return (
         <div>
@@ -39,6 +56,9 @@ const ModelProfile = () => {
                                     <p className={s.lang}>Ukrainian &nbsp; · &nbsp; English &nbsp; ·
                                         Russian &nbsp; ·  &nbsp; <span>HQ</span></p>
                                 </div>
+                            </div>
+                            <div className={s.edit}>
+                                <button onClick={addUser} className={s.secondButton}>Написать</button>
                             </div>
                         </div>
                     </div>
