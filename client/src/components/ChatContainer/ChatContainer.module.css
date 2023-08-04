@@ -1,0 +1,11 @@
+
+.dialog{
+    position: relative;
+    flex: 7;
+    background-color: black;
+}
+.inputContainer{
+    position: absolute;
+    bottom: 50px;
+    right: 25px;
+}
