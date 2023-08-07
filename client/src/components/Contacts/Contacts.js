@@ -5,7 +5,12 @@ const Contacts = ({contacts, changeChat, user, oauthUser}) => {
     const [currentUserName, setCurrentUserName] = useState(undefined);
     const [currentUserImage, setCurrentUserImage] = useState(undefined);
     const [currentSelected, setCurrentSelected] = useState(undefined);
+    console.log("contacts", contacts);
     useEffect(() => {
+        if (contacts){
+            setCurrentSelected(0);
+            changeChat(contacts[0]);
+        }
         if (user) {
             setCurrentUserName(user.username);
             setCurrentUserImage(user.photo);

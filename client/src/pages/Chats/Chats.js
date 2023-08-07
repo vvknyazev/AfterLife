@@ -3,7 +3,7 @@ import {useLocation, useOutletContext} from "react-router-dom";
 import Nav from "../../components/Nav/Nav";
 import MiniNav from "../../components/MiniNav/MiniNav";
 import io from "socket.io-client";
-import {useGetAllContactsQuery, useGetOneModelQuery} from "../../features/commonApiSlice";
+import {useGetAllContactsMutation} from "../../features/commonApiSlice";
 import {InfinitySpin} from "react-loader-spinner";
 import s from './Chats.module.css';
 import ChatContainer from "../../components/ChatContainer/ChatContainer";
@@ -15,19 +15,47 @@ const Chats = () => {
     const socket = useRef(null);
     const location = useLocation();
     const receivedData = location.state;
-    const {data: model, isLoading} = useGetOneModelQuery(receivedData?.from?.pathname?.substring(1));
-    const {data: contacts, isLoading: isContactsLoading} = useGetAllContactsQuery();
+    // const {data: model, isLoading} = useGetOneModelQuery(receivedData?.from?.pathname?.substring(1));
+    const [getContacts, {isLoading: isContactsLoading}] = useGetAllContactsMutation();
 
     const [currentChat, setCurrentChat] = useState(undefined);
+    const [contacts, setContacts] = useState(null);
 
-    if (contacts) {
-        console.log("contacts: ", contacts);
+    console.log("contacts: ", contacts);
+
+    const takeContacts = async () => {
+        if (user) {
+            const contacts = await getContacts({ from: user.id});
+
+            if (contacts.data){
+                setContacts(contacts.data);
+            } else{
+                setContacts([]);
+            }
+        } else if (oauthUser){
+            const contacts = await  getContacts({from: oauthUser.user.id});
+
+            if (contacts.data){
+                setContacts(contacts.data);
+            } else{
+                setContacts([]);
+            }
+        }
     }
 
     useEffect(() => {
-        //if (receivedData) {
+
+        takeContacts();
+
+        // if (receivedData){
+        //     console.log("receivedData", receivedData);
+        //     handleChatChange(receivedData.from.pathname.substring(1))
+        // }
+        if (contacts){
+
+        }
+
         socket.current = io(process.env.REACT_APP_API_URL);
-        // socket.current.emit("add-user", receivedData.from.pathname.substring(1));
         if (user) {
             console.log("user: ", user)
             socket.current.emit("add-user", user.id);
@@ -35,15 +63,13 @@ const Chats = () => {
             socket.current.emit("add-user", oauthUser.user.id);
         }
 
-        // console.log(receivedData.from.pathname.substring(1));
-        //}
     }, [])
 
     const handleChatChange = (chat) => {
         setCurrentChat(chat);
     };
 
-    if (isLoading || isContactsLoading) {
+    if (isContactsLoading) {
         return <div className={'loader'}>
             <InfinitySpin
                 width='200'

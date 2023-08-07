@@ -53,9 +53,6 @@ const commonApiSlice = createApi({
                 body: data,
             })
         }),
-        getAllContacts: builder.query({
-            query: () => '/api/message/getAllUsers',
-        }),
         receiveMessage: builder.mutation({
             query: (data) => ({
                 url: '/api/message/getmsg',
@@ -70,6 +67,23 @@ const commonApiSlice = createApi({
                 body: data,
             })
         }),
+        addContact: builder.mutation({
+            query: (data) => ({
+                url: '/api/message/add-contact',
+                method: 'POST',
+                body: data,
+            })
+        }),
+        getAllContacts: builder.mutation({
+            query: (data) => {
+                console.log(data);
+                return {
+                    url: '/api/message/get-contacts',
+                    method: 'POST',
+                    body: data,
+                }
+            }
+        }),
     }),
 });
 
@@ -83,9 +97,10 @@ export const {
     useGetFullOneQuery,
     useChangeModelMutation,
     useCreateModelMutation,
-    useGetAllContactsQuery,
     useReceiveMessageMutation,
     useSendMessageMutation,
+    useAddContactMutation,
+    useGetAllContactsMutation,
 } = commonApiSlice;
 
 export default commonApiSlice;

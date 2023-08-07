@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import s from "./ChatContainer.module.css"
 import {v4 as uuidv4} from "uuid";
-import {useReceiveMessageMutation, useSendMessageMutation} from "../../features/commonApiSlice";
+import {useAddContactMutation, useReceiveMessageMutation, useSendMessageMutation} from "../../features/commonApiSlice";
 
 const ChatContainer = ({socket, currentChat, user, oauthUser}) => {
     const [msg, setMsg] = useState("");
@@ -11,6 +11,9 @@ const ChatContainer = ({socket, currentChat, user, oauthUser}) => {
 
     const [receiveMessage, {isLoading: isReceiveMessageLoading}] = useReceiveMessageMutation();
     const [sendMessage, {isLoading: isSendMessageLoading}] = useSendMessageMutation();
+    const [addContact, {isLoading: isLoadingContactAdding}] = useAddContactMutation();
+
+    console.log("messages: ", messages);
     const handleSendMsg = async (msg) => {
 
         if (user) {
@@ -20,6 +23,11 @@ const ChatContainer = ({socket, currentChat, user, oauthUser}) => {
                 msg,
             });
             await sendMessage({from: user.id, to: currentChat._id, message: msg});
+            console.log("currentChat id: ", currentChat._id);
+            if (messages.length === 1) {
+                await addContact({from: currentChat.id, to: user.id});
+            }
+
         } else if (oauthUser) {
             socket.current.emit("send-msg", {
                 to: currentChat._id,
@@ -27,6 +35,9 @@ const ChatContainer = ({socket, currentChat, user, oauthUser}) => {
                 msg,
             });
             await sendMessage({from: oauthUser.user.id, to: currentChat._id, message: msg});
+            if (messages.length === 1) {
+                await addContact({from: currentChat.id, to: oauthUser.user.id});
+            }
         }
         const msgs = [...messages];
         msgs.push({fromSelf: true, message: msg});
@@ -34,6 +45,7 @@ const ChatContainer = ({socket, currentChat, user, oauthUser}) => {
     };
     useEffect(() => {
         if (currentChat) {
+            console.log("CURRENT CHAT: ", currentChat);
             if (user) {
                 const takeResponse = async () => {
                     const response = await receiveMessage({from: user.id, to: currentChat._id});
