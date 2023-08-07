@@ -57,14 +57,8 @@ const Chats = () => {
             <Nav user={user} oauthUser={oauthUser}/>
             <MiniNav/>
             <div className={s.chats}>
-                {/*{model ? <div className={s.users}>*/}
-                {/*    <img src={model?.photo} alt="profile-photo"/>*/}
-                {/*    <p>{model?.name}</p>*/}
-                {/*</div> : <div className={s.users}>*/}
-                {/*</div>}*/}
                 <Contacts contacts={contacts} changeChat={handleChatChange} user={user} oauthUser={oauthUser}/>
                 <ChatContainer socket={socket} currentChat={currentChat} user={user} oauthUser={oauthUser}/>
-
             </div>
         </div>
     );

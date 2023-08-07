@@ -1,11 +1,33 @@
+/*.users::-webkit-scrollbar {*/
+/*    width: 8px;               !* ширина всей полосы прокрутки *!*/
+/*}*/
 
+/*.users::-webkit-scrollbar-track {*/
+/*    background: #272727;        !* цвет зоны отслеживания *!*/
+/*    border-radius: 5px;*/
+/*}*/
+
+/*.users::-webkit-scrollbar-thumb {*/
+/*    background-color: rgba(21, 20, 20, 0.93);    !* цвет бегунка *!*/
+/*    border-radius: 20px;       !* округлось бегунка *!*/
+/*    border: 3px solid #272727;  !* отступ вокруг бегунка *!*/
+/*}*/
 .users{
     flex: 2;
     font-size: 30px;
     background: #0f0f0f;
     width: 100%;
     border-radius: 20px;
-    overflow-y: auto;
+    overflow: hidden;
+    position: relative;
+}
+.contacts{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: -50px;
+    overflow-y: scroll;
 }
 .contact{
     display: flex;
@@ -13,8 +35,13 @@
     width: 100%;
     padding: 10px 0 10px 0;
     text-align: center;
-
     cursor: pointer;
+    transition: 0.1s;
+}
+.contact:hover{
+    background: #1f1f1f;
+    border-radius: 18px;
+    transition: 0.1s;
 }
 .selected {
     background: #1f1f1f;

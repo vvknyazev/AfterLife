@@ -72,33 +72,73 @@ const ChatContainer = ({socket, currentChat, user, oauthUser}) => {
             setMsg("");
         }
     };
-
+    console.log("messages: ", messages)
     return (
         <div className={s.dialog}>
-            {messages.map((message) => {
-                return (
-                    <div ref={scrollRef} key={uuidv4()}>
-                        <div
-                            className={`message ${
-                                message.fromSelf ? "sended" : "recieved"
-                            }`}
-                        >
-                            <div className="content ">
-                                <p>{message.message}</p>
+            <div className={s.wrapper}>
+                <div className={s.chatInfo}>
+                    <div>
+                        {currentChat?.photo ? <img src={currentChat?.photo} alt="chat-photo"/> : <></>}
+                    </div>
+                    <div>
+                        <p>{currentChat?.name}</p>
+                    </div>
+                </div>
+            </div>
+            <div className={s.chatContainer}>
+                {messages.length === 0 && currentChat?._id ?
+                    <div className={s.noMessage}>
+                        <img src="/chat/no-message.png" alt="no-msg"/>
+                        <p>У вас еще нет сообщений</p>
+                    </div>
+                    :
+                    <></>
+                }
+                {messages.map((message) => {
+                    return (
+                        <div ref={scrollRef} key={uuidv4()}>
+                            <div
+                                className={`${s.message} ${
+                                    message.fromSelf ? s.sended : s.recieved
+                                }`}
+                            >
+                                <div className={s.content}>
+                                    <p>{message.message}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                );
-            })}
-            <form className={s.inputContainer} onSubmit={(event) => sendChat(event)}>
-                <input
-                    type="text"
-                    placeholder="type your message here"
-                    onChange={(e) => setMsg(e.target.value)}
-                    value={msg}
-                />
-                <button type="submit">Отправить</button>
-            </form>
+                    );
+                })}
+                <div className={s.bottomSide}>
+                    {currentChat?._id
+                        ?
+                        <form className={s.inputContainer} onSubmit={(event) => sendChat(event)}>
+                            <input
+                                type="text"
+                                placeholder="type your message here"
+                                onChange={(e) => setMsg(e.target.value)}
+                                value={msg}
+                                maxLength={550}
+                            />
+                            <button type="submit"><img className={s.sendImage} src="/chat/send-ico.svg" alt="send"/>
+                            </button>
+                        </form>
+                        :
+                        <form className={s.inputContainer} onSubmit={(event) => sendChat(event)}>
+                            <input
+                                type="text"
+                                placeholder=""
+                                onChange={(e) => setMsg(e.target.value)}
+                                value={msg}
+                                maxLength={550}
+                                disabled={true}
+                            />
+                            <button disabled={true}><img src="/chat/lock.svg" alt="lock"/></button>
+                        </form>
+                    }
+
+                </div>
+            </div>
         </div>
     );
 };
