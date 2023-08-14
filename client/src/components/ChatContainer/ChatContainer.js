@@ -1,43 +1,44 @@
 import React, {useEffect, useRef, useState} from 'react';
 import s from "./ChatContainer.module.css"
 import {v4 as uuidv4} from "uuid";
-import {useAddContactMutation, useReceiveMessageMutation, useSendMessageMutation} from "../../features/commonApiSlice";
+import {
+    useAddContactMutation,
+    useGetAllContactsMutation,
+    useReceiveMessageMutation,
+    useSendMessageMutation
+} from "../../features/commonApiSlice";
+import {useDispatch} from "react-redux";
 
-const ChatContainer = ({socket, currentChat, user, oauthUser}) => {
+const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts}) => {
     const [msg, setMsg] = useState("");
     const scrollRef = useRef();
     const [messages, setMessages] = useState([]);
     const [arrivalMessage, setArrivalMessage] = useState(null);
 
-    const [receiveMessage, {isLoading: isReceiveMessageLoading}] = useReceiveMessageMutation();
-    const [sendMessage, {isLoading: isSendMessageLoading}] = useSendMessageMutation();
-    const [addContact, {isLoading: isLoadingContactAdding}] = useAddContactMutation();
+    const [receiveMessage] = useReceiveMessageMutation();
+    const [sendMessage] = useSendMessageMutation();
+    const [addContact] = useAddContactMutation();
+    const [getContacts] = useGetAllContactsMutation();
 
-    console.log("messages: ", messages);
     const handleSendMsg = async (msg) => {
 
         if (user) {
             socket.current.emit("send-msg", {
-                to: currentChat._id,
+                to: currentChat.id,
                 from: user.id,
-                msg,
+                msg: msg,
+                chatID: user.id,
             });
-            await sendMessage({from: user.id, to: currentChat._id, message: msg});
-            console.log("currentChat id: ", currentChat._id);
-            if (messages.length === 1) {
-                await addContact({from: currentChat.id, to: user.id});
-            }
+            await sendMessage({from: user.id, to: currentChat.id, message: msg});
 
         } else if (oauthUser) {
             socket.current.emit("send-msg", {
-                to: currentChat._id,
+                to: currentChat.id,
                 from: oauthUser.user.id,
-                msg,
+                msg: msg,
+                chatID: user.id,
             });
-            await sendMessage({from: oauthUser.user.id, to: currentChat._id, message: msg});
-            if (messages.length === 1) {
-                await addContact({from: currentChat.id, to: oauthUser.user.id});
-            }
+            await sendMessage({from: oauthUser.user.id, to: currentChat.id, message: msg});
         }
         const msgs = [...messages];
         msgs.push({fromSelf: true, message: msg});
@@ -45,17 +46,16 @@ const ChatContainer = ({socket, currentChat, user, oauthUser}) => {
     };
     useEffect(() => {
         if (currentChat) {
-            console.log("CURRENT CHAT: ", currentChat);
             if (user) {
                 const takeResponse = async () => {
-                    const response = await receiveMessage({from: user.id, to: currentChat._id});
+                    const response = await receiveMessage({from: user.id, to: currentChat.id});
                     setMessages(response.data);
                 }
                 takeResponse();
 
             } else if (oauthUser) {
                 const takeResponse = async () => {
-                    const response = await receiveMessage({from: oauthUser.user.id, to: currentChat._id});
+                    const response = await receiveMessage({from: oauthUser.user.id, to: currentChat.id});
                     setMessages(response.data);
                 }
                 takeResponse();
@@ -64,12 +64,25 @@ const ChatContainer = ({socket, currentChat, user, oauthUser}) => {
     }, [currentChat]);
     useEffect(() => {
         if (socket.current) {
-            socket.current.on("msg-recieve", (msg) => {
+            socket.current.on("msg-recieve", async (msg, chatID) => {
                 setArrivalMessage({fromSelf: false, message: msg});
+                // console.log("MESSAGE RECEIVED in current chat container: ", msg);
+                // console.log("chatID: ", chatID);
+
+                if (messages.length === 0) {
+                    if (user) {
+                        await addContact({from: user.id, to: chatID}).unwrap();
+                        const contacts = await getContacts({from: user.id});
+                        setContacts(contacts.data);
+                    } else if (oauthUser) {
+                        await addContact({from: oauthUser.user.id, to: chatID}).unwrap();
+                        const contacts = await getContacts({from: oauthUser.user.id});
+                        setContacts(contacts.data);
+                    }
+                }
             });
         }
     }, []);
-
     useEffect(() => {
         arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
     }, [arrivalMessage]);
@@ -84,7 +97,6 @@ const ChatContainer = ({socket, currentChat, user, oauthUser}) => {
             setMsg("");
         }
     };
-    console.log("messages: ", messages)
     return (
         <div className={s.dialog}>
             <div className={s.wrapper}>
@@ -106,7 +118,7 @@ const ChatContainer = ({socket, currentChat, user, oauthUser}) => {
                     :
                     <></>
                 }
-                {messages.map((message) => {
+                {currentChat && messages.map((message) => {
                     return (
                         <div ref={scrollRef} key={uuidv4()}>
                             <div

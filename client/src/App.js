@@ -1,5 +1,5 @@
 import './App.css';
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import {Route, Routes} from "react-router-dom";
 import Home from "./pages/Main/Home";
 import Registration from "./pages/Auth/Registration";
@@ -20,10 +20,15 @@ import RequireAdminRole from "./features/auth/RequireAdminRole";
 import Chats from "./pages/Chats/Chats";
 import Sessions from "./pages/Sessions/Sessions";
 import CreateModel from "./pages/Admin/CreateModel/CreateModel";
+import io from "socket.io-client";
 
 // import Login from "./features/auth/Login";
 
 function App() {
+    const socket = useRef(null);
+    useEffect(()=>{
+        socket.current = io(process.env.REACT_APP_API_URL);
+    }, [])
 
     return (
         <div >
@@ -55,7 +60,7 @@ function App() {
                             <Route path="/:modelId" element={<ModelProfile/>}/>
                             <Route path="settings" element={<Settings/>}/>
                             <Route path="sessions" element={<Sessions/>}/>
-                            <Route path="chats" element={<Chats/>}/>
+                            <Route path="chats" element={<Chats socket={socket}/>}/>
                         </Route>
 
                     </Route>

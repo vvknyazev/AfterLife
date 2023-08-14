@@ -58,7 +58,7 @@ const commonApiSlice = createApi({
                 url: '/api/message/getmsg',
                 method: 'POST',
                 body: data,
-            })
+            }),
         }),
         sendMessage: builder.mutation({
             query: (data) => ({
@@ -72,7 +72,7 @@ const commonApiSlice = createApi({
                 url: '/api/message/add-contact',
                 method: 'POST',
                 body: data,
-            })
+            }),
         }),
         getAllContacts: builder.mutation({
             query: (data) => {
@@ -82,7 +82,7 @@ const commonApiSlice = createApi({
                     method: 'POST',
                     body: data,
                 }
-            }
+            },
         }),
     }),
 });

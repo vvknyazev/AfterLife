@@ -7,7 +7,7 @@ const Contacts = ({contacts, changeChat, user, oauthUser}) => {
     const [currentSelected, setCurrentSelected] = useState(undefined);
     console.log("contacts", contacts);
     useEffect(() => {
-        if (contacts){
+        if (contacts) {
             setCurrentSelected(0);
             changeChat(contacts[0]);
         }
@@ -20,6 +20,12 @@ const Contacts = ({contacts, changeChat, user, oauthUser}) => {
         }
 
     }, []);
+    useEffect(() => {
+        if (contacts) {
+            setCurrentSelected(0);
+            changeChat(contacts[0]);
+        }
+    }, [contacts])
     const changeCurrentChat = (index, contact) => {
         setCurrentSelected(index);
         changeChat(contact);

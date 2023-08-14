@@ -21,7 +21,7 @@ class MessageController {
 
     async getMessages(req, res, next) {
         try {
-            console.log("REQUEST GET MESSAGES: ", req.body);
+            // console.log("REQUEST GET MESSAGES: ", req.body);
             const {from, to} = req.body;
 
             const messages = await Message.find({
@@ -36,39 +36,43 @@ class MessageController {
                     message: msg.message.text,
                 };
             });
-            console.log("projectedMessages: ", projectedMessages);
+            // console.log("projectedMessages: ", projectedMessages);
             res.json(projectedMessages);
         } catch (ex) {
             next(ex);
         }
     }
 
-    async getAllUsers(req, res) {
-        try {
-            const users = await User.find({}, {
-                password: 0,
-                refreshToken: 0,
-                email: 0,
-                activationLink: 0,
-                isActivated: 0
-            });
-            res.json(users);
-        } catch (err) {
-            console.error(err);
-            res.status(500).send('Произошла ошибка при получении пользователей.');
-        }
-    }
+    // async getAllUsers(req, res) {
+    //     try {
+    //         const users = await User.find({}, {
+    //             password: 0,
+    //             refreshToken: 0,
+    //             email: 0,
+    //             activationLink: 0,
+    //             isActivated: 0
+    //         });
+    //         res.json(users);
+    //     } catch (err) {
+    //         console.error(err);
+    //         res.status(500).send('Произошла ошибка при получении пользователей.');
+    //     }
+    // }
     async getAllContacts(req, res){
         try {
+            console.log("GET ALL CONTACTS");
             const {from} = req.body;
             console.log("from: ", from);
             console.log("req body: ", req.body);
+
+            const allContacts = await Contact.find({});
+            console.log("all contacts: ", allContacts);
 
             const contacts = await Contact.findOne({sender: from});
             console.log('contacts: ', contacts);
             if (contacts){
                 res.json(contacts.users);
-            } else{
+            } else {
                 res.status(204).send("Контактов нет");
             }
         } catch (err) {
@@ -99,7 +103,7 @@ class MessageController {
                 }
                 console.log("hasID: ", hasId);
                 if (!hasId){
-                    await contacts.users.push({id: to, name: user.name, photo: user.photo});
+                    await contacts.users.unshift({id: to, name: user.name, photo: user.photo});
                     await contacts.save();
                 }
             } else {
