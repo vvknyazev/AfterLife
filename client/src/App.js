@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useEffect, useRef} from "react";
+import React from "react";
 import {Route, Routes} from "react-router-dom";
 import Home from "./pages/Main/Home";
 import Registration from "./pages/Auth/Registration";
@@ -20,49 +20,44 @@ import RequireAdminRole from "./features/auth/RequireAdminRole";
 import Chats from "./pages/Chats/Chats";
 import Sessions from "./pages/Sessions/Sessions";
 import CreateModel from "./pages/Admin/CreateModel/CreateModel";
-import io from "socket.io-client";
+import MessageChecker from "./features/MessageChecker";
 
 // import Login from "./features/auth/Login";
 
 function App() {
-    const socket = useRef(null);
-    useEffect(()=>{
-        socket.current = io(process.env.REACT_APP_API_URL);
-    }, [])
 
     return (
-        <div >
+        <div>
             <Routes>
-                {/*<PrivateRoute path="/register" element={<Login/>}/>*/}
 
                 <Route element={<PrivateRoute/>}>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/register' element={<Registration/>}/>
                 </Route>
-                {/*<Route element={<PrivateRoute/>}>*/}
 
-                {/*</Route>*/}
                 <Route element={<PersistLogin/>}>
-                    <Route path='/' element={<Home/>}/>
-                    <Route path='/models' element={<Models/>}/>
+                    <Route element={<MessageChecker/>}>
+                        <Route path='/' element={<Home/>}/>
+                        <Route path='/models' element={<Models/>}/>
 
-                    <Route element={<RequireAuth/>}>
-                        <Route element={<PrivateActivateRoute/>}>
-                            <Route path="activate" element={<Activate/>}/>
-                        </Route>
-                        <Route element={<RequireActivatedAuth/>}>
-                            <Route element={<RequireAdminRole/>}>
-                                <Route path="admin" element={<Admin/>}/>
-                                <Route path="admin/model/create" element={<CreateModel/>}/>
-                                <Route path="admin/model/:modelId" element={<EditModel/>}/>
+                        <Route element={<RequireAuth/>}>
+                            <Route element={<PrivateActivateRoute/>}>
+                                <Route path="activate" element={<Activate/>}/>
                             </Route>
-                            <Route path="profile" element={<Profile/>}/>
-                            <Route path="/:modelId" element={<ModelProfile/>}/>
-                            <Route path="settings" element={<Settings/>}/>
-                            <Route path="sessions" element={<Sessions/>}/>
-                            <Route path="chats" element={<Chats socket={socket}/>}/>
-                        </Route>
+                            <Route element={<RequireActivatedAuth/>}>
+                                <Route element={<RequireAdminRole/>}>
+                                    <Route path="admin" element={<Admin/>}/>
+                                    <Route path="admin/model/create" element={<CreateModel/>}/>
+                                    <Route path="admin/model/:modelId" element={<EditModel/>}/>
+                                </Route>
+                                <Route path="profile" element={<Profile/>}/>
+                                <Route path="/:modelId" element={<ModelProfile/>}/>
+                                <Route path="settings" element={<Settings/>}/>
+                                <Route path="sessions" element={<Sessions/>}/>
+                                <Route path="chats" element={<Chats/>}/>
+                            </Route>
 
+                        </Route>
                     </Route>
                 </Route>
 

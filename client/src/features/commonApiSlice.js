@@ -54,11 +54,14 @@ const commonApiSlice = createApi({
             })
         }),
         receiveMessage: builder.mutation({
-            query: (data) => ({
-                url: '/api/message/getmsg',
-                method: 'POST',
-                body: data,
-            }),
+            query: (data) => {
+                console.log("receiveMessage: ", data)
+                return {
+                    url: '/api/message/getmsg',
+                    method: 'POST',
+                    body: data,
+                }
+            },
         }),
         sendMessage: builder.mutation({
             query: (data) => ({
@@ -68,15 +71,18 @@ const commonApiSlice = createApi({
             })
         }),
         addContact: builder.mutation({
-            query: (data) => ({
-                url: '/api/message/add-contact',
-                method: 'POST',
-                body: data,
-            }),
+            query: (data) => {
+                console.log("addContact: ", data);
+                return {
+                    url: '/api/message/add-contact',
+                    method: 'POST',
+                    body: data,
+                }
+            },
         }),
         getAllContacts: builder.mutation({
             query: (data) => {
-                console.log(data);
+                console.log("getAllContacts: ", data);
                 return {
                     url: '/api/message/get-contacts',
                     method: 'POST',

@@ -4,21 +4,12 @@ import Nav from "../../components/Nav/Nav";
 import HeaderHomePage from "./HeaderHomePage/HeaderHomePage";
 import Strip from "./Strip/Strip";
 import ConceptHomePage from "./ConceptHomePage/ConceptHomePage";
-import GirlsSection from "./GirlsSection/GirlsSection";
 import FooterHomePage from "./FooterHomePage/FooterHomePage";
 import {useOutletContext} from "react-router-dom";
-// import {useSelector} from "react-redux";
-// import {selectCurrentToken} from "../../features/auth/authSlice";
 
 const Home = () => {
-    // const [isLoading, setIsLoading] = useState(true);
     const [user, oauthUser] = useOutletContext();
-    // const token = useSelector(selectCurrentToken)
-    // const location = useLocation()
 
-    // useEffect(() => {
-    //     setTimeout(() => setIsLoading(false), 500); // имитируем загрузку страницы
-    // }, []);
     return (
         <div>
             {/*{isLoading ? (*/}
@@ -35,11 +26,9 @@ const Home = () => {
                     <HeaderHomePage/>
                 </div>
                 <ConceptHomePage/>
-                {/*<GirlsSection/>*/}
                 <Strip/>
                 <FooterHomePage/>
             </div>
-            {/*)}*/}
         </div>
     );
 };

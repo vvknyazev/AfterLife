@@ -5,9 +5,11 @@ const Contacts = ({contacts, changeChat, user, oauthUser}) => {
     const [currentUserName, setCurrentUserName] = useState(undefined);
     const [currentUserImage, setCurrentUserImage] = useState(undefined);
     const [currentSelected, setCurrentSelected] = useState(undefined);
-    console.log("contacts", contacts);
+
+    console.log("this is Contacts component");
+    console.log("contacts:", contacts)
     useEffect(() => {
-        if (contacts) {
+        if (contacts.length > 0 || contacts !== []) {
             setCurrentSelected(0);
             changeChat(contacts[0]);
         }
@@ -21,7 +23,7 @@ const Contacts = ({contacts, changeChat, user, oauthUser}) => {
 
     }, []);
     useEffect(() => {
-        if (contacts) {
+        if (contacts.length > 0 || contacts !== []) {
             setCurrentSelected(0);
             changeChat(contacts[0]);
         }

@@ -2,23 +2,26 @@ import React, {useEffect, useState} from 'react';
 import {useOutletContext} from "react-router-dom";
 import Nav from "../../components/Nav/Nav";
 import MiniNav from "../../components/MiniNav/MiniNav";
-import io from "socket.io-client";
 import {useGetAllContactsMutation} from "../../features/commonApiSlice";
 import {InfinitySpin} from "react-loader-spinner";
 import s from './Chats.module.css';
 import ChatContainer from "../../components/ChatContainer/ChatContainer";
 import Contacts from "../../components/Contacts/Contacts";
 
-const Chats = ({socket}) => {
-    const [user, oauthUser] = useOutletContext();
-
+const Chats = () => {
+    const [user, oauthUser, socket] = useOutletContext();
+    console.log("socket: ", socket)
     // const location = useLocation();
     // const receivedData = location.state;
     // const {data: model, isLoading} = useGetOneModelQuery(receivedData?.from?.pathname?.substring(1));
     const [getContacts, {isLoading: isContactsLoading}] = useGetAllContactsMutation();
 
     const [currentChat, setCurrentChat] = useState(undefined);
-    const [contacts, setContacts] = useState(null);
+    const [contacts, setContacts] = useState([]);
+
+    console.log("this is CHATS component");
+
+    console.log("contacts: ", contacts);
 
     const takeContacts = async () => {
         if (user) {
@@ -43,13 +46,13 @@ const Chats = ({socket}) => {
 
         takeContacts();
 
-        socket.current = io(process.env.REACT_APP_API_URL);
-        if (user) {
-            console.log("user: ", user)
-            socket.current.emit("add-user", user.id);
-        } else if (oauthUser) {
-            socket.current.emit("add-user", oauthUser.user.id);
-        }
+        // socket.current = io(process.env.REACT_APP_API_URL);
+        // if (user) {
+        //     console.log("user: ", user)
+        //     socket.current.emit("add-user", user.id);
+        // } else if (oauthUser) {
+        //     socket.current.emit("add-user", oauthUser.user.id);
+        // }
 
     }, [])
 

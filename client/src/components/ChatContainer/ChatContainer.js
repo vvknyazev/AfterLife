@@ -7,7 +7,6 @@ import {
     useReceiveMessageMutation,
     useSendMessageMutation
 } from "../../features/commonApiSlice";
-import {useDispatch} from "react-redux";
 
 const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts}) => {
     const [msg, setMsg] = useState("");
@@ -20,6 +19,7 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts}) => {
     const [addContact] = useAddContactMutation();
     const [getContacts] = useGetAllContactsMutation();
 
+    console.log("this is ChatContainer component");
     const handleSendMsg = async (msg) => {
 
         if (user) {
@@ -66,18 +66,25 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts}) => {
         if (socket.current) {
             socket.current.on("msg-recieve", async (msg, chatID) => {
                 setArrivalMessage({fromSelf: false, message: msg});
-                // console.log("MESSAGE RECEIVED in current chat container: ", msg);
-                // console.log("chatID: ", chatID);
+                console.log("MESSAGE RECEIVED in current chat container: ", msg);
+                console.log("chatID: ", chatID);
 
                 if (messages.length === 0) {
                     if (user) {
                         await addContact({from: user.id, to: chatID}).unwrap();
                         const contacts = await getContacts({from: user.id});
-                        setContacts(contacts.data);
+                        console.log("contacts from getContacts: ", contacts);
+                        console.log("contacts data: ", contacts.data)
+                        if (contacts.data) {
+                            setContacts(contacts.data);
+                        }
                     } else if (oauthUser) {
                         await addContact({from: oauthUser.user.id, to: chatID}).unwrap();
                         const contacts = await getContacts({from: oauthUser.user.id});
-                        setContacts(contacts.data);
+
+                        if (contacts.data) {
+                            setContacts(contacts.data);
+                        }
                     }
                 }
             });

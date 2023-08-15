@@ -16,7 +16,6 @@ class ModelController {
         try {
             if (id !== undefined && id !== "undefined") {
                 console.log("req params", req.params)
-                console.log('я какого-то хуя тут выполняюсь, вот мой id', id);
                 const model = await User.findOne({_id: id}, {
                     password: 0,
                     refreshToken: 0,
