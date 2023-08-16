@@ -60,16 +60,11 @@ class MessageController {
     // }
     async getAllContacts(req, res){
         try {
-            console.log("GET ALL CONTACTS");
             const {from} = req.body;
-            console.log("from: ", from);
-            console.log("req body: ", req.body);
 
-            const allContacts = await Contact.find({});
-            console.log("all contacts: ", allContacts);
+            // const allContacts = await Contact.find({});
 
             const contacts = await Contact.findOne({sender: from});
-            console.log('contacts: ', contacts);
             if (contacts){
                 res.json(contacts.users);
             } else {
@@ -86,8 +81,6 @@ class MessageController {
             const {from, to} = req.body;
 
             const contacts = await Contact.findOne({sender: from});
-            console.log("contacts: ", contacts);
-            console.log("contacts users: ", contacts?.users);
 
             let contact;
 
@@ -107,7 +100,6 @@ class MessageController {
                     await contacts.save();
                 }
             } else {
-                console.log("finded user", user);
                 contact = await Contact.create({
                     users: [{id: to, name: user.name, photo: user.photo}],
                     sender: from

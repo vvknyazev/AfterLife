@@ -49,7 +49,7 @@ function NavItem(props) {
     function toggleFirstTimeOpenVar() {
         setIsFistTimeOpen(false);
     }
-    console.log("props: ", props)
+
     return (
         <div>
             {!isFistTimeOpen &&

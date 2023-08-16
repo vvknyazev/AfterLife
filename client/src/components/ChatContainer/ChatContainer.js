@@ -11,6 +11,7 @@ import {
 const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts}) => {
     const [msg, setMsg] = useState("");
     const scrollRef = useRef();
+    const chatRef = useRef(null);
     const [messages, setMessages] = useState([]);
     const [arrivalMessage, setArrivalMessage] = useState(null);
 
@@ -19,7 +20,6 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts}) => {
     const [addContact] = useAddContactMutation();
     const [getContacts] = useGetAllContactsMutation();
 
-    console.log("this is ChatContainer component");
     const handleSendMsg = async (msg) => {
 
         if (user) {
@@ -46,6 +46,7 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts}) => {
     };
     useEffect(() => {
         if (currentChat) {
+            chatRef.current.focus();
             if (user) {
                 const takeResponse = async () => {
                     const response = await receiveMessage({from: user.id, to: currentChat.id});
@@ -66,15 +67,11 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts}) => {
         if (socket.current) {
             socket.current.on("msg-recieve", async (msg, chatID) => {
                 setArrivalMessage({fromSelf: false, message: msg});
-                console.log("MESSAGE RECEIVED in current chat container: ", msg);
-                console.log("chatID: ", chatID);
 
                 if (messages.length === 0) {
                     if (user) {
                         await addContact({from: user.id, to: chatID}).unwrap();
                         const contacts = await getContacts({from: user.id});
-                        console.log("contacts from getContacts: ", contacts);
-                        console.log("contacts data: ", contacts.data)
                         if (contacts.data) {
                             setContacts(contacts.data);
                         }
@@ -150,6 +147,7 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts}) => {
                                 onChange={(e) => setMsg(e.target.value)}
                                 value={msg}
                                 maxLength={550}
+                                ref={chatRef}
                             />
                             <button type="submit"><img className={s.sendImage} src="/chat/send-ico.svg" alt="send"/>
                             </button>

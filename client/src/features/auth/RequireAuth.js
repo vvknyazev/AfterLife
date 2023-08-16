@@ -12,8 +12,6 @@ const RequireAuth = () => {
     const [user, oauthUser, socket] = useOutletContext();
     const { data: oauthUserData, isLoading } = useGetOauthUserQuery();
 
-    console.log("socket in requereAuth: ", socket)
-
     // console.log("going to requareAuth + token: ", token);
     if (isLoading){
         return <div className={'loader'}>

@@ -27,12 +27,15 @@ const io = new Server(server, {
 global.onlineUsers = new Map();
 io.on("connection", (socket) => {
     console.log('user connected: ', socket.id);
-
     global.chatSocket = socket;
 
     socket.on("add-user", (userId) => {
         onlineUsers.set(userId, socket.id);
         console.log("users:", onlineUsers);
+
+        const onlineUsersArray = Array.from(onlineUsers.keys());
+
+        io.emit("getOnlineUsers", onlineUsersArray);
     });
 
     socket.on("send-msg", (data) => {
@@ -43,20 +46,17 @@ io.on("connection", (socket) => {
     });
     socket.on("disconnect", () => {
         console.log("User Disconnected", socket.id);
+        for (const [userID, socketID] of onlineUsers) {
+            if (socketID === socket.id) {
+                onlineUsers.delete(userID);
+                break;
+            }
+        }
+        console.log("online users after disconnect: ", onlineUsers);
+        const onlineUsersArray = Array.from(onlineUsers.keys());
+        io.emit("removeOnlineUsers", onlineUsersArray);
     })
 });
-// io.on("connection", (socket) => {
-//     console.log('user connected: ', socket.id);
-//
-//     socket.on("send_message", (message) => {
-//         io.emit('receive_message', message);
-//         console.log('receive_message: ', message);
-//     })
-//
-//     socket.on("disconnect", () => {
-//         console.log("User Disconnected", socket.id);
-//     })
-// })
 
 app.use(
     cookieSession({name: "session", keys: [process.env.COOKIE_KEY], maxAge: 24 * 60 * 60 * 100})

@@ -1,13 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import s from "./Contacts.module.css"
 
-const Contacts = ({contacts, changeChat, user, oauthUser}) => {
+const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers}) => {
     const [currentUserName, setCurrentUserName] = useState(undefined);
     const [currentUserImage, setCurrentUserImage] = useState(undefined);
     const [currentSelected, setCurrentSelected] = useState(undefined);
+    const [currentOnlineUsers, setCurrentOnlineUsers] = useState([]);
 
-    console.log("this is Contacts component");
-    console.log("contacts:", contacts)
+    useEffect(()=>{
+        if (onlineUsers){
+            setCurrentOnlineUsers(onlineUsers);
+        }
+    }, [onlineUsers])
+
     useEffect(() => {
         if (contacts.length > 0 || contacts !== []) {
             setCurrentSelected(0);
@@ -19,6 +24,9 @@ const Contacts = ({contacts, changeChat, user, oauthUser}) => {
         } else if (oauthUser) {
             setCurrentUserName(oauthUser.user.username);
             setCurrentUserImage(oauthUser.user.photo);
+        }
+        if (onlineUsers){
+            setCurrentOnlineUsers(onlineUsers);
         }
 
     }, []);
@@ -62,15 +70,18 @@ const Contacts = ({contacts, changeChat, user, oauthUser}) => {
                                     }`}
                                     onClick={() => changeCurrentChat(index, contact)}
                                 >
-                                    <div className="avatar">
+                                    <div className={s.avatar}>
+                                        {currentOnlineUsers.includes(contact.id) && <div className='onlineIco'></div> }
                                         <img
                                             src={contact.photo}
                                             alt="profile-photo"
                                         />
+
                                     </div>
                                     <div className="username">
                                         <h3>{contact.name}</h3>
                                     </div>
+
                                 </div>
                             );
                         })}

@@ -14,7 +14,6 @@ const RequireActivatedAuth = () => {
     const [renderOutlet, setRenderOutlet] = React.useState(false);
 
     const [socket] = useOutletContext();
-    console.log("socket in RequireActivatedAuth: ", socket);
     // const [receiveMessage] = useReceiveMessageMutation();
     // const [addContact] = useAddContactMutation();
 
