@@ -20,6 +20,19 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, onlin
     const [addContact] = useAddContactMutation();
     const [getContacts] = useGetAllContactsMutation();
 
+    const [time, setTime] = useState('');
+
+    function dateToFormatted(currentDate){
+        const day = currentDate.getDate().toString().padStart(2, '0');
+        const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-indexed
+        const year = currentDate.getFullYear();
+        const hours = currentDate.getHours().toString().padStart(2, '0');
+        const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+        const seconds = currentDate.getSeconds().toString().padStart(2, '0');
+
+        return `${day}.${month}.${year}, ${hours}:${minutes}:${seconds}`;
+    }
+
     const handleSendMsg = async (msg) => {
 
         if (user) {
@@ -30,7 +43,10 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, onlin
                 chatID: user.id,
             });
             await sendMessage({from: user.id, to: currentChat.id, message: msg});
-
+            const contacts = await getContacts({from: user.id});
+            if (contacts.data) {
+                setContacts(contacts.data);
+            }
         } else if (oauthUser) {
             socket.current.emit("send-msg", {
                 to: currentChat.id,
@@ -39,9 +55,13 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, onlin
                 chatID: user.id,
             });
             await sendMessage({from: oauthUser.user.id, to: currentChat.id, message: msg});
+            const contacts = await getContacts({from: oauthUser.user.id});
+            if (contacts.data) {
+                setContacts(contacts.data);
+            }
         }
         const msgs = [...messages];
-        msgs.push({fromSelf: true, message: msg});
+        msgs.push({fromSelf: true, message: msg, time: dateToFormatted(new Date())});
         setMessages(msgs);
     };
     useEffect(() => {
@@ -66,7 +86,7 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, onlin
     useEffect(() => {
         if (socket.current) {
             socket.current.on("msg-recieve", async (msg, chatID) => {
-                setArrivalMessage({fromSelf: false, message: msg});
+                setArrivalMessage({fromSelf: false, message: msg, time: dateToFormatted(new Date())});
 
                 if (messages.length === 0) {
                     if (user) {
@@ -115,7 +135,7 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, onlin
                 </div>
             </div>
             <div className={s.chatContainer}>
-                {messages.length === 0 && currentChat?._id ?
+                {messages?.length === 0 && currentChat?._id ?
                     <div className={s.noMessage}>
                         <img src="/chat/no-message.png" alt="no-msg"/>
                         <p>У вас еще нет сообщений</p>
@@ -123,7 +143,14 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, onlin
                     :
                     <></>
                 }
-                {currentChat && messages.map((message) => {
+                {currentChat && messages?.map((message) => {
+                    // console.log("message time: ", message.time);
+                        const [datePart, timePart] = message.time?.split(', ');
+                        const [day, month, year] = datePart?.split('.');
+                        const [hours, minutes] = timePart?.split(':');
+
+                        const date = new Date(year, month - 1, day, hours, minutes);
+                        const chatTime = `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '')}${date.getMinutes()}`;
                     return (
                         <div ref={scrollRef} key={uuidv4()}>
                             <div
@@ -132,7 +159,7 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, onlin
                                 }`}
                             >
                                 <div className={s.content}>
-                                    <p>{message.message}</p>
+                                    <p>{message.message}<span>{chatTime}</span></p>
                                 </div>
                             </div>
                         </div>

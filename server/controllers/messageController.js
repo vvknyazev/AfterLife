@@ -11,7 +11,19 @@ class MessageController {
                 users: [from, to],
                 sender: from,
             });
-
+            // let contacts = await Contact.findOne({sender: from});
+            // if (contacts) {
+            //     let contactsArr = contacts.users;
+            //     let elementToMove = contactsArr.find(user => user.id === to);
+            //     let index = contactsArr.indexOf(elementToMove);
+            //
+            //     if (index !== -1) {
+            //         contactsArr.splice(index, 1);
+            //         contactsArr.unshift(elementToMove);
+            //     }
+            //
+            //     await contacts.save();
+            // }
             if (data) return res.json({msg: "Message added successfully."});
             else return res.json({msg: "Failed to add message to the database"});
         } catch (ex) {
@@ -30,10 +42,30 @@ class MessageController {
                 },
             }).sort({updatedAt: 1});
 
+
+            //warning, bad performance
+            // let contacts = await Contact.findOne({sender: from});
+            // if (contacts) {
+            //     let contactsArr = contacts.users;
+            //     let elementToMove = contactsArr.find(user => user.id === to);
+            //     let index = contactsArr.indexOf(elementToMove);
+            //
+            //     if (index !== -1) {
+            //         contactsArr.splice(index, 1);
+            //         contactsArr.unshift(elementToMove);
+            //     }
+            //
+            //     await contacts.save();
+            // }
+            // end warning
+
             const projectedMessages = messages.map((msg) => {
+                const date = new Date(msg.createdAt);
+                const formattedDate = date.toLocaleString();
                 return {
                     fromSelf: msg.sender.toString() === from,
                     message: msg.message.text,
+                    time: formattedDate,
                 };
             });
             // console.log("projectedMessages: ", projectedMessages);
@@ -58,14 +90,14 @@ class MessageController {
     //         res.status(500).send('Произошла ошибка при получении пользователей.');
     //     }
     // }
-    async getAllContacts(req, res){
+    async getAllContacts(req, res) {
         try {
             const {from} = req.body;
 
             // const allContacts = await Contact.find({});
 
             const contacts = await Contact.findOne({sender: from});
-            if (contacts){
+            if (contacts) {
                 res.json(contacts.users);
             } else {
                 res.status(204).send("Контактов нет");
@@ -94,8 +126,7 @@ class MessageController {
                         break;
                     }
                 }
-                console.log("hasID: ", hasId);
-                if (!hasId){
+                if (!hasId) {
                     await contacts.users.unshift({id: to, name: user.name, photo: user.photo});
                     await contacts.save();
                 }

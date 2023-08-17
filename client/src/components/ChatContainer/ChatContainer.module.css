@@ -120,16 +120,24 @@
     align-items: center;
 }
 .message .content {
+    position: relative;
     max-width: 40%;
     overflow-wrap: break-word;
-    padding: 0 65px 0 15px;
+    padding: 0 35px 0 15px;
     font-size: 1.1rem;
     border-radius: 1rem;
     color: #ffffff;
     margin-bottom: 5px;
 }
 .message .content p{
-
+    padding-right: 25px;
+}
+.message .content span{
+    position: absolute;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.95rem;
+    bottom: 5px;
+    right: 10px;
 }
 .sended {
     justify-content: flex-end;

@@ -45,6 +45,7 @@ const Chats = () => {
 
     }, [])
 
+    console.log("online users: ", onlineUsers)
 
     const handleChatChange = (chat) => {
         setCurrentChat(chat);

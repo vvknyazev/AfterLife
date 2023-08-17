@@ -7,6 +7,8 @@ const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers}) => {
     const [currentSelected, setCurrentSelected] = useState(undefined);
     const [currentOnlineUsers, setCurrentOnlineUsers] = useState([]);
 
+    console.log("contacts: ", contacts);
+
     useEffect(()=>{
         if (onlineUsers){
             setCurrentOnlineUsers(onlineUsers);
