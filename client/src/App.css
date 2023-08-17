@@ -518,8 +518,8 @@ body {
   position: absolute;
   z-index: 5;
   display: inline-block;
-  right: 2%;
-  bottom: 1%;
+  right: 6%;
+  bottom: 6%;
 }
 .onlineIco::after {
   background-color: rgba(255, 255, 255, 0.3);

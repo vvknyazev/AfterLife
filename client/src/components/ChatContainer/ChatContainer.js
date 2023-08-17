@@ -8,7 +8,7 @@ import {
     useSendMessageMutation
 } from "../../features/commonApiSlice";
 
-const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts}) => {
+const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, onlineUsers}) => {
     const [msg, setMsg] = useState("");
     const scrollRef = useRef();
     const chatRef = useRef(null);
@@ -105,8 +105,9 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts}) => {
         <div className={s.dialog}>
             <div className={s.wrapper}>
                 <div className={s.chatInfo}>
-                    <div>
-                        {currentChat?.photo ? <img src={currentChat?.photo} alt="chat-photo"/> : <></>}
+                    <div className={s.chatPhoto}>
+                        {currentChat?.photo && <img src={currentChat?.photo} alt="chat-photo"/>}
+                        {currentChat?.photo && onlineUsers.includes(currentChat?.id) && <div className='onlineIco'></div>}
                     </div>
                     <div>
                         <p>{currentChat?.name}</p>

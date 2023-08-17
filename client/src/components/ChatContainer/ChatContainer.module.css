@@ -45,7 +45,9 @@
     z-index: 10;
     background-color: black;
 }
-
+.chatPhoto{
+    position: relative;
+}
 
 .chatInfo img {
     border-radius: 100%;
@@ -120,11 +122,14 @@
 .message .content {
     max-width: 40%;
     overflow-wrap: break-word;
-    padding: 0 15px 0 15px;
+    padding: 0 65px 0 15px;
     font-size: 1.1rem;
     border-radius: 1rem;
     color: #ffffff;
     margin-bottom: 5px;
+}
+.message .content p{
+
 }
 .sended {
     justify-content: flex-end;
