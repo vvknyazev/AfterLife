@@ -69,8 +69,10 @@ const Chats = () => {
             <Nav user={user} oauthUser={oauthUser}/>
             <MiniNav/>
             <div className={s.chats}>
-                <Contacts contacts={contacts} changeChat={handleChatChange} user={user} oauthUser={oauthUser} onlineUsers={onlineUsers}/>
-                <ChatContainer socket={socket} currentChat={currentChat} user={user} oauthUser={oauthUser} setContacts={setContacts} onlineUsers={onlineUsers}/>
+                <Contacts contacts={contacts} changeChat={handleChatChange} user={user} oauthUser={oauthUser}
+                          onlineUsers={onlineUsers}/>
+                <ChatContainer socket={socket} currentChat={currentChat} user={user} oauthUser={oauthUser}
+                               setContacts={setContacts} contacts={contacts} onlineUsers={onlineUsers}/>
             </div>
         </div>
     );

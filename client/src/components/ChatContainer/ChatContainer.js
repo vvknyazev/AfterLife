@@ -5,10 +5,10 @@ import {
     useAddContactMutation,
     useGetAllContactsMutation,
     useReceiveMessageMutation,
-    useSendMessageMutation
+    useSendMessageMutation, useUpdateContactsMutation
 } from "../../features/commonApiSlice";
 
-const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, onlineUsers}) => {
+const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, contacts, onlineUsers}) => {
     const [msg, setMsg] = useState("");
     const scrollRef = useRef();
     const chatRef = useRef(null);
@@ -19,10 +19,11 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, onlin
     const [sendMessage] = useSendMessageMutation();
     const [addContact] = useAddContactMutation();
     const [getContacts] = useGetAllContactsMutation();
+    const [updateContacts] = useUpdateContactsMutation();
 
-    const [time, setTime] = useState('');
+    // const [time, setTime] = useState('');
 
-    function dateToFormatted(currentDate){
+    function dateToFormatted(currentDate) {
         const day = currentDate.getDate().toString().padStart(2, '0');
         const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-indexed
         const year = currentDate.getFullYear();
@@ -31,6 +32,26 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, onlin
         const seconds = currentDate.getSeconds().toString().padStart(2, '0');
 
         return `${day}.${month}.${year}, ${hours}:${minutes}:${seconds}`;
+    }
+
+    function formatContacts(contactsArr, sender, to) {
+        if (contactsArr) {
+            let elementToMove = contactsArr.find(user => user.id === to);
+            let indexToRemove = contactsArr.indexOf(elementToMove);
+
+            if (elementToMove !== contactsArr[0]) {
+                let newContactsArray = contactsArr.filter((item, index) => index !== indexToRemove);
+                newContactsArray.unshift(elementToMove);
+                console.log("newArray: ", newContactsArray);
+                setContacts(newContactsArray);
+                if (user){
+                    updateContacts({from: sender, updatedContacts: newContactsArray});
+                } else if (oauthUser){
+                    updateContacts({from: sender, updatedContacts: newContactsArray});
+                }
+
+            }
+        }
     }
 
     const handleSendMsg = async (msg) => {
@@ -43,10 +64,11 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, onlin
                 chatID: user.id,
             });
             await sendMessage({from: user.id, to: currentChat.id, message: msg});
-            const contacts = await getContacts({from: user.id});
-            if (contacts.data) {
-                setContacts(contacts.data);
-            }
+            formatContacts(contacts, user.id, currentChat.id);
+            // const newContacts = await getContacts({from: user.id});
+            // if (newContacts.data) {
+            //     setContacts(newContacts.data);
+            // }
         } else if (oauthUser) {
             socket.current.emit("send-msg", {
                 to: currentChat.id,
@@ -55,10 +77,11 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, onlin
                 chatID: user.id,
             });
             await sendMessage({from: oauthUser.user.id, to: currentChat.id, message: msg});
-            const contacts = await getContacts({from: oauthUser.user.id});
-            if (contacts.data) {
-                setContacts(contacts.data);
-            }
+            formatContacts(contacts, oauthUser.id, currentChat.id);
+            // const newContacts = await getContacts({from: oauthUser.user.id});
+            // if (newContacts.data) {
+            //     setContacts(newContacts.data);
+            // }
         }
         const msgs = [...messages];
         msgs.push({fromSelf: true, message: msg, time: dateToFormatted(new Date())});
@@ -93,6 +116,7 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, onlin
                         await addContact({from: user.id, to: chatID}).unwrap();
                         const contacts = await getContacts({from: user.id});
                         if (contacts.data) {
+                            formatContacts(contacts.data, user.id, chatID);
                             setContacts(contacts.data);
                         }
                     } else if (oauthUser) {
@@ -100,6 +124,7 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, onlin
                         const contacts = await getContacts({from: oauthUser.user.id});
 
                         if (contacts.data) {
+                            formatContacts(contacts.data, oauthUser.user.id, chatID);
                             setContacts(contacts.data);
                         }
                     }
@@ -127,7 +152,8 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, onlin
                 <div className={s.chatInfo}>
                     <div className={s.chatPhoto}>
                         {currentChat?.photo && <img src={currentChat?.photo} alt="chat-photo"/>}
-                        {currentChat?.photo && onlineUsers.includes(currentChat?.id) && <div className='onlineIco'></div>}
+                        {currentChat?.photo && onlineUsers.includes(currentChat?.id) &&
+                            <div className='onlineIco'></div>}
                     </div>
                     <div>
                         <p>{currentChat?.name}</p>
@@ -145,12 +171,12 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, onlin
                 }
                 {currentChat && messages?.map((message) => {
                     // console.log("message time: ", message.time);
-                        const [datePart, timePart] = message.time?.split(', ');
-                        const [day, month, year] = datePart?.split('.');
-                        const [hours, minutes] = timePart?.split(':');
+                    const [datePart, timePart] = message.time?.split(', ');
+                    const [day, month, year] = datePart?.split('.');
+                    const [hours, minutes] = timePart?.split(':');
 
-                        const date = new Date(year, month - 1, day, hours, minutes);
-                        const chatTime = `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '')}${date.getMinutes()}`;
+                    const date = new Date(year, month - 1, day, hours, minutes);
+                    const chatTime = `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '')}${date.getMinutes()}`;
                     return (
                         <div ref={scrollRef} key={uuidv4()}>
                             <div

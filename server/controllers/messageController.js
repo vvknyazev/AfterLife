@@ -13,16 +13,22 @@ class MessageController {
             });
             // let contacts = await Contact.findOne({sender: from});
             // if (contacts) {
+            //     console.log(contacts);
             //     let contactsArr = contacts.users;
             //     let elementToMove = contactsArr.find(user => user.id === to);
             //     let index = contactsArr.indexOf(elementToMove);
             //
+            //          console.log("contactsArr: ", contactsArr);
+            //          console.log("elementsToMove: ", elementToMove);
+            //          console.log("index: ", index);
+            //
             //     if (index !== -1) {
             //         contactsArr.splice(index, 1);
             //         contactsArr.unshift(elementToMove);
+            //         console.log("contactsArr: ", contactsArr)
             //     }
             //
-            //     await contacts.save();
+            //     // await contacts.save();
             // }
             if (data) return res.json({msg: "Message added successfully."});
             else return res.json({msg: "Failed to add message to the database"});
@@ -42,22 +48,26 @@ class MessageController {
                 },
             }).sort({updatedAt: 1});
 
-
-            //warning, bad performance
-            // let contacts = await Contact.findOne({sender: from});
-            // if (contacts) {
-            //     let contactsArr = contacts.users;
-            //     let elementToMove = contactsArr.find(user => user.id === to);
-            //     let index = contactsArr.indexOf(elementToMove);
-            //
-            //     if (index !== -1) {
-            //         contactsArr.splice(index, 1);
-            //         contactsArr.unshift(elementToMove);
-            //     }
-            //
-            //     await contacts.save();
-            // }
-            // end warning
+           //
+           // // warning, bad performance
+           //  let contacts = await Contact.findOne({sender: from});
+           //  if (contacts) {
+           //      let contactsArr = contacts.users;
+           //      let elementToMove = contactsArr.find(user => user.id === to);
+           //      let index = contactsArr.indexOf(elementToMove);
+           //
+           //      console.log("contactsArr: ", contactsArr);
+           //      console.log("elementsToMove: ", elementToMove);
+           //      console.log("index: ", index);
+           //
+           //      // if (index !== -1) {
+           //      //     contactsArr.splice(index, 1);
+           //      //     contactsArr.unshift(elementToMove);
+           //      // }
+           //      //
+           //      // await contacts.save();
+           //  }
+           //  //end warning
 
             const projectedMessages = messages.map((msg) => {
                 const date = new Date(msg.createdAt);
@@ -143,6 +153,20 @@ class MessageController {
         } catch (err) {
             console.error(err);
 
+        }
+    }
+
+    async updateContacts(req, res) {
+        try {
+            const {from, updatedContacts} = req.body;
+
+            const contactsSender = await Contact.findOneAndUpdate({sender: from}, {users: updatedContacts});
+            // const contactsReceiver = await Contact.findOneAndUpdate({sender: to}, {users: updatedContacts});
+            contactsSender.save();
+
+            return res.json({info: "contacts updated"})
+        } catch (err) {
+            console.error(err);
         }
     }
 

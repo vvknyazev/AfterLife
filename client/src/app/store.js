@@ -5,6 +5,7 @@ import {gamesReducer} from "../redux/slices/gameSlice";
 import {girlsReducer} from "../redux/slices/girlSlice";
 import commonApiSlice from "../features/commonApiSlice";
 import {onlineUsersReducer} from "../redux/slices/onlineUsersSlice";
+import {contactsReducer} from "../redux/slices/contactsSlice";
 
 export const store = configureStore({
     reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
         auth: authReducer,
         games: gamesReducer,
         girls: girlsReducer,
-        onlineUsers: onlineUsersReducer
+        onlineUsers: onlineUsersReducer,
+        contacts: contactsReducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware().concat(apiSlice.middleware,commonApiSlice.middleware),

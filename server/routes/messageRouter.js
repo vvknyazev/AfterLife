@@ -7,5 +7,6 @@ router.post("/getmsg", messageController.getMessages);
 // router.get("/getAllUsers", messageController.getAllUsers);
 router.post("/get-contacts", messageController.getAllContacts);
 router.post("/add-contact", messageController.addContact);
+router.put("/update-contacts", messageController.updateContacts);
 
 module.exports = router

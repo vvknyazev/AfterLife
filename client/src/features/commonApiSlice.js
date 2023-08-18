@@ -90,6 +90,16 @@ const commonApiSlice = createApi({
                 }
             },
         }),
+        updateContacts: builder.mutation({
+            query: (data) => {
+                console.log("updateContacts: ", data);
+                return {
+                    url: '/api/message/update-contacts',
+                    method: 'PUT',
+                    body: data,
+                }
+            },
+        }),
     }),
 });
 
@@ -107,6 +117,7 @@ export const {
     useSendMessageMutation,
     useAddContactMutation,
     useGetAllContactsMutation,
+    useUpdateContactsMutation,
 } = commonApiSlice;
 
 export default commonApiSlice;
