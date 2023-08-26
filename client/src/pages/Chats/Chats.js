@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useOutletContext} from "react-router-dom";
 import Nav from "../../components/Nav/Nav";
 import MiniNav from "../../components/MiniNav/MiniNav";
-import {useGetAllContactsMutation} from "../../features/commonApiSlice";
+import {useGetAllContactsMutation, useReceiveMessageMutation} from "../../features/commonApiSlice";
 import {InfinitySpin} from "react-loader-spinner";
 import s from './Chats.module.css';
 import ChatContainer from "../../components/ChatContainer/ChatContainer";

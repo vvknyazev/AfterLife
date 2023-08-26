@@ -7,6 +7,7 @@ import {
     useReceiveMessageMutation,
     useSendMessageMutation, useUpdateContactsMutation
 } from "../../features/commonApiSlice";
+import {InfinitySpin} from "react-loader-spinner";
 
 const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, contacts, onlineUsers}) => {
     const [msg, setMsg] = useState("");
@@ -15,10 +16,10 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, conta
     const [messages, setMessages] = useState([]);
     const [arrivalMessage, setArrivalMessage] = useState(null);
 
-    const [receiveMessage] = useReceiveMessageMutation();
+    const [receiveMessage, {isLoading}] = useReceiveMessageMutation();
     const [sendMessage] = useSendMessageMutation();
     const [addContact] = useAddContactMutation();
-    const [getContacts] = useGetAllContactsMutation();
+    const [getContacts, {isLoading: isLoadingContacts}] = useGetAllContactsMutation();
     const [updateContacts] = useUpdateContactsMutation();
 
     // const [time, setTime] = useState('');
@@ -44,12 +45,11 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, conta
                 newContactsArray.unshift(elementToMove);
                 console.log("newArray: ", newContactsArray);
                 setContacts(newContactsArray);
-                if (user){
+                if (user) {
                     updateContacts({from: sender, updatedContacts: newContactsArray});
-                } else if (oauthUser){
+                } else if (oauthUser) {
                     updateContacts({from: sender, updatedContacts: newContactsArray});
                 }
-
             }
         }
     }
@@ -63,6 +63,16 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, conta
                 msg: msg,
                 chatID: user.id,
             });
+
+            if (messages.length === 0) {
+                await addContact({from: currentChat.id, to: user.id});
+                // const contacts = await getContacts({from: user.id});
+                // if (contacts.data) {
+                //     // formatContacts(contacts.data, user.id, chatID);
+                //     setContacts(contacts.data);
+                // }
+            }
+
             await sendMessage({from: user.id, to: currentChat.id, message: msg});
             formatContacts(contacts, user.id, currentChat.id);
             // const newContacts = await getContacts({from: user.id});
@@ -74,8 +84,12 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, conta
                 to: currentChat.id,
                 from: oauthUser.user.id,
                 msg: msg,
-                chatID: user.id,
+                chatID: oauthUser.user.id,
             });
+            if (messages.length === 0) {
+                await addContact({from: currentChat.id, to: user.id});
+            }
+            // await addContact({from: currentChat.id, to: user.id});
             await sendMessage({from: oauthUser.user.id, to: currentChat.id, message: msg});
             formatContacts(contacts, oauthUser.id, currentChat.id);
             // const newContacts = await getContacts({from: oauthUser.user.id});
@@ -89,7 +103,7 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, conta
     };
     useEffect(() => {
         if (currentChat) {
-            chatRef.current.focus();
+            chatRef?.current?.focus();
             if (user) {
                 const takeResponse = async () => {
                     const response = await receiveMessage({from: user.id, to: currentChat.id});
@@ -109,25 +123,28 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, conta
     useEffect(() => {
         if (socket.current) {
             socket.current.on("msg-recieve", async (msg, chatID) => {
-                setArrivalMessage({fromSelf: false, message: msg, time: dateToFormatted(new Date())});
 
-                if (messages.length === 0) {
-                    if (user) {
-                        await addContact({from: user.id, to: chatID}).unwrap();
-                        const contacts = await getContacts({from: user.id});
-                        if (contacts.data) {
-                            formatContacts(contacts.data, user.id, chatID);
-                            setContacts(contacts.data);
-                        }
-                    } else if (oauthUser) {
-                        await addContact({from: oauthUser.user.id, to: chatID}).unwrap();
-                        const contacts = await getContacts({from: oauthUser.user.id});
+                const contacts = await getContacts({from: user.id});
+                if (contacts.data) {
+                    let elementToMove = contacts.data.find(user => user.id === chatID);
+                    let indexToRemove = contacts.data.indexOf(elementToMove);
 
-                        if (contacts.data) {
-                            formatContacts(contacts.data, oauthUser.user.id, chatID);
-                            setContacts(contacts.data);
+                    if (elementToMove !== contacts.data[0]) {
+                        let newContactsArray = contacts.data.filter((item, index) => index !== indexToRemove);
+                        newContactsArray.unshift(elementToMove);
+                        console.log("newArray: ", newContactsArray);
+                        if (user) {
+                            updateContacts({from: user.id, updatedContacts: newContactsArray}).unwrap();
+                            setContacts(newContactsArray);
+                        } else if (oauthUser) {
+                            updateContacts({from: oauthUser.user.id, updatedContacts: newContactsArray}).unwrap();
+                            setContacts(newContactsArray);
                         }
+                    } else {
+                        setContacts(contacts.data);
                     }
+                    // formatContacts(contacts.data, user.id, chatID);
+                    setArrivalMessage({fromSelf: false, message: msg, time: dateToFormatted(new Date())});
                 }
             });
         }
@@ -146,6 +163,15 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, conta
             setMsg("");
         }
     };
+
+    if (isLoading || isLoadingContacts) {
+        return <div className={s.dialog}>
+            <InfinitySpin
+                width='200'
+                color="#000"
+            />
+        </div>;
+    }
     return (
         <div className={s.dialog}>
             <div className={s.wrapper}>

@@ -1,6 +1,6 @@
 .chats{
     display: flex;
-
+    position: relative;
     color: white;
     height: calc(100vh - 100px);
     background-color: black;
