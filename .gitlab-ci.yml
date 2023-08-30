@@ -4,25 +4,44 @@ stages:
 
 build and push docker image:
   stage: build
-  script:
-    - echo $CI_COMMIT_BRANCH
-    - echo $CI_PIPELINE_ID
-    - echo `hostname`
-    - echo `pwd`
+#  image: docker:latest
+#  script:
+#    - echo $CI_COMMIT_BRANCH
+#    - echo $CI_PIPELINE_ID
+#    - echo `hostname`
+#    - echo `pwd`
 
-    - docker build -t $CI_REGISTRY_IMAGE:$CI_PIPELINE_ID .
+    #- docker build -t $CI_REGISTRY_IMAGE:$CI_PIPELINE_ID .
+
+  image: docker
+  services:
+    - name: docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - echo `pwd`
+    - docker build -t "$CI_REGISTRY_IMAGE"/frontend:$CI_PIPELINE_ID client/
+    - docker push "$CI_REGISTRY_IMAGE"/frontend:$CI_PIPELINE_ID
+    - docker build -t "$CI_REGISTRY_IMAGE"/backend:$CI_PIPELINE_ID server/
+    - docker push "$CI_REGISTRY_IMAGE"/backend:$CI_PIPELINE_ID
+
     #- docker push $CI_REGISTRY_IMAGE:$CI_PIPELINE_ID
   tags:
-    - shared
+    - docker
   timeout: 1 hours
 
 .deploy:
   cache: {}
   stage: deploy
   script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - echo `hostname`
     - echo `pwd`
     - echo $CI_PIPELINE_ID
+    - echo "CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE" >> .env
+    - echo "TAG=$CI_PIPELINE_ID" >> .env
+    - cat .env
+    - docker compose -f compose-prod.yaml up -d
 
     ##### Define active state and exporting vars
 #    - if [ $(docker ps -f name=magento_${ENV}_blue -q) ]; then export OLD=blue && export STATE=green; elif [ $(docker ps -f name=magento_${ENV}_green -q) ]; then export OLD=green && export STATE=blue; else export OLD=nothing && export STATE=blue; fi;
@@ -64,13 +83,14 @@ build and push docker image:
 #    - sleep 10
 #    - docker system prune --all --volumes --force
 
-preprod-back-deploy:
+test-deploy:
   extends: .deploy
   variables:
-    ENV: dev
+    ENV: test
   only:
     - preprod
     - master
+    - deployment
     - /^feature.+$/
     - /^bugfix.+$/
     - /^fix.+$/
@@ -83,9 +103,9 @@ preprod-back-deploy:
     - /^hotfix.+$/
   when: manual
   tags:
-    - back
+    - prod
 
-prod-back-deploy:
+prod-deploy:
   extends: .deploy
   variables:
     ENV: prod

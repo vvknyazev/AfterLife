@@ -5,7 +5,7 @@ COPY package-lock.json ./
 #COPY devops/volumes/env/.env_dev .env
 RUN npm install
 COPY ./ ./
-RUN if [ ! -f /app/.env ]; then cp /app/devops/volumes/env/.env_dev /app/.env; fi
+#RUN if [ ! -f /app/.env ]; then cp /app/devops/volumes/env/.env_dev /app/.env; fi
 #CMD ["npm", "run", "build"]
 RUN npm run build
 
