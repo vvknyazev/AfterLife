@@ -1,8 +1,7 @@
 services:
   frontend:
     container_name: afterlife-frontend
-    build:
-      context: client
+    image: $CI_REGISTRY_IMAGE/frontend:$TAG
     ports:
       - 80:80
       - 443:443
@@ -18,9 +17,8 @@ services:
 
   backend:
     container_name: afterlife-backend
+    image: $CI_REGISTRY_IMAGE/backend:$TAG
     restart: always
-    build:
-      context: server
 #    volumes:
 #      - ./backend:/usr/src/app
 #      - /usr/src/app/node_modules
@@ -34,7 +32,7 @@ services:
   mongo:
     container_name: afterlife-mongodb
     restart: always
-    image: mongo:4.2.0
+    image: mongo:latest
     volumes:
       - ./volumes/mongo:/data/db
     networks:

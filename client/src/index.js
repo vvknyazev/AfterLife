@@ -8,6 +8,7 @@ import {store} from './app/store'
 import {BrowserRouter} from "react-router-dom";
 import {QueryClient} from "react-query";
 
+//process.env.REACT_APP_API_URL = 'https://localhost/';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
