@@ -1,0 +1,97 @@
+stages:
+  - build
+  - deploy
+
+build and push docker image:
+  stage: build
+  script:
+    - echo $CI_COMMIT_BRANCH
+    - echo $CI_PIPELINE_ID
+    - echo `hostname`
+    - echo `pwd`
+
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_PIPELINE_ID .
+    #- docker push $CI_REGISTRY_IMAGE:$CI_PIPELINE_ID
+  tags:
+    - shared
+  timeout: 1 hours
+
+.deploy:
+  cache: {}
+  stage: deploy
+  script:
+    - echo `hostname`
+    - echo `pwd`
+    - echo $CI_PIPELINE_ID
+
+    ##### Define active state and exporting vars
+#    - if [ $(docker ps -f name=magento_${ENV}_blue -q) ]; then export OLD=blue && export STATE=green; elif [ $(docker ps -f name=magento_${ENV}_green -q) ]; then export OLD=green && export STATE=blue; else export OLD=nothing && export STATE=blue; fi;
+#    - echo "Now deploing ${STATE} state. ${OLD} is active"
+#    - cp -rf ./ /var/lib/gitlab-runner/$STATE
+#
+#    - export ENV=$ENV
+#    - export AWS_ACCESS_KEY_ID=$REGISTRY_AWS_ACCESS_KEY_ID && export AWS_SECRET_ACCESS_KEY=$REGISTRY_AWS_SECRET_ACCESS_KEY && export AWS_DEFAULT_REGION=$REGISTRY_AWS_DEFAULT_REGION
+
+    ##### Requests/Limits Docker Compose
+#    - total_mem=$(cat /proc/meminfo | head -n 1 | grep -Eo '[0-9]{1,9}')
+#    - total_mem_lim=$(($total_mem / 1000 * 80 / 100))
+#    - export mem_lim=$total_mem_lim
+#
+#    - total_cores=$(nproc)
+#    - total_cores_lim=$(($total_cores * 80 / 100 ))
+#    - export cores=$total_cores_lim
+#
+#    - export DOCKER_CLIENT_TIMEOUT=120
+#    - export COMPOSE_HTTP_TIMEOUT=120
+
+    ##### Start project
+#    - cd /var/lib/gitlab-runner/$STATE/devops
+#    - aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin ${CI_REGISTRY}
+#    - echo "TAG=$CI_PIPELINE_ID" > .env
+#    - docker-compose -f docker-compose-${ENV}.yml --compatibility --project-name=${STATE} up -d
+#    - sleep 500
+#    - docker-compose -f docker-compose-${ENV}.yml --project-name=${STATE} ps
+
+    ##### Show migration errors if exsist
+#    - docker cp magento_${ENV}_${STATE}:/error_message ./error_message || true
+#    - echo "Entrypoint errors(will be empty if all is OK) >>> "
+#    - cat ./error_message || true
+#    - echo "<<<"
+#    - if [ -f "./error_message" ]; then rm ./error_message && exit 1; fi
+
+    ##### Delete old state if it exist
+#    - if [ "${OLD}" != "nothing" ]; then cd /var/lib/gitlab-runner/${OLD}/devops && docker-compose -f docker-compose-${ENV}.yml --project-name=${OLD} stop && echo "${OLD} is deleting"; else echo "Nothing to delete"; fi;
+#    - sleep 10
+#    - docker system prune --all --volumes --force
+
+preprod-back-deploy:
+  extends: .deploy
+  variables:
+    ENV: dev
+  only:
+    - preprod
+    - master
+    - /^feature.+$/
+    - /^bugfix.+$/
+    - /^fix.+$/
+    - /^tech.+$/
+    - /^feat.+$/
+    - /^style.+$/
+    - /^refactor.+$/
+    - /^docs.+$/
+    - /^release-.+$/
+    - /^hotfix.+$/
+  when: manual
+  tags:
+    - back
+
+prod-back-deploy:
+  extends: .deploy
+  variables:
+    ENV: prod
+  only:
+    - /^release-.+$/
+    - /^hotfix.+$/
+  when: manual
+  tags:
+    - shared

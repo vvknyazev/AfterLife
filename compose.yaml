@@ -1,0 +1,46 @@
+services:
+  frontend:
+    container_name: afterlife-frontend
+    build:
+      context: client
+    ports:
+      - 80:80
+      - 443:443
+    stdin_open: true
+#    volumes:
+#      - ./frontend:/usr/src/app
+#      - /usr/src/app/node_modules
+    restart: always
+    networks:
+      - react-express
+    depends_on:
+      - backend
+
+  backend:
+    container_name: afterlife-backend
+    restart: always
+    build:
+      context: server
+#    volumes:
+#      - ./backend:/usr/src/app
+#      - /usr/src/app/node_modules
+    depends_on:
+      - mongo
+    networks:
+      - express-mongo
+      - react-express
+    expose:
+      - 5000
+  mongo:
+    container_name: afterlife-mongodb
+    restart: always
+    image: mongo:4.2.0
+    volumes:
+      - ./volumes/mongo:/data/db
+    networks:
+      - express-mongo
+    expose:
+      - 27017
+networks:
+  react-express:
+  express-mongo:
