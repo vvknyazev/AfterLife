@@ -25,7 +25,7 @@ const Login = () => {
 
     // const PWD_REGEX = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$");
     // const PWD_REGEX = new RegExp("^.*(?=.{6,})(?=.*d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$");
-    const PWD_REGEX = /^(?=.*\w).{6,17}$/;
+    // const PWD_REGEX = /^(?=.*\w).{6,17}$/;
     // const EMAIL_REGEX = new RegExp("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])\n");
     //const EMAIL_REGEX = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
     const EMAIL_REGEX = new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$");
@@ -33,7 +33,7 @@ const Login = () => {
     const [validEmail, setValidEmail] = useState(false);
     const [emailFocus, setEmailFocus] = useState(false);
 
-    const [validPwd, setValidPwd] = useState(false);
+    // const [validPwd, setValidPwd] = useState(false);
     const [pwdFocus, setPwdFocus] = useState(false);
 
 
@@ -46,9 +46,9 @@ const Login = () => {
         setValidEmail(EMAIL_REGEX.test(email));
     }, [email])
 
-    useEffect(() => {
-        setValidPwd(PWD_REGEX.test(password));
-    }, [password])
+    // useEffect(() => {
+    //     setValidPwd(PWD_REGEX.test(password));
+    // }, [password])
 
     useEffect(() => {
         setErrMsg('');
@@ -84,8 +84,8 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const v1 = EMAIL_REGEX.test(email);
-        const v2 = PWD_REGEX.test(password);
-        if (!v1 || !v2) {
+        // const v2 = PWD_REGEX.test(password);
+        if (!v1) {
             setErrMsg("Invalid Entry");
             return;
         }
@@ -197,22 +197,22 @@ const Login = () => {
                                         value={password}
                                         onChange={handlePwdInput}
                                         required
-                                        aria-invalid={validPwd ? "false" : "true"}
+                                        // aria-invalid={validPwd ? "false" : "true"}
                                         aria-describedby="pwdnote"
                                         onFocus={() => setPwdFocus(true)}
                                         //onBlur={() => setPwdFocus(false)}
                                     />
-                                    <p id="pwdnote" className={pwdFocus && !validPwd && password ? s.instructions : s.offscreen}>
-                                        Пожалуйста, введите 6-17 букв или цифр
-                                    </p>
+                                    {/*<p id="pwdnote" className={pwdFocus && !validPwd && password ? s.instructions : s.offscreen}>*/}
+                                    {/*    Пожалуйста, введите 6-17 букв или цифр*/}
+                                    {/*</p>*/}
                                 </label>
                             </div>
                             <div className={s.forgot}>
                                 <NavLink to='/'>Не помню</NavLink>
                             </div>
-                            {isLoading ? <button disabled={!validEmail || !validPwd} className={s.loginButtonLoading}
+                            {isLoading ? <button disabled={!validEmail} className={s.loginButtonLoading}
                                                  type='submit'><InfinitySpin width='150' color="#000"/></button> :
-                                <button disabled={!validEmail || !validPwd} className={s.loginButton}
+                                <button disabled={!validEmail} className={s.loginButton}
                                         type='submit'>Войти</button>}
 
 
