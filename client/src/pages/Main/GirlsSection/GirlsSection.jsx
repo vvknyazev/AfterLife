@@ -10,11 +10,11 @@ const GirlsSection = (props) => {
     let cardGirls
     if (props.girlsCategory !== [] && props.girlsCategory !== undefined && props.girlsCategory.length !== 0) {
         // console.log("asd", girlsC)
-        cardGirls = props.girlsCategory.map(el => <Card img={el.photo} name={el.name} desc={el.bio} games={el.games}
+        cardGirls = props.girlsCategory.map(el => <Card img={`${process.env.REACT_APP_API_URL}/${el.photo}`} name={el.name} desc={el.bio} games={el.games}
                                                         key={el._id} id={el._id}/>);
     } else {
         console.log("models:", props.models);
-        cardGirls = props.models.map(el => <Card img={el.photo} name={el.name} desc={el.bio} games={el.games}
+        cardGirls = props.models.map(el => <Card img={`${process.env.REACT_APP_API_URL}/${el.photo}`} name={el.name} desc={el.bio} games={el.games}
                                                  key={el._id} id={el._id}/>)
     }
 

@@ -43,7 +43,7 @@ const EditModel = () => {
             console.log(model);
             setEmail(model.email);
             setUsername(model.username);
-            setPhotoURL(model.photo);
+            setPhotoURL(`${process.env.REACT_APP_API_URL}/${model.photo}`);
             setName(model.name);
             setBio(model.bio);
 

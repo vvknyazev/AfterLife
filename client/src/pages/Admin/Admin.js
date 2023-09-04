@@ -32,7 +32,7 @@ const Admin = () => {
         <td>{el.name}</td>
         <td>{el.bio}</td>
         <td>{el.email}</td>
-        <td><img src={el.photo} alt="model"/></td>
+        <td><img src={`${process.env.REACT_APP_API_URL}/${el.photo}`} alt="model"/></td>
         <td>
             <button onClick={() => handleModelChange(el._id)}>Change</button>
         </td>

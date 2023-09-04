@@ -35,7 +35,9 @@ class AdminController {
         const {id, username, email, name, bio, photoURL, games} = req.body;
 
         if (req.file) {
-            fs.rename(req.file.path, 'uploads/' + req.file.originalname, function (err) {
+            const fileExtension = req.file.mimetype.split('/')[1];
+            const fileName = `${id}.${fileExtension}`;
+            fs.rename(req.file.path, 'uploads/media/' + fileName, function (err) {
                 if (err) throw err;
             });
         }
@@ -52,7 +54,10 @@ class AdminController {
         model.name = name;
         model.bio = bio;
         if (req.file){
-            model.photo = `${process.env.API_URL}/${req.file.originalname}`;
+            const fileExtension = req.file.mimetype.split('/')[1];
+            const fileName = `${id}.${fileExtension}`;
+            model.photo = `media/${fileName}`;
+            console.log("model.photo: ", model.photo)
         }
         model.games = parsedGames;
         await model.save();

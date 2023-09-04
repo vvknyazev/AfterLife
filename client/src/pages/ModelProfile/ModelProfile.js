@@ -58,7 +58,7 @@ const ModelProfile = () => {
                         <div className={s.profileContainer}>
                             <div className={s.profileInfo}>
                                 <div className={s.profilePhoto}>
-                                    <img src={model.photo} alt="profile-photo"/>
+                                    <img src={`${process.env.REACT_APP_API_URL}/${model.photo}`} alt="profile-photo"/>
                                 </div>
                                 <div className={s.description}>
                                     <p className={s.name}>{model.name}</p>
