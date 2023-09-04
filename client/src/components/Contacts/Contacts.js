@@ -20,10 +20,10 @@ const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers}) => {
         }
         if (user) {
             setCurrentUserName(user.username);
-            setCurrentUserImage(user.photo);
+            setCurrentUserImage(`${process.env.REACT_APP_API_URL}/${user.photo}`);
         } else if (oauthUser) {
             setCurrentUserName(oauthUser.user.username);
-            setCurrentUserImage(oauthUser.user.photo);
+            setCurrentUserImage(`${process.env.REACT_APP_API_URL}/${oauthUser.user.photo}`);
         }
         if (onlineUsers){
             setCurrentOnlineUsers(onlineUsers);
@@ -48,7 +48,7 @@ const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers}) => {
                         <div className={s.currentUser}>
                             <div>
                                 <img
-                                    src={user?.photo || oauthUser?.user?.photo}
+                                    src={`${process.env.REACT_APP_API_URL}/${user?.photo}` || `${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`}
                                     alt="profile-photo"
                                 />
                             </div>

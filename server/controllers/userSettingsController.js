@@ -6,27 +6,51 @@ const UserDto = require("../dtos/user-dto");
 
 class UserSettingsController {
     async uploadPhoto(req, res) {
-        fs.rename(req.file.path, 'uploads/' + req.file.originalname, function (err) {
-            if (err) throw err;
-        });
 
         const cookies_jwt = req.cookies.jwt;
 
         if (req.user?.googleId) {
-            const userGoogle = await UserGoogle.findOne({googleId: req.user.googleId});
-            userGoogle.photo = `${process.env.API_URL}/${req.file.originalname}`;
-            await userGoogle.save();
+            if (req.file) {
+                const fileExtension = req.file.mimetype.split('/')[1];
+                const fileName = `${req.user.googleId}.${fileExtension}`;
+                fs.rename(req.file.path, 'uploads/media/' + fileName, function (err) {
+                    if (err) throw err;
+                });
+
+                const userGoogle = await UserGoogle.findOne({googleId: req.user.googleId});
+                userGoogle.photo = `media/${fileName}`;
+                await userGoogle.save();
+            }
             return res.sendStatus(204);
         } else if (req.user?.discordId) {
-            const userDiscord = await UserDiscord.findOne({discordId: req.user.discordId});
-            userDiscord.photo = `${process.env.API_URL}/${req.file.originalname}`;
-            await userDiscord.save();
+            if (req.file) {
+                const fileExtension = req.file.mimetype.split('/')[1];
+                const fileName = `${req.user.discordId}.${fileExtension}`;
+                fs.rename(req.file.path, 'uploads/media/' + fileName, function (err) {
+                    if (err) throw err;
+                });
+
+                const userDiscord = await UserDiscord.findOne({discordId: req.user.discordId});
+                userDiscord.photo = `media/${fileName}`;
+                await userDiscord.save();
+            }
             return res.sendStatus(204);
         } else if (cookies_jwt) {
             const refreshToken = cookies_jwt;
             const user = await User.findOne({refreshToken});
-            user.photo = `${process.env.API_URL}/${req.file.originalname}`;
-            await user.save();
+
+            if (req.file) {
+                const fileExtension = req.file.mimetype.split('/')[1];
+                const fileName = `${user._id}.${fileExtension}`;
+
+                fs.rename(req.file.path, 'uploads/media/' + fileName, function (err) {
+                    if (err) throw err;
+                });
+                user.photo = `media/${fileName}`;
+
+                await user.save();
+            }
+
             return res.sendStatus(204);
         }
 

@@ -26,7 +26,7 @@ const CropEasy = ({photoURL, setOpenCrop, setPhotoURL, setSelectedImage, user, o
 
     const cropClose = () => {
         setOpenCrop(false);
-        setPhotoURL(user?.photo || oauthUser?.user?.photo);
+        setPhotoURL(`${process.env.REACT_APP_API_URL}/${user?.photo}` || `${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`);
     }
 
     async function handleSubmit(e) {

@@ -95,7 +95,7 @@ const Profile = () => {
                         <span>Welcome <br/> {user?.username || oauthUser?.user.username}</span>
                     </div>
                     <div>
-                        <img src={user?.photo || oauthUser?.user?.photo} alt="profile-photo"/>
+                        <img src={`${process.env.REACT_APP_API_URL}/${user?.photo}` || `${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`} alt="profile-photo"/>
                     </div>
                     <div className={s.description}>
                         <p className={s.name}>{user?.name || oauthUser?.user.name}</p>

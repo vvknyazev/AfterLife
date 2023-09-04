@@ -56,7 +56,7 @@ function NavItem(props) {
                 <a href={undefined} className={n.profile} onClick={() => setOpen(!open)}>
                     {props.isActivated ?
                         <img src={props.icon} alt="profile"
-                                              className={n.profileLogin}/>
+                             className={n.profileLogin}/>
                         :
                         <img src={'profile.svg'} alt="profile"
                              className={n.profileLogin}/>
@@ -113,7 +113,10 @@ function NavItem(props) {
                             onEnter={calcHeight}>
                             <div className="menu">
                                 <p className={'menu-item__text menu-greetings'}>Здравствуйте {props.name}</p>
-                                <p className={'menu-item__text menu-balance'}>Баланс: 0 <img src="/profile/currency.svg" alt="currency" className={n.currency}/>E$</p>
+                                <p className={'menu-item__text menu-balance'}>Баланс: 0 <img src="/profile/currency.svg"
+                                                                                             alt="currency"
+                                                                                             className={n.currency}/>E$
+                                </p>
                                 <DropdownItem
                                     auth='/chats'
                                 >
@@ -156,9 +159,9 @@ const Nav = (props) => {
     } else {
         profileButtonStyle = 'profile';
     }
-    if (isHomePage){
+    if (isHomePage) {
         nav = 'nav'
-    } else{
+    } else {
         nav = 'navBlack'
     }
 
@@ -175,11 +178,12 @@ const Nav = (props) => {
                         <li><NavLink to="#" className={n.navItem}>О нас</NavLink></li>
                         <li><NavLink to="#" className={n.navItem}>FAQs</NavLink></li>
                         {props.user ? <li className={n.rightSide}>
-                                <NavItem icon={props.user.photo} isLoggedIn={true}
-                                         isActivated={props.user.isActivated} name={props.user?.name}></NavItem>
+                            <NavItem icon={`${process.env.REACT_APP_API_URL}/${props.user.photo}`} isLoggedIn={true}
+                                     isActivated={props.user.isActivated} name={props.user?.name}></NavItem>
                         </li> : props.oauthUser ? <li className={n.rightSide}>
-                                <NavItem icon={props.oauthUser.user.photo} isLoggedIn={true}
-                                         isActivated={true} name={props.user?.name}></NavItem>
+                            <NavItem icon={`${process.env.REACT_APP_API_URL}/${props.oauthUser.user.photo}`}
+                                     isLoggedIn={true}
+                                     isActivated={true} name={props.user?.name}></NavItem>
                         </li> : <li className={n.rightSide}>
                             <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
                             <div className={`${profileButtonStyle}`}>
