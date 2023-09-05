@@ -125,7 +125,7 @@ const Settings = () => {
     }
 
     useEffect(() => {
-        setPhotoURL(user?.photo || oauthUser?.user?.photo);
+        setPhotoURL(`${process.env.REACT_APP_API_URL}/${user?.photo}` || `${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`);
     }, [])
 
     if (isUploadPhotoLoading || isSaveInfoLoading) {
@@ -186,7 +186,7 @@ const Settings = () => {
                         <div className={s.photoPreview}>
                             {/*<img src={photoURL} alt="photo"/>*/}
 
-                            {photoURL === user?.photo || photoURL === oauthUser?.user?.photo ?
+                            {photoURL === `${process.env.REACT_APP_API_URL}/${user?.photo}` || photoURL === `${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}` ?
                                 <img src={photoURL} alt="photo"/>
                                 : <></>
                             }
