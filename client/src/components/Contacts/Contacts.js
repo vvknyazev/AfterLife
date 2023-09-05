@@ -73,7 +73,7 @@ const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers}) => {
                                     <div className={s.avatar}>
                                         {currentOnlineUsers.includes(contact.id) && <div className='onlineIco'></div> }
                                         <img
-                                            src={contact.photo}
+                                            src={`${process.env.REACT_APP_API_URL}/${contact.photo}`}
                                             alt="profile-photo"
                                         />
 

@@ -177,7 +177,7 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, conta
             <div className={s.wrapper}>
                 <div className={s.chatInfo}>
                     <div className={s.chatPhoto}>
-                        {currentChat?.photo && <img src={currentChat?.photo} alt="chat-photo"/>}
+                        {currentChat?.photo && <img src={`${process.env.REACT_APP_API_URL}/${currentChat?.photo}`} alt="chat-photo"/>}
                         {currentChat?.photo && onlineUsers.includes(currentChat?.id) &&
                             <div className='onlineIco'></div>}
                     </div>
