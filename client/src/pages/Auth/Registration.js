@@ -75,11 +75,11 @@ const Registration = () => {
     })
 
     function handleGoogleLogin() {
-        window.open(`${process.env.REACT_APP_API_URL}api/user/login/google`, "_self");
+        window.open(`${process.env.REACT_APP_API_URL}/api/user/login/google`, "_self");
     }
 
     function handleDiscordLogin() {
-        window.open(`${process.env.REACT_APP_API_URL}api/user/login/discord`, "_self");
+        window.open(`${process.env.REACT_APP_API_URL}/api/user/login/discord`, "_self");
     }
 
     const handleSubmit = async (e) => {

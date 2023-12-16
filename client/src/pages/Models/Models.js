@@ -6,6 +6,7 @@ import Categories from "../../components/Categories/Categories";
 import GirlsSection from "../Main/GirlsSection/GirlsSection";
 import {useGetModelsQuery} from "../../features/commonApiSlice";
 import {InfinitySpin} from "react-loader-spinner";
+
 const Models = () => {
     // const [isLoggedIn, isActivated, oauthUser, userPicture] = useOutletContext();
     const [user, oauthUser] = useOutletContext();
@@ -15,26 +16,30 @@ const Models = () => {
     // const myGames = useSelector((state) => state.games);
     // const girls = useSelector((state) => state.girls);
 
-    const { data: models, isLoading: isLoadingModels } = useGetModelsQuery();
+    const {data: models, isLoading: isLoadingModels} = useGetModelsQuery();
 
     const [selectedCategory, setSelectedCategory] = useState('');
     const location = useLocation();
     const navigate = useNavigate();
     const isHomePage = location.pathname === '/';
-    function chooseCategory(category){
+
+    function chooseCategory(category) {
         setCurrentItems(models.filter(el => el.games.includes(category)))
         setSelectedCategory(category);
-        if (isHomePage){
+        if (isHomePage) {
             navigate('/models')
         }
     }
 
     if (isLoadingModels) {
-        return <div className={'loader'}>
-            <InfinitySpin
-                width='200'
-                color="#000"
-            />
+        return <div>
+            <Nav user={user} oauthUser={user}/>
+            <div className={'loader'}>
+                <InfinitySpin
+                    width='200'
+                    color="#000"
+                />
+            </div>
         </div>
     }
 

@@ -42,6 +42,8 @@ io.on("connection", (socket) => {
         const sendUserSocket = onlineUsers.get(data.to);
         if (sendUserSocket) {
             socket.to(sendUserSocket).emit("msg-recieve", data.msg, data.chatID);
+            socket.to(sendUserSocket).emit("get-notification", data.msg, data.chatID,
+                {isRead: 'false', date: new Date()});
         }
     });
     socket.on("disconnect", () => {

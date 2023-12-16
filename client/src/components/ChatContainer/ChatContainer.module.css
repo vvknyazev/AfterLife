@@ -68,13 +68,15 @@
 
 .chatContainer {
     margin-top: 100px;
+    padding-right: 100px;
+    padding-left: 100px;
 }
 
 .inputContainer {
     display: flex;
     flex-flow: row;
     justify-content: flex-end;
-    margin-right: 50px;
+    margin-right: 170px;
 }
 .inputContainer input{
     width: 900px;
@@ -131,6 +133,7 @@
 }
 .message .content p{
     padding-right: 25px;
+    font-size: 16px;
 }
 .message .content span{
     position: absolute;

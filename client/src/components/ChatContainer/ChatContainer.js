@@ -8,19 +8,25 @@ import {
     useSendMessageMutation, useUpdateContactsMutation
 } from "../../features/commonApiSlice";
 import {InfinitySpin} from "react-loader-spinner";
+import {useChat} from "../../context/ChatProvider";
 
-const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, contacts, onlineUsers}) => {
+const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUsers}) => {
     const [msg, setMsg] = useState("");
     const scrollRef = useRef();
     const chatRef = useRef(null);
     const [messages, setMessages] = useState([]);
     const [arrivalMessage, setArrivalMessage] = useState(null);
 
+
     const [receiveMessage, {isLoading}] = useReceiveMessageMutation();
     const [sendMessage] = useSendMessageMutation();
     const [addContact] = useAddContactMutation();
     const [getContacts, {isLoading: isLoadingContacts}] = useGetAllContactsMutation();
     const [updateContacts] = useUpdateContactsMutation();
+
+    const {currentChat} = useChat();
+
+    const {lastSenderID, setLastSenderID, currentContactSelected, setCurrentContactSelected} = useChat();
 
     // const [time, setTime] = useState('');
 
@@ -45,6 +51,9 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, conta
                 newContactsArray.unshift(elementToMove);
                 console.log("newArray: ", newContactsArray);
                 setContacts(newContactsArray);
+                // if (currentContactSelected < contactsArr.indexOf(elementToMove) ) {
+                //     setCurrentContactSelected(currentContactSelected + 1)
+                // }
                 if (user) {
                     updateContacts({from: sender, updatedContacts: newContactsArray});
                 } else if (oauthUser) {
@@ -55,7 +64,6 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, conta
     }
 
     const handleSendMsg = async (msg) => {
-
         if (user) {
             socket.current.emit("send-msg", {
                 to: currentChat.id,
@@ -63,9 +71,10 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, conta
                 msg: msg,
                 chatID: user.id,
             });
-
+            // setCurrentContactSelected(0);
+            console.log("messages.length: ", messages.length)
             if (messages.length === 0) {
-                await addContact({from: currentChat.id, to: user.id});
+                await addContact({from: currentChat.id, to: user.id}).unwrap();
                 // const contacts = await getContacts({from: user.id});
                 // if (contacts.data) {
                 //     // formatContacts(contacts.data, user.id, chatID);
@@ -87,7 +96,7 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, conta
                 chatID: oauthUser.user.id,
             });
             if (messages.length === 0) {
-                await addContact({from: currentChat.id, to: user.id});
+                await addContact({from: currentChat.id, to: user.id}).unwrap();
             }
             // await addContact({from: currentChat.id, to: user.id});
             await sendMessage({from: oauthUser.user.id, to: currentChat.id, message: msg});
@@ -120,37 +129,63 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, conta
             }
         }
     }, [currentChat]);
+    // console.log("messages: ", messages);
+    // console.log("contacts: ", contacts);
+    // useEffect(() => {
+    //     console.log("useEffect ")
+    //     const takeContactsFirstTime = async () => {
+    //         console.log("i am in funciton")
+    //         if (messages.length === 0) {
+    //             console.log("YES")
+    //             if (user) {
+    //                 const contacts = await getContacts({from: user.id});
+    //                 if (contacts.data) {
+    //                     setContacts(contacts.data);
+    //                 }
+    //             } else if (oauthUser) {
+    //                 const contacts = await getContacts({from: oauthUser.user.id});
+    //                 if (contacts.data) {
+    //                     setContacts(contacts.data);
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     takeContactsFirstTime();
+    // }, []);
+    console.log("lastSenderID: ", lastSenderID);
     useEffect(() => {
         if (socket.current) {
             socket.current.on("msg-recieve", async (msg, chatID) => {
-
-                const contacts = await getContacts({from: user.id});
-                if (contacts.data) {
-                    let elementToMove = contacts.data.find(user => user.id === chatID);
-                    let indexToRemove = contacts.data.indexOf(elementToMove);
-
-                    if (elementToMove !== contacts.data[0]) {
-                        let newContactsArray = contacts.data.filter((item, index) => index !== indexToRemove);
-                        newContactsArray.unshift(elementToMove);
-                        console.log("newArray: ", newContactsArray);
-                        if (user) {
-                            updateContacts({from: user.id, updatedContacts: newContactsArray}).unwrap();
-                            setContacts(newContactsArray);
-                        } else if (oauthUser) {
-                            updateContacts({from: oauthUser.user.id, updatedContacts: newContactsArray}).unwrap();
-                            setContacts(newContactsArray);
-                        }
-                    } else {
-                        setContacts(contacts.data);
-                    }
-                    // formatContacts(contacts.data, user.id, chatID);
-                    setArrivalMessage({fromSelf: false, message: msg, time: dateToFormatted(new Date())});
+                console.log("messages in receive msg socket 1: ", messages);
+                if (user) {
+                    setLastSenderID(chatID);
+                    // let elementToMove = contacts.find(user => user.id === chatID);
+                    // if (currentContactSelected < contacts.indexOf(elementToMove) ) {
+                    //     setCurrentContactSelected(currentContactSelected + 1)
+                    // }
+                    formatContacts(contacts, user.id, chatID);
+                    console.log("msg: ", msg);
                 }
+                setArrivalMessage({fromSelf: false, message: msg, time: dateToFormatted(new Date())});
+                console.log("arrival message: ", arrivalMessage);
+                // if (messages.length === 0) {
+                //     if (user) {
+                //         const contacts = await getContacts({from: user.id});
+                //         if (contacts.data) {
+                //             setContacts(contacts.data);
+                //         }
+                //     } else if (oauthUser) {
+                //         const contacts = await getContacts({from: oauthUser.user.id});
+                //         if (contacts.data) {
+                //             setContacts(contacts.data);
+                //         }
+                //     }
+                // }
             });
         }
-    }, []);
+    });
     useEffect(() => {
-        arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
+        arrivalMessage && lastSenderID === currentChat?.id && setMessages((prev) => [...prev, arrivalMessage]);
     }, [arrivalMessage]);
 
     useEffect(() => {
@@ -177,7 +212,8 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, conta
             <div className={s.wrapper}>
                 <div className={s.chatInfo}>
                     <div className={s.chatPhoto}>
-                        {currentChat?.photo && <img src={`${process.env.REACT_APP_API_URL}/${currentChat?.photo}`} alt="chat-photo"/>}
+                        {currentChat?.photo &&
+                            <img src={`${process.env.REACT_APP_API_URL}/${currentChat?.photo}`} alt="chat-photo"/>}
                         {currentChat?.photo && onlineUsers.includes(currentChat?.id) &&
                             <div className='onlineIco'></div>}
                     </div>
@@ -196,6 +232,7 @@ const ChatContainer = ({socket, currentChat, user, oauthUser, setContacts, conta
                     <></>
                 }
                 {currentChat && messages?.map((message) => {
+                    // console.log("CURRENT CHAT : ", currentChat)
                     // console.log("message time: ", message.time);
                     const [datePart, timePart] = message.time?.split(', ');
                     const [day, month, year] = datePart?.split('.');

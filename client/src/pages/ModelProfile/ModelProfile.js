@@ -1,11 +1,9 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import Nav from "../../components/Nav/Nav";
 import s from "./ModelProfile.module.css";
-import {NavLink, useLocation, useNavigate, useOutletContext, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useOutletContext, useParams} from "react-router-dom";
 import {useAddContactMutation, useGetOneModelQuery} from "../../features/commonApiSlice";
 import {InfinitySpin} from "react-loader-spinner";
-import io from 'socket.io-client';
-import {useDispatch} from "react-redux";
 
 const ModelProfile = () => {
 
@@ -20,11 +18,14 @@ const ModelProfile = () => {
     const [addContact, {isLoading: isLoadingContactAdding}] = useAddContactMutation();
 
     if (isLoading || isLoadingContactAdding) {
-        return <div className={'loader'}>
-            <InfinitySpin
-                width='200'
-                color="#000"
-            />
+        return <div>
+            <Nav user={user} oauthUser={user}/>
+            <div className={'loader'}>
+                <InfinitySpin
+                    width='200'
+                    color="#000"
+                />
+            </div>
         </div>;
     }
 
@@ -36,7 +37,7 @@ const ModelProfile = () => {
                     from: location
                 }
             });
-        } else if (oauthUser){
+        } else if (oauthUser) {
             await addContact({from: oauthUser.user.id, to: location.pathname?.substring(1)});
             navigate('/chats', {
                 state: {

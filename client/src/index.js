@@ -6,7 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {store} from './app/store'
 import {BrowserRouter} from "react-router-dom";
-import {QueryClient} from "react-query";
+// import {QueryClient} from "react-query";
+import {ChatProvider} from './context/ChatProvider';
 
 //process.env.REACT_APP_API_URL = 'https://localhost/';
 
@@ -14,9 +15,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-                <BrowserRouter>
+            <BrowserRouter>
+                <ChatProvider>
                     <App/>
-                </BrowserRouter>
+                </ChatProvider>
+            </BrowserRouter>
         </Provider>
     </React.StrictMode>
 );

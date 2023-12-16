@@ -44,7 +44,7 @@ const Profile = () => {
             sendLogout();
             navigate('/login')
         } else if (oauthUser) {
-            window.open(`${process.env.REACT_APP_API_URL}api/user/google/logout`, "_self");
+            window.open(`${process.env.REACT_APP_API_URL}/api/user/google/logout`, "_self");
         }
     };
 

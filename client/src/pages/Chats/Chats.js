@@ -2,12 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {useOutletContext} from "react-router-dom";
 import Nav from "../../components/Nav/Nav";
 import MiniNav from "../../components/MiniNav/MiniNav";
-import {useGetAllContactsMutation, useReceiveMessageMutation} from "../../features/commonApiSlice";
+import {useGetAllContactsMutation} from "../../features/commonApiSlice";
 import {InfinitySpin} from "react-loader-spinner";
 import s from './Chats.module.css';
 import ChatContainer from "../../components/ChatContainer/ChatContainer";
 import Contacts from "../../components/Contacts/Contacts";
 import {useSelector} from "react-redux";
+import {useChat} from "../../context/ChatProvider";
 
 const Chats = () => {
     const [user, oauthUser, socket] = useOutletContext();
@@ -16,7 +17,9 @@ const Chats = () => {
     // const {data: model, isLoading} = useGetOneModelQuery(receivedData?.from?.pathname?.substring(1));
     const [getContacts, {isLoading: isContactsLoading}] = useGetAllContactsMutation();
 
-    const [currentChat, setCurrentChat] = useState(undefined);
+    // const [currentChat, setCurrentChat] = useState(undefined);
+    const { currentChat, setCurrentChat, setLastSenderID } = useChat();
+    console.log("currentChat: ", currentChat);
     const [contacts, setContacts] = useState([]);
 
     const onlineUsers = useSelector(state => state.onlineUsers.value);
@@ -45,10 +48,11 @@ const Chats = () => {
 
     }, [])
 
-    console.log("online users: ", onlineUsers)
+    // console.log("online users: ", onlineUsers)
 
     const handleChatChange = (chat) => {
         setCurrentChat(chat);
+        setLastSenderID(chat.id);
     };
 
     if (isContactsLoading) {
@@ -71,7 +75,7 @@ const Chats = () => {
             <div className={s.chats}>
                 <Contacts contacts={contacts} changeChat={handleChatChange} user={user} oauthUser={oauthUser}
                           onlineUsers={onlineUsers}/>
-                <ChatContainer socket={socket} currentChat={currentChat} user={user} oauthUser={oauthUser}
+                <ChatContainer socket={socket} user={user} oauthUser={oauthUser}
                                setContacts={setContacts} contacts={contacts} onlineUsers={onlineUsers}/>
             </div>
         </div>

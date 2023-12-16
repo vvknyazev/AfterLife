@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import s from "./Contacts.module.css"
+import {useChat} from "../../context/ChatProvider";
 
 const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers}) => {
     const [currentUserName, setCurrentUserName] = useState(undefined);
     const [currentUserImage, setCurrentUserImage] = useState(undefined);
     const [currentSelected, setCurrentSelected] = useState(undefined);
     const [currentOnlineUsers, setCurrentOnlineUsers] = useState([]);
+
+    const {currentChat} = useChat();
 
     useEffect(()=>{
         if (onlineUsers){
@@ -15,8 +18,8 @@ const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers}) => {
 
     useEffect(() => {
         if (contacts.length > 0 || contacts !== []) {
-            setCurrentSelected(0);
-            changeChat(contacts[0]);
+            // setCurrentSelected(0);
+            // changeChat(contacts[0]);
         }
         if (user) {
             setCurrentUserName(user.username);
@@ -31,11 +34,26 @@ const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers}) => {
 
     }, []);
     useEffect(() => {
-        if (contacts.length > 0 || contacts !== []) {
-            setCurrentSelected(0);
-            changeChat(contacts[0]);
+        console.log("check contacts in useEffect [contacts]: ", contacts)
+        console.log("check currentChat in useEffect [contacts]: ", currentChat);
+        if ((contacts.length > 0 || contacts !== [])) {
+
+            const index = contacts.findIndex(contact => contact?.id === currentChat?.id);
+
+            setCurrentSelected(index);
+
+            // const index = contacts.findIndex(contact => contact.id === lastSenderID);
+            // if (index !== -1){
+            //     console.log("INDEX: ", index);
+            //     setCurrentSelected(index);
+            // }
+            // setCurrentSelected(0);
+            // changeChat(contacts[0]);
         }
     }, [contacts])
+    // console.log("currentSelected: ", currentContactSelected)
+
+
     const changeCurrentChat = (index, contact) => {
         setCurrentSelected(index);
         changeChat(contact);
@@ -64,22 +82,22 @@ const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers}) => {
                         {contacts.map((contact, index) => {
                             return (
                                 <div
-                                    key={contact._id}
+                                    key={contact?._id}
                                     className={`${s.contact} ${
                                         index === currentSelected ? s.selected : ""
                                     }`}
                                     onClick={() => changeCurrentChat(index, contact)}
                                 >
                                     <div className={s.avatar}>
-                                        {currentOnlineUsers.includes(contact.id) && <div className='onlineIco'></div> }
+                                        {currentOnlineUsers.includes(contact?.id) && <div className='onlineIco'></div> }
                                         <img
-                                            src={`${process.env.REACT_APP_API_URL}/${contact.photo}`}
+                                            src={`${process.env.REACT_APP_API_URL}/${contact?.photo}`}
                                             alt="profile-photo"
                                         />
 
                                     </div>
                                     <div className="username">
-                                        <h3>{contact.name}</h3>
+                                        <h3>{contact?.name}</h3>
                                     </div>
 
                                 </div>

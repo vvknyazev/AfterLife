@@ -6,6 +6,7 @@ import io from "socket.io-client";
 import {InfinitySpin} from "react-loader-spinner";
 import {useDispatch} from "react-redux";
 import {setOnlineUsers} from "../redux/slices/onlineUsersSlice";
+import {useChat} from "../context/ChatProvider";
 
 const MessageChecker = () => {
     const {data: user, isLoading: isLoadingUser, isFetching} = useGetUserQuery();
@@ -15,6 +16,7 @@ const MessageChecker = () => {
     const [receiveMessage] = useReceiveMessageMutation();
     const [addContact] = useAddContactMutation();
 
+    const {currentChat} = useChat();
 
     const location = useLocation();
     const isChatsPage = location.pathname === '/chats';
@@ -74,6 +76,14 @@ const MessageChecker = () => {
                         }
                     }
                 });
+                socket.current.on('get-notification', async(msg, chatID) => {
+                    if (user) {
+                        console.log("GET NOTIFICATION")
+                        console.log("ChatID: ", chatID);
+                        console.log("currentChat: ", currentChat);
+                        console.log("msg: ", msg);
+                    }
+                })
             }
         }
 
