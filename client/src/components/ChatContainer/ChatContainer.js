@@ -7,8 +7,11 @@ import {
     useReceiveMessageMutation,
     useSendMessageMutation, useUpdateContactsMutation
 } from "../../features/commonApiSlice";
-import {InfinitySpin} from "react-loader-spinner";
+import {Bars, Blocks, ColorRing, InfinitySpin, ThreeDots} from "react-loader-spinner";
+
+import {Audio} from 'react-loader-spinner'
 import {useChat} from "../../context/ChatProvider";
+import ScrollableFeed from "react-scrollable-feed";
 
 const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUsers}) => {
     const [msg, setMsg] = useState("");
@@ -26,7 +29,8 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
 
     const {currentChat} = useChat();
 
-    const {lastSenderID, setLastSenderID, currentContactSelected, setCurrentContactSelected} = useChat();
+    const {lastSenderID, setLastSenderID} = useChat();
+
 
     // const [time, setTime] = useState('');
 
@@ -51,9 +55,6 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
                 newContactsArray.unshift(elementToMove);
                 console.log("newArray: ", newContactsArray);
                 setContacts(newContactsArray);
-                // if (currentContactSelected < contactsArr.indexOf(elementToMove) ) {
-                //     setCurrentContactSelected(currentContactSelected + 1)
-                // }
                 if (user) {
                     updateContacts({from: sender, updatedContacts: newContactsArray});
                 } else if (oauthUser) {
@@ -75,19 +76,14 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
             console.log("messages.length: ", messages.length)
             if (messages.length === 0) {
                 await addContact({from: currentChat.id, to: user.id}).unwrap();
-                // const contacts = await getContacts({from: user.id});
-                // if (contacts.data) {
-                //     // formatContacts(contacts.data, user.id, chatID);
-                //     setContacts(contacts.data);
-                // }
             }
-
-            await sendMessage({from: user.id, to: currentChat.id, message: msg});
+            console.log("msg: ", msg)
+            console.log("msg.trim: ", msg.trim());
+            if (msg.trim() !== '') {
+                console.log("SENDDD")
+                await sendMessage({from: user.id, to: currentChat.id, message: msg});
+            }
             formatContacts(contacts, user.id, currentChat.id);
-            // const newContacts = await getContacts({from: user.id});
-            // if (newContacts.data) {
-            //     setContacts(newContacts.data);
-            // }
         } else if (oauthUser) {
             socket.current.emit("send-msg", {
                 to: currentChat.id,
@@ -106,9 +102,11 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
             //     setContacts(newContacts.data);
             // }
         }
-        const msgs = [...messages];
-        msgs.push({fromSelf: true, message: msg, time: dateToFormatted(new Date())});
-        setMessages(msgs);
+        if (msg.trim() !== '') {
+            const msgs = [...messages];
+            msgs.push({fromSelf: true, message: msg, time: dateToFormatted(new Date())});
+            setMessages(msgs);
+        }
     };
     useEffect(() => {
         if (currentChat) {
@@ -129,58 +127,20 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
             }
         }
     }, [currentChat]);
-    // console.log("messages: ", messages);
-    // console.log("contacts: ", contacts);
-    // useEffect(() => {
-    //     console.log("useEffect ")
-    //     const takeContactsFirstTime = async () => {
-    //         console.log("i am in funciton")
-    //         if (messages.length === 0) {
-    //             console.log("YES")
-    //             if (user) {
-    //                 const contacts = await getContacts({from: user.id});
-    //                 if (contacts.data) {
-    //                     setContacts(contacts.data);
-    //                 }
-    //             } else if (oauthUser) {
-    //                 const contacts = await getContacts({from: oauthUser.user.id});
-    //                 if (contacts.data) {
-    //                     setContacts(contacts.data);
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     takeContactsFirstTime();
-    // }, []);
-    console.log("lastSenderID: ", lastSenderID);
+
+    // console.log("lastSenderID: ", lastSenderID);
     useEffect(() => {
         if (socket.current) {
             socket.current.on("msg-recieve", async (msg, chatID) => {
-                console.log("messages in receive msg socket 1: ", messages);
+                // console.log("messages in receive msg socket 1: ", messages);
                 if (user) {
                     setLastSenderID(chatID);
-                    // let elementToMove = contacts.find(user => user.id === chatID);
-                    // if (currentContactSelected < contacts.indexOf(elementToMove) ) {
-                    //     setCurrentContactSelected(currentContactSelected + 1)
-                    // }
                     formatContacts(contacts, user.id, chatID);
-                    console.log("msg: ", msg);
+                    // console.log("msg: ", msg);
                 }
                 setArrivalMessage({fromSelf: false, message: msg, time: dateToFormatted(new Date())});
-                console.log("arrival message: ", arrivalMessage);
-                // if (messages.length === 0) {
-                //     if (user) {
-                //         const contacts = await getContacts({from: user.id});
-                //         if (contacts.data) {
-                //             setContacts(contacts.data);
-                //         }
-                //     } else if (oauthUser) {
-                //         const contacts = await getContacts({from: oauthUser.user.id});
-                //         if (contacts.data) {
-                //             setContacts(contacts.data);
-                //         }
-                //     }
-                // }
+                // console.log("arrival message: ", arrivalMessage);
+
             });
         }
     });
@@ -190,6 +150,7 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
 
     useEffect(() => {
         scrollRef.current?.scrollIntoView({behavior: "smooth"});
+        console.log("messages: ", messages);
     }, [messages]);
     const sendChat = (event) => {
         event.preventDefault();
@@ -199,14 +160,63 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
         }
     };
 
-    if (isLoading || isLoadingContacts) {
+    if (isLoading) {
         return <div className={s.dialog}>
-            <InfinitySpin
-                width='200'
-                color="#000"
-            />
-        </div>;
+            <div className={s.chatContainer}>
+                <div className={s.loader}>
+                    <ThreeDots
+                        height="90"
+                        width="90"
+                        radius="9   "
+                        color="#fff"
+                        ariaLabel="three-dots-loading"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                    />
+                </div>
+            </div>
+        </div>
     }
+
+
+    const groupMessagesByDay = (messages) => {
+        const groupedMessages = [];
+        let currentGroup = null;
+
+        messages.forEach((message) => {
+            const [datePart, timePart] = message.time?.split(', ');
+            const [day, month, year] = datePart?.split('.');
+            const [hours, minutes] = timePart?.split(':');
+
+            const date = new Date(year, month - 1, day, hours, minutes);
+            const chatTime = `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '')}${date.getMinutes()}`;
+
+            // Определение номера дня и названия месяца текстом
+            const dayOfMonth = date.getDate();
+            const monthText = new Intl.DateTimeFormat('en-US', {month: 'long'}).format(date);
+
+            const formattedDate = `${dayOfMonth} ${monthText}`;
+
+            if (!currentGroup || currentGroup.date !== formattedDate) {
+                currentGroup = {
+                    date: formattedDate,
+                    messages: [],
+                };
+                groupedMessages.push(currentGroup);
+            }
+
+            currentGroup.messages.push({
+                ...message,
+                chatTime,
+            });
+        });
+
+        return groupedMessages;
+    };
+
+    const groupedMessages = groupMessagesByDay(messages);
+
     return (
         <div className={s.dialog}>
             <div className={s.wrapper}>
@@ -223,37 +233,39 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
                 </div>
             </div>
             <div className={s.chatContainer}>
-                {messages?.length === 0 && currentChat?._id ?
-                    <div className={s.noMessage}>
-                        <img src="/chat/no-message.png" alt="no-msg"/>
-                        <p>У вас еще нет сообщений</p>
-                    </div>
-                    :
-                    <></>
-                }
-                {currentChat && messages?.map((message) => {
-                    // console.log("CURRENT CHAT : ", currentChat)
-                    // console.log("message time: ", message.time);
-                    const [datePart, timePart] = message.time?.split(', ');
-                    const [day, month, year] = datePart?.split('.');
-                    const [hours, minutes] = timePart?.split(':');
+                {/*{*/}
+                {/*    currentChat ? messages?.length === 0 && currentChat._id ?*/}
+                {/*            <div className={s.noMessage}>*/}
+                {/*                <img src="/chat/no-message.png" alt="no-msg"/>*/}
+                {/*                <p>У вас еще нет сообщений</p>*/}
+                {/*            </div>*/}
+                {/*            :*/}
+                {/*            <></>*/}
+                {/*        :*/}
+                {/*        <></>*/}
 
-                    const date = new Date(year, month - 1, day, hours, minutes);
-                    const chatTime = `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '')}${date.getMinutes()}`;
-                    return (
-                        <div ref={scrollRef} key={uuidv4()}>
-                            <div
-                                className={`${s.message} ${
-                                    message.fromSelf ? s.sended : s.recieved
-                                }`}
-                            >
-                                <div className={s.content}>
-                                    <p>{message.message}<span>{chatTime}</span></p>
+                {/*}*/}
+
+                {currentChat &&
+                    groupedMessages.map((group) => (
+                        <div key={group.date}>
+                            <div className={s.dayHeader}>{group.date}</div>
+                            {group.messages.map((message) => (
+                                <div ref={scrollRef} key={uuidv4()}>
+                                    <div
+                                        className={`${s.message} ${
+                                            message.fromSelf ? s.sended : s.recieved
+                                        }`}
+                                    >
+                                        <div className={s.content}>
+                                            <p>{message.message}</p>
+                                            <span>{message.chatTime}</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            ))}
                         </div>
-                    );
-                })}
+                    ))}
                 <div className={s.bottomSide}>
                     {currentChat?._id
                         ?

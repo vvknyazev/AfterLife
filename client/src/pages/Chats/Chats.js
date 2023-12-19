@@ -19,7 +19,6 @@ const Chats = () => {
 
     // const [currentChat, setCurrentChat] = useState(undefined);
     const { currentChat, setCurrentChat, setLastSenderID } = useChat();
-    console.log("currentChat: ", currentChat);
     const [contacts, setContacts] = useState([]);
 
     const onlineUsers = useSelector(state => state.onlineUsers.value);
@@ -43,7 +42,6 @@ const Chats = () => {
         }
     }
     useEffect(() => {
-
         takeContacts();
 
     }, [])
@@ -51,22 +49,23 @@ const Chats = () => {
     // console.log("online users: ", onlineUsers)
 
     const handleChatChange = (chat) => {
+        console.log("chat handle")
         setCurrentChat(chat);
         setLastSenderID(chat.id);
     };
 
-    if (isContactsLoading) {
-        return <div>
-            <Nav user={user} oauthUser={oauthUser}/>
-            <MiniNav/>
-            <div className={'loader'}>
-                <InfinitySpin
-                    width='200'
-                    color="#000"
-                />
-            </div>
-        </div>
-    }
+    // if (isContactsLoading) {
+    //     return <div>
+    //         <Nav user={user} oauthUser={oauthUser}/>
+    //         <MiniNav/>
+    //         <div className={'loader'}>
+    //             <InfinitySpin
+    //                 width='200'
+    //                 color="#000"
+    //             />
+    //         </div>
+    //     </div>
+    // }
 
     return (
         <div>

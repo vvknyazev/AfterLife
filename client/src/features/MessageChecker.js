@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Outlet, useLocation} from "react-router-dom";
 import {useGetUserQuery} from "./auth/authApiSlice";
 import {useAddContactMutation, useGetOauthUserQuery, useReceiveMessageMutation} from "./commonApiSlice";
@@ -16,23 +16,29 @@ const MessageChecker = () => {
     const [receiveMessage] = useReceiveMessageMutation();
     const [addContact] = useAddContactMutation();
 
-    const {currentChat} = useChat();
+    const [notifications, setNotifications] = useState([]);
 
+    const {currentChat} = useChat();
     const location = useLocation();
     const isChatsPage = location.pathname === '/chats';
 
     const socket = useRef(null);
 
     const dispatch = useDispatch();
+
+    console.log("CURRENT CHAT IN MESSAGECHECKER: ", currentChat);
+    console.log("notifications: ", notifications)
+
     useEffect(() => {
         if (user?.isActivated || oauthUserData) {
+
             socket.current = io(process.env.REACT_APP_API_URL);
             if (user) {
                 socket.current.emit("add-user", user.id);
                 socket.current.on("getOnlineUsers", (users) => {
                     dispatch(setOnlineUsers(users));
                 })
-                socket.current.on("removeOnlineUsers", (users)=>{
+                socket.current.on("removeOnlineUsers", (users) => {
                     dispatch(setOnlineUsers(users));
                 })
             } else if (oauthUserData) {
@@ -40,7 +46,7 @@ const MessageChecker = () => {
                 socket.current.on("getOnlineUsers", (users) => {
                     dispatch(setOnlineUsers(users));
                 })
-                socket.current.on("removeOnlineUsers", (users)=>{
+                socket.current.on("removeOnlineUsers", (users) => {
                     dispatch(setOnlineUsers(users));
                 })
             }
@@ -50,7 +56,6 @@ const MessageChecker = () => {
 
     useEffect(() => {
         if (user?.isActivated || oauthUserData) {
-
             if (socket.current) {
                 socket.current.on("msg-recieve", async (msg, chatID) => {
                     if (user) {
@@ -76,35 +81,44 @@ const MessageChecker = () => {
                         }
                     }
                 });
-                socket.current.on('get-notification', async(msg, chatID) => {
-                    if (user) {
-                        console.log("GET NOTIFICATION")
-                        console.log("ChatID: ", chatID);
-                        console.log("currentChat: ", currentChat);
-                        console.log("msg: ", msg);
-                    }
-                })
             }
         }
 
     }, [])
 
-    if (isLoadingUser || isLoadingOauthUser) {
-        return <div className={'loader'}>
-            <InfinitySpin
-                width='200'
-                color="#000"
-            />
-        </div>
-    }
-    if (isFetching) {
-        return <div className={'loader'}>
-            <InfinitySpin
-                width='200'
-                color="#000"
-            />
-        </div>
-    }
+    useEffect(() => {
+        if (user?.isActivated || oauthUserData) {
+            if (socket.current) {
+                socket.current.on('get-notification', async (msg, chatID, data) => {
+                    if (user) {
+                        console.log("GET NOTIFICATION")
+                        console.log("ChatID: ", chatID);
+                        console.log("currentChat: ", currentChat);
+                        console.log("msg: ", msg);
+                        if (currentChat?.id !== chatID){
+                            setNotifications(prev => [{msg, chatID, data}])
+                        }
+                    }
+                })
+            }
+        }
+    }, [currentChat])
+    // if (isLoadingUser || isLoadingOauthUser) {
+    //     return <div className={'loader'}>
+    //         <InfinitySpin
+    //             width='200'
+    //             color="#000"
+    //         />
+    //     </div>
+    // }
+    // if (isFetching) {
+    //     return <div className={'loader'}>
+    //         <InfinitySpin
+    //             width='200'
+    //             color="#000"
+    //         />
+    //     </div>
+    // }
 
     return <Outlet context={[user, oauthUserData, socket]}/>;
 };

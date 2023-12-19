@@ -8,7 +8,6 @@ import {InfinitySpin} from "react-loader-spinner";
 import {useGetOauthUserQuery} from "../commonApiSlice";
 
 const PersistLogin = () => {
-
     const [persist] = usePersist()
     const token = useSelector(selectCurrentToken)
     const effectRan = useRef(false)
