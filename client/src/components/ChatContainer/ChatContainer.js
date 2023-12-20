@@ -27,7 +27,7 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
     const [getContacts, {isLoading: isLoadingContacts}] = useGetAllContactsMutation();
     const [updateContacts] = useUpdateContactsMutation();
 
-    const {currentChat} = useChat();
+    const {currentChat, notifications, setNotifications} = useChat();
 
     const {lastSenderID, setLastSenderID} = useChat();
 
@@ -125,23 +125,28 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
                 }
                 takeResponse();
             }
+            // console.log("useEffect in ChatContainer.js")
         }
+
+
     }, [currentChat]);
 
     // console.log("lastSenderID: ", lastSenderID);
     useEffect(() => {
-        if (socket.current) {
-            socket.current.on("msg-recieve", async (msg, chatID) => {
-                // console.log("messages in receive msg socket 1: ", messages);
-                if (user) {
-                    setLastSenderID(chatID);
-                    formatContacts(contacts, user.id, chatID);
-                    // console.log("msg: ", msg);
-                }
-                setArrivalMessage({fromSelf: false, message: msg, time: dateToFormatted(new Date())});
-                // console.log("arrival message: ", arrivalMessage);
+        if (socket.current === null) return;
+        socket.current.on("msg-recieve", async (msg, chatID) => {
+            // console.log("messages in receive msg socket 1: ", messages);
+            if (user) {
+                setLastSenderID(chatID);
+                formatContacts(contacts, user.id, chatID);
+                // console.log("msg: ", msg);
+            }
+            setArrivalMessage({fromSelf: false, message: msg, time: dateToFormatted(new Date())});
+            // console.log("arrival message: ", arrivalMessage);
 
-            });
+        });
+        return () => {
+            socket.current.off("msg-recieve");
         }
     });
     useEffect(() => {
@@ -150,7 +155,7 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
 
     useEffect(() => {
         scrollRef.current?.scrollIntoView({behavior: "smooth"});
-        console.log("messages: ", messages);
+        // console.log("messages: ", messages);
     }, [messages]);
     const sendChat = (event) => {
         event.preventDefault();

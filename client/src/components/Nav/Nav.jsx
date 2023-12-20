@@ -4,6 +4,7 @@ import {ReactComponent as LoginIcon} from '../../icons/login.svg';
 import n from './Nav.module.css'
 import {CSSTransition} from 'react-transition-group';
 import {NavLink, useLocation} from "react-router-dom";
+import {useChat} from "../../context/ChatProvider";
 
 function NavItem(props) {
     const [open, setOpen] = useState(false);
@@ -12,6 +13,8 @@ function NavItem(props) {
     const [activeMenu, setActiveMenu] = useState('main');
     const [menuHeight, setMenuHeight] = useState(null);
     const dropdownRef = useRef(null);
+
+    const {notifications} = useChat();
 
     // useOnClickOutside(dropdownRef, () => setOpen(false));
 
@@ -54,12 +57,21 @@ function NavItem(props) {
         <div>
             {!isFistTimeOpen &&
                 <a href={undefined} className={n.profile} onClick={() => setOpen(!open)}>
-                    {props.isActivated ?
-                        <img src={props.icon} alt="profile"
-                             className={n.profileLogin}/>
+                    {props.isActivated ? <div className={n.notification}>
+                            <img src={props.icon} alt="profile"
+                                 className={n.profileLogin}/>
+                            <div className={notifications.length > 0 ? n.notificationVar : ''}>
+                                <h3>{notifications.length > 9 ? '9+' : notifications.length > 0 ? notifications.length : ''}</h3>
+                            </div>
+                        </div>
                         :
-                        <img src={'profile.svg'} alt="profile"
-                             className={n.profileLogin}/>
+                        <div className={n.notification}>
+                            <img src={props.icon} alt="profile"
+                                 className={n.profileLogin}/>
+                            <div className={notifications.length > 0 ? n.notificationVar : ''}>
+                                <h3>{notifications.length > 9 ? '9+' : notifications.length > 0 ? notifications.length : ''}</h3>
+                            </div>
+                        </div>
                     }
 
                 </a>
@@ -71,8 +83,13 @@ function NavItem(props) {
                 }
                 }>
                     {props.isActivated ?
-                        <img src={props.icon} alt="profile"
-                             className={n.profileLogin}/>
+                        <div className={n.notification}>
+                            <img src={props.icon} alt="profile"
+                                 className={n.profileLogin}/>
+                            <div className={notifications.length > 0 ? n.notificationVar : ''}>
+                                <h3>{notifications.length > 9 ? '9+' : notifications.length > 0 ? notifications.length : ''}</h3>
+                            </div>
+                        </div>
                         :
                         <img src={'profile.svg'} alt="profile"
                              className={n.profileLogin}/>
@@ -121,6 +138,9 @@ function NavItem(props) {
                                     auth='/chats'
                                 >
                                     Чаты
+                                    <div className={notifications.length > 0 ? n.notificationVarInDropdownItem : ''}>
+                                        <h3>{notifications.length > 9 ? '9+' : notifications.length > 0 ? notifications.length : ''}</h3>
+                                    </div>
                                 </DropdownItem>
                                 <DropdownItem
                                     auth='/sessions'

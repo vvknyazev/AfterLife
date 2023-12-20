@@ -8,7 +8,11 @@ const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers}) => {
     const [currentSelected, setCurrentSelected] = useState(undefined);
     const [currentOnlineUsers, setCurrentOnlineUsers] = useState([]);
 
-    const {currentChat} = useChat();
+    const {currentChat, notifications} = useChat();
+
+    function countNotifications(contactID) {
+        return notifications.filter(notification => notification.chatID === contactID).length;
+    }
 
     useEffect(()=>{
         if (onlineUsers){
@@ -34,8 +38,8 @@ const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers}) => {
 
     }, []);
     useEffect(() => {
-        console.log("check contacts in useEffect [contacts]: ", contacts)
-        console.log("check currentChat in useEffect [contacts]: ", currentChat);
+        // console.log("check contacts in useEffect [contacts]: ", contacts)
+        // console.log("check currentChat in useEffect [contacts]: ", currentChat);
         if ((contacts.length > 0 || contacts !== [])) {
 
             const index = contacts.findIndex(contact => contact?.id === currentChat?.id);
@@ -77,9 +81,13 @@ const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers}) => {
                                 <div>
                                     <p>Активные чаты</p>
                                 </div>
+                                <div className={notifications.length > 0 ? `${s.notification}` : ''}>
+                                    <h3>{notifications.length > 9 ? '9+' :  notifications.length > 0 ? notifications.length :''}</h3>
+                                </div>
                             </div>
                         </div>
                         {contacts.map((contact, index) => {
+                            const notificationCount = countNotifications(contact?.id);
                             return (
                                 <div
                                     key={contact?._id}
@@ -98,6 +106,9 @@ const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers}) => {
                                     </div>
                                     <div className="username">
                                         <h3>{contact?.name}</h3>
+                                    </div>
+                                    <div className={notificationCount > 0 ? `${s.notification}` : ''}>
+                                        <h3>{notificationCount > 9 ? '9+' :  notificationCount ? notificationCount :''}</h3>
                                     </div>
 
                                 </div>

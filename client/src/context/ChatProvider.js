@@ -5,6 +5,7 @@ const ChatContext = createContext();
 export const ChatProvider = ({children}) => {
     const [currentChat, setCurrentChat] = useState();
     const [lastSenderID, setLastSenderID] = useState();
+    const [notifications, setNotifications] = useState([]);
 
     return (
         <ChatContext.Provider value={{
@@ -12,6 +13,8 @@ export const ChatProvider = ({children}) => {
             setCurrentChat,
             lastSenderID,
             setLastSenderID,
+            notifications,
+            setNotifications
         }}>
             {children}
         </ChatContext.Provider>
