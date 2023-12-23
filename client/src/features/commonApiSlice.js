@@ -100,6 +100,26 @@ const commonApiSlice = createApi({
                 }
             },
         }),
+        addNotifications: builder.mutation({
+            query: (data) => {
+                console.log("addNotifications: ", data);
+                return {
+                    url: '/api/message/add-notifications',
+                    method: 'PUT',
+                    body: data,
+                }
+            },
+        }),
+        getNotifications: builder.mutation({
+            query: (data) => {
+                console.log("getNotifications: ", data);
+                return {
+                    url: '/api/message/get-notifications',
+                    method: 'POST',
+                    body: data,
+                }
+            },
+        }),
     }),
 });
 
@@ -118,6 +138,8 @@ export const {
     useAddContactMutation,
     useGetAllContactsMutation,
     useUpdateContactsMutation,
+    useAddNotificationsMutation,
+    useGetNotificationsMutation,
 } = commonApiSlice;
 
 export default commonApiSlice;

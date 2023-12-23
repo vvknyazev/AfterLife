@@ -2,16 +2,16 @@ import React, {useEffect, useRef, useState} from 'react';
 import s from "./ChatContainer.module.css"
 import {v4 as uuidv4} from "uuid";
 import {
-    useAddContactMutation,
-    useGetAllContactsMutation,
+    useAddContactMutation, useAddNotificationsMutation,
     useReceiveMessageMutation,
     useSendMessageMutation, useUpdateContactsMutation
 } from "../../features/commonApiSlice";
-import {Bars, Blocks, ColorRing, InfinitySpin, ThreeDots} from "react-loader-spinner";
+// import {Bars, Blocks, ColorRing, InfinitySpin, ThreeDots} from "react-loader-spinner";
 
-import {Audio} from 'react-loader-spinner'
+// import {Audio} from 'react-loader-spinner'
 import {useChat} from "../../context/ChatProvider";
-import ScrollableFeed from "react-scrollable-feed";
+// import ScrollableFeed from "react-scrollable-feed";
+// import {useSelector} from "react-redux";
 
 const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUsers}) => {
     const [msg, setMsg] = useState("");
@@ -20,14 +20,15 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
     const [messages, setMessages] = useState([]);
     const [arrivalMessage, setArrivalMessage] = useState(null);
 
-
     const [receiveMessage, {isLoading}] = useReceiveMessageMutation();
     const [sendMessage] = useSendMessageMutation();
-    const [addContact] = useAddContactMutation();
-    const [getContacts, {isLoading: isLoadingContacts}] = useGetAllContactsMutation();
-    const [updateContacts] = useUpdateContactsMutation();
 
-    const {currentChat, notifications, setNotifications} = useChat();
+    const [addContact] = useAddContactMutation();
+    // const [getContacts, {isLoading: isLoadingContacts}] = useGetAllContactsMutation();
+    const [updateContacts] = useUpdateContactsMutation();
+    const [addNotifications] = useAddNotificationsMutation();
+
+    const {currentChat} = useChat();
 
     const {lastSenderID, setLastSenderID} = useChat();
 
@@ -72,18 +73,21 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
                 msg: msg,
                 chatID: user.id,
             });
-            // setCurrentContactSelected(0);
-            console.log("messages.length: ", messages.length)
             if (messages.length === 0) {
                 await addContact({from: currentChat.id, to: user.id}).unwrap();
             }
             console.log("msg: ", msg)
-            console.log("msg.trim: ", msg.trim());
             if (msg.trim() !== '') {
                 console.log("SENDDD")
                 await sendMessage({from: user.id, to: currentChat.id, message: msg});
             }
+            if (!onlineUsers.includes(currentChat.id)){
+                const chatID = user.id;
+                await addNotifications({"from": currentChat.id, "notifications": {chatID}, "offline": true}).unwrap();
+            }
             formatContacts(contacts, user.id, currentChat.id);
+
+            // await addNotifications({from: currentChat.id, to: user.id}).unwrap();
         } else if (oauthUser) {
             socket.current.emit("send-msg", {
                 to: currentChat.id,
@@ -94,13 +98,14 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
             if (messages.length === 0) {
                 await addContact({from: currentChat.id, to: user.id}).unwrap();
             }
-            // await addContact({from: currentChat.id, to: user.id});
-            await sendMessage({from: oauthUser.user.id, to: currentChat.id, message: msg});
+            if (msg.trim() !== '') {
+                console.log("SENDDD")
+                await sendMessage({from: user.id, to: currentChat.id, message: msg});
+            }
             formatContacts(contacts, oauthUser.id, currentChat.id);
-            // const newContacts = await getContacts({from: oauthUser.user.id});
-            // if (newContacts.data) {
-            //     setContacts(newContacts.data);
-            // }
+            if (!onlineUsers.includes(currentChat.id)){
+                await addNotifications({"from": currentChat.id, "notifications": oauthUser.user.id, "offline": true}).unwrap();
+            }
         }
         if (msg.trim() !== '') {
             const msgs = [...messages];

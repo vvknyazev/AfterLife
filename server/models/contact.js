@@ -11,6 +11,11 @@ const Contact = new Schema({
             ref: "User",
             required: true,
         },
+        notifications: [{
+            chatID: String,
+            isRead: String,
+            date: String,
+        }]
     },
 );
 

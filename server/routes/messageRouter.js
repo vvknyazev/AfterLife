@@ -8,5 +8,7 @@ router.post("/getmsg", messageController.getMessages);
 router.post("/get-contacts", messageController.getAllContacts);
 router.post("/add-contact", messageController.addContact);
 router.put("/update-contacts", messageController.updateContacts);
+router.put("/add-notifications", messageController.addNotifications);
+router.post("/get-notifications", messageController.getNotifications);
 
 module.exports = router

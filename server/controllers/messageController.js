@@ -170,6 +170,43 @@ class MessageController {
         }
     }
 
+    async addNotifications(req, res) {
+        try {
+            const {from, notifications, offline} = req.body;
+
+            console.log("from ", from);
+            console.log("notifications ", notifications);
+            console.log("offline ", offline);
+
+
+            if (!offline) {
+                const contactsSender = await Contact.findOneAndUpdate({sender: from}, {notifications: notifications});
+                contactsSender.save();
+            } else {
+                const contactsSender = await Contact.findOneAndUpdate(
+                    { sender: from },
+                    { $push: { notifications: notifications } },
+                );
+                contactsSender.save();
+            }
+            return res.json({info: "contacts updated"})
+        } catch (err) {
+            console.error(err);
+        }
+    }
+    async getNotifications(req, res) {
+        try {
+            const {from} = req.body;
+
+            console.log("req.body: ", req.body);
+
+            const contacts = await Contact.findOne({sender: from});
+
+            return res.json(contacts.notifications);
+        } catch (err) {
+            console.error(err);
+        }
+    }
 }
 
 module.exports = new MessageController()
