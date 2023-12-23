@@ -6,7 +6,7 @@ import {
     useReceiveMessageMutation,
     useSendMessageMutation, useUpdateContactsMutation
 } from "../../features/commonApiSlice";
-// import {Bars, Blocks, ColorRing, InfinitySpin, ThreeDots} from "react-loader-spinner";
+import {ThreeDots} from "react-loader-spinner";
 
 // import {Audio} from 'react-loader-spinner'
 import {useChat} from "../../context/ChatProvider";
