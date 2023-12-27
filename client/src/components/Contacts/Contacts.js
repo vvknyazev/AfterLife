@@ -2,17 +2,19 @@ import React, {useEffect, useState} from 'react';
 import s from "./Contacts.module.css"
 import {useChat} from "../../context/ChatProvider";
 
-const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers}) => {
+const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers, messages}) => {
     const [currentUserName, setCurrentUserName] = useState(undefined);
     const [currentUserImage, setCurrentUserImage] = useState(undefined);
     const [currentSelected, setCurrentSelected] = useState(undefined);
     const [currentOnlineUsers, setCurrentOnlineUsers] = useState([]);
+    const [lastMessage, setLastMessage] = useState('');
 
     const {currentChat, notifications} = useChat();
 
     function countNotifications(contactID) {
         return notifications.filter(notification => notification.chatID === contactID).length;
     }
+
 
     useEffect(()=>{
         if (onlineUsers){

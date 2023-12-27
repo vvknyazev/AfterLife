@@ -2,8 +2,9 @@ import React, {useEffect, useRef} from 'react';
 import {Outlet, useLocation} from "react-router-dom";
 import {useGetUserQuery} from "./auth/authApiSlice";
 import {
+    useAddContactMutation,
     useAddNotificationsMutation, useGetNotificationsMutation,
-    useGetOauthUserQuery,
+    useGetOauthUserQuery, useReceiveMessageMutation,
 } from "./commonApiSlice";
 import io from "socket.io-client";
 import {useDispatch, useSelector} from "react-redux";
@@ -19,8 +20,8 @@ const MessageChecker = () => {
 
     const onlineUsers = useSelector(state => state.onlineUsers.value);
 
-    // const [receiveMessage] = useReceiveMessageMutation();
-    // const [addContact] = useAddContactMutation();
+    const [receiveMessage] = useReceiveMessageMutation();
+    const [addContact] = useAddContactMutation();
     const [addNotifications] = useAddNotificationsMutation();
     const [getNotifications] = useGetNotificationsMutation();
 
@@ -31,15 +32,9 @@ const MessageChecker = () => {
     const socket = useRef(null);
 
     const dispatch = useDispatch();
-
-    // console.log("CURRENT CHAT IN MESSAGECHECKER: ", currentChat);
-    console.log("notifications: ", notifications)
-    console.log("online users: ", onlineUsers);
     const takeNotifications = async () => {
         if (user) {
-            const notif = await getNotifications({from: user.id});
-            console.log("notif: ", notif)
-            console.log("notif.data: ", notif.data)
+            const notif = await getNotifications({from: user.id})
             if (notif.data){
                 setNotifications(notif.data);
             }
@@ -52,7 +47,7 @@ const MessageChecker = () => {
     };
 
     const updateNotifications = async (from, filteredNotifications) => {
-        await addNotifications({"from": from, "notifications": filteredNotifications}).unwrap();
+            await addNotifications({"from": from, "notifications": filteredNotifications}).unwrap();
     };
 
     useEffect(() => {
@@ -61,7 +56,9 @@ const MessageChecker = () => {
 
     useEffect(() => {
         if (user) {
-            updateNotifications(user.id, notifications);
+            if (notifications.length !== 0) {
+                updateNotifications(user.id, notifications);
+            }
         }
     }, [notifications])
 
@@ -101,42 +98,40 @@ const MessageChecker = () => {
         return () => effectRan.current = true
     }, [user, oauthUserData])
 
-    // useEffect(() => {
-    //     if (user?.isActivated || oauthUserData) {
-    //         if (socket.current) {
-    //             socket.current.on("msg-recieve", async (msg, chatID) => {
-    //                 if (user) {
-    //                     const takeResponse = async () => {
-    //                         const response = await receiveMessage({from: user.id, to: chatID});
-    //                         if (response.data === [] || response.data.length === 1 || response.data.length === 0) {
-    //                             await addContact({from: user.id, to: chatID}).unwrap();
-    //                         }
-    //                     }
-    //                     if (!isChatsPage) {
-    //                         await takeResponse();
-    //                     }
-    //
-    //                 } else if (oauthUserData) {
-    //                     const takeResponse = async () => {
-    //                         const response = await receiveMessage({from: oauthUserData.user.id, to: chatID});
-    //                         if (response.data === [] || response.data.length === 1 || response.data.length === 0) {
-    //                             await addContact({from: oauthUserData.user.id, to: chatID});
-    //                         }
-    //                     }
-    //                     if (!isChatsPage) {
-    //                         await takeResponse();
-    //                     }
-    //                 }
-    //             });
-    //             return () => {
-    //                 socket.current.off("msg-recieve")
-    //             }
-    //         }
-    //     }
-    //
-    // }, [])
+    useEffect(() => {
+        if (user?.isActivated || oauthUserData) {
+            if (socket.current) {
+                socket.current.on("msg-recieve", async (msg, chatID) => {
+                    if (user) {
+                        const takeResponse = async () => {
+                            const response = await receiveMessage({from: user.id, to: chatID});
+                            if (response.data === [] || response.data.length === 1 || response.data.length === 0) {
+                                await addContact({from: user.id, to: chatID}).unwrap();
+                            }
+                        }
+                        if (!isChatsPage) {
+                            await takeResponse();
+                        }
 
-    console.log("current chat in messageChecker: ", currentChat);
+                    } else if (oauthUserData) {
+                        const takeResponse = async () => {
+                            const response = await receiveMessage({from: oauthUserData.user.id, to: chatID});
+                            if (response.data === [] || response.data.length === 1 || response.data.length === 0) {
+                                await addContact({from: oauthUserData.user.id, to: chatID});
+                            }
+                        }
+                        if (!isChatsPage) {
+                            await takeResponse();
+                        }
+                    }
+                });
+                return () => {
+                    socket.current.off("msg-recieve")
+                }
+            }
+        }
+
+    }, [])
 
     useEffect(() => {
         if (!isChatsPage) {
@@ -147,11 +142,8 @@ const MessageChecker = () => {
     useEffect(() => {
         if (user?.isActivated || oauthUserData) {
             const isCurrentChatInNotifications = notifications.some(notification => notification?.chatID === currentChat?.id);
-            console.log("isCurrentChatInNotifications: ", isCurrentChatInNotifications)
-            console.log("currentChat: ", currentChat);
             if (isCurrentChatInNotifications) {
                 const filteredNotifications = notifications.filter(notification => notification.chatID !== currentChat.id);
-                console.log("filteredNotifications: ", filteredNotifications)
                 setNotifications(filteredNotifications);
                 updateNotifications(user.id, filteredNotifications);
                 // await addNotifications({"from": user.id, "notifications": filteredNotifications}).unwrap();
@@ -160,17 +152,9 @@ const MessageChecker = () => {
                 socket.current.on('get-notification', async (msg, chatID, data) => {
                     if (user) {
                         console.log("GET NOTIFICATION")
-                        console.log("ChatID: ", chatID);
-                        console.log("currentChat: ", currentChat);
 
                         if (currentChat?.id !== chatID) {
                             setNotifications(prev => [{chatID, ...data}, ...prev])
-                            console.log("notifications that will be added: ", notifications);
-
-
-                        } else {
-                            console.log("chat is open: ", currentChat);
-                            console.log("chat is open: ", chatID);
                         }
                     }
                 })

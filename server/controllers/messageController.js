@@ -106,6 +106,8 @@ class MessageController {
 
             // const allContacts = await Contact.find({});
 
+            console.log("get all contacts, from: ", from);
+
             const contacts = await Contact.findOne({sender: from});
             if (contacts) {
                 res.json(contacts.users);
@@ -174,20 +176,21 @@ class MessageController {
         try {
             const {from, notifications, offline} = req.body;
 
-            console.log("from ", from);
-            console.log("notifications ", notifications);
-            console.log("offline ", offline);
-
+            console.log("notifications to add: ", notifications)
 
             if (!offline) {
                 const contactsSender = await Contact.findOneAndUpdate({sender: from}, {notifications: notifications});
-                contactsSender.save();
+                if (contactsSender) {
+                    contactsSender.save();
+                }
             } else {
                 const contactsSender = await Contact.findOneAndUpdate(
                     { sender: from },
                     { $push: { notifications: notifications } },
                 );
-                contactsSender.save();
+                if (contactsSender) {
+                    contactsSender.save();
+                }
             }
             return res.json({info: "contacts updated"})
         } catch (err) {
@@ -198,11 +201,13 @@ class MessageController {
         try {
             const {from} = req.body;
 
-            console.log("req.body: ", req.body);
+            console.log("get notifications from: ", from);
 
             const contacts = await Contact.findOne({sender: from});
-
-            return res.json(contacts.notifications);
+            if (contacts) {
+                console.log("notifications found: ", contacts.notifications);
+                return res.json(contacts.notifications);
+            }
         } catch (err) {
             console.error(err);
         }

@@ -13,11 +13,12 @@ import {useChat} from "../../context/ChatProvider";
 // import ScrollableFeed from "react-scrollable-feed";
 // import {useSelector} from "react-redux";
 
-const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUsers}) => {
+const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUsers, takeContacts, messages, setMessages}) => {
     const [msg, setMsg] = useState("");
+    const [lastMsgs, setLastMsgs] = useState("");
     const scrollRef = useRef();
     const chatRef = useRef(null);
-    const [messages, setMessages] = useState([]);
+    // const [messages, setMessages] = useState([]);
     const [arrivalMessage, setArrivalMessage] = useState(null);
 
     const [receiveMessage, {isLoading}] = useReceiveMessageMutation();
@@ -34,7 +35,11 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
 
 
     // const [time, setTime] = useState('');
-
+    // useEffect(() => {
+    //     console.log("auto scroll on the component load")
+    //     console.log("scrollRef: ", scrollRef);
+    //     scrollRef.current?.scrollIntoView({behavior: "auto"});
+    // }, [messages]);
     function dateToFormatted(currentDate) {
         const day = currentDate.getDate().toString().padStart(2, '0');
         const month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-indexed
@@ -73,9 +78,9 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
                 msg: msg,
                 chatID: user.id,
             });
-            if (messages.length === 0) {
-                await addContact({from: currentChat.id, to: user.id}).unwrap();
-            }
+            // if (messages.length === 0 ) {
+            //     await addContact({from: currentChat.id, to: user.id}).unwrap();
+            // }
             console.log("msg: ", msg)
             if (msg.trim() !== '') {
                 console.log("SENDDD")
@@ -95,9 +100,9 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
                 msg: msg,
                 chatID: oauthUser.user.id,
             });
-            if (messages.length === 0) {
-                await addContact({from: currentChat.id, to: user.id}).unwrap();
-            }
+            // if (messages.length === 0) {
+            //     await addContact({from: currentChat.id, to: user.id}).unwrap();
+            // }
             if (msg.trim() !== '') {
                 console.log("SENDDD")
                 await sendMessage({from: user.id, to: currentChat.id, message: msg});
@@ -120,6 +125,7 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
                 const takeResponse = async () => {
                     const response = await receiveMessage({from: user.id, to: currentChat.id});
                     setMessages(response.data);
+                    setLastMsgs(response.data);
                 }
                 takeResponse();
 
@@ -127,6 +133,7 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
                 const takeResponse = async () => {
                     const response = await receiveMessage({from: oauthUser.user.id, to: currentChat.id});
                     setMessages(response.data);
+                    setLastMsgs(response.data);
                 }
                 takeResponse();
             }
@@ -140,11 +147,18 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
     useEffect(() => {
         if (socket.current === null) return;
         socket.current.on("msg-recieve", async (msg, chatID) => {
-            // console.log("messages in receive msg socket 1: ", messages);
+            console.log("messages in receive msg socket 1: ", messages);
             if (user) {
                 setLastSenderID(chatID);
                 formatContacts(contacts, user.id, chatID);
                 // console.log("msg: ", msg);
+                // console.log("ALL MESSAGES: ", messages);
+                // console.log("cyka1(")
+                if (messages.length === 0 || messages === []){
+                    console.log("cyka2(")
+                    await addContact({from: user.id, to: chatID}).unwrap();
+                    takeContacts();
+                }
             }
             setArrivalMessage({fromSelf: false, message: msg, time: dateToFormatted(new Date())});
             // console.log("arrival message: ", arrivalMessage);
@@ -158,9 +172,29 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
         arrivalMessage && lastSenderID === currentChat?.id && setMessages((prev) => [...prev, arrivalMessage]);
     }, [arrivalMessage]);
 
+
+    const Scroll = () => {
+        if (scrollRef.current){
+            const { offsetHeight, scrollHeight, scrollTop } = scrollRef.current;
+            console.log("offsetHeight: ", offsetHeight)
+            console.log("scrollHeight: ", scrollHeight)
+            console.log("scrollTop: ", scrollTop)
+            if (scrollHeight <= scrollTop + offsetHeight + 100) {
+                scrollRef.current.scrollTo(0, scrollHeight)
+            }
+        }
+
+    }
+    // useEffect(()=>{
+    //     scrollRef.current?.scrollIntoView({behavior: "auto"});
+    //     console.log("auto scroll arrivalMessage")
+    // },[arrivalMessage])
     useEffect(() => {
-        scrollRef.current?.scrollIntoView({behavior: "smooth"});
-        // console.log("messages: ", messages);
+        if (lastMsgs.length !== messages.length) {
+            scrollRef.current?.scrollIntoView({behavior: "smooth"});
+        } else{
+            scrollRef.current?.scrollIntoView({behavior: "auto"});
+        }
     }, [messages]);
     const sendChat = (event) => {
         event.preventDefault();
@@ -225,6 +259,8 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
         return groupedMessages;
     };
 
+
+
     const groupedMessages = groupMessagesByDay(messages);
 
     return (
@@ -271,6 +307,9 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
                                             <p>{message.message}</p>
                                             <span>{message.chatTime}</span>
                                         </div>
+                                    </div>
+                                    <div >
+
                                     </div>
                                 </div>
                             ))}

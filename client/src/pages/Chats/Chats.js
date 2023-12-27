@@ -16,9 +16,10 @@ const Chats = () => {
     // const receivedData = location.state;
     // const {data: model, isLoading} = useGetOneModelQuery(receivedData?.from?.pathname?.substring(1));
     const [getContacts, {isLoading: isContactsLoading}] = useGetAllContactsMutation();
+    const [messages, setMessages] = useState([]);
 
     // const [currentChat, setCurrentChat] = useState(undefined);
-    const { currentChat, setCurrentChat, setLastSenderID } = useChat();
+    const {currentChat, setCurrentChat, setLastSenderID} = useChat();
     const [contacts, setContacts] = useState([]);
 
     const onlineUsers = useSelector(state => state.onlineUsers.value);
@@ -67,16 +68,16 @@ const Chats = () => {
     //     </div>
     // }
 
-
     return (
         <div>
             <Nav user={user} oauthUser={oauthUser}/>
             <MiniNav/>
             <div className={s.chats}>
                 <Contacts contacts={contacts} changeChat={handleChatChange} user={user} oauthUser={oauthUser}
-                          onlineUsers={onlineUsers}/>
+                          onlineUsers={onlineUsers} messages={messages}/>
                 <ChatContainer socket={socket} user={user} oauthUser={oauthUser}
-                               setContacts={setContacts} contacts={contacts} onlineUsers={onlineUsers}/>
+                               setContacts={setContacts} contacts={contacts} onlineUsers={onlineUsers}
+                               takeContacts={takeContacts} messages={messages} setMessages={setMessages}/>
             </div>
         </div>
     );
