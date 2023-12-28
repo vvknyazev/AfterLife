@@ -1,11 +1,10 @@
 .header {
     padding-top: 10px;
-    height: 90vh;
+    height: 84vh;
     /*background-image: url("../../../../public/home-background.png");*/
     border-radius: 32px;
     color: white;
     font-family: 'Nunito', sans-serif;
-    margin-bottom: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;

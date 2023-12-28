@@ -1,3 +1,6 @@
+:root {
+  --Main-Background: linear-gradient(196deg, #341010 -10.52%, #0C1826 -1.38%, #000 26.76%);
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -6,6 +9,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  background: var(--Main-Background);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 @font-face {
   font-family: 'dymaxon';

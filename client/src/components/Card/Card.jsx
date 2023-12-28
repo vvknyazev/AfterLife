@@ -4,11 +4,11 @@ import {useNavigate} from "react-router-dom";
 
 const Card = (props) => {
     const dota = "/gameIcons/dota2-icon.svg";
-    const csgo = "/gameIcons/csgo-icon.ico";
+    const csgo = "/gameIcons/csgo.svg";
     const valorant = "/gameIcons/valorant.svg"
-    const lol = "/gameIcons/LoL.ico";
+    const lol = "/gameIcons/lol.svg";
     const pubg = "/gameIcons/pubg.svg";
-    const apex = "/gameIcons/apex-legends.ico";
+    const overwatch = "/gameIcons/overwatch.svg";
     const fortnite = "/gameIcons/fortnite.svg";
 
     let gameIcons = [];
@@ -26,8 +26,8 @@ const Card = (props) => {
             case "Valorant":
                 gameIcons.push(<img src={valorant} alt="valorant"/>)
                 break;
-            case "Apex":
-                gameIcons.push(<img src={apex} alt="apex"/>)
+            case "Overwatch":
+                gameIcons.push(<img src={overwatch} alt="overwatch"/>)
                 break;
             case "Fortnite":
                 gameIcons.push(<img src={fortnite} alt="fortnite"/>)

@@ -21,7 +21,7 @@ const Home = () => {
             {/*    </div>*/}
             {/*) : (*/}
             <div>
-                <div style={{backgroundImage: "url(/home-background.png)", backgroundRepeat: "no-repeat", backgroundSize: "cover"}}>
+                <div>
                     <Nav user={user} oauthUser={oauthUser}/>
                     <HeaderHomePage/>
                 </div>

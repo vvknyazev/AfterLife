@@ -36,7 +36,7 @@ const CreateModel = () => {
         {value: 'Valorant', label: 'Valorant'},
         {value: 'Fortnite', label: 'Fortnite'},
         {value: 'PUBG', label: 'PUBG'},
-        {value: 'Apex', label: 'Apex'}
+        {value: 'Overwatch', label: 'Overwatch'}
     ]
     const handleUserInput = (e) => setUsername(e.target.value)
     const handleEmailInput = (e) => setEmail(e.target.value)

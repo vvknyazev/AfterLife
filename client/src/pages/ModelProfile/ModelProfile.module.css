@@ -1,74 +1,96 @@
+.modelProfileBackground {
+    background: linear-gradient(196deg, #341010 -10.52%, #3A2D42 -1.38%, #000 26.76%);
+}
+
 .profile {
     position: relative;
-    background-color: #000;
     color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
 }
+
 .header {
-    background: url("../../../public/profile/modelProfileBackground.png") center no-repeat;
+    background: url("../../../public/profile/host-background.png") center no-repeat;
     background-size: cover;
-    height: 350px;
+    height: 500px;
     width: 100%;
     position: relative;
     display: flex;
     align-items: flex-end;
     justify-content: center;
+    border-radius: 24px;
 }
-.mask{
+
+.mask {
     width: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgb(15, 15, 15) 100%);
-
-    height: 250px;
-    display: flex;
-    align-items: flex-end;
-}
-.description {
-    position: relative;
-    margin-left: 250px;
-    margin-bottom: 20px;
+    background: linear-gradient(0deg, #000 20%, rgba(0, 0, 0, 0.00) 93%);
+    height: 350px;
 }
 
-.name {
-    margin: 0 0 10px 0;
-    font-family: Nunito, sans-serif;
-    font-weight: 600;
-    font-size: 36px;
-    color: #fff;
-}
-
-.bio {
-    font-family: "Nunito Sans", sans-serif;
-    font-weight: 500;
-    font-size: 18px;
-    color: #fff;
-    margin: 0 0 0 0;
+.mask2 {
+    position: absolute;
+    height: 500px;
+    background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.00) 100%);
+    top: 0;
+    left: 0;
+    width: 500px;
 }
 
 .profileContainer {
-    width: 900px;
-    margin: 0 auto;
-}
-
-.profileInfo {
     display: flex;
-    justify-content: flex-start;
     align-items: flex-end;
 }
 
-.profilePhoto {
+.description {
+    position: relative;
+
+}
+
+.name {
+    color: #FFF;
+    font-family: Onest, sans-serif;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 15px 2px 0;
+}
+
+.bio {
+    color: #829FCA;
+    font-family: Onest, sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: lowercase;
+    margin: 10px 2px 0;
+}
+
+.profileContainer {
     position: absolute;
-    top: 30%;
+    top: 15px;
+    left: 50px;
+
+}
+
+.profileInfo {
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.profilePhoto {
+
 }
 
 .profileInfo img {
-    width: 215px;
-    height: 302.25px;
-    border-radius: 12px;
+    width: 240px;
+    height: 340px;
 }
-.lang{
+
+.lang {
     font-family: Nunito, sans-serif;
     font-weight: normal;
     font-size: 14px;
@@ -78,23 +100,18 @@
     margin-top: 30px;
     width: 500px;
 }
-.lang span{
+
+.lang span {
     color: white;
 }
-.content{
-    margin-top: 100px;
-    margin-bottom: 100px;
-    width: 1039px;
-    height: 548px;
-    border-radius: 24px;
-    background: #141414;
-}
-.edit{
+
+.edit {
     position: absolute;
     right: 58px;
     bottom: 36px;
 
 }
+
 .secondButton {
     width: 130px;
     height: 50px;
@@ -110,5 +127,279 @@
     margin: 20px auto 0;
     font-family: 'Nunito Sans', sans-serif;
     font-weight: 500;
+}
+
+.connectContainer {
+    position: absolute;
+    bottom: -5px;
+    left: 230px;
+}
+
+.connect {
+    display: flex;
+    width: 200px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 18px;
+    background: #FFF;
+    color: #000;
+    text-align: center;
+    font-family: Onest, serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 145%;
+    text-transform: capitalize;
+}
+
+.content {
+    position: relative;
+    width: 88%;
+    margin-top: 24px;
+}
+
+.descContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info {
+    height: 600px;
+    position: relative;
+    /*background: rgba(58, 45, 66, 0.75);*/
+}
+.shiningBackground{
+    position: absolute;
+    z-index: 555;
+}
+
+.shining {
+    position: absolute;
+    width: 517px;
+    height: 517px;
+    border-radius: 517px;
+    background: rgba(58, 45, 66, 0.75);
+    filter: blur(200px);
+    z-index: 2;
+}
+
+.spotlight {
+    height: 600px;
+    position: relative;
+}
+
+.smallBio {
+    display: flex;
+    gap: 26px;
+}
+
+.smallBioItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.achievements {
+    width: 170px !important;
+
+}
+
+.achievements p {
+    margin-top: 2px !important;
+}
+
+.smallBioItem h4 {
+    text-align: center;
+    font-family: Onest, sans-serif;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    background: linear-gradient(201deg, #FFF 4.92%, #603E76 86.12%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0 0 10px;
+}
+
+.smallBioItem p {
+    margin: 0;
+    color: #FFF;
+    font-family: Onest, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.smallBioItem img {
+    width: 48px;
+}
+
+.infoBio {
+
+}
+
+.infoBio h3 {
+    color: #FFF;
+    font-family: Onest, sans-serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+    margin: 30px 0 0;
+}
+
+.infoBio p {
+    color: rgba(255, 255, 255, 0.80);
+    font-family: Onest, sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 135%; /* 32.4px */
+    margin-top: 17px;
+    margin-bottom: 30px;
+}
+
+.langBio {
+    display: flex;
+    gap: 10px;
+}
+
+.langBioItem {
+    padding: 10px 15px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.langBioItem p {
+    margin: 0;
+    color: #FFF;
+    font-family: Nunito Sans, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 145%;
+}
+
+.spotlight h3 {
+    margin: 0;
+    color: #FFF;
+    font-family: DymaxionScript, sans-serif;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-shadow: 0px 0px 8px #FFF;
+}
+
+.categories {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.categoriesItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 14px;
+    background: #141414;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+}
+
+.categoriesItem p {
+    margin: 0;
+    color: #FFF;
+    font-family: Onest, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 145%;
+}
+
+.active {
+    border: 0.5px solid #FFF;
+}
+
+.categoryContent {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    width: 500px;
+    margin-top: 35px;
+}
+
+.categoryContentItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 240px;
+    height: 105px;
+    border-radius: 8px;
+    background: #0F0F0F;
+    backdrop-filter: blur(10px);
+    text-overflow: ellipsis;
+}
+
+.categoryContentItem img {
+    width: 64px;
+    height: 85px;
+    border-radius: 2px;
+}
+
+.categoryContentItem p {
+    overflow: hidden;
+    color: #8F8F8F;
+    text-overflow: ellipsis;
+    font-family: Nunito Sans, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: uppercase;
+    width: 100px;
+    white-space: nowrap;
+    margin: 0 0 4px 12px;
+}
+
+.categoryContentItem h4 {
+    margin: 0 0 0 12px;
+    overflow: hidden;
+    color: #FFF;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: Nunito Sans, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    width: 144px;
+}
+.shiningBackground2{
+    position: absolute;
+    z-index: 555;
+    right: 5%;
+}
+
+.shining2 {
+    position: absolute;
+    width: 461px;
+    height: 461px;
+    background: rgba(181, 209, 251, 0.15);
+    filter: blur(200px);
+    z-index: 2;
+    right: 5%;
 
 }

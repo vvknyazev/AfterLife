@@ -35,7 +35,7 @@ const EditModel = () => {
         {value: 'Valorant', label: 'Valorant'},
         {value: 'Fortnite', label: 'Fortnite'},
         {value: 'PUBG', label: 'PUBG'},
-        {value: 'Apex', label: 'Apex'}
+        {value: 'Overwatch', label: 'Overwatch'}
     ]
 
     useEffect(() => {

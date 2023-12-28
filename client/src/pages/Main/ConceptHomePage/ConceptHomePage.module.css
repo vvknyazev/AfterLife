@@ -1,13 +1,21 @@
 .container{
     font-family: Nunito, sans-serif;
     height: 100vh;
-    margin: 0 auto 8%;
+    text-align: center;
+    background-color: #000;
+    padding-top: 50px;
 }
 .container h1{
+    color: #FFF;
+    text-align: center;
+    font-family: Onest, sans-serif;
+    font-size: 48px;
+    font-style: normal;
     font-weight: 600;
-    font-size: 60px;
-    color: #fff;
-    margin-left: 5%;
+    line-height: normal;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 20px;
 }
 .concept{
     height: 90%;
@@ -38,4 +46,11 @@
 }
 .streamService img{
     height: 90%;
+}
+.session{
+    width: 80%;
+    margin: 50px auto;
+}
+.session img{
+    width: 650px
 }

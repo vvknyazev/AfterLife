@@ -3,25 +3,13 @@
 }
 
 .box {
-    width: 165px;
-    border-radius: 12px;
-    /*background: rgba(255, 255, 255, 0.1);*/
+    margin-top: 25px;
     display: flex;
-    justify-content: center;
-    gap: 10px;
-    align-items: center;
-    margin-top: 18px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 18px;
-    cursor: pointer;
-    /*width: 180px;*/
-    height: 60px;
+    padding: 10px 15px;
 
-
-    /* Note: currently only Safari supports backdrop-filter */
-    backdrop-filter: blur(10px);
-    --webkit-backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.05);
 
 }
 

@@ -5,7 +5,7 @@ const Category = (props) => {
     return (
         <div className={props.selectedCategory === props.games.name ? `${s.box} ${s.active}` : s.box} onClick={() => {props.onClick(props.games.name)}}>
             <img src={props.games.img} alt="logo"/>
-            <p className={s.pColor}>{props.games.name}</p>
+            {/*<p className={s.pColor}>{props.games.name}</p>*/}
         </div>
     );
 };

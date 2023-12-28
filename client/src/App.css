@@ -491,7 +491,6 @@ body {
   width: 100%;
   height: 100px;
   display: flex;
-  justify-content: center;
   align-items: center;
 
   /*top: 0;*/
@@ -502,7 +501,6 @@ body {
 }
 .navBlack{
   position: relative;
-  background-color: black;
   width: 100%;
   height: 100px;
   display: flex;
