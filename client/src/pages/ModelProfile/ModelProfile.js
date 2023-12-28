@@ -4,6 +4,7 @@ import s from "./ModelProfile.module.css";
 import {NavLink, useLocation, useNavigate, useOutletContext, useParams} from "react-router-dom";
 import {useAddContactMutation, useGetOneModelQuery} from "../../features/commonApiSlice";
 import {InfinitySpin} from "react-loader-spinner";
+import Player from "../../components/Player/Player";
 
 const ModelProfile = () => {
 
@@ -157,6 +158,9 @@ const ModelProfile = () => {
                             </div>
                         </div>
                     </div>
+
+                    <Player/>
+
                 </div>
             </section>
         </div>

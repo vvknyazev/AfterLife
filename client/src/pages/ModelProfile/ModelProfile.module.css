@@ -167,9 +167,9 @@
 }
 
 .info {
-    height: 600px;
     position: relative;
     /*background: rgba(58, 45, 66, 0.75);*/
+
 }
 .shiningBackground{
     position: absolute;
@@ -182,13 +182,13 @@
     height: 517px;
     border-radius: 517px;
     background: rgba(58, 45, 66, 0.75);
-    filter: blur(200px);
+    filter: blur(150px);
     z-index: 2;
 }
 
 .spotlight {
-    height: 600px;
     position: relative;
+
 }
 
 .smallBio {
@@ -300,6 +300,8 @@
     font-weight: 400;
     line-height: normal;
     text-shadow: 0px 0px 8px #FFF;
+    position: absolute;
+    top: -50px;
 }
 
 .categories {
@@ -389,17 +391,23 @@
 }
 .shiningBackground2{
     position: absolute;
-    z-index: 555;
+    z-index: 10;
     right: 5%;
 }
 
 .shining2 {
     position: absolute;
-    width: 461px;
-    height: 461px;
+    width: 561px;
+    height: 561px;
     background: rgba(181, 209, 251, 0.15);
     filter: blur(200px);
     z-index: 2;
     right: 5%;
 
+}
+.beforePlayer{
+    margin-top: 70px;
+}
+.afterPlayer{
+    padding: 50px;
 }
