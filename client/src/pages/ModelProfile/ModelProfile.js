@@ -62,12 +62,12 @@ const ModelProfile = () => {
                             <div className={s.profileContainer}>
                                 <div className={s.profileInfo}>
                                     <div className={s.profilePhoto}>
-                                        <img src={`${process.env.REACT_APP_API_URL}/${model.photo}`}
+                                        <img src={`${process.env.REACT_APP_API_URL}/${model?.photo}`}
                                              alt="profile-photo"/>
                                     </div>
                                     <div className={s.description}>
-                                        <p className={s.name}>{model.name}</p>
-                                        <p className={s.bio}>{`@${model.name}`}</p>
+                                        <p className={s.name}>{model?.name}</p>
+                                        <p className={s.bio}>{`@${model?.name}`}</p>
                                     </div>
                                     <div className={s.connectContainer}>
                                         <NavLink to={'/create-session'} className={s.connect}>Подключить</NavLink>
@@ -107,7 +107,7 @@ const ModelProfile = () => {
                                 </div>
                                 <div className={s.infoBio}>
                                     <h3>Обо мне</h3>
-                                    <p>{model.bio}</p>
+                                    <p>{model?.bio}</p>
                                 </div>
                                 <div className={s.langBio}>
                                     <div className={s.langBioItem}><p>Русский</p></div>

@@ -53,7 +53,7 @@
     font-family: Onest, sans-serif;
     font-size: 36px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     line-height: normal;
     margin: 15px 2px 0;
 }
@@ -221,7 +221,7 @@
     font-family: Onest, sans-serif;
     font-size: 32px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     line-height: normal;
     background: linear-gradient(201deg, #FFF 4.92%, #603E76 86.12%);
     background-clip: text;
@@ -253,7 +253,7 @@
     font-family: Onest, sans-serif;
     font-size: 30px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     line-height: normal;
     text-transform: capitalize;
     margin: 30px 0 0;
@@ -299,7 +299,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    text-shadow: 0px 0px 8px #FFF;
+    text-shadow: 0 0 8px #FFF;
     position: absolute;
     top: -50px;
 }

@@ -390,14 +390,13 @@ body {
   height: 24px;
 }
 .welcome{
-  position: relative;
-  background-color: #0f0f0f;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
-  padding-top: 25px;
+  /*position: relative;*/
+  /*color: white;*/
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*align-items: center;*/
+  /*height: 100vh;*/
+  /*padding-top: 25px;*/
 }
 .Toastify__toast{
   border-radius: 12px !important;
