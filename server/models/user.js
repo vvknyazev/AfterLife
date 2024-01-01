@@ -11,7 +11,9 @@ const User = new Schema({
     photo: {type: String, default: '/nav/user-photo.jpeg'},
     name: String,
     bio: String,
-    games: {type: [String]}
+    games: {type: [String]},
+    userId: {type: String, unique: false, require: false},
+    source: {type: String, enum : ['local','google', 'discord'], default: 'local'}
 })
 
 module.exports = model('User', User);

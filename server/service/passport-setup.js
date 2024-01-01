@@ -6,79 +6,31 @@ const UserDiscord = require('../models/userDiscord');
 const User = require("../models/user");
 const refresh = require('passport-oauth2-refresh');
 
+const SOURCE_GOOGLE = 'google';
+const SOURCE_DISCORD = 'discord';
+
 const googleStrategy = new GoogleStrategy(
     {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "/api/user/login/google/redirect",
+        callbackURL: "/api/user/login/" + SOURCE_GOOGLE + "/redirect",
     },
     (accessToken, refreshToken, profile, done) => {
-        UserGoogle.findOne({googleId: profile.id}).then(async (currentUser) => {
-            console.log(profile);
-            if (currentUser) {
-                console.log("user is: ", currentUser)
-                done(null, currentUser);
-            } else {
-                const user = await User.findOne({email: profile.emails[0].value});
-                const userDiscord = await UserDiscord.findOne({email: profile.emails[0].value});
-                if (user || userDiscord) {
-                    done(null, false);
-                } else {
-                    const ImgUrl = profile._json['picture'].replace("=s96-c", "")
-                    new UserGoogle({
-                        username: profile.displayName,
-                        googleId: profile.id,
-                        email: profile.emails[0].value,
-                        photo: ImgUrl,
-                        refreshToken: refreshToken,
-                    }).save().then((newUser) => {
-                        console.log('new user created' + newUser);
-                        done(null, newUser);
-                    })
-                }
-
-            }
-        })
+        singInCb(accessToken, refreshToken, profile, done, SOURCE_GOOGLE);
     }
 )
 const discordStrategy = new DiscordStrategy(
     {
         clientID: process.env.DISCORD_CLIENT_ID,
         clientSecret: process.env.DISCORD_CLIENT_SECRET,
-        callbackURL: "/api/user/login/discord/redirect",
+        callbackURL: "/api/user/login/" + SOURCE_DISCORD + "/redirect",
     },
     (accessToken, refreshToken, profile, done) => {
-        UserDiscord.findOne({discordId: profile.id}).then(async (currentUser) => {
-            console.log(profile);
-            if (currentUser) {
-                console.log("user is: ", currentUser)
-                done(null, currentUser);
-            } else {
-                const user = await User.findOne({email: profile.email});
-                const userGoogle = await UserGoogle.findOne({email: profile.email});
-                if (user || userGoogle) {
-                    done(null, false);
-                } else {
-                    new UserDiscord({
-                        username: profile.username,
-                        discordId: profile.id,
-                        email: profile.email,
-                        photo: `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`,
-                        refreshToken: refreshToken,
-                    }).save().then((newUser) => {
-                        console.log('new user created' + newUser);
-                        done(null, newUser);
-                    })
-                }
-
-            }
-        })
-
-        //done(null, profile);
+        singInCb(accessToken, refreshToken, profile, done, SOURCE_DISCORD);
     }
 )
-passportSetup.use('google', googleStrategy);
-passportSetup.use('discord', discordStrategy);
+passportSetup.use(SOURCE_GOOGLE, googleStrategy);
+passportSetup.use(SOURCE_DISCORD, discordStrategy);
 
 refresh.use(googleStrategy);
 refresh.use(discordStrategy);
@@ -101,3 +53,54 @@ passportSetup.deserializeUser(async (id, done) => {
         done(error, null);
     }
 });
+
+let singInCb = function(accessToken, refreshToken, profile, done, source) {
+    User.findOne({userId: profile.id, source: source}).then(async (currentUser) => {
+        console.log(profile);
+        if (currentUser) {
+            console.log("user is: ", currentUser)
+            done(null, currentUser);
+        } else {
+            const profileData = getProfileData(profile, source);
+            const user = await User.findOne({email: profileData.email});
+            if (user) {
+                done(null, false);
+            } else {
+                new User({
+                    username: profile.username,
+                    email: profileData.email,
+                    photo: profileData.imageUrl,
+                    refreshToken: refreshToken,
+                    userId: profile.id,
+                    source: source,
+                }).save().then((newUser) => {
+                    console.log('new user created' + newUser);
+                    done(null, newUser);
+                })
+            }
+
+        }
+    })
+}
+
+let getProfileData = function(profile, source) {
+    let profileData = {
+        imageUrl: '',
+        email: '',
+    };
+
+    switch(source){
+        case 'google':
+            profileData.imageUrl = profile._json['picture'].replace("=s96-c", "");
+            profileData.email = profile.emails[0].value;
+            break;
+        case 'discord':
+            profileData.imageUrl = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png`
+            profileData.email = profile.email;
+            break;
+        default:
+            break;
+    }
+
+    return profileData;
+}
