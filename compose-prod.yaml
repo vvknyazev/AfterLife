@@ -40,7 +40,7 @@ services:
     expose:
       - 27017
     ports:
-      - 27017:27117
+      - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: $CI_MONGO_INITDB_ROOT_USERNAME
       MONGO_INITDB_ROOT_PASSWORD: $CI_MONGO_INITDB_ROOT_PASSWORD
