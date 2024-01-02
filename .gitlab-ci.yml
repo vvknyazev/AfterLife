@@ -40,8 +40,8 @@ build and push docker image:
     - echo $CI_PIPELINE_ID
     - echo "CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE" >> .env
     - echo "TAG=$CI_PIPELINE_ID" >> .env
-    - echo "MONGO_INITDB_ROOT_USERNAME=$CI_MONGO_INITDB_ROOT_USERNAME" >> .env
-    - echo "MONGO_INITDB_ROOT_PASSWORD=$CI_MONGO_INITDB_ROOT_PASSWORD" >> .env
+    #- echo "MONGO_INITDB_ROOT_USERNAME=$CI_MONGO_INITDB_ROOT_USERNAME" >> .env
+    #- echo "MONGO_INITDB_ROOT_PASSWORD=$CI_MONGO_INITDB_ROOT_PASSWORD" >> .env
     - cat .env
     - docker compose -f compose-prod.yaml up -d
 
