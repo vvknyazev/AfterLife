@@ -20,7 +20,8 @@ services:
     image: $CI_REGISTRY_IMAGE/backend:$TAG
     restart: always
     volumes:
-      - ./server/uploads:/home/afterlife/uploads
+      #- ./server/uploads:/home/afterlife/uploads
+      - /home/afterlife/volumes/server/uploads:/app/uploads
 #      - /usr/src/app/node_modules
     depends_on:
       - mongo
@@ -34,7 +35,7 @@ services:
     restart: always
     image: mongo:7.0
     volumes:
-      - ./volumes/mongo:/data/db
+      - /home/afterlife/volumes/mongo:/data/db
     networks:
       - express-mongo
     expose:
