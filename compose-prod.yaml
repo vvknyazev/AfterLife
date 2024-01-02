@@ -42,8 +42,8 @@ services:
     ports:
       - 27017:27017
     environment:
-      MONGO_INITDB_ROOT_USERNAME: afterlife
-      MONGO_INITDB_ROOT_PASSWORD: afterlife1234
+      MONGO_INITDB_ROOT_USERNAME: $CI_MONGO_INITDB_ROOT_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $CI_MONGO_INITDB_ROOT_PASSWORD
 networks:
   react-express:
   express-mongo:
