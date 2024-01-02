@@ -22,23 +22,23 @@ services:
     volumes:
       - ./server/uploads:/home/afterlife/uploads
 #      - /usr/src/app/node_modules
-#    depends_on:
-#      - mongo
+    depends_on:
+      - mongo
     networks:
       - express-mongo
       - react-express
     expose:
       - 5000
-#  mongo:
-#    container_name: afterlife-mongodb
-#    restart: always
-#    image: mongo:latest
-#    volumes:
-#      - ./volumes/mongo:/data/db
-#    networks:
-#      - express-mongo
-#    expose:
-#      - 27017
+  mongo:
+    container_name: afterlife-mongodb
+    restart: always
+    image: mongo:7.0
+    volumes:
+      - ./volumes/mongo:/data/db
+    networks:
+      - express-mongo
+    expose:
+      - 27017
 networks:
   react-express:
   express-mongo:

@@ -34,13 +34,19 @@ services:
   mongo:
     container_name: afterlife-mongodb
     restart: always
-    image: mongo:4.2.0
+    #image: mongo:4.2.0
+    image: mongo:7.0
     volumes:
       - ./volumes/mongo:/data/db
     networks:
       - express-mongo
     expose:
       - 27017
+    # ports:
+    #   - 27017:27017
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+    #   - MONGO_INITDB_ROOT_PASSWORD=bdung
 networks:
   react-express:
   express-mongo:
