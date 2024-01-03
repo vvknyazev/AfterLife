@@ -8,6 +8,7 @@ services:
     stdin_open: true
     volumes:
       - ./client/src:/app/src
+      - /home/afterlife/volumes/server/uploads/media:/usr/share/nginx/html/media/
 #      - /usr/src/app/node_modules
     restart: always
     networks:

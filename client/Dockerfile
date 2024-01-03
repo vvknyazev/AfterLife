@@ -37,6 +37,7 @@ RUN cp /app/devops/volumes/nginx/nginx.conf /etc/nginx/nginx.conf && \
     cp /app/devops/volumes/nginx/conf.d/ssl.conf /etc/nginx/conf.d/ssl.conf
 
 RUN mkdir /usr/share/nginx/html && cp -R /app/build/* /usr/share/nginx/html
+RUN mkdir /usr/share/nginx/html/media
 
 # Expose volumes
 VOLUME ["/etc/nginx/conf.d", "/var/log/nginx", "/www"]
