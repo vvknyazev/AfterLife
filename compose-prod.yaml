@@ -40,8 +40,8 @@ services:
     ports:
       - 8081:8081
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: afterlife
-      ME_CONFIG_MONGODB_ADMINPASSWORD: afterlife1234
+      ME_CONFIG_BASICAUTH_USERNAME: afterlife
+      ME_CONFIG_BASICAUTH_PASSWORD: afterlife1234
       ME_CONFIG_MONGODB_SERVER: afterlife-mongodb
     networks:
       - express-mongo
