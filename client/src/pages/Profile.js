@@ -1,6 +1,6 @@
 import {NavLink, useLocation, useNavigate, useOutletContext} from "react-router-dom"
 import {useSendLogoutMutation} from "../features/auth/authApiSlice";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {faRightFromBracket} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {InfinitySpin} from "react-loader-spinner";
@@ -13,21 +13,25 @@ const USERS_REGEX = /^\/dash\/users(\/)?$/
 
 
 const Profile = () => {
-    // const token = useSelector(selectCurrentToken)
-    // const tokenAbbr = `${token?.slice(0, 9)}...`
-
 
     const navigate = useNavigate()
     const {pathname} = useLocation()
 
-    // const {data: user, isLoading: isLoadingUser, isError: isErrorUser, error: errorUser} = useGetUserQuery();
-    // const {data: oauthUserData} = useGetOauthUserQuery();
     const [user, oauthUser] = useOutletContext();
 
-    // useEffect(() => {
-    //     if ()
-    //     navigate('/login')
-    // },[])
+    const [userPhoto, setUserPhoto] = useState('/nav/user-photo.jpeg');
+
+    useEffect(() => {
+        if (user) {
+            if (user?.photo !== userPhoto) {
+                setUserPhoto(`${process.env.REACT_APP_API_URL}/${user?.photo}`);
+            }
+        } else if (oauthUser){
+            if (oauthUser.user.photo !== userPhoto){
+                setUserPhoto(`${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`)
+            }
+        }
+    }, [])
 
 
     const [sendLogout, {
@@ -61,8 +65,6 @@ const Profile = () => {
     }
 
     if (isError) return <p>Error: {error.data?.message}</p>
-
-    // console.log(user);
 
     let dashClass = null
     if (!DASH_REGEX.test(pathname) && !NOTES_REGEX.test(pathname) && !USERS_REGEX.test(pathname)) {
@@ -101,12 +103,12 @@ const Profile = () => {
                     <div className={s.headerInfo}>
                         <div className={s.profileImage}>
                             <img
-                                src={`${process.env.REACT_APP_API_URL}/${user?.photo}` || `${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`}
+                                src={userPhoto}
                                 alt="profile-photo"/>
                         </div>
                         <div className={s.headerDescription}>
-                            <p className={s.name}>{user.name || oauthUser?.user?.name}</p>
-                            <p className={s.nameTag}>{`@${user?.name || oauthUser?.user?.name}`}</p>
+                            <p className={s.name}>{user?.username || oauthUser?.user?.username}</p>
+                            <p className={s.nameTag}>{`@${user?.username || oauthUser?.user?.username}`}</p>
                         </div>
                         <div className={s.connectContainer}>
                             <NavLink to={''} className={s.connect}>Пригласить</NavLink>
@@ -210,9 +212,9 @@ const Profile = () => {
                                 <div className={s.friends}>
                                     <img src="/profile/friends-logo.png" alt="friends-logo"/>
                                     <div className={s.friendsList}>
-                                        {Array.from({ length: 5 }).map((_, index) => (
+                                        {Array.from({length: 5}).map((_, index) => (
                                             <div key={index} className={s.friendItem}>
-                                                <div><img src="/profile/friend.png" alt="friend-ava" /></div>
+                                                <div><img src="/profile/friend.png" alt="friend-ava"/></div>
                                                 <div className={s.friendInfo}>
                                                     <h4>Victoria</h4>
                                                     <p>@Saigon</p>

@@ -114,12 +114,9 @@ a {
     line-height: normal;
     letter-spacing: 0.8px;
     text-transform: uppercase;
-    transition: 0.3s all ease;
+    transition: 0.5s all ease;
 }
-.navButton:hover{
-    background: rgb(20, 65, 223);
-    transition: 0.3s all ease;
-}
+
 /*.navItem:hover::before{*/
 /*    transform: scaleX(1);*/
 /*    transition: transform 0.5s;*/

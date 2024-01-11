@@ -185,6 +185,20 @@ const Nav = (props) => {
         nav = 'navBlack'
     }
 
+    const [userPhoto, setUserPhoto] = useState('/nav/user-photo.jpeg');
+
+    useEffect(() => {
+        if (props.user) {
+            if (props.user?.photo !== userPhoto) {
+                setUserPhoto(`${process.env.REACT_APP_API_URL}/${props.user?.photo}`);
+            }
+        } else if (props.oauthUser){
+            if (props.oauthUser.user.photo !== userPhoto){
+                setUserPhoto(`${process.env.REACT_APP_API_URL}/${props.oauthUser?.user?.photo}`)
+            }
+        }
+    }, [])
+
     return (
         <div>
             {/*<Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>*/}
@@ -197,12 +211,12 @@ const Nav = (props) => {
                     </div>
                     <NavLink to='/' className={n.logo}>Afterlife</NavLink>
                     <div className={n.menuButtons}>
-                        <NavLink to="/models" className={n.navButton}>Выбрать пару</NavLink>
+                        <NavLink to="/models" className={n.navButton}>Найти пару</NavLink>
                         {props.user ? <li className={n.rightSide}>
-                            <NavItem icon={`${process.env.REACT_APP_API_URL}/${props.user.photo}`} isLoggedIn={true}
+                            <NavItem icon={userPhoto} isLoggedIn={true}
                                      isActivated={props.user.isActivated} name={props.user?.name}></NavItem>
                         </li> : props.oauthUser ? <li className={n.rightSide}>
-                            <NavItem icon={`${process.env.REACT_APP_API_URL}/${props.oauthUser.user.photo}`}
+                            <NavItem icon={userPhoto}
                                      isLoggedIn={true}
                                      isActivated={true} name={props.user?.name}></NavItem>
                         </li> : <li className={n.rightSide}>

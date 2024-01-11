@@ -389,14 +389,14 @@ body {
   width: 24px;
   height: 24px;
 }
-.welcome{
-  /*position: relative;*/
-  /*color: white;*/
-  /*display: flex;*/
-  /*flex-direction: column;*/
-  /*align-items: center;*/
-  /*height: 100vh;*/
-  /*padding-top: 25px;*/
+.activate{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  height: 100vh;
+  font-size: 50px;
+  font-family: "Onest", serif;
 }
 .Toastify__toast{
   border-radius: 12px !important;

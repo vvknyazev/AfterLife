@@ -11,6 +11,20 @@ const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers, messages}
 
     const {currentChat, notifications} = useChat();
 
+    const [userPhoto, setUserPhoto] = useState('/nav/user-photo.jpeg');
+
+    useEffect(() => {
+        if (user) {
+            if (user?.photo !== userPhoto) {
+                setUserPhoto(`${process.env.REACT_APP_API_URL}/${user?.photo}`);
+            }
+        } else if (oauthUser){
+            if (oauthUser.user.photo !== userPhoto){
+                setUserPhoto(`${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`)
+            }
+        }
+    }, [])
+
     function countNotifications(contactID) {
         return notifications.filter(notification => notification.chatID === contactID).length;
     }
@@ -29,10 +43,10 @@ const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers, messages}
         }
         if (user) {
             setCurrentUserName(user.username);
-            setCurrentUserImage(`${process.env.REACT_APP_API_URL}/${user.photo}`);
+            setCurrentUserImage(userPhoto);
         } else if (oauthUser) {
             setCurrentUserName(oauthUser.user.username);
-            setCurrentUserImage(`${process.env.REACT_APP_API_URL}/${oauthUser.user.photo}`);
+            setCurrentUserImage(userPhoto);
         }
         if (onlineUsers){
             setCurrentOnlineUsers(onlineUsers);
@@ -72,13 +86,13 @@ const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers, messages}
                         <div className={s.currentUser}>
                             <div>
                                 <img
-                                    src={`${process.env.REACT_APP_API_URL}/${user?.photo}` || `${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`}
+                                    src={userPhoto}
                                     alt="profile-photo"
                                 />
                             </div>
                             <div className={s.desc}>
                                 <div>
-                                    <h3>{user?.name || oauthUser?.user?.name}</h3>
+                                    <h3>{user?.username || oauthUser?.user?.username}</h3>
                                 </div>
                                 <div>
                                     <p>Активные чаты</p>
