@@ -47,7 +47,5 @@ VOLUME ["/etc/nginx/conf.d", "/var/log/nginx", "/www"]
 # Expose ports
 EXPOSE 80 443
 
-USER afterlife
-
 # Entry point
 ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
