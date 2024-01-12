@@ -38,7 +38,6 @@ RUN cp /app/devops/volumes/nginx/nginx.conf /etc/nginx/nginx.conf && \
 
 RUN mkdir /usr/share/nginx/html && cp -R /app/build/* /usr/share/nginx/html
 RUN mkdir /usr/share/nginx/html/media
-RUN mkdir /var/lib/nginx/tmp
 RUN chmod +x /var/lib/nginx -R
 RUN chown -R nginx:nginx /var/lib/nginx
 
