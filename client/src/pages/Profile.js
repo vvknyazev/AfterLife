@@ -6,6 +6,9 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {InfinitySpin} from "react-loader-spinner";
 import Nav from "../components/Nav/Nav";
 import s from "./Profile.module.css"
+import Films from "../components/Spotlight/Films/Films";
+import Games from "../components/Spotlight/Games/Games";
+import Music from "../components/Spotlight/Music/Music";
 
 const DASH_REGEX = /^\/dash(\/)?$/
 const NOTES_REGEX = /^\/dash\/notes(\/)?$/
@@ -18,6 +21,13 @@ const Profile = () => {
     const {pathname} = useLocation()
 
     const [user, oauthUser] = useOutletContext();
+
+    const [activeCategory, setActiveCategory] = useState('Смотрю');
+
+    const handleCategoryChange = (category) => {
+        setActiveCategory(category);
+    };
+
 
     const [userPhoto, setUserPhoto] = useState('/nav/user-photo.jpeg');
 
@@ -154,42 +164,29 @@ const Profile = () => {
                                     <div className={s.shiningBackground2}>
                                         <h3>Spotlight</h3>
                                         <div className={s.categories}>
-                                            <div className={`${s.categoriesItem} ${s.active}`}><p>Смотрю</p></div>
-                                            <div className={s.categoriesItem}><p>Играю</p></div>
-                                            <div className={s.categoriesItem}><p>Слушаю</p></div>
+                                            <div
+                                                className={`${s.categoriesItem} ${activeCategory === 'Смотрю' ? s.active : ''}`}
+                                                onClick={() => handleCategoryChange('Смотрю')}
+                                            >
+                                                <p>Смотрю</p>
+                                            </div>
+                                            <div
+                                                className={`${s.categoriesItem} ${activeCategory === 'Играю' ? s.active : ''}`}
+                                                onClick={() => handleCategoryChange('Играю')}
+                                            >
+                                                <p>Играю</p>
+                                            </div>
+                                            <div
+                                                className={`${s.categoriesItem} ${activeCategory === 'Слушаю' ? s.active : ''}`}
+                                                onClick={() => handleCategoryChange('Слушаю')}
+                                            >
+                                                <p>Слушаю</p>
+                                            </div>
                                         </div>
-                                        <div className={s.categoryContent}>
-                                            <div className={s.categoryContentItem}>
 
-                                                <img src="/profile/spotlight/movies/film1.jpg" alt="film1"/>
-                                                <div>
-                                                    <p>ЛУНА</p>
-                                                    <h4>Deo mun / The Moon</h4>
-                                                </div>
-                                            </div>
-                                            <div className={s.categoryContentItem}>
-                                                <img src="/profile/spotlight/movies/film2.jpg" alt="film2"/>
-                                                <div>
-                                                    <p>Человек-паук: Лотос</p>
-                                                    <h4>Spider-Man: Lotus</h4>
-                                                </div>
-                                            </div>
-                                            <div className={s.categoryContentItem}>
-                                                <img src="/profile/spotlight/movies/film3.jpg" alt="film3"/>
-                                                <div>
-                                                    <p>Китайский пинг-понг</p>
-                                                    <h4>Zhong Guo ping pang zhi jue di fan ji / Ping Pong: The
-                                                        Triumph</h4>
-                                                </div>
-                                            </div>
-                                            <div className={s.categoryContentItem}>
-                                                <img src="/profile/spotlight/movies/film4.jpg" alt="film4"/>
-                                                <div>
-                                                    <p>Стефен Карри: Недооцененный</p>
-                                                    <h4>Stephen Curry: Underrated</h4>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        {activeCategory === 'Смотрю' && <Films />}
+                                        {activeCategory === 'Играю' && <Games />}
+                                        {activeCategory === 'Слушаю' && <Music />}
                                     </div>
                                 </div>
                             </div>

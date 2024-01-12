@@ -360,6 +360,12 @@
     background: #141414;
     backdrop-filter: blur(10px);
     cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0);
+}
+.categoriesItem:hover{
+    border: 1px solid #FFF;
+    transition: all 0.3s ease;
 }
 
 .categoriesItem p {
@@ -373,7 +379,8 @@
 }
 
 .active {
-    border: 0.5px solid #FFF;
+    border: 1px solid #FFF;
+    transition: all 0.3s ease;
 }
 
 .categoryContent {
