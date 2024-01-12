@@ -38,12 +38,15 @@ RUN cp /app/devops/volumes/nginx/nginx.conf /etc/nginx/nginx.conf && \
 
 RUN mkdir /usr/share/nginx/html && cp -R /app/build/* /usr/share/nginx/html
 RUN mkdir /usr/share/nginx/html/media
+RUN mkdir /var/lib/nginx/tmp && chmod +x /var/lib/nginx -R && chown -R nginx:nginx /var/lib/nginx
 
 # Expose volumes
 VOLUME ["/etc/nginx/conf.d", "/var/log/nginx", "/www"]
 
 # Expose ports
 EXPOSE 80 443
+
+USER afterlife
 
 # Entry point
 ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]

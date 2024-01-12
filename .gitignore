@@ -5,6 +5,7 @@
 # dependencies
 /client/node_modules
 /server/node_modules
+/server/uploads
 
 volumes/mongo/*
 !volumes/mongo/.gitkeep
