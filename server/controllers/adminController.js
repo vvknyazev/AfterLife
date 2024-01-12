@@ -2,6 +2,8 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
+const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Types;
 
 const generateRefreshJwt = (id, username, email, role, isActivated) => {
     return jwt.sign(
@@ -66,12 +68,16 @@ class AdminController {
 
     async createModel(req, res) {
         const {username, email, password, name, bio, games} = req.body;
-        // console.log("username: ", username)
-        // console.log("email: ", email)
-        // console.log("req.file: ", req.file);
+
+        const generatedId = new ObjectId();
+
+        let fileName;
 
         if (req.file) {
-            fs.rename(req.file.path, 'uploads/' + req.file.originalname, function (err) {
+            const fileExtension = req.file.mimetype.split('/')[1];
+            fileName = `${generatedId}.${fileExtension}`;
+
+            fs.rename(req.file.path, 'uploads/media/' + fileName, function (err) {
                 if (err) throw err;
             });
         }
@@ -93,6 +99,7 @@ class AdminController {
         }
 
         const user = await User.create({
+            _id: generatedId,
             username,
             email,
             role: "MODEL",
@@ -100,7 +107,7 @@ class AdminController {
             isActivated: true,
             name,
             bio,
-            photo: req.file ? `${process.env.API_URL}/${req.file.originalname}` : '/nav/user-photo.jpeg',
+            photo: req.file ? `media/${fileName}` : '/nav/user-photo.jpeg',
             games: parsedGames,
         });
 

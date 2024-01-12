@@ -20,6 +20,26 @@ const Settings = () => {
 
     const [user, oauthUser] = useOutletContext();
 
+    const [userPhoto, setUserPhoto] = useState('/nav/user-photo.jpeg');
+
+    useEffect(() => {
+        if (user) {
+            if (user?.photo !== userPhoto) {
+                setUserPhoto(`${process.env.REACT_APP_API_URL}/${user?.photo}`);
+                setPhotoURL(`${process.env.REACT_APP_API_URL}/${user?.photo}`)
+            } else{
+                setPhotoURL(userPhoto);
+            }
+        } else if (oauthUser){
+            if (oauthUser.user.photo !== userPhoto){
+                setUserPhoto(`${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`)
+                setPhotoURL(`${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`)
+            }else{
+                setPhotoURL(userPhoto);
+            }
+        }
+    }, [])
+
     const [selectedImage, setSelectedImage] = useState();
     const [photoURL, setPhotoURL] = useState(null);
 
@@ -102,7 +122,7 @@ const Settings = () => {
         }
 
     }
-
+    console.log("photourl: ", photoURL)
     const isValidFileType = (file) => {
         const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
         return allowedTypes.includes(file?.type);
@@ -124,9 +144,9 @@ const Settings = () => {
         return true;
     }
 
-    useEffect(() => {
-        setPhotoURL(`${process.env.REACT_APP_API_URL}/${user?.photo}` || `${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`);
-    }, [])
+    // useEffect(() => {
+    //     setPhotoURL(`${process.env.REACT_APP_API_URL}/${user?.photo}` || `${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`);
+    // }, [])
 
     if (isUploadPhotoLoading || isSaveInfoLoading) {
         return <div className={'loader'}>
@@ -186,7 +206,7 @@ const Settings = () => {
                         <div className={s.photoPreview}>
                             {/*<img src={photoURL} alt="photo"/>*/}
 
-                            {photoURL === `${process.env.REACT_APP_API_URL}/${user?.photo}` || photoURL === `${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}` ?
+                            {photoURL === userPhoto || photoURL === userPhoto ?
                                 <img src={photoURL} alt="photo"/>
                                 : <></>
                             }
