@@ -13,7 +13,7 @@ ENV TIMEZONE Europe/Kiev
 
 RUN	apk update && \
 	apk upgrade && \
-	apk add --update openssl nginx && \
+	apk add --update openssl nginx python3 python3-dev py3-pip && \
 	apk add --update tzdata && \
 	cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
 	echo "${TIMEZONE}" > /etc/timezone && \
@@ -29,6 +29,10 @@ RUN	apk update && \
 	mkdir /www && \
 	apk del tzdata && \
 	rm -rf /var/cache/apk/*
+
+RUN pip3 install pip --upgrade
+RUN pip3 install certbot-nginx
+RUN mkdir /etc/letsencrypt
 
 RUN cp /app/devops/volumes/nginx/nginx.conf /etc/nginx/nginx.conf && \
     cp /app/devops/volumes/nginx/common.conf /etc/nginx/common.conf && \
