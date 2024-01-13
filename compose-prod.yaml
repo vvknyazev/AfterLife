@@ -10,7 +10,7 @@ services:
       #- ./client/src:/app/src
       #- /home/afterlife/volumes/server/uploads/media:/usr/share/nginx/html/media/
       - /home/afterlife/volumes/public/media:/usr/share/nginx/html/media
-      - /etc/letsencrypt/live/:/etc/nginx/certificates/letsencrypt
+      - /etc/letsencrypt/archive/:/etc/nginx/certificates/letsencrypt
 #      - /usr/src/app/node_modules
     restart: always
     networks:
