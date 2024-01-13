@@ -63,11 +63,11 @@ services:
     #   MONGO_INITDB_ROOT_USERNAME: $CI_MONGO_INITDB_ROOT_USERNAME
     #   MONGO_INITDB_ROOT_PASSWORD: $CI_MONGO_INITDB_ROOT_PASSWORD
 
-  certbot:
-    image: certbot/certbot:latest
-    volumes:
-      - /home/afterlife/volumes/certbot:/home/afterlife/volumes/client/html:rw
-      - /home/afterlife/volumes/certbot/conf:/etc/letsencrypt:rw
+  # certbot:
+  #   image: certbot/certbot:latest
+  #   volumes:
+  #     - /home/afterlife/volumes/certbot/www:/var/www/certbot:rw
+  #     - /home/afterlife/volumes/certbot/conf:/etc/letsencrypt:rw
 networks:
   react-express:
   express-mongo:
