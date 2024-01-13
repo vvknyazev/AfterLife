@@ -66,7 +66,6 @@ services:
     volumes:
       - /home/afterlife/volumes/certbot/:/usr/share/nginx/html/:rw
       - /home/afterlife/volumes/certbot/conf/:/etc/letsencrypt/:rw
-    command: certonly --webroot --webroot-path=/usr/share/nginx/html --email vitaliy.knyazev@gmail.com --agree-tos --no-eff-email -d afterlife.pp.ua
 networks:
   react-express:
   express-mongo:
