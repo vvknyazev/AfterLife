@@ -7,9 +7,10 @@ services:
       - 443:443
     stdin_open: true
     volumes:
-      - ./client/src:/app/src
+      #- ./client/src:/app/src
       - /home/afterlife/volumes/server/uploads/media:/usr/share/nginx/html/media/
-      - /home/afterlife/volumes/certbot/conf/:/etc/nginx/certificates/
+      - /home/afterlife/volumes/client/html:/usr/share/nginx/html
+      - /home/afterlife/volumes/certbot/:/etc/nginx/certificates/
 #      - /usr/src/app/node_modules
     restart: always
     networks:
@@ -61,11 +62,12 @@ services:
     # environment:
     #   MONGO_INITDB_ROOT_USERNAME: $CI_MONGO_INITDB_ROOT_USERNAME
     #   MONGO_INITDB_ROOT_PASSWORD: $CI_MONGO_INITDB_ROOT_PASSWORD
+
   certbot:
     image: certbot/certbot:latest
     volumes:
-      - /home/afterlife/volumes/certbot/:/usr/share/nginx/html/:rw
-      - /home/afterlife/volumes/certbot/conf/:/etc/letsencrypt/:rw
+      - /home/afterlife/volumes/certbot:/home/afterlife/volumes/client/html:rw
+      - /home/afterlife/volumes/certbot/conf:/etc/letsencrypt:rw
 networks:
   react-express:
   express-mongo:
