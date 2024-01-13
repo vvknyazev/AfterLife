@@ -13,7 +13,7 @@ ENV TIMEZONE Europe/Kiev
 
 RUN	apk update && \
 	apk upgrade && \
-	apk add --update openssl nginx python3 python3-dev py3-pip && \
+	apk add --update openssl nginx python3 python3-dev py3-pip build-base libressl-dev musl-dev libffi-dev rust cargo && \
 	apk add --update tzdata && \
 	cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
 	echo "${TIMEZONE}" > /etc/timezone && \
