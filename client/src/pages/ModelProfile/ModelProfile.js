@@ -82,9 +82,9 @@ const ModelProfile = () => {
                                         <NavLink to={`/create-session/${modelId}`} className={s.connect}>Подключить</NavLink>
                                     </div>
                                 </div>
-                                {/*<div className={s.edit}>*/}
-                                {/*    <button onClick={addUser} className={s.secondButton}>Написать</button>*/}
-                                {/*</div>*/}
+                                <div className={s.edit}>
+                                    <button onClick={addUser} className={s.secondButton}>Написать (тест чата)</button>
+                                </div>
                             </div>
                         </div>
                     </div>
