@@ -120,6 +120,13 @@ const commonApiSlice = createApi({
                 }
             },
         }),
+        activateCode: builder.mutation({
+            query: credentials => ({
+                url: '/api/user/activate',
+                method: 'POST',
+                body: {...credentials}
+            })
+        }),
     }),
 });
 
@@ -140,6 +147,7 @@ export const {
     useUpdateContactsMutation,
     useAddNotificationsMutation,
     useGetNotificationsMutation,
+    useActivateCodeMutation
 } = commonApiSlice;
 
 export default commonApiSlice;

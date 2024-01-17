@@ -83,7 +83,8 @@
     margin-top: 30px;
     gap: 20px;
 }
-label{
+
+label {
     width: 100%;
 }
 
@@ -146,6 +147,12 @@ label{
     padding-right: 33px;
     padding-top: 5px;
 
+}
+.activateButtonLoading{
+    width: 100%;
+    height: 50px;
+    padding-right: 33px;
+    padding-top: 5px;
 }
 
 .secondButton {
@@ -246,27 +253,82 @@ label{
         margin-top: 25px;
     }
 }
-.langForm{
+
+.langForm {
 
 }
+.activationStep{
+
+}
+.formInput{
+
+}
+.codeInput {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin: 25px;
+
+}
+
+.codeInput input {
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    background-color: rgba(233, 233, 233, 0.05);
+    color: white;
+    font-size: 25px;
+}
+.buttonNext{
+    display: flex;
+    justify-content: center;
+    margin: 50px 25px 25px 25px;
+    position: relative;
+}
+.buttonNext button{
+    display: flex;
+    width: 350px;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 14px;
+    background: #FFF;
+    color: #000;
+    text-align: center;
+    font-family: Nunito Sans, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 145%; /* 29px */
+    cursor: pointer;
+}
 @media screen and (max-width: 346px) {
-    .langForm img{
-       width: 50px;
+    .langForm img {
+        width: 50px;
     }
-    .name img{
+
+    .name img {
         width: 150px;
     }
-    .back img{
+
+    .back img {
         width: 25px;
         margin-left: 10px;
     }
-    .secondButton{
+
+    .secondButton {
         font-size: 18px;
     }
-    .loginButton{
+
+    .loginButton {
         font-size: 20px;
     }
-    input{
+
+    input {
         height: 50px;
         font-size: 20px;
     }

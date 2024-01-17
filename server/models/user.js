@@ -7,6 +7,7 @@ const User = new Schema({
     role: {type: String, default: 'USER'},
     refreshToken: String,
     activationLink: String,
+    activationCode: String,
     isActivated: {type: Boolean, default: false},
     photo: {type: String, default: '/nav/user-photo.jpeg'},
     name: String,

@@ -7,6 +7,13 @@ const UserDto = require('../dtos/user-dto');
 const UserGoogle = require('../models/userGoogle');
 const UserDiscord = require('../models/userDiscord');
 
+
+function generateActivationCode() {
+    const min = 100000;
+    const max = 999999;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 const generateJwt = (id, username, email, role, isActivated) => {
     return jwt.sign(
         {id, username, email, role, isActivated},
@@ -43,8 +50,19 @@ class UserController {
         }
         const hashPassword = await bcrypt.hash(password, 5)
         const activationLink = uuid.v4();
-        const user = await User.create({username, email, role, password: hashPassword, activationLink: activationLink});
-        await mailService.sendActivationToMail(email, `${process.env.API_URL}/api/user/activate/${activationLink}`);
+
+        const activationCode = generateActivationCode();
+
+        const user = await User.create({
+            username,
+            email,
+            role,
+            password: hashPassword,
+            activationLink: activationLink,
+            activationCode: activationCode
+        });
+
+        await mailService.sendActivationToMail(email, activationCode);
 
         const userDto = new UserDto(user); //email, id, isActivated
 
@@ -141,18 +159,33 @@ class UserController {
     }
 
     async activate(req, res, next) {
-        console.log('activate route');
-        console.log('activate route');
-        const activationLink = req.params.link;
-        const user = await User.findOne({activationLink});
-        if (user) {
-            user.isActivated = true;
-            await user.save();
-            // await userService.activate(activationLink);
-            return res.redirect(process.env.CLIENT_URL);
-        } else {
-            console.log("Ссылка активации говно");
+
+        const {activationCode} = req.body;
+
+        const activationCodeParsed = parseInt(activationCode.join(''), 10);
+
+        const user = await User.findOne({activationCode: activationCodeParsed});
+
+
+        if (!user) {
+            return res.status(400).json({message: 'Неверный код активации'});
         }
+
+        user.isActivated = true;
+        await user.save();
+
+        return res.json({message: 'Аккаунт успешно активирован'});
+
+        // const activationLink = req.params.link;
+        // const user = await User.findOne({activationLink});
+        // if (user) {
+        //     user.isActivated = true;
+        //     await user.save();
+        //     // await userService.activate(activationLink);
+        //     return res.redirect(process.env.CLIENT_URL);
+        // } else {
+        //     console.log("Ссылка активации говно");
+        // }
 
     }
 

@@ -12,17 +12,17 @@ class MailService{
             }
         })
     }
-    async sendActivationToMail(to, link){
+    async sendActivationToMail(to, activationCode){
         await this.transporter.sendMail({
             from: process.env.SMTP_USER,
             to,
-            subject: "Активация аккаунта на " + process.env.API_URL,
+            subject: "Активация аккаунта на Afterlife",
             text: '',
             html:
                 `
                     <div>
-                        <h1>Для активации перейдите по ссылке</h1>
-                        <a href="${link}">${link}</a>
+                        <h1>Для активации введите код</h1>
+                        <h3>${activationCode}</h3>
                     </div>
                 `
         })

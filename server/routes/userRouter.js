@@ -51,7 +51,8 @@ router.get('/google/logout', function (req, res){
 });
 
 router.post('/logout', userController.logout)
-router.get('/activate/:link', userController.activate)
+// router.get('/activate/:link', userController.activate)
+router.post('/activate', userController.activate);
 router.get('/refresh', userController.refresh)
 
 router.get('/auth', userController.check)
