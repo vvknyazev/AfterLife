@@ -3,16 +3,18 @@
     justify-content: center;
     align-items: center;
     height: 50px;
-    padding: 0px 18px;
+    padding: 0 18px;
     border-radius: 14px;
     font-family: Onest, sans-serif;
-
-    border: 0.9px solid #FEFFFF;
+    border: 1px solid transparent;
     background: #0D0D0D;
-    box-shadow: 0px 0px 8px 0px rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 8px 0 rgba(255, 255, 255, 0.05);
+    transition: 0.3s all ease;
 }
 .sessionType:hover{
     cursor: pointer;
+    border: 1px solid #FEFFFF;
+    transition: 0.3s all ease;
 }
 .sessionType p {
     color: #FFF;

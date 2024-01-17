@@ -1,27 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from './ConceptHomePage.module.css'
 import TypeOfSessions from "../../../components/TypeOfSessions/TypeOfSessions";
+import TwoOfUsType from "../../../components/Sessions/SessionsTypes/TwoOfUsType/TwoOfUsType";
+import DoubleJointType from "../../../components/Sessions/SessionsTypes/DoubleJointType/DoubleJointType";
+import NotAloneType from "../../../components/Sessions/SessionsTypes/NotAloneType/NotAloneType";
 
-const ConceptHomePage = () => {
+const ConceptHomePage = ({user, model}) => {
+
+    const [selectedSession, setSelectedSession] = useState('Just The Two of Us');
+
+    const sessionNames = ['Just The Two of Us', 'Double Double joint', 'You are (not) alone'];
     return (
         <div className={s.container}>
             <h1>Типы Сессий</h1>
-            <TypeOfSessions/>
+            <TypeOfSessions
+                sessionNames={sessionNames}
+                selectedSession={selectedSession}
+                onSelectSession={(session) => setSelectedSession(session)}
+            />
             <div className={s.session}>
-                <img src="/JustTheTwoOfUs.png" alt="TwoOfUs"/>
+                {selectedSession === 'Just The Two of Us' && <TwoOfUsType user={user} model={model} />}
+                {selectedSession === 'Double Double joint' && <DoubleJointType user={user} model={model} />}
+                {selectedSession === 'You are (not) alone' && <NotAloneType />}
             </div>
-            {/*<div className={s.concept}>*/}
-            {/*    <div className={s.defaultService}>*/}
-            {/*        <div>*/}
-            {/*            <img src="/two_of_us.png" alt="pic"/>*/}
-            {/*        </div>*/}
-            {/*        <div><img src="/double_joint.png" alt="pic"/></div>*/}
-            {/*        <div><img src="/not_alone.png" alt="pic"/></div>*/}
-            {/*    </div>*/}
-            {/*    <div className={s.streamService}>*/}
-            {/*        <img src="/Welcome_to_AfterLife.png" alt="stream-service"/>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
         </div>
     );
 };

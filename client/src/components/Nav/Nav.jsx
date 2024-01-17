@@ -132,7 +132,7 @@ function NavItem(props) {
                                 <p className={'menu-item__text menu-greetings'}>Здравствуйте {props.name}</p>
                                 <p className={'menu-item__text menu-balance'}>Баланс: 0 <img src="/profile/currency.svg"
                                                                                              alt="currency"
-                                                                                             className={n.currency}/>E$
+                                                                                             className={n.currency}/>
                                 </p>
                                 <DropdownItem
                                     auth='/chats'

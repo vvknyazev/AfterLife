@@ -1,0 +1,53 @@
+.option {
+    width: 160px;
+    display: flex;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 14px;
+    /*border-radius: 14px;*/
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: 0.3s all ease;
+}
+.option:hover{
+    border: 1px solid #FFF;
+    transition: 0.3s all ease;
+}
+.active{
+    border: 1px solid #FFF;
+    transition: 0.3s all ease;
+}
+
+.time {
+    display: flex;
+}
+
+.time p {
+    color: #FFF;
+    font-family: Nunito Sans, serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 145%; /* 29px */
+    padding-right: 10px;
+    margin: 0;
+    border-right: 2px solid white;
+}
+
+.amount {
+    display: flex;
+}
+
+.amount p {
+    color: #FFF;
+    font-family: Nunito Sans, serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 145%; /* 29px */
+    text-transform: uppercase;
+    margin: 0 0 0 5px;
+}

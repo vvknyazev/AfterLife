@@ -1,0 +1,175 @@
+.backgroundContainer{
+    padding-bottom: 100px;
+}
+.container {
+    display: flex;
+    gap: 5%;
+    justify-content: center;
+    transform: scale(0.9);
+}
+.typesOfSessions{
+    margin-top: 50px;
+}
+.container h3 {
+    color: #FFF;
+    font-family: Onest, sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 135%;
+    margin-left: 5px;
+    margin-top: 0;
+}
+.terms p{
+    color: #FFF;
+    font-family: Nunito Sans, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.7px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.bookSessionButton{
+    width: 450px;
+    height: 56px;
+    border: none;
+    border-radius: 14px;
+    background: #1441DF;
+    color: #FFF;
+    text-align: center;
+    font-family: Nunito Sans, sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.75px;
+    cursor: pointer;
+    margin-top: 35px;
+    transition: 0.3s all ease;
+}
+.bookSessionButtonDisabled{
+    width: 450px;
+    height: 56px;
+    border: none;
+    border-radius: 14px;
+    background: rgba(20, 65, 223, 0.39);
+    color: #FFF;
+    text-align: center;
+    font-family: Nunito Sans, sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.75px;
+    margin-top: 35px;
+    transition: 0.3s all ease;
+}
+
+.item {
+
+}
+.chooseGameBlock {
+    margin-top: 50px;
+}
+.chooseGameBlock h3{
+    margin-left: 10px;
+}
+.chooseGame{
+    display: flex;
+    flex-wrap: wrap;
+    width: 550px;
+    gap: 25px;
+}
+.chooseGameIfNotAloneType{
+    display: flex;
+    flex-wrap: wrap;
+    width: 470px;
+    gap: 25px;
+}
+.gameItem{
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0 16px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: 0.3s all ease;
+}
+.gameItem:hover{
+    border: 1px solid #FFF;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 -1px 12.2px 0 #FFF;
+    transition: 0.3s all ease;
+}
+.activeGame{
+    border: 1px solid #FFF;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 -1px 12.2px 0 #FFF;
+    transition: 0.3s all ease;
+}
+.gameItem img{
+    width: 25px;
+    height: 25px;
+}
+.gameItem p{
+    color: #FFF;
+    text-align: center;
+    font-family: Nunito Sans, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    line-height: 145%;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.notAloneTypeChooseContainer{
+    display: flex;
+    gap: 42px;
+}
+.notAloneTypeChoose{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    padding: 0 18px;
+    border-radius: 14px;
+    font-family: Onest, sans-serif;
+    border: 1px solid transparent;
+    background: #0D0D0D;
+    box-shadow: 0 0 8px 0 rgba(255, 255, 255, 0.05);
+    transition: 0.3s all ease;
+}
+.notAloneTypeChoose:hover{
+    cursor: pointer;
+    border: 1px solid #FEFFFF;
+    transition: 0.3s all ease;
+}
+.activeNotAloneType{
+    border: 1px solid #FEFFFF;
+    transition: 0.3s all ease;
+}
+.notAloneTypeChoose p {
+    color: #FFF;
+    text-align: center;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 145%; /* 26.1px */
+}
+
+
+
+@media only screen and (min-width: 1920px) {
+    .container {
+        transform: scale(1);
+    }
+}
+@media only screen and (max-width: 1366px) {
+    .container {
+        transform: scale(0.75);
+    }
+}
+@media only screen and (max-width: 1500px) {
+    .container {
+        transform: scale(0.85);
+    }
+}

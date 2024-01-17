@@ -79,7 +79,7 @@ const ModelProfile = () => {
                                         <p className={s.bio}>{`@${model?.name}`}</p>
                                     </div>
                                     <div className={s.connectContainer}>
-                                        <NavLink to={'/create-session'} className={s.connect}>Подключить</NavLink>
+                                        <NavLink to={`/create-session/${modelId}`} className={s.connect}>Подключить</NavLink>
                                     </div>
                                 </div>
                                 {/*<div className={s.edit}>*/}

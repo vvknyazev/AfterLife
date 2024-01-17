@@ -401,6 +401,7 @@
     background: #0F0F0F;
     backdrop-filter: blur(10px);
     text-overflow: ellipsis;
+    cursor: pointer;
 }
 
 .categoryContentItem img {

@@ -1,0 +1,39 @@
+.gameItem{
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0 16px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: 0.3s all ease;
+}
+.gameItem:hover{
+    border: 1px solid #FFF;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 -1px 12.2px 0 #FFF;
+    transition: 0.3s all ease;
+}
+.activeGame{
+    border: 1px solid #FFF;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 -1px 12.2px 0 #FFF;
+    transition: 0.3s all ease;
+}
+.gameItem img{
+    width: 25px;
+    height: 25px;
+}
+.gameItem p{
+    color: #FFF;
+    text-align: center;
+    font-family: Nunito Sans, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    line-height: 145%;
+    text-transform: uppercase;
+    font-weight: 500;
+}

@@ -1,5 +1,6 @@
 :root {
   --Main-Background: linear-gradient(196deg, #341010 -10.52%, #0C1826 -1.38%, #000 26.76%);
+  --Black-Color: #000;
 }
 body {
   margin: 0;
@@ -9,9 +10,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  background: var(--Main-Background);
-  background-repeat: no-repeat;
+  background: var(--Main-Background) var(--Black-Color);
   background-size: cover;
+  background-repeat: no-repeat;
+
 }
 @font-face {
   font-family: 'dymaxon';

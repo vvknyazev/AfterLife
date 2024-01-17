@@ -10,6 +10,16 @@ import {useOutletContext} from "react-router-dom";
 const Home = () => {
     const [user, oauthUser] = useOutletContext();
 
+    const imaginativeUser = {
+        username: 'Ма',
+        homePagePhoto: '/imaginative-user.png'
+    }
+
+    const imaginativeModel = {
+        name: 'Ким',
+        homePagePhoto: '/imaginative-model.png'
+    }
+
     return (
         <div>
             {/*{isLoading ? (*/}
@@ -25,7 +35,7 @@ const Home = () => {
                     <Nav user={user} oauthUser={oauthUser}/>
                     <HeaderHomePage/>
                 </div>
-                <ConceptHomePage/>
+                {/*<ConceptHomePage user={imaginativeUser} model={imaginativeModel}/>*/}
                 <Strip/>
                 <FooterHomePage/>
             </div>

@@ -21,6 +21,7 @@ import Chats from "./pages/Chats/Chats";
 import Sessions from "./pages/Sessions/Sessions";
 import CreateModel from "./pages/Admin/CreateModel/CreateModel";
 import MessageChecker from "./features/MessageChecker";
+import SessionBuilder from "./pages/SessionBuilder/SessionBuilder";
 
 // import Login from "./features/auth/Login";
 
@@ -55,6 +56,7 @@ function App() {
                                 <Route path="settings" element={<Settings/>}/>
                                 <Route path="sessions" element={<Sessions/>}/>
                                 <Route path="chats" element={<Chats/>}/>
+                                <Route path="create-session/:modelId" element={<SessionBuilder/>}/>
                             </Route>
 
                         </Route>
