@@ -1,4 +1,4 @@
-import React, from 'react';
+import React from 'react';
 import s from './SessionTimeItem.module.css'
 const SessionTimeItem = ({sessionPrice, isActive, onClick}) => {
 
