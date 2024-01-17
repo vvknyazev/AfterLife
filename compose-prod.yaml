@@ -7,9 +7,10 @@ services:
       - 443:443
     stdin_open: true
     volumes:
-      - ./client/src:/app/src
-      - /home/afterlife/volumes/server/uploads/media:/usr/share/nginx/html/media/
-      - /home/afterlife/volumes/certbot/conf/:/etc/nginx/certificates/
+      #- ./client/src:/app/src
+      #- /home/afterlife/volumes/server/uploads/media:/usr/share/nginx/html/media/
+      - /home/afterlife/volumes/public/media:/usr/share/nginx/html/media
+      - /etc/letsencrypt/archive/:/etc/nginx/certificates/letsencrypt
 #      - /usr/src/app/node_modules
     restart: always
     networks:
@@ -23,7 +24,8 @@ services:
     restart: always
     volumes:
       #- ./server/uploads:/home/afterlife/uploads
-      - /home/afterlife/volumes/server/uploads:/app/uploads
+      #- /home/afterlife/volumes/server/uploads:/app/uploads
+      - /home/afterlife/volumes/public/media:/app/uploads/media
 #      - /usr/src/app/node_modules
     depends_on:
       - mongo
@@ -32,20 +34,20 @@ services:
       - react-express
     expose:
       - 5000
-  mongo-express:
-    container_name: afterlife-mongo-express
-    image: mongo-express
-    restart: always
-    depends_on:
-      - mongo
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_BASICAUTH_USERNAME: afterlife
-      ME_CONFIG_BASICAUTH_PASSWORD: afterlife1234
-      ME_CONFIG_MONGODB_SERVER: afterlife-mongodb
-    networks:
-      - express-mongo
+  # mongo-express:
+  #   container_name: afterlife-mongo-express
+  #   image: mongo-express
+  #   restart: always
+  #   depends_on:
+  #     - mongo
+  #   ports:
+  #     - 8081:8081
+  #   environment:
+  #     ME_CONFIG_BASICAUTH_USERNAME: afterlife
+  #     ME_CONFIG_BASICAUTH_PASSWORD: afterlife1234
+  #     ME_CONFIG_MONGODB_SERVER: afterlife-mongodb
+  #   networks:
+  #     - express-mongo
   mongo:
     container_name: afterlife-mongodb
     restart: always
@@ -61,12 +63,6 @@ services:
     # environment:
     #   MONGO_INITDB_ROOT_USERNAME: $CI_MONGO_INITDB_ROOT_USERNAME
     #   MONGO_INITDB_ROOT_PASSWORD: $CI_MONGO_INITDB_ROOT_PASSWORD
-  certbot:
-    image: certbot/certbot:latest
-    volumes:
-      - /home/afterlife/volumes/certbot/:/usr/share/nginx/html/:rw
-      - /home/afterlife/volumes/certbot/conf/:/etc/letsencrypt/:rw
-    command: certonly --webroot --webroot-path=/usr/share/nginx/html --email vitaliy.knyazev@gmail.com --agree-tos --no-eff-email -d afterlife.pp.ua
 networks:
   react-express:
   express-mongo:
