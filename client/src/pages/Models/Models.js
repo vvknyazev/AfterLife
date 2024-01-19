@@ -8,13 +8,9 @@ import {useGetModelsQuery} from "../../features/commonApiSlice";
 import {InfinitySpin} from "react-loader-spinner";
 
 const Models = () => {
-    // const [isLoggedIn, isActivated, oauthUser, userPicture] = useOutletContext();
     const [user, oauthUser] = useOutletContext();
 
     const [currentItems, setCurrentItems] = useState([]);
-
-    // const myGames = useSelector((state) => state.games);
-    // const girls = useSelector((state) => state.girls);
 
     const {data: models, isLoading: isLoadingModels} = useGetModelsQuery();
 
@@ -49,7 +45,6 @@ const Models = () => {
             <Nav user={user} oauthUser={oauthUser}/>
             <section className={s.models}>
                 <Categories chooseCategory={chooseCategory} selectedCategory={selectedCategory}/>
-                {/*<Categories/>*/}
                 <GirlsSection girlsCategory={currentItems} models={models}/>
             </section>
         </div>

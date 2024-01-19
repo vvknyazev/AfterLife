@@ -20,20 +20,6 @@ const GirlsSection = (props) => {
 
     return (
         <div className={s.container}>
-            <div className={s.filters}>
-                <select>
-                    <option disabled selected hidden>Выберите язык</option>
-                    <option value="someOption">Українська, москалику</option>
-                    <option value="someOption">Українська, москалику</option>
-                    <option value="someOption">Українська, москалику</option>
-                </select>
-                <select>
-                    <option disabled selected hidden>Выберите сервис</option>
-                    <option value="someOption">Сервис 1</option>
-                    <option value="someOption">Сервис 2</option>
-                    <option value="someOption">Сервис 3</option>
-                </select>
-            </div>
             <div className={s.girlsPosition}>
                 <div className={s.girls}>
                     {cardGirls}

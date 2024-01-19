@@ -780,3 +780,9 @@ body {
 }
 
 /* End of Session Calendar */
+
+/*@media only screen and (min-width: 1200px) {*/
+/*    .profile-page {*/
+/*        transform: scale(0.1) !important;*/
+/*    }*/
+/*}*/

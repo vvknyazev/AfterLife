@@ -1,45 +1,96 @@
 .card {
     position: relative;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    margin: 2% 4%;
     color: white;
     cursor: pointer;
+    border: 0.5px solid transparent;
+    border-image: linear-gradient(to top, rgb(130, 159, 202), rgba(255, 255, 255, 0)) 1;
+}
+.borderLeft{
+
 }
 
+
 .cardImg {
-    height: 280px;
-    border-radius: 12px;
+    width: 280px;
+    height: 371.392px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+
 }
 
 .name {
-    font-size: 22px;
-    margin: 5px 0 3px 10px;
-
+    color: #FFF;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 32px;
+    /*margin: 5px 0 3px 10px;*/
 }
-
 .desc {
-    margin: 0 0 10px 10px;
-    font-size: 14px;
+    color: #FFF;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.8px;
+    text-transform: lowercase;
+    text-align: center;
 
 }
-.section{
+
+.section {
     position: absolute;
     height: 26px;
     border-radius: 12px;
     /* Note: currently only Safari supports backdrop-filter */
-    backdrop-filter: blur(30px);
-    --webkit-backdrop-filter: blur(30px);
-    background-color: rgba(255, 255, 255, 0.15);
     display: inline-block;
     /*padding: 2px 5px 5px;*/
-
-    bottom: 80px;
-    left: 10px;
+    bottom: 65px;
+    left: 15px;
     padding-bottom: 8px;
 
+
 }
-.section img{
+
+.section img {
     width: 25px;
+    height: 25px;
     padding: 5px;
+}
+.nameSection{
+    position: absolute;
+    bottom: 70px;
+    left: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+}
+.rating{
+    width: 35px;
+    height: 31px;
+    border-radius: 8px;
+    background: rgba(20, 20, 20, 0.25);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.rating p {
+    text-align: center;
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    background: linear-gradient(184deg, #829FCA 3.46%, #FFF 96.97%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.mask{
+    position: absolute;
+    width: 280px;
+    height: 130px;
+    border-radius: 0 0 10px 10px;
+    background: linear-gradient(0deg, #000 0%, rgba(0, 0, 0, 0.00) 100%);
+    bottom: 55px;
 }

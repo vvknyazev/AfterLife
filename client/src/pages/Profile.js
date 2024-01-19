@@ -96,7 +96,7 @@ const Profile = () => {
         <div>
             <Nav user={user} oauthUser={oauthUser}/>
             {/*<MiniNav/>*/}
-            <section className="welcome">
+            <section className={s.profileContainer}>
                 <div>
                     <div className={s.topGames}>
                         <div className={s.centerGame}>

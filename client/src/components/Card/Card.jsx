@@ -39,19 +39,31 @@ const Card = (props) => {
     }
 
     const navigate = useNavigate();
-    function handleModelProfile(id){
+
+    function handleModelProfile(id) {
         navigate('/' + id);
     }
+
     console.log('props id:', props.id);
     return (
         <div className={s.card} onClick={() => handleModelProfile(props.id)}>
+            <div className={s.borderLeft}></div>
+            <div className={s.borderRight}></div>
             <div>
                 <img src={props.img} alt="girl" className={s.cardImg}/>
+                <div className={s.mask}/>
+                <div className={s.nameSection}>
+                    <div>
+                        <p className={s.name}>{props.name}</p>
+                    </div>
+                    <div className={s.rating}>
+                        <p>8.2</p>
+                    </div>
+                </div>
                 <div className={s.section}>
                     {gameIcons}
                 </div>
             </div>
-            <p className={s.name}>{props.name}</p>
             <p className={s.desc}>{props.desc}</p>
         </div>
     );

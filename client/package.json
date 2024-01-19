@@ -19,6 +19,7 @@
     "react-calendar": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-easy-crop": "^5.0.0",
+    "react-lazy-load-image-component": "^1.6.0",
     "react-loader-spinner": "^5.3.4",
     "react-popper": "^2.3.0",
     "react-query": "^3.39.3",

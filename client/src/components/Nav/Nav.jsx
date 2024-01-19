@@ -209,7 +209,7 @@ const Nav = (props) => {
                         <NavLink to="#" className={n.navItem}>FAQ</NavLink>
                         <NavLink to="#" className={n.navItem}>Сервисы</NavLink>
                     </div>
-                    <NavLink to='/' className={n.logo}>Afterlife</NavLink>
+                    <NavLink to='/' className={n.logo}>{props?.user || props?.oauthUser?.user ? `A` : `Afterlife`}</NavLink>
                     <div className={n.menuButtons}>
                         <NavLink to="/models" className={n.navButton}>Найти пару</NavLink>
                         {props.user ? <li className={n.rightSide}>

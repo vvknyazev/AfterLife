@@ -1,21 +1,20 @@
 .container{
     display: flex;
     justify-content: center;
-    margin-top: 50px;
-}
-.filters{
-    flex: 1;
-    margin: 50px 0 0 50px;
+
+    max-width: 1750px;
+    margin: 50px auto;
 }
 .girlsPosition{
-    flex: 2;
+
 }
 .girls{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    width: 1200px;
+    gap: 60px;
+
 }
 .filters select{
     font-family: Nunito, sans-serif;
