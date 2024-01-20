@@ -1,10 +1,12 @@
-.userProfileBackground{
+.userProfileBackground {
 
 }
-.profile{
+
+.profile {
 
 }
-.header{
+
+.header {
     /*background: url("../../public/profile/profile-background.png") center no-repeat;*/
     /*background-size: cover;*/
     height: 250px;
@@ -13,14 +15,16 @@
     display: flex;
     align-items: flex-end;
 }
-.greetings{
+
+.greetings {
     position: absolute;
     font-family: 'dymaxon', sans-serif;
     font-size: 36px;
     left: 17px;
     top: 7px;
 }
-.header img{
+
+.header img {
     width: 100px;
     height: 100px;
     border-radius: 100px;
@@ -30,7 +34,8 @@
     margin-bottom: 5px;
     object-fit: cover;
 }
-.description{
+
+.description {
     margin-left: 15px;
     margin-bottom: 5px;
     display: flex;
@@ -38,7 +43,8 @@
     justify-content: center;
     height: 100px;
 }
-.name{
+
+.name {
     color: #FFF;
     font-family: Onest, sans-serif;
     font-size: 40px;
@@ -47,7 +53,8 @@
     line-height: normal;
 
 }
-.nameTag{
+
+.nameTag {
     color: #829FCA;
     font-family: Onest, sans-serif;
     font-size: 24px;
@@ -56,12 +63,14 @@
     line-height: normal;
 
 }
-.edit{
+
+.edit {
     position: absolute;
     right: 58px;
     bottom: 36px;
 
 }
+
 .secondButton {
     width: 130px;
     height: 50px;
@@ -108,40 +117,44 @@
 .darkGameRight img {
     opacity: 0.5;
     transform: scale(0.95);
-    transition:  0.5s ease;
+    transition: 0.5s ease;
 }
 
 .centerGame {
     z-index: 10;
     order: 2;
 }
-.darkGameRight{
+
+.darkGameRight {
     order: 1;
-    transition:  0.5s ease;
+    transition: 0.5s ease;
     transform: translateX(90px);
 }
-.darkGameLeft{
+
+.darkGameLeft {
     order: 3;
-    transition:  0.5s ease;
+    transition: 0.5s ease;
     transform: translateX(-90px);
 }
 
 /* Добавлены стили для поворота при наведении */
-.centerGame:hover ~ .darkGameLeft{
-    transition:  0.5s ease;
+.centerGame:hover ~ .darkGameLeft {
+    transition: 0.5s ease;
     transform: translateX(-60px) rotate(3deg);
 }
-.centerGame:hover ~.darkGameRight {
-    transition:  0.5s ease;
+
+.centerGame:hover ~ .darkGameRight {
+    transition: 0.5s ease;
     transform: translateX(60px) rotate(-3deg);
 }
 
 .centerGame:hover ~ .darkGameLeft img,
 .centerGame:hover ~ .darkGameRight img {
     opacity: 0.85;
-    transition:  0.5s ease;
+    transition: 0.5s ease;
 }
-.headerInfo{
+
+.headerInfo {
     position: relative;
     height: 450px;
     display: flex;
@@ -149,25 +162,35 @@
     justify-content: flex-end;
 
 }
-.profileImage{
 
-}
-.profileImage img{
-    width: 220px;
-    height: 220px;
-    border-radius: 220px;
-    filter: drop-shadow(0px 2px 8px #a574b4);
+.profileImage {
     margin-left: 109px;
+    transition: 0.3s all ease;
 }
-.headerDescription p{
+
+.profileImage canvas {
+    border-radius: 220px;
+    transition: 0.3s all ease;
+}
+
+.profileImage img {
+    filter: drop-shadow(0px 2px 8px #a574b4);
+    border-radius: 220px;
+    transition: 0.3s all ease;
+}
+
+.headerDescription p {
     margin: 0 0 0 109px;
 }
-.name{
+
+.name {
     margin-top: 30px !important;
 }
-.nameTag{
+
+.nameTag {
     margin-top: 11px !important;
 }
+
 .connectContainer {
     position: absolute;
     bottom: 40px;
@@ -191,9 +214,11 @@
     justify-content: center;
     align-items: center;
 }
-.contentBackground{
+
+.contentBackground {
     background: black;
 }
+
 .content {
     position: relative;
     width: 88%;
@@ -212,7 +237,8 @@
     /*background: rgba(58, 45, 66, 0.75);*/
 
 }
-.shiningBackground{
+
+.shiningBackground {
     position: absolute;
     z-index: 555;
 }
@@ -363,7 +389,8 @@
     transition: all 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0);
 }
-.categoriesItem:hover{
+
+.categoriesItem:hover {
     border: 1px solid #FFF;
     transition: all 0.3s ease;
 }
@@ -409,6 +436,9 @@
     height: 85px;
     border-radius: 2px;
 }
+.categoryContentItem canvas {
+    border-radius: 2px;
+}
 
 .categoryContentItem p {
     overflow: hidden;
@@ -438,7 +468,8 @@
     line-height: normal;
     width: 144px;
 }
-.shiningBackground2{
+
+.shiningBackground2 {
     position: absolute;
     z-index: 10;
     right: 5%;
@@ -455,25 +486,30 @@
     top: -30%;
 
 }
-.beforePlayer{
+
+.beforePlayer {
     margin-top: 70px;
 }
-.afterPlayer{
+
+.afterPlayer {
     padding: 50px;
 }
-.secondBlockContainer{
+
+.secondBlockContainer {
     min-height: 50vh;
     background: black;
     color: white;
     width: 100%;
 }
-.secondBlock{
+
+.secondBlock {
     width: 88%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
 }
-.activity h3{
+
+.activity h3 {
     color: #FFF;
     font-family: Onest, sans-serif;
     font-size: 32px;
@@ -483,30 +519,41 @@
     text-transform: capitalize;
     margin: 35px 0 35px;
 }
-.activityItems{
+
+.activityItems {
     display: flex;
     flex-wrap: wrap;
     gap: 35px;
     width: 800px;
 
 }
-.activityItems img{
-  width: 27%;
+
+.activityItems canvas {
+    border-radius: 12px;
 }
-.friends{
-margin-right: 150px;
+
+.activityItems img {
+    width: 216px;
+    height: 324px;
 }
-.friendsList{
+
+.friends {
+    margin-right: 150px;
+}
+
+.friendsList {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
-.friendItem{
+
+.friendItem {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.friendInfo h4{
+
+.friendInfo h4 {
     margin: 0;
     color: #FFF;
     text-align: center;
@@ -517,7 +564,8 @@ margin-right: 150px;
     line-height: 145%; /* 26.1px */
     text-transform: capitalize;
 }
-.friendInfo p{
+
+.friendInfo p {
     margin: 0;
     color: #829FCA;
     text-align: center;
@@ -528,11 +576,13 @@ margin-right: 150px;
     line-height: 145%; /* 20.3px */
     text-transform: capitalize;
 }
-.x{
+
+.x {
     height: 500px;
     background: black;
 }
-.x h2{
+
+.x h2 {
     margin: 0;
     padding-top: 100px;
     padding-left: 100px;
@@ -545,9 +595,11 @@ margin-right: 150px;
     line-height: normal;
     text-transform: capitalize;
 }
-.profileContainer{
+
+.profileContainer {
 
 }
+
 /*@media only screen and (min-width: 1200px) {*/
 /*    .profileContainer {*/
 /*        transform: scale(0.85) !important;*/

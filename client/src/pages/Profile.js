@@ -9,6 +9,7 @@ import s from "./Profile.module.css"
 import Films from "../components/Spotlight/Films/Films";
 import Games from "../components/Spotlight/Games/Games";
 import Music from "../components/Spotlight/Music/Music";
+import ImageComponent from "../components/ImageComponent/ImageComponent";
 
 const DASH_REGEX = /^\/dash(\/)?$/
 const NOTES_REGEX = /^\/dash\/notes(\/)?$/
@@ -112,9 +113,13 @@ const Profile = () => {
                     </div>
                     <div className={s.headerInfo}>
                         <div className={s.profileImage}>
-                            <img
-                                src={userPhoto}
-                                alt="profile-photo"/>
+                            <ImageComponent
+                                hash={'L6D]o5NL00-5~Cxu0LMw-UayNxjb'}
+                                width={'213px'}
+                                height={'213px'}
+                                src={`${process.env.REACT_APP_API_URL}/${user?.photo}`}
+                                alt="profile-photo"
+                            />
                         </div>
                         <div className={s.headerDescription}>
                             <p className={s.name}>{user?.username || oauthUser?.user?.username}</p>
@@ -198,12 +203,12 @@ const Profile = () => {
                                 <div className={s.activity}>
                                     <h3>Активности</h3>
                                     <div className={s.activityItems}>
-                                        <img src="/profile/activity/watch.png" alt="watch"/>
-                                        <img src="/profile/activity/apex.jpg" alt="apex"/>
-                                        <img src="/profile/activity/cs2.png" alt="cs2"/>
-                                        <img src="/profile/activity/genshin.png" alt="genshin"/>
-                                        <img src="/profile/activity/aoe.png" alt="aoe"/>
-                                        <img src="/profile/activity/dota2.png" alt="dota2"/>
+                                        <ImageComponent hash={'LLC~xFRjR.M|~UR*f7WBMxafaxof'} width={'216px'} height={'324px'} src="/profile/activity/watch.png" alt="watch"/>
+                                        <ImageComponent hash={'LcK,]Wxt_MkWrDbHtRoL?HNGWBen'} width={'216px'} height={'324px'}  src="/profile/activity/apex.jpg" alt="apex"/>
+                                        <ImageComponent hash={'LJL-s{0%0kEj}nEj$$NI^3WXs-Nd'} width={'216px'} height={'324px'}  src="/profile/activity/cs2.png" alt="cs2"/>
+                                        <ImageComponent hash={'LSI}#D%MxVNH%jkCRoaxK8RPIpjF'} width={'216px'} height={'324px'}  src="/profile/activity/genshin.png" alt="genshin"/>
+                                        <ImageComponent hash={'L371fuV?0Lxv^$j?JDofZyNG-=V?'} width={'216px'} height={'324px'}  src="/profile/activity/aoe.png" alt="aoe"/>
+                                        <ImageComponent hash={'LiHT$+o0NHWB~TkCNHWC-.oLM}WV'} width={'216px'} height={'324px'}  src="/profile/activity/dota2.png" alt="dota2"/>
                                     </div>
                                 </div>
                                 <div className={s.friends}>
