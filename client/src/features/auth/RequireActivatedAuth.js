@@ -14,50 +14,6 @@ const RequireActivatedAuth = () => {
     const [renderOutlet, setRenderOutlet] = React.useState(false);
 
     const [socket] = useOutletContext();
-    // const [receiveMessage] = useReceiveMessageMutation();
-    // const [addContact] = useAddContactMutation();
-
-
-    // const socket = useRef(null);
-    // useEffect(()=>{
-    //     socket.current = io(process.env.REACT_APP_API_URL);
-    //
-    //     if (user) {
-    //         socket.current.emit("add-user", user.id);
-    //     } else if (oauthUserData) {
-    //         socket.current.emit("add-user", oauthUserData.user.id);
-    //     }
-    //
-    //     if (socket.current) {
-    //         socket.current.on("msg-recieve", async (msg, chatID) => {
-    //             console.log("MESSAGE RECEIVED in require act auth component: ", msg);
-    //             console.log("chatID: ", chatID);
-    //             if (user) {
-    //                 const takeResponse = async () => {
-    //                     const response = await receiveMessage({from: user.id, to: chatID});
-    //                     console.log("responce data (MESSAGES): ", response.data)
-    //                     if (response.data === [] || response.data.length === 1){
-    //                         await addContact({from: user.id, to: chatID}).unwrap();
-    //                     }
-    //                 }
-    //                 takeResponse();
-    //
-    //             } else if (oauthUserData) {
-    //                 const takeResponse = async () => {
-    //                     const response = await receiveMessage({from: oauthUserData.user.id, to: chatID});
-    //                     console.log("responce data (MESSAGES): ", response.data)
-    //                     if (response.data === [] || response.data.length === 1){
-    //                         await addContact({from: oauthUserData.user.id, to: chatID}).unwrap();
-    //                     }
-    //                 }
-    //                 takeResponse();
-    //             }
-    //         });
-    //     }
-    //
-    // }, [])
-
-    // console.log("this is require activated auth component");
 
     useEffect(() => {
         if (isSuccess) {

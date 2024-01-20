@@ -199,6 +199,8 @@ const Nav = (props) => {
         }
     }, [])
 
+    console.log("is activated: ", props.user);
+
     return (
         <div>
             {/*<Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>*/}
@@ -212,7 +214,15 @@ const Nav = (props) => {
                     <NavLink to='/' className={n.logo}>{props?.user || props?.oauthUser?.user ? `A` : `Afterlife`}</NavLink>
                     <div className={n.menuButtons}>
                         <NavLink to="/models" className={n.navButton}>Найти пару</NavLink>
-                        {props.user ? <li className={n.rightSide}>
+                        {props.user.isActivated === false
+                            ? <li className={n.rightSide}>
+                                <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
+                                <div className={`${profileButtonStyle}`}>
+                                    <NavLink to={'/login'} className={n.profileText}>Войти</NavLink>
+                                </div>
+                            </li>
+                            :
+                            props.user ? <li className={n.rightSide}>
                             <NavItem icon={userPhoto} isLoggedIn={true}
                                      isActivated={props.user.isActivated} name={props.user?.name}></NavItem>
                         </li> : props.oauthUser ? <li className={n.rightSide}>

@@ -42,9 +42,9 @@ function App() {
                         <Route path='/models' element={<Models/>}/>
 
                         <Route element={<RequireAuth/>}>
-                            <Route element={<PrivateActivateRoute/>}>
-                                <Route path="activate" element={<Activate/>}/>
-                            </Route>
+                            {/*<Route element={<PrivateActivateRoute/>}>*/}
+                            {/*    <Route path="activate" element={<Activate/>}/>*/}
+                            {/*</Route>*/}
                             <Route element={<RequireActivatedAuth/>}>
                                 <Route element={<RequireAdminRole/>}>
                                     <Route path="admin" element={<Admin/>}/>
