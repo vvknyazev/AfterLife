@@ -199,8 +199,6 @@ const Nav = (props) => {
         }
     }, [])
 
-    console.log("is activated: ", props.user);
-
     return (
         <div>
             {/*<Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>*/}

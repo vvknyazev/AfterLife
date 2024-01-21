@@ -230,7 +230,7 @@ const Profile = () => {
                         </div>
                     </div>
                     <div className={s.x}>
-                        <h2>{`${user.name}'s `} <img src="/profile/x-logo.svg" alt="x-logo"/></h2>
+                        <h2>{`${user?.name}'s `} <img src="/profile/x-logo.svg" alt="x-logo"/></h2>
                     </div>
                 </div>
                 {/*<div className={s.header}>*/}
