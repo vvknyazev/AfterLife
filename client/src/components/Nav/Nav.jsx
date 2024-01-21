@@ -214,7 +214,7 @@ const Nav = (props) => {
                     <NavLink to='/' className={n.logo}>{props?.user || props?.oauthUser?.user ? `A` : `Afterlife`}</NavLink>
                     <div className={n.menuButtons}>
                         <NavLink to="/models" className={n.navButton}>Найти пару</NavLink>
-                        {props.user.isActivated === false
+                        {props?.user?.isActivated === false
                             ? <li className={n.rightSide}>
                                 <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
                                 <div className={`${profileButtonStyle}`}>
