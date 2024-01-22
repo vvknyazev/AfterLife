@@ -34,32 +34,32 @@ services:
       - react-express
     expose:
       - 5000
-  mongo-express:
-    container_name: afterlife-mongo-express
-    image: mongo-express
-    restart: always
-    depends_on:
-      - mongo
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_BASICAUTH_USERNAME: afterlife
-      ME_CONFIG_BASICAUTH_PASSWORD: afterlife1234
-      ME_CONFIG_MONGODB_SERVER: afterlife-mongodb
-    networks:
-      - express-mongo
-  mongo:
-    container_name: afterlife-mongodb
-    restart: always
-    image: mongo:7.0
-    volumes:
-      - /home/afterlife/volumes/mongo:/data/db
-    networks:
-      - express-mongo
-    expose:
-      - 27017
-    ports:
-      - 27017:27017
+  # mongo-express:
+  #   container_name: afterlife-mongo-express
+  #   image: mongo-express
+  #   restart: always
+  #   depends_on:
+  #     - mongo
+  #   ports:
+  #     - 8081:8081
+  #   environment:
+  #     ME_CONFIG_BASICAUTH_USERNAME: afterlife
+  #     ME_CONFIG_BASICAUTH_PASSWORD: afterlife1234
+  #     ME_CONFIG_MONGODB_SERVER: afterlife-mongodb
+  #   networks:
+  #     - express-mongo
+  # mongo:
+  #   container_name: afterlife-mongodb
+  #   restart: always
+  #   image: mongo:7.0
+  #   volumes:
+  #     - /home/afterlife/volumes/mongo:/data/db
+  #   networks:
+  #     - express-mongo
+  #   expose:
+  #     - 27017
+  #   ports:
+  #     - 27017:27017
     # environment:
     #   MONGO_INITDB_ROOT_USERNAME: $CI_MONGO_INITDB_ROOT_USERNAME
     #   MONGO_INITDB_ROOT_PASSWORD: $CI_MONGO_INITDB_ROOT_PASSWORD
