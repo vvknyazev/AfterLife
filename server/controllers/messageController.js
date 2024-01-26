@@ -124,6 +124,10 @@ class MessageController {
         try {
             const {from, to} = req.body;
 
+            console.log("from: ", from);
+            console.log("to: ", to);
+
+
             const contacts = await Contact.findOne({sender: from});
 
             let contact;

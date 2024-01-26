@@ -185,20 +185,6 @@ const Nav = (props) => {
         nav = 'navBlack'
     }
 
-    const [userPhoto, setUserPhoto] = useState('/nav/user-photo.jpeg');
-
-    useEffect(() => {
-        if (props.user) {
-            if (props.user?.photo !== userPhoto) {
-                setUserPhoto(`${process.env.REACT_APP_API_URL}/${props.user?.photo}`);
-            }
-        } else if (props.oauthUser){
-            if (props.oauthUser.user.photo !== userPhoto){
-                setUserPhoto(`${process.env.REACT_APP_API_URL}/${props.oauthUser?.user?.photo}`)
-            }
-        }
-    }, [])
-
     return (
         <div>
             {/*<Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>*/}
@@ -209,7 +195,7 @@ const Nav = (props) => {
                         <NavLink to="#" className={n.navItem}>FAQ</NavLink>
                         <NavLink to="#" className={n.navItem}>Сервисы</NavLink>
                     </div>
-                    <NavLink to='/' className={n.logo}>{props?.user || props?.oauthUser?.user ? `A` : `Afterlife`}</NavLink>
+                    <NavLink to='/' className={n.logo}>{props?.user ? `A` : `Afterlife`}</NavLink>
                     <div className={n.menuButtons}>
                         <NavLink to="/models" className={n.navButton}>Найти пару</NavLink>
                         {props?.user?.isActivated === false
@@ -221,12 +207,8 @@ const Nav = (props) => {
                             </li>
                             :
                             props.user ? <li className={n.rightSide}>
-                            <NavItem icon={userPhoto} isLoggedIn={true}
+                            <NavItem icon={props.user?.photo.includes('http') ? props.user?.photo : `${process.env.REACT_APP_API_URL}/${props.user?.photo}`} isLoggedIn={true}
                                      isActivated={props.user.isActivated} name={props.user?.name}></NavItem>
-                        </li> : props.oauthUser ? <li className={n.rightSide}>
-                            <NavItem icon={userPhoto}
-                                     isLoggedIn={true}
-                                     isActivated={true} name={props.user?.name}></NavItem>
                         </li> : <li className={n.rightSide}>
                             <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
                             <div className={`${profileButtonStyle}`}>

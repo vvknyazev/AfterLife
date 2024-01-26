@@ -167,15 +167,18 @@
     margin-left: 109px;
     transition: 0.3s all ease;
 }
+.profileImage div{
+    border-radius: 220px;
+    filter: drop-shadow(0px 2px 8px #a574b4);
+}
 
 .profileImage canvas {
     border-radius: 220px;
     transition: 0.3s all ease;
+    margin: 8px !important;
 }
 
 .profileImage img {
-    filter: drop-shadow(0px 2px 8px #a574b4);
-    border-radius: 220px;
     transition: 0.3s all ease;
 }
 

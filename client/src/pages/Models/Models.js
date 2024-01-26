@@ -8,7 +8,7 @@ import {useGetModelsQuery} from "../../features/commonApiSlice";
 import {InfinitySpin} from "react-loader-spinner";
 
 const Models = () => {
-    const [user, oauthUser] = useOutletContext();
+    const [user] = useOutletContext();
 
     const [currentItems, setCurrentItems] = useState([]);
 
@@ -29,7 +29,7 @@ const Models = () => {
 
     if (isLoadingModels) {
         return <div>
-            <Nav user={user} oauthUser={user}/>
+            <Nav user={user}/>
             <div className={'loader'}>
                 <InfinitySpin
                     width='200'
@@ -42,7 +42,7 @@ const Models = () => {
 
     return (
         <div style={{background: "#000"}}>
-            <Nav user={user} oauthUser={oauthUser}/>
+            <Nav user={user}/>
             <section className={s.models}>
                 <Categories chooseCategory={chooseCategory} selectedCategory={selectedCategory}/>
                 <GirlsSection girlsCategory={currentItems} models={models}/>

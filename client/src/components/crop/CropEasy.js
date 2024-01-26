@@ -10,7 +10,7 @@ import {apiSlice} from "../../app/api/apiSlice";
 // import {useDispatch} from "react-redux";
 // import {InfinitySpin} from "react-loader-spinner";
 
-const CropEasy = ({photoURL, setOpenCrop, setPhotoURL, setSelectedImage, user, oauthUser, fileName}) => {
+const CropEasy = ({photoURL, setOpenCrop, setPhotoURL, setSelectedImage, user, fileName}) => {
     const [crop, setCrop] = useState({x: 0, y: 0});
     const [zoom, setZoom] = useState(1);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(0);
@@ -26,7 +26,7 @@ const CropEasy = ({photoURL, setOpenCrop, setPhotoURL, setSelectedImage, user, o
 
     const cropClose = () => {
         setOpenCrop(false);
-        setPhotoURL(`${process.env.REACT_APP_API_URL}/${user?.photo}` || `${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`);
+        setPhotoURL(`${process.env.REACT_APP_API_URL}/${user?.photo}`);
     }
 
     async function handleSubmit(e) {

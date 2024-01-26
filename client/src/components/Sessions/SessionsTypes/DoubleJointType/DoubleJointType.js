@@ -1,24 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import s from './DoubleJointType.module.css'
 
 const DoubleJointType = ({user, model, openModal}) => {
-    const [userPhoto, setUserPhoto] = useState('/nav/user-photo.jpeg');
-
-    useEffect(() => {
-        if (user) {
-            if (user?.photo !== userPhoto) {
-                setUserPhoto(`${process.env.REACT_APP_API_URL}/${user?.photo}`);
-            }
-        }
-    }, [])
-
 
     return (
         <div>
             <div className={s.container}>
                 <div className={s.blockItem}>
                     <div className={s.blockImages}>
-                        <img src={userPhoto} alt="user-photo"/>
+                        <img src={user?.photo.includes('http') ? user?.photo : `${process.env.REACT_APP_API_URL}/${user?.photo}`} alt="user-photo"/>
                         <img src='/add-user.svg' alt="add-user" className={s.secondImage} onClick={openModal}/>
                     </div>
                     <div>

@@ -11,7 +11,7 @@ import Music from "../../components/Spotlight/Music/Music";
 
 const ModelProfile = () => {
 
-    const [user, oauthUser] = useOutletContext();
+    const [user] = useOutletContext();
     const {modelId} = useParams();
     const navigate = useNavigate();
     const location = useLocation();
@@ -29,7 +29,7 @@ const ModelProfile = () => {
 
     if (isLoading || isLoadingContactAdding) {
         return <div>
-            <Nav user={user} oauthUser={user}/>
+            <Nav user={user}/>
             <div className={'loader'}>
                 <InfinitySpin
                     width='200'
@@ -41,14 +41,8 @@ const ModelProfile = () => {
 
     const addUser = async () => {
         if (user) {
+            console.log("from user.id: ", user);
             await addContact({from: user.id, to: location.pathname?.substring(1)});
-            navigate('/chats', {
-                state: {
-                    from: location
-                }
-            });
-        } else if (oauthUser) {
-            await addContact({from: oauthUser.user.id, to: location.pathname?.substring(1)});
             navigate('/chats', {
                 state: {
                     from: location
@@ -61,7 +55,7 @@ const ModelProfile = () => {
 
     return (
         <div className={s.modelProfileBackground}>
-            <Nav user={user} oauthUser={oauthUser}/>
+            <Nav user={user}/>
             <section className={s.profile}>
 
                 <div className={s.header}>
@@ -82,9 +76,9 @@ const ModelProfile = () => {
                                         <NavLink to={`/create-session/${modelId}`} className={s.connect}>Подключить</NavLink>
                                     </div>
                                 </div>
-                                {/*<div className={s.edit}>*/}
-                                {/*    <button onClick={addUser} className={s.secondButton}>Написать (тест чата)</button>*/}
-                                {/*</div>*/}
+                                <div className={s.edit}>
+                                    <button onClick={addUser} className={s.secondButton}>Написать (тест чата)</button>
+                                </div>
                             </div>
                         </div>
                     </div>

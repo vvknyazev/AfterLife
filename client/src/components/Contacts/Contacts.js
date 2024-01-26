@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import s from "./Contacts.module.css"
 import {useChat} from "../../context/ChatProvider";
 
-const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers, messages}) => {
+const Contacts = ({contacts, changeChat, user, onlineUsers, messages}) => {
     const [currentUserName, setCurrentUserName] = useState(undefined);
     const [currentUserImage, setCurrentUserImage] = useState(undefined);
     const [currentSelected, setCurrentSelected] = useState(undefined);
@@ -10,20 +10,6 @@ const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers, messages}
     const [lastMessage, setLastMessage] = useState('');
 
     const {currentChat, notifications} = useChat();
-
-    const [userPhoto, setUserPhoto] = useState('/nav/user-photo.jpeg');
-
-    useEffect(() => {
-        if (user) {
-            if (user?.photo !== userPhoto) {
-                setUserPhoto(`${process.env.REACT_APP_API_URL}/${user?.photo}`);
-            }
-        } else if (oauthUser){
-            if (oauthUser.user.photo !== userPhoto){
-                setUserPhoto(`${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`)
-            }
-        }
-    }, [])
 
     function countNotifications(contactID) {
         return notifications.filter(notification => notification.chatID === contactID).length;
@@ -43,10 +29,7 @@ const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers, messages}
         }
         if (user) {
             setCurrentUserName(user.username);
-            setCurrentUserImage(userPhoto);
-        } else if (oauthUser) {
-            setCurrentUserName(oauthUser.user.username);
-            setCurrentUserImage(userPhoto);
+            setCurrentUserImage(user?.photo.includes('http') ? user?.photo : `${process.env.REACT_APP_API_URL}/${user?.photo}`);
         }
         if (onlineUsers){
             setCurrentOnlineUsers(onlineUsers);
@@ -86,13 +69,13 @@ const Contacts = ({contacts, changeChat, user, oauthUser, onlineUsers, messages}
                         <div className={s.currentUser}>
                             <div>
                                 <img
-                                    src={userPhoto}
+                                    src={user?.photo.includes('http') ? user?.photo : `${process.env.REACT_APP_API_URL}/${user?.photo}`}
                                     alt="profile-photo"
                                 />
                             </div>
                             <div className={s.desc}>
                                 <div>
-                                    <h3>{user?.username || oauthUser?.user?.username}</h3>
+                                    <h3>{user?.username}</h3>
                                 </div>
                                 <div>
                                     <p>Активные чаты</p>

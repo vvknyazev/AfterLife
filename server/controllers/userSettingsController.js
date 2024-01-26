@@ -1,38 +1,23 @@
 const fs = require("fs");
-const UserGoogle = require("../models/userGoogle");
-const UserDiscord = require("../models/userDiscord");
 const User = require("../models/user");
-const UserDto = require("../dtos/user-dto");
 
 class UserSettingsController {
     async uploadPhoto(req, res) {
 
         const cookies_jwt = req.cookies.jwt;
 
-        if (req.user?.googleId) {
+        console.log("req.user: ", req.user);
+        if (req?.user){
             if (req.file) {
                 const fileExtension = req.file.mimetype.split('/')[1];
-                const fileName = `${req.user.googleId}.${fileExtension}`;
+                const fileName = `${req.user.id}.${fileExtension}`;
                 fs.rename(req.file.path, 'uploads/media/' + fileName, function (err) {
                     if (err) throw err;
                 });
 
-                const userGoogle = await UserGoogle.findOne({googleId: req.user.googleId});
-                userGoogle.photo = `media/${fileName}`;
-                await userGoogle.save();
-            }
-            return res.sendStatus(204);
-        } else if (req.user?.discordId) {
-            if (req.file) {
-                const fileExtension = req.file.mimetype.split('/')[1];
-                const fileName = `${req.user.discordId}.${fileExtension}`;
-                fs.rename(req.file.path, 'uploads/media/' + fileName, function (err) {
-                    if (err) throw err;
-                });
-
-                const userDiscord = await UserDiscord.findOne({discordId: req.user.discordId});
-                userDiscord.photo = `media/${fileName}`;
-                await userDiscord.save();
+                const user = await User.findOne({email: req.user.email})
+                user.photo = `media/${fileName}`;
+                await user.save();
             }
             return res.sendStatus(204);
         } else if (cookies_jwt) {
@@ -59,42 +44,27 @@ class UserSettingsController {
     async saveInfo(req, res) {
         const {name, bio, games} = req.body;
         console.log(req.body);
+        console.log(req.user);
 
         const cookies_jwt = req.cookies.jwt;
 
-        if (req.user?.googleId) {
-            const userGoogle = await UserGoogle.findOne({googleId: req.user.googleId});
+        if (req?.user){
+            const user = await User.findOne({email: req.user.email})
 
-            userGoogle.name = name;
-
-            userGoogle.bio = bio;
-
-            userGoogle.games = games;
-
-            await userGoogle.save();
-            return res.sendStatus(204);
-        } else if (req.user?.discordId) {
-            const userDiscord = await UserDiscord.findOne({discordId: req.user.discordId});
-
-            userDiscord.name = name;
-
-            userDiscord.bio = bio;
-
-            userDiscord.games = games;
-
-            await userDiscord.save();
-            return res.sendStatus(204);
-        } else if (cookies_jwt) {
-            console.log("CHANGES")
-            const refreshToken = cookies_jwt;
-            const user = await User.findOne({refreshToken});
             user.name = name;
-
             user.bio = bio;
-
             user.games = games;
 
-            console.log('games', games);
+            await user.save();
+            return res.sendStatus(204);
+
+        } else if (cookies_jwt) {
+            const refreshToken = cookies_jwt;
+            const user = await User.findOne({refreshToken});
+
+            user.name = name;
+            user.bio = bio;
+            user.games = games;
 
             await user.save();
             return res.sendStatus(204);

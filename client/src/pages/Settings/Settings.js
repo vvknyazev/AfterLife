@@ -18,27 +18,7 @@ const Settings = () => {
 
     const dispatch = useDispatch();
 
-    const [user, oauthUser] = useOutletContext();
-
-    const [userPhoto, setUserPhoto] = useState('/nav/user-photo.jpeg');
-
-    useEffect(() => {
-        if (user) {
-            if (user?.photo !== userPhoto) {
-                setUserPhoto(`${process.env.REACT_APP_API_URL}/${user?.photo}`);
-                setPhotoURL(`${process.env.REACT_APP_API_URL}/${user?.photo}`)
-            } else{
-                setPhotoURL(userPhoto);
-            }
-        } else if (oauthUser){
-            if (oauthUser.user.photo !== userPhoto){
-                setUserPhoto(`${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`)
-                setPhotoURL(`${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`)
-            }else{
-                setPhotoURL(userPhoto);
-            }
-        }
-    }, [])
+    const [user] = useOutletContext();
 
     const [selectedImage, setSelectedImage] = useState();
     const [photoURL, setPhotoURL] = useState(null);
@@ -72,14 +52,7 @@ const Settings = () => {
 
 
     useEffect(() => {
-        if (oauthUser) {
-            if (oauthUser?.user?.bio) {
-                setBio(oauthUser.user.bio)
-            }
-            if (oauthUser?.user?.name) {
-                setName(oauthUser.user.name)
-            }
-        } else if (user) {
+        if (user) {
             if (user?.name) {
                 setName(user.name)
             }
@@ -144,9 +117,9 @@ const Settings = () => {
         return true;
     }
 
-    // useEffect(() => {
-    //     setPhotoURL(`${process.env.REACT_APP_API_URL}/${user?.photo}` || `${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`);
-    // }, [])
+    useEffect(() => {
+        setPhotoURL(user?.photo.includes('http') ? user?.photo : `${process.env.REACT_APP_API_URL}/${user?.photo}`);
+    }, [])
 
     if (isUploadPhotoLoading || isSaveInfoLoading) {
         return <div className={'loader'}>
@@ -182,7 +155,7 @@ const Settings = () => {
 
     return (
         <div>
-            <Nav user={user} oauthUser={oauthUser}/>
+            <Nav user={user}/>
             <MiniNav/>
             <ToastContainer
                 position="top-center"
@@ -206,7 +179,7 @@ const Settings = () => {
                         <div className={s.photoPreview}>
                             {/*<img src={photoURL} alt="photo"/>*/}
 
-                            {photoURL === userPhoto || photoURL === userPhoto ?
+                            {photoURL === user?.photo.includes('http') ? user?.photo : `${process.env.REACT_APP_API_URL}/${user?.photo}` ?
                                 <img src={photoURL} alt="photo"/>
                                 : <></>
                             }
@@ -229,7 +202,6 @@ const Settings = () => {
                                 setPhotoURL,
                                 setSelectedImage,
                                 user,
-                                oauthUser,
                                 fileName
                             }}/>
                         }
@@ -253,7 +225,7 @@ const Settings = () => {
                                               autoComplete="off"/>
                                 </div>
                             </div>
-                            {user?.role === "MODEL" || oauthUser?.user?.role === "MODEL" ?
+                            {user?.role === "MODEL" ?
                                 <div className={s.divSelectorGames}>
                                     <label htmlFor="games">Games:</label>
                                     <Select

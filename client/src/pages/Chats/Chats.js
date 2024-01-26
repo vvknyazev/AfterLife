@@ -11,7 +11,7 @@ import {useSelector} from "react-redux";
 import {useChat} from "../../context/ChatProvider";
 
 const Chats = () => {
-    const [user, oauthUser, socket] = useOutletContext();
+    const [user, socket] = useOutletContext();
     // const location = useLocation();
     // const receivedData = location.state;
     // const {data: model, isLoading} = useGetOneModelQuery(receivedData?.from?.pathname?.substring(1));
@@ -26,14 +26,6 @@ const Chats = () => {
     const takeContacts = async () => {
         if (user) {
             const contacts = await getContacts({from: user.id});
-
-            if (contacts.data) {
-                setContacts(contacts.data);
-            } else {
-                setContacts([]);
-            }
-        } else if (oauthUser) {
-            const contacts = await getContacts({from: oauthUser.user.id});
 
             if (contacts.data) {
                 setContacts(contacts.data);
@@ -55,27 +47,14 @@ const Chats = () => {
         setLastSenderID(chat.id);
     };
 
-    // if (isContactsLoading) {
-    //     return <div>
-    //         <Nav user={user} oauthUser={oauthUser}/>
-    //         <MiniNav/>
-    //         <div className={'loader'}>
-    //             <InfinitySpin
-    //                 width='200'
-    //                 color="#000"
-    //             />
-    //         </div>
-    //     </div>
-    // }
-
     return (
         <div>
-            <Nav user={user} oauthUser={oauthUser}/>
+            <Nav user={user}/>
             <MiniNav/>
             <div className={s.chats}>
-                <Contacts contacts={contacts} changeChat={handleChatChange} user={user} oauthUser={oauthUser}
+                <Contacts contacts={contacts} changeChat={handleChatChange} user={user}
                           onlineUsers={onlineUsers} messages={messages}/>
-                <ChatContainer socket={socket} user={user} oauthUser={oauthUser}
+                <ChatContainer socket={socket} user={user}
                                setContacts={setContacts} contacts={contacts} onlineUsers={onlineUsers}
                                takeContacts={takeContacts} messages={messages} setMessages={setMessages}/>
             </div>

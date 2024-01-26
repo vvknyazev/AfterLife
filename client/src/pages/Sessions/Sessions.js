@@ -4,10 +4,10 @@ import MiniNav from "../../components/MiniNav/MiniNav";
 import {useOutletContext} from "react-router-dom";
 
 const Sessions = () => {
-    const [user, oauthUser] = useOutletContext();
+    const [user] = useOutletContext();
     return (
         <div>
-            <Nav user={user} oauthUser={oauthUser}/>
+            <Nav user={user}/>
             <MiniNav/>
         </div>
     );

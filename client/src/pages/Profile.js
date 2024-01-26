@@ -21,29 +21,13 @@ const Profile = () => {
     const navigate = useNavigate()
     const {pathname} = useLocation()
 
-    const [user, oauthUser] = useOutletContext();
+    const [user] = useOutletContext();
 
     const [activeCategory, setActiveCategory] = useState('Смотрю');
 
     const handleCategoryChange = (category) => {
         setActiveCategory(category);
     };
-
-
-    const [userPhoto, setUserPhoto] = useState('/nav/user-photo.jpeg');
-
-    useEffect(() => {
-        if (user) {
-            if (user?.photo !== userPhoto) {
-                setUserPhoto(`${process.env.REACT_APP_API_URL}/${user?.photo}`);
-            }
-        } else if (oauthUser){
-            if (oauthUser.user.photo !== userPhoto){
-                setUserPhoto(`${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`)
-            }
-        }
-    }, [])
-
 
     const [sendLogout, {
         isLoading,
@@ -57,9 +41,10 @@ const Profile = () => {
         if (user) {
             sendLogout();
             navigate('/login')
-        } else if (oauthUser) {
-            window.open(`${process.env.REACT_APP_API_URL}/api/user/google/logout`, "_self");
         }
+        // else if (oauthUser) {
+        //     window.open(`${process.env.REACT_APP_API_URL}/api/user/google/logout`, "_self");
+        // }
     };
 
     useEffect(() => {
@@ -92,10 +77,9 @@ const Profile = () => {
         </button>
     )
 
-
     return (
         <div>
-            <Nav user={user} oauthUser={oauthUser}/>
+            <Nav user={user}/>
             {/*<MiniNav/>*/}
             <section className={s.profileContainer}>
                 <div>
@@ -117,13 +101,13 @@ const Profile = () => {
                                 hash={'L6D]o5NL00-5~Cxu0LMw-UayNxjb'}
                                 width={'213px'}
                                 height={'213px'}
-                                src={`${process.env.REACT_APP_API_URL}/${user?.photo}`}
+                                src={user?.photo.includes('http') ? user?.photo : `${process.env.REACT_APP_API_URL}/${user?.photo}`}
                                 alt="profile-photo"
                             />
                         </div>
                         <div className={s.headerDescription}>
-                            <p className={s.name}>{user?.username || oauthUser?.user?.username}</p>
-                            <p className={s.nameTag}>{`@${user?.username || oauthUser?.user?.username}`}</p>
+                            <p className={s.name}>{user?.username}</p>
+                            <p className={s.nameTag}>{`@${user?.username}`}</p>
                         </div>
                         <div className={s.connectContainer}>
                             <NavLink to={''} className={s.connect}>Пригласить</NavLink>
@@ -233,23 +217,6 @@ const Profile = () => {
                         <h2>{`${user?.name}'s `} <img src="/profile/x-logo.svg" alt="x-logo"/></h2>
                     </div>
                 </div>
-                {/*<div className={s.header}>*/}
-
-                {/*    /!*<div className={s.layer}></div>*!/*/}
-                {/*    <div className={s.greetings}>*/}
-                {/*        <span>Welcome <br/> {user?.username || oauthUser?.user.username}</span>*/}
-                {/*    </div>*/}
-                {/*    <div>*/}
-                {/*        <img src={`${process.env.REACT_APP_API_URL}/${user?.photo}` || `${process.env.REACT_APP_API_URL}/${oauthUser?.user?.photo}`} alt="profile-photo"/>*/}
-                {/*    </div>*/}
-                {/*    <div className={s.description}>*/}
-                {/*        <p className={s.name}>{user?.name || oauthUser?.user.name}</p>*/}
-                {/*        <p className={s.bio}>{user?.bio || oauthUser?.user.bio}</p>*/}
-                {/*    </div>*/}
-                {/*    <div className={s.edit}>*/}
-                {/*        <NavLink to={'/settings'} className={s.secondButton}>Редактировать</NavLink>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
 
                 {/*{logoutButton}*/}
             </section>

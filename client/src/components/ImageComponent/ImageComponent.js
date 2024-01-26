@@ -13,13 +13,15 @@ const ImageComponent = ({src, hash, width, height, alt}) => {
     }, [src])
 
 
-
+    const containerStyle = {
+        position: 'relative',
+        overflow: 'hidden',
+        width: width,
+        height: height
+    };
 
     return (
-            <div style={{
-                position: 'relative',
-                overflow: "hidden",
-            }}>
+            <div style={containerStyle}>
                 <Blurhash
                     hash={hash}
                     width={width}
@@ -40,8 +42,10 @@ const ImageComponent = ({src, hash, width, height, alt}) => {
                         top: 0,
                         left: 0,
                         opacity: imageLoaded ? 1 : 0 ,
-                        transition: 'opacity 0.3s ease'
-
+                        transition: 'opacity 0.3s ease',
+                        width: '100%',
+                        height: '100%',
+                        objectFit: "cover"
                     }}
                 />
             </div>

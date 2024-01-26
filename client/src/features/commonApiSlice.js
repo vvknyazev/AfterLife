@@ -10,9 +10,6 @@ const commonApiSlice = createApi({
         },
     }),
     endpoints: (builder) => ({
-        getOauthUser: builder.query({
-            query: () => '/api/user/login/success',
-        }),
         uploadPhoto: builder.mutation({
             query: (data) => ({
                 url: '/api/user/upload-photo',
@@ -131,7 +128,6 @@ const commonApiSlice = createApi({
 });
 
 export const {
-    useGetOauthUserQuery,
     useUploadPhotoMutation,
     useSaveInfoMutation,
     useGetModelsQuery,

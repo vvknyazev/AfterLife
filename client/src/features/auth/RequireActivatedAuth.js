@@ -2,15 +2,11 @@ import React, {useEffect} from 'react';
 import {useGetUserQuery} from "./authApiSlice";
 import {Outlet, useNavigate, useOutletContext} from "react-router-dom";
 import {InfinitySpin} from "react-loader-spinner";
-import {
-    useGetOauthUserQuery,
-} from "../commonApiSlice";
 
 const RequireActivatedAuth = () => {
     const navigate = useNavigate();
     const { data: user, isLoading: isLoadingUser, isFetching, isSuccess} = useGetUserQuery();
 
-    const { data: oauthUserData } = useGetOauthUserQuery();
     const [renderOutlet, setRenderOutlet] = React.useState(false);
 
     const [socket] = useOutletContext();
@@ -23,9 +19,7 @@ const RequireActivatedAuth = () => {
                 } else {
                     navigate('/');
                 }
-            } else if (oauthUserData){
-                setRenderOutlet(true);
-            }else navigate('/');
+            } else navigate('/');
         }
     }, [isSuccess, user, navigate]);
 
@@ -47,7 +41,7 @@ const RequireActivatedAuth = () => {
     }
 
     if (isSuccess && renderOutlet) {
-        return <Outlet context={[user, oauthUserData, socket]}/>;
+        return <Outlet context={[user, socket]}/>;
     } else {
         return <div></div>;
     }

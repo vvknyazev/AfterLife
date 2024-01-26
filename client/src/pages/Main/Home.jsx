@@ -8,7 +8,7 @@ import FooterHomePage from "./FooterHomePage/FooterHomePage";
 import {useOutletContext} from "react-router-dom";
 
 const Home = () => {
-    const [user, oauthUser] = useOutletContext();
+    const [user] = useOutletContext();
 
     const imaginativeUser = {
         username: 'Ма',
@@ -22,17 +22,9 @@ const Home = () => {
 
     return (
         <div>
-            {/*{isLoading ? (*/}
-            {/*    <div className={'loader'}>*/}
-            {/*        <InfinitySpin*/}
-            {/*            width='200'*/}
-            {/*            color="#000"*/}
-            {/*        />*/}
-            {/*    </div>*/}
-            {/*) : (*/}
             <div>
                 <div>
-                    <Nav user={user} oauthUser={oauthUser}/>
+                    <Nav user={user}/>
                     <HeaderHomePage/>
                 </div>
                 {/*<ConceptHomePage user={imaginativeUser} model={imaginativeModel}/>*/}

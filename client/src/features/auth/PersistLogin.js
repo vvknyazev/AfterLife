@@ -5,7 +5,6 @@ import usePersist from "../../hooks/usePersist"
 import {useSelector} from 'react-redux'
 import {selectCurrentToken} from "./authSlice"
 import {InfinitySpin} from "react-loader-spinner";
-import {useGetOauthUserQuery} from "../commonApiSlice";
 
 const PersistLogin = () => {
     const [persist] = usePersist()
@@ -15,8 +14,6 @@ const PersistLogin = () => {
     const [trueSuccess, setTrueSuccess] = useState(false)
 
     const {data: user, isLoading: isLoadingUser, isFetching} = useGetUserQuery();
-
-    const {data: oauthUserData, isLoading: isLoadingOauthUser} = useGetOauthUserQuery();
 
     const [refresh, {
         isUninitialized,
@@ -49,18 +46,14 @@ const PersistLogin = () => {
 
     }, [])
 
-
-    if (isLoadingUser || isLoadingOauthUser) {
+    console.log("user: ", user);
+    if (isLoadingUser) {
         return <div className={'loader'}>
             <InfinitySpin
                 width='200'
                 color="#000"
             />
         </div>
-    }
-    if (oauthUserData) {
-        console.log('oauthUserData if worked')
-        return <Outlet context={[null, oauthUserData]}/>
     }
     if (isFetching) {
         return <div className={'loader'}>

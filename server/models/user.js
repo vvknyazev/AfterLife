@@ -6,10 +6,9 @@ const User = new Schema({
     password: {type: String, require: true},
     role: {type: String, default: 'USER'},
     refreshToken: String,
-    activationLink: String,
     activationCode: String,
     isActivated: {type: Boolean, default: false},
-    photo: {type: String, default: '/nav/user-photo.jpeg'},
+    photo: {type: String, default: 'media/default.jpeg'},
     name: String,
     bio: String,
     games: {type: [String]}

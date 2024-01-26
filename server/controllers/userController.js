@@ -4,9 +4,7 @@ const User = require('../models/user')
 const uuid = require('uuid');
 const mailService = require('../service/mail-service');
 const UserDto = require('../dtos/user-dto');
-const UserGoogle = require('../models/userGoogle');
-const UserDiscord = require('../models/userDiscord');
-
+const refresh = require('passport-oauth2-refresh');
 
 function generateActivationCode() {
     const min = 100000;
@@ -37,11 +35,7 @@ class UserController {
             // return next(ApiError.badRequest('Некорректный email или password'))
             return res.status(400).json({'message': 'Username and password are required.'});
         }
-        const userGoogle = await UserGoogle.findOne({email});
-        const userDiscord = await UserDiscord.findOne({email});
-        if (userGoogle || userDiscord) {
-            return res.sendStatus(409);
-        }
+
         const candidateEmail = await User.findOne({email});
         const candidateUsername = await User.findOne({username});
         if (candidateEmail || candidateUsername) {
@@ -87,9 +81,7 @@ class UserController {
         console.log(email);
         console.log(password);
         const user = await User.findOne({email});
-        const userGoogle = await UserGoogle.findOne({email});
-        const userDiscord = await UserDiscord.findOne({email});
-        if (!user || userGoogle || userDiscord) {
+        if (!user) {
             // return next(ApiError.internal('Пользователь не найден'))
             return res.sendStatus(401);
         }
@@ -117,23 +109,54 @@ class UserController {
     async refresh(req, res, next) {
 
         const cookies = req.cookies;
-        console.log(cookies.jwt);
-        if (!cookies?.jwt) return res.sendStatus(401);
+        console.log("cookies.jwt: ", cookies.jwt);
+        console.log("cookies: ", cookies);
 
-        const refreshToken = cookies.jwt;
-        const user = await User.findOne({refreshToken});
+        if (cookies?.session) {
+            console.log("req.session passport user refreshtoken: ", req.session.passport.user.refreshToken);
+            if (req?.session?.passport?.user.source === 'discord'){
 
-        if (!user) return res.sendStatus(403); //Forbidden
-        // evaluate jwt
-        jwt.verify(
-            refreshToken,
-            process.env.REFRESH_SECRET_KEY,
-            (err, decoded) => {
-                if (err || user.email !== decoded.email) return res.sendStatus(403);
-                const accessToken = generateJwt(user.id, user.username, user.email, user.role, user.isActivated);
-                res.json({accessToken})
+                refresh.requestNewAccessToken(
+                    'discord',
+                    req.session.passport.user.refreshToken,
+                    function (err, accessToken, refreshToken) {
+                        console.log("err: ", err)
+                        console.log("accessToken: ", accessToken)
+                        console.log("refreshToken: ", refreshToken)
+                        req.session.passport.user.refreshToken = accessToken;
+                        res.json({accessToken})
+                    },);
+
+            } else if (req?.session?.passport?.user?.source === 'google'){
+                refresh.requestNewAccessToken(
+                    'google',
+                    req.session.passport.user.refreshToken,
+                    function (err, accessToken, refreshToken) {
+                        console.log("err: ", err)
+                        console.log("accessToken: ", accessToken)
+                        console.log("refreshToken: ", refreshToken)
+                        req.session.passport.user.refreshToken = accessToken;
+                        res.json({accessToken})
+                    },);
             }
-        );
+        } else if (cookies?.jwt) {
+            const refreshToken = cookies.jwt;
+            const user = await User.findOne({refreshToken});
+
+            if (!user) return res.sendStatus(403); //Forbidden
+
+            jwt.verify(
+                refreshToken,
+                process.env.REFRESH_SECRET_KEY,
+                (err, decoded) => {
+                    if (err || user.email !== decoded.email) return res.sendStatus(403);
+                    const accessToken = generateJwt(user.id, user.username, user.email, user.role, user.isActivated);
+                    res.json({accessToken})
+                }
+            );
+        } else {
+            return res.sendStatus(401);
+        }
     }
 
     async logout(req, res) {
@@ -190,23 +213,25 @@ class UserController {
     }
 
     async check(req, res) {
-        const cookies_jwt = req.cookies.jwt;
-        if (!cookies_jwt) return res.sendStatus(204); // No Content
-        const refreshToken = cookies_jwt;
+        if (req.user) {
+            const userDto = new UserDto(req.user);
+            return res.json(userDto);
+        } else {
+            const cookies_jwt = req.cookies.jwt;
+            console.log("cookies_jwt: ", cookies_jwt)
+            if (!cookies_jwt) return res.sendStatus(204); // No Content
+            const refreshToken = cookies_jwt;
 
-        // Is refreshToken in db?
-        const user = await User.findOne({refreshToken});
-        // const userGoogle = await UserGoogle.findOne({refreshToken});
-        if (!user) {
-            console.log("не авторизован");
-            return res.sendStatus(403);
-            // throw new Error('Не авторизован')
+            // Is refreshToken in db?
+            const user = await User.findOne({refreshToken});
+            if (!user) {
+                console.log("не авторизован");
+                return res.sendStatus(403);
+            }
+
+            const userDto = new UserDto(user);
+            return res.json(userDto);
         }
-
-        const userDto = new UserDto(user);
-        return res.json(userDto);
-
-
     }
 }
 

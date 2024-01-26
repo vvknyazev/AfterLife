@@ -13,7 +13,7 @@ import {useChat} from "../../context/ChatProvider";
 // import ScrollableFeed from "react-scrollable-feed";
 // import {useSelector} from "react-redux";
 
-const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUsers, takeContacts, messages, setMessages}) => {
+const ChatContainer = ({socket, user, setContacts, contacts, onlineUsers, takeContacts, messages, setMessages}) => {
     const [msg, setMsg] = useState("");
     const [lastMsgs, setLastMsgs] = useState("");
     const scrollRef = useRef();
@@ -63,8 +63,6 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
                 setContacts(newContactsArray);
                 if (user) {
                     updateContacts({from: sender, updatedContacts: newContactsArray});
-                } else if (oauthUser) {
-                    updateContacts({from: sender, updatedContacts: newContactsArray});
                 }
             }
         }
@@ -93,24 +91,6 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
             formatContacts(contacts, user.id, currentChat.id);
 
             // await addNotifications({from: currentChat.id, to: user.id}).unwrap();
-        } else if (oauthUser) {
-            socket.current.emit("send-msg", {
-                to: currentChat.id,
-                from: oauthUser.user.id,
-                msg: msg,
-                chatID: oauthUser.user.id,
-            });
-            // if (messages.length === 0) {
-            //     await addContact({from: currentChat.id, to: user.id}).unwrap();
-            // }
-            if (msg.trim() !== '') {
-                console.log("SENDDD")
-                await sendMessage({from: user.id, to: currentChat.id, message: msg});
-            }
-            formatContacts(contacts, oauthUser.id, currentChat.id);
-            if (!onlineUsers.includes(currentChat.id)){
-                await addNotifications({"from": currentChat.id, "notifications": oauthUser.user.id, "offline": true}).unwrap();
-            }
         }
         if (msg.trim() !== '') {
             const msgs = [...messages];
@@ -129,13 +109,6 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
                 }
                 takeResponse();
 
-            } else if (oauthUser) {
-                const takeResponse = async () => {
-                    const response = await receiveMessage({from: oauthUser.user.id, to: currentChat.id});
-                    setMessages(response.data);
-                    setLastMsgs(response.data);
-                }
-                takeResponse();
             }
             // console.log("useEffect in ChatContainer.js")
         }
@@ -173,18 +146,18 @@ const ChatContainer = ({socket, user, oauthUser, setContacts, contacts, onlineUs
     }, [arrivalMessage]);
 
 
-    const Scroll = () => {
-        if (scrollRef.current){
-            const { offsetHeight, scrollHeight, scrollTop } = scrollRef.current;
-            console.log("offsetHeight: ", offsetHeight)
-            console.log("scrollHeight: ", scrollHeight)
-            console.log("scrollTop: ", scrollTop)
-            if (scrollHeight <= scrollTop + offsetHeight + 100) {
-                scrollRef.current.scrollTo(0, scrollHeight)
-            }
-        }
-
-    }
+    // const Scroll = () => {
+    //     if (scrollRef.current){
+    //         const { offsetHeight, scrollHeight, scrollTop } = scrollRef.current;
+    //         console.log("offsetHeight: ", offsetHeight)
+    //         console.log("scrollHeight: ", scrollHeight)
+    //         console.log("scrollTop: ", scrollTop)
+    //         if (scrollHeight <= scrollTop + offsetHeight + 100) {
+    //             scrollRef.current.scrollTo(0, scrollHeight)
+    //         }
+    //     }
+    //
+    // }
     // useEffect(()=>{
     //     scrollRef.current?.scrollIntoView({behavior: "auto"});
     //     console.log("auto scroll arrivalMessage")

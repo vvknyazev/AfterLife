@@ -4,7 +4,7 @@ import {useGetUserQuery} from "./auth/authApiSlice";
 import {
     useAddContactMutation,
     useAddNotificationsMutation, useGetNotificationsMutation,
-    useGetOauthUserQuery, useReceiveMessageMutation,
+    useReceiveMessageMutation,
 } from "./commonApiSlice";
 import io from "socket.io-client";
 import {useDispatch, useSelector} from "react-redux";
@@ -15,8 +15,6 @@ const MessageChecker = () => {
     const effectRan = useRef(false)
 
     const {data: user} = useGetUserQuery();
-
-    const {data: oauthUserData} = useGetOauthUserQuery();
 
     const onlineUsers = useSelector(state => state.onlineUsers.value);
 
@@ -35,11 +33,6 @@ const MessageChecker = () => {
     const takeNotifications = async () => {
         if (user) {
             const notif = await getNotifications({from: user.id})
-            if (notif.data){
-                setNotifications(notif.data);
-            }
-        } else if (oauthUserData){
-            const notif = await getNotifications({from: oauthUserData.user.id});
             if (notif.data){
                 setNotifications(notif.data);
             }
@@ -64,7 +57,7 @@ const MessageChecker = () => {
 
     useEffect(() => {
         if (effectRan.current === true || process.env.NODE_ENV !== 'development') { // React 18 Strict Mode
-            if (user?.isActivated || oauthUserData) {
+            if (user?.isActivated) {
 
                 socket.current = io(process.env.REACT_APP_API_URL);
                 console.log("create socket")
@@ -80,26 +73,14 @@ const MessageChecker = () => {
                         socket.current.off("getOnlineUsers")
                         socket.current.off("removeOnlineUsers")
                     }
-                } else if (oauthUserData) {
-                    socket.current.emit("add-user", oauthUserData.user.id);
-                    socket.current.on("getOnlineUsers", (users) => {
-                        dispatch(setOnlineUsers(users));
-                    })
-                    socket.current.on("removeOnlineUsers", (users) => {
-                        dispatch(setOnlineUsers(users));
-                    })
-                    return () => {
-                        socket.current.off("getOnlineUsers")
-                        socket.current.off("removeOnlineUsers")
-                    }
                 }
             }
         }
         return () => effectRan.current = true
-    }, [user, oauthUserData])
+    }, [user])
 
     useEffect(() => {
-        if (user?.isActivated || oauthUserData) {
+        if (user?.isActivated) {
             if (socket.current) {
                 socket.current.on("msg-recieve", async (msg, chatID) => {
                     if (user) {
@@ -113,16 +94,6 @@ const MessageChecker = () => {
                             await takeResponse();
                         }
 
-                    } else if (oauthUserData) {
-                        const takeResponse = async () => {
-                            const response = await receiveMessage({from: oauthUserData.user.id, to: chatID});
-                            if (response.data === [] || response.data.length === 1 || response.data.length === 0) {
-                                await addContact({from: oauthUserData.user.id, to: chatID});
-                            }
-                        }
-                        if (!isChatsPage) {
-                            await takeResponse();
-                        }
                     }
                 });
                 return () => {
@@ -140,7 +111,7 @@ const MessageChecker = () => {
     })
 
     useEffect(() => {
-        if (user?.isActivated || oauthUserData) {
+        if (user?.isActivated) {
             const isCurrentChatInNotifications = notifications.some(notification => notification?.chatID === currentChat?.id);
             if (isCurrentChatInNotifications) {
                 const filteredNotifications = notifications.filter(notification => notification.chatID !== currentChat.id);
@@ -168,7 +139,7 @@ const MessageChecker = () => {
         // console.log("useEffect in MessageChecker.js")
     }, [currentChat])
 
-    // if (isLoadingUser || isLoadingOauthUser) {
+    // if (isLoadingUser) {
     //     return <div className={'loader'}>
     //         <InfinitySpin
     //             width='200'
@@ -186,7 +157,7 @@ const MessageChecker = () => {
     // }
 
 
-    return <Outlet context={[user, oauthUserData, socket]}/>;
+    return <Outlet context={[user, socket]}/>;
 };
 
 export default MessageChecker;

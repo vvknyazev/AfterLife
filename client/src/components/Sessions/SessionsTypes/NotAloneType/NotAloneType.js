@@ -1,17 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import s from './NotAloneType.module.css'
 
 const NotAloneType = ({user, model, openModal}) => {
 
-    const [userPhoto, setUserPhoto] = useState('/nav/user-photo.jpeg');
-
-    useEffect(() => {
-        if (user) {
-            if (user?.photo !== userPhoto) {
-                setUserPhoto(`${process.env.REACT_APP_API_URL}/${user?.photo}`);
-            }
-        }
-    }, [])
 
     return (
         <div className={s.container}>
@@ -28,7 +19,7 @@ const NotAloneType = ({user, model, openModal}) => {
             </div>
 
             <div className={s.userPhotoBlock}>
-                <img src={userPhoto} alt="user-photo"/>
+                <img src={user?.photo.includes('http') ? user?.photo : `${process.env.REACT_APP_API_URL}/${user?.photo}`} alt="user-photo"/>
             </div>
             <div className={s.connection}>
                 <img src="/right-connection.png" alt="connection"/>

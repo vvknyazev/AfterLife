@@ -111,7 +111,7 @@ const SessionBuilder = () => {
         },
     ]
 
-    const [user, oauthUser] = useOutletContext();
+    const [user] = useOutletContext();
 
     const {modelId} = useParams();
 
@@ -141,7 +141,7 @@ const SessionBuilder = () => {
     return (
         <div className={s.backgroundContainer}>
             <SessionInviteModal open={isModalOpen} closeModal={closeModal}/>
-            <Nav user={user} oauthUser={oauthUser}/>
+            <Nav user={user}/>
             <div className={s.container}>
                 <div>
                     <h3>Виберите тип сессии</h3>
