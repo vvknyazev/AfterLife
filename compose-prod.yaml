@@ -27,8 +27,8 @@ services:
       #- /home/afterlife/volumes/server/uploads:/app/uploads
       - /home/afterlife/volumes/public/media:/app/uploads/media
 #      - /usr/src/app/node_modules
-    depends_on:
-      - mongo
+    #depends_on:
+    #  - mongo
     networks:
       - express-mongo
       - react-express
