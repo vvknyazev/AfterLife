@@ -86,6 +86,8 @@ const MessageChecker = () => {
                     if (user) {
                         const takeResponse = async () => {
                             const response = await receiveMessage({from: user.id, to: chatID});
+                            console.log("user: ", user);
+                            console.log("chatID: ", chatID);
                             if (response.data === [] || response.data.length === 1 || response.data.length === 0) {
                                 await addContact({from: user.id, to: chatID}).unwrap();
                             }

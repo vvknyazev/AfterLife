@@ -132,7 +132,7 @@ class MessageController {
 
             let contact;
 
-            const user = await User.findOne({_id: to}, {name: 1, photo: 1});
+            const user = await User.findOne({_id: to}, {username: 1, photo: 1});
 
             if (contacts) {
                 let hasId = false;
@@ -143,12 +143,12 @@ class MessageController {
                     }
                 }
                 if (!hasId) {
-                    await contacts.users.unshift({id: to, name: user.name, photo: user.photo});
+                    await contacts.users.unshift({id: to, username: user.username, photo: user.photo});
                     await contacts.save();
                 }
             } else {
                 contact = await Contact.create({
-                    users: [{id: to, name: user.name, photo: user.photo}],
+                    users: [{id: to, username: user.username, photo: user.photo}],
                     sender: from
                 });
             }

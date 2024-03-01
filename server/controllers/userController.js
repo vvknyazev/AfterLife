@@ -107,7 +107,7 @@ class UserController {
     }
 
     async refresh(req, res, next) {
-
+        console.log("refresh func")
         const cookies = req.cookies;
         console.log("cookies.jwt: ", cookies.jwt);
         console.log("cookies: ", cookies);
@@ -138,6 +138,8 @@ class UserController {
                         req.session.passport.user.refreshToken = accessToken;
                         res.json({accessToken})
                     },);
+            } else{
+                res.sendStatus(200);
             }
         } else if (cookies?.jwt) {
             const refreshToken = cookies.jwt;

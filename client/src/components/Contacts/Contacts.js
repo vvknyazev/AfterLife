@@ -29,6 +29,7 @@ const Contacts = ({contacts, changeChat, user, onlineUsers, messages}) => {
         }
         if (user) {
             setCurrentUserName(user.username);
+            console.log("user in contacts: ", user);
             setCurrentUserImage(user?.photo.includes('http') ? user?.photo : `${process.env.REACT_APP_API_URL}/${user?.photo}`);
         }
         if (onlineUsers){
@@ -86,6 +87,7 @@ const Contacts = ({contacts, changeChat, user, onlineUsers, messages}) => {
                             </div>
                         </div>
                         {contacts.map((contact, index) => {
+                            console.log("contact: ", contact);
                             const notificationCount = countNotifications(contact?.id);
                             return (
                                 <div
@@ -98,13 +100,13 @@ const Contacts = ({contacts, changeChat, user, onlineUsers, messages}) => {
                                     <div className={s.avatar}>
                                         {currentOnlineUsers.includes(contact?.id) && <div className='onlineIco'></div> }
                                         <img
-                                            src={`${process.env.REACT_APP_API_URL}/${contact?.photo}`}
+                                            src={contact?.photo.includes('http') ? contact?.photo : `${process.env.REACT_APP_API_URL}/${contact?.photo}`}
                                             alt="profile-photo"
                                         />
 
                                     </div>
                                     <div className="username">
-                                        <h3>{contact?.name}</h3>
+                                        <h3>{contact?.username}</h3>
                                     </div>
                                     <div className={notificationCount > 0 ? `${s.notification}` : ''}>
                                         <h3>{notificationCount > 9 ? '9+' :  notificationCount ? notificationCount :''}</h3>
