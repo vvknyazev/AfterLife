@@ -124,6 +124,13 @@ const commonApiSlice = createApi({
                 body: {...credentials}
             })
         }),
+        resend: builder.mutation({
+            query: credentials => ({
+                url: '/api/user/resend',
+                method: 'POST',
+                body: {...credentials}
+            })
+        }),
     }),
 });
 
@@ -143,7 +150,8 @@ export const {
     useUpdateContactsMutation,
     useAddNotificationsMutation,
     useGetNotificationsMutation,
-    useActivateCodeMutation
+    useActivateCodeMutation,
+    useResendMutation,
 } = commonApiSlice;
 
 export default commonApiSlice;

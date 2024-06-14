@@ -157,14 +157,16 @@ label {
     transform: translateY(0);
     bottom: -0.5em;
 }
-.wrongPassword{
+
+.wrongPassword {
     z-index: 1;
     opacity: 1;
     transform: translateY(0);
     top: -1.2ex;
     color: #FF6565 !important;;
 }
-.wrongUnderPassword{
+
+.wrongUnderPassword {
     z-index: 1;
     opacity: 1;
     transform: translateY(0);
@@ -197,10 +199,12 @@ input::placeholder {
     transition: 0.3s all ease;
     border: 1px solid rgba(233, 233, 233, 0.05);
 }
-.wrong{
+
+.wrong {
     border: 1px solid #FF6565 !important;
 }
-.wrongLabel{
+
+.wrongLabel {
     z-index: 1;
     opacity: 1;
     transform: translateY(0);
@@ -287,7 +291,8 @@ input::placeholder {
     margin-top: 20px;
     margin-bottom: 0;
 }
-.socialHeader{
+
+.socialHeader {
     display: flex;
     justify-content: center;
     color: #D9D9D9;
@@ -297,6 +302,7 @@ input::placeholder {
     font-weight: 400;
     line-height: 145%; /* 23.2px */
 }
+
 .social {
     display: flex;
     justify-content: center;
@@ -319,7 +325,8 @@ input::placeholder {
     border: 1px solid rgba(233, 233, 233, 0.05);
 
 }
-.social a img{
+
+.social a img {
     width: 28px;
 
 }
@@ -375,7 +382,8 @@ input::placeholder {
     font-weight: 400;
     line-height: normal;
 }
-.redirect{
+
+.redirect {
     display: flex;
     justify-content: center;
     color: #D9D9D9;
@@ -386,7 +394,8 @@ input::placeholder {
     line-height: 145%; /* 23.2px */
     margin-top: 5px;
 }
-.redirectButton{
+
+.redirectButton {
     color: #79A1DD;
 }
 
@@ -442,26 +451,49 @@ input::placeholder {
 
 }
 
+.activationStep h3 {
+    width: 238px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.50);
+    text-align: center;
+    font-family: Onest, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.activationStep h2 {
+    color: #FFF;
+    font-family: Onest, sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 145%; /* 34.8px */
+    text-align: center;
+}
+
 .formInput {
 
 }
 
 .codeInput {
     display: flex;
-    gap: 15px;
+    gap: 8px;
     justify-content: center;
     margin: 25px;
+
 
 }
 
 .codeInput input {
-    width: 35px;
-    height: 35px;
+    width: 55px;
+    height: 55px;
+    border-radius: 20px;
+    border: 1px solid rgba(233, 233, 233, 0.05);
     text-align: center;
-    padding: 8px;
-    border: none;
-    border-radius: 8px;
-    background-color: rgba(233, 233, 233, 0.05);
+    padding: 0;
+    background: transparent;
     color: white;
     font-size: 25px;
 }
@@ -469,32 +501,55 @@ input::placeholder {
 .buttonNext {
     display: flex;
     justify-content: center;
-    margin: 50px 25px 25px 25px;
+
     position: relative;
 }
 
 .buttonNext button {
     display: flex;
-    width: 350px;
+    width: 359px;
     height: 60px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    border-radius: 14px;
-    background: #FFF;
-    color: #000;
+    cursor: pointer;
+    background: transparent;
+    color: #D9D9D9;
     text-align: center;
-    font-family: Nunito Sans, sans-serif;
+    font-family: Onest, sans-serif;
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
-    line-height: 145%; /* 29px */
-    cursor: pointer;
+    line-height: normal;
 }
 
 .name img {
     width: 253px;
 
+}
+.resend{
+    text-align: center;
+}
+.resend p{
+    color: rgba(255, 255, 255, 0.50);
+    font-family: Onest, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 145%; /* 23.2px */
+}
+.resend p span{
+    color: #D9D9D9;
+    font-family: Onest, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 145%;
+    text-decoration-line: underline;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 346px) {

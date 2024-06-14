@@ -123,7 +123,7 @@ const Login = () => {
     //         color="#000"
     //     />
     // </div> :
-    console.log("pwdFocus: ", pwdFocus);
+
     return (
         <div className={s.background}>
             <ToastContainer

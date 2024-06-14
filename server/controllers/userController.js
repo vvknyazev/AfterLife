@@ -5,6 +5,7 @@ const uuid = require('uuid');
 const mailService = require('../service/mail-service');
 const UserDto = require('../dtos/user-dto');
 const refresh = require('passport-oauth2-refresh');
+const { generateFromEmail } = require('unique-username-generator');
 
 function generateActivationCode() {
     const min = 100000;
@@ -12,36 +13,53 @@ function generateActivationCode() {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const generateJwt = (id, username, email, role, isActivated) => {
+const generateJwt = (id, email, role, isActivated) => {
     return jwt.sign(
-        {id, username, email, role, isActivated},
+        {id, email, role, isActivated},
         process.env.ACCESS_SECRET_KEY,
         {expiresIn: '15m'}
     )
 }
-const generateRefreshJwt = (id, username, email, role, isActivated) => {
+const generateRefreshJwt = (id, email, role, isActivated) => {
     return jwt.sign(
-        {id, username, email, role, isActivated},
+        {id, email, role, isActivated},
         process.env.REFRESH_SECRET_KEY,
         {expiresIn: '30d'}
     )
 }
+async function generateUniqueUsername(email) {
+    let username;
+    let isUnique = false;
 
+    while (!isUnique) {
+        username = generateFromEmail(email, 3);
+        const existingUser = await User.findOne({ username });
+        if (!existingUser) {
+            isUnique = true;
+        }
+    }
+
+    return username;
+}
 class UserController {
+
     async registration(req, res) {
 
-        const {username, email, password, role} = req.body;
-        if (!username || !email || !password) {
+        // const {username, email, password, role} = req.body;
+        const {email, password, role} = req.body;
+        if (!email || !password) {
             // return next(ApiError.badRequest('Некорректный email или password'))
             return res.status(400).json({'message': 'Username and password are required.'});
         }
 
         const candidateEmail = await User.findOne({email});
-        const candidateUsername = await User.findOne({username});
-        if (candidateEmail || candidateUsername) {
+        // const candidateUsername = await User.findOne({username});
+        if (candidateEmail) {
             // return next(ApiError.badRequest('Пользователь с таким email уже существует'))
             return res.sendStatus(409);
         }
+        const username = await generateUniqueUsername(email);
+
         const hashPassword = await bcrypt.hash(password, 5)
         const activationLink = uuid.v4();
 
@@ -53,6 +71,7 @@ class UserController {
             role,
             password: hashPassword,
             activationLink: activationLink,
+            activationCodeGeneratedAt: new Date(),
             activationCode: activationCode
         });
 
@@ -60,9 +79,9 @@ class UserController {
 
         const userDto = new UserDto(user); //email, id, isActivated
 
-        const accessToken = generateJwt(user.id, user.username, user.email, user.role, user.isActivated);
+        const accessToken = generateJwt(user.id, user.email, user.role, user.isActivated);
 
-        const refreshToken = generateRefreshJwt(user.id, user.username, user.email, user.role, user.isActivated);
+        const refreshToken = generateRefreshJwt(user.id, user.email, user.role, user.isActivated);
         user.refreshToken = refreshToken;
         const result = await user.save();
         console.log(result);
@@ -73,7 +92,20 @@ class UserController {
         });
         return res.json({accessToken})
     }
-
+    async resend (req, res){
+        const {email} = req.body;
+        console.log("req.body: ", req.body);
+        if (!email) {
+            return res.status(400).json({'message': 'Email is required.'});
+        }
+        try {
+            const activationCode = generateActivationCode();
+            await mailService.sendActivationToMail(email, activationCode);
+            return res.status(200).json({ 'message': 'Activation code sent successfully.' });
+        } catch (error) {
+            return res.status(500).json({ 'message': 'Failed to send activation code. Please try again later.' });
+        }
+    }
 
     async login(req, res, next) {
         const {email, password} = req.body
@@ -90,8 +122,8 @@ class UserController {
             // return next(ApiError.internal('Указан неверный пароль или имя пользователя'))
             return res.sendStatus(401);
         }
-        const accessToken = generateJwt(user.id, user.username, user.email, user.role, user.isActivated);
-        const refreshToken = generateRefreshJwt(user.id, user.username, user.email, user.role, user.isActivated);
+        const accessToken = generateJwt(user.id, user.email, user.role, user.isActivated);
+        const refreshToken = generateRefreshJwt(user.id, user.email, user.role, user.isActivated);
         user.refreshToken = refreshToken;
         const result = await user.save();
         console.log(result);
@@ -152,7 +184,7 @@ class UserController {
                 process.env.REFRESH_SECRET_KEY,
                 (err, decoded) => {
                     if (err || user.email !== decoded.email) return res.sendStatus(403);
-                    const accessToken = generateJwt(user.id, user.username, user.email, user.role, user.isActivated);
+                    const accessToken = generateJwt(user.id, user.email, user.role, user.isActivated);
                     res.json({accessToken})
                 }
             );
@@ -194,6 +226,16 @@ class UserController {
 
         if (!user) {
             return res.status(400).json({message: 'Неверный код активации'});
+        }
+
+        const now = new Date();
+        const activationCodeGeneratedAt = new Date(user.activationCodeGeneratedAt);
+        const fifteenMinutes = 15 * 60 * 1000;
+        // const fifteenMinutes = 15;
+
+        if (now - activationCodeGeneratedAt > fifteenMinutes) {
+            await User.deleteOne({ _id: user._id });
+            return res.status(400).json({ message: 'Activation code has expired' });
         }
 
         user.isActivated = true;
