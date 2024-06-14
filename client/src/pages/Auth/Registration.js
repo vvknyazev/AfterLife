@@ -18,6 +18,7 @@ const Registration = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordAgain, setPasswordAgain] = useState('');
     const [persist, setPersist] = usePersist();
     const [errMsg, setErrMsg] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,11 +26,16 @@ const Registration = () => {
     const [step, setStep] = useState(1);
 
     const [register, {isLoading}] = useRegisterMutation();
-    const [activateCode, {isLoading: isLoadingActivate, isSuccess: isSuccessActivation, isError: isErrorActivation}] = useActivateCodeMutation();
+    const [activateCode, {
+        isLoading: isLoadingActivate,
+        isSuccess: isSuccessActivation,
+        isError: isErrorActivation
+    }] = useActivateCodeMutation();
 
     const dispatch = useDispatch();
 
-    const PWD_REGEX = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$/;
+    // const PWD_REGEX = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$/;
+    const PWD_REGEX = /^[A-Za-z0-9!@#$%^&*()_+={}\[\]:;"'<>,.?\/\\|-]{8,}$/;
     const EMAIL_REGEX = new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$");
 
     const [validEmail, setValidEmail] = useState(false);
@@ -37,6 +43,7 @@ const Registration = () => {
 
     const [validPwd, setValidPwd] = useState(false);
     const [pwdFocus, setPwdFocus] = useState(false);
+    const [pwdAgainFocus, setPwdAgainFocus] = useState(false);
 
 
     const [code, setCode] = useState(['', '', '', '', '', '']);
@@ -165,28 +172,10 @@ const Registration = () => {
     const handleCodeSubmit = async (e) => {
         e.preventDefault();
 
-            await activateCode({activationCode: code}).then(result =>{
-                console.log("result: ", result)
+        await activateCode({activationCode: code}).then(result => {
+            console.log("result: ", result)
 
-                if (result?.error?.status === 400){
-                    toast.error('Неверный код активации', {
-                        toastId: 'error1',
-                        position: "top-center",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "dark",
-                    });
-                } else {
-
-                    dispatch(commonApiSlice.util.resetApiState())
-                    dispatch(apiSlice.util.resetApiState())
-                    navigate('/profile');
-                }
-            }).catch(error => {
+            if (result?.error?.status === 400) {
                 toast.error('Неверный код активации', {
                     toastId: 'error1',
                     position: "top-center",
@@ -198,51 +187,66 @@ const Registration = () => {
                     progress: undefined,
                     theme: "dark",
                 });
+            } else {
+
+                dispatch(commonApiSlice.util.resetApiState())
+                dispatch(apiSlice.util.resetApiState())
+                navigate('/profile');
+            }
+        }).catch(error => {
+            toast.error('Неверный код активации', {
+                toastId: 'error1',
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
             });
-                // if (isLoadingActivate) {
-                //     console.log('Мутация выполняется, дождитесь завершения.');
-                //     return;
-                // }
-                //
-                // if (isSuccessActivation){
-                //     toast.success('Ваш аккаунт успешно активирован!', {
-                //         position: "top-right",
-                //         autoClose: 5000,
-                //         hideProgressBar: false,
-                //         closeOnClick: true,
-                //         pauseOnHover: true,
-                //         draggable: true,
-                //         progress: undefined,
-                //         theme: "light",
-                //         transition: Bounce,
-                //     });
-                //     navigate('/profile')
-                // } else if (isErrorActivation) {
-                //     toast.error('Неверный код активации', {
-                //         toastId: 'error1',
-                //         position: "top-center",
-                //         autoClose: 5000,
-                //         hideProgressBar: false,
-                //         closeOnClick: true,
-                //         pauseOnHover: true,
-                //         draggable: true,
-                //         progress: undefined,
-                //         theme: "dark",
-                //     });
-                // }
+        });
+        // if (isLoadingActivate) {
+        //     console.log('Мутация выполняется, дождитесь завершения.');
+        //     return;
+        // }
+        //
+        // if (isSuccessActivation){
+        //     toast.success('Ваш аккаунт успешно активирован!', {
+        //         position: "top-right",
+        //         autoClose: 5000,
+        //         hideProgressBar: false,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //         progress: undefined,
+        //         theme: "light",
+        //         transition: Bounce,
+        //     });
+        //     navigate('/profile')
+        // } else if (isErrorActivation) {
+        //     toast.error('Неверный код активации', {
+        //         toastId: 'error1',
+        //         position: "top-center",
+        //         autoClose: 5000,
+        //         hideProgressBar: false,
+        //         closeOnClick: true,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //         progress: undefined,
+        //         theme: "dark",
+        //     });
+        // }
 
     }
 
     const handleUserInput = (e) => setUsername(e.target.value)
     const handleEmailInput = (e) => setEmail(e.target.value)
     const handlePwdInput = (e) => setPassword(e.target.value)
+    const handlePwdAgainInput = (e) => setPasswordAgain(e.target.value)
 
     return (
-        <div style={{
-            backgroundImage: `url(auth/auth-back.png)`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover"
-        }}>
+        <div className={s.background}>
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -260,47 +264,45 @@ const Registration = () => {
             <div className={s.container}>
                 <div className={s.authForm}>
 
-                    <div className={`${s.topRow} ${s.topRegisterRow}`}>
-                        <div>
-                            <NavLink to='/'>
-                                <img src="auth/ico/close.svg" alt="close"/>
-                            </NavLink>
-                        </div>
+                    <div className={s.topRow}>
                         <div className={s.name}>
-                            <img src="auth/afterlife.svg" alt="afterlife"/>
-                        </div>
-                        <div>
-                            <a href="">
-                                <img src="auth/ico/lang3.svg" alt="lang"/>
-                            </a>
+                            <NavLink to={'/'}><img src="auth/afterlife.svg" alt="afterlife"/></NavLink>
                         </div>
                     </div>
+                    <h4>Зарегистрироваться</h4>
                     {step === 1
                         ?
                         <>
-                            <h4 className={s.authRegisterFormText}>Зарегистрироваться</h4>
                             <div className={s.authContainer}>
                                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}
                                    aria-live="assertive">{errMsg}</p>
                                 <form onSubmit={handleSubmit}>
                                     <div className={`${s.formInputs} ${s.formRegisterInputs}`}>
-                                        <label>
-                                            <input
-                                                id="first_name"
-                                                placeholder='Username'
-                                                type='text'
-                                                value={username}
-                                                onChange={handleUserInput}
-                                                autoComplete="off"
-                                                required
-                                            />
-                                        </label>
-                                        <label>
+                                        {/*<div className={s.wrapper}>*/}
+                                        {/*    <label>*/}
+                                        {/*        <input*/}
+                                        {/*            id="first_name"*/}
+                                        {/*            placeholder='Username'*/}
+                                        {/*            type='text'*/}
+                                        {/*            value={username}*/}
+                                        {/*            onChange={handleUserInput}*/}
+                                        {/*            autoComplete="off"*/}
+                                        {/*            required*/}
+                                        {/*        />*/}
+                                        {/*    </label>*/}
+                                        {/*</div>*/}
+                                        <div className={s.wrapper}>
+                                            <label
+                                                className={`${s.labelEmail} ${!validEmail && email ? s.wrongLabel : emailFocus ? s.labelEmailFocused : ''}`}>
+                                                Почта
+                                            </label>
+                                            {/*<label className={s.labelEmail}></label>*/}
                                             <input
                                                 id="email"
-                                                className=''
+                                                className={!validEmail && email ? s.wrong : ''}
                                                 placeholder='Email'
                                                 autoFocus={false}
+                                                ref={userRef}
                                                 type='email'
                                                 value={email}
                                                 onChange={handleEmailInput}
@@ -309,45 +311,85 @@ const Registration = () => {
                                                 aria-invalid={validEmail ? "false" : "true"}
                                                 aria-describedby="uidnote"
                                                 onFocus={() => setEmailFocus(true)}
-                                                //onBlur={() => setEmailFocus(false)}
+                                                onBlur={() => setEmailFocus(false)}
                                             />
-                                            <p id="uidnote"
-                                               className={emailFocus && !validEmail && email ? s.instructions : s.offscreen}>
-                                                Неверный формат электронной почты
-                                            </p>
-                                        </label>
-                                        <label>
-                                            <input
-                                                id="password"
-                                                placeholder='Пароль'
-                                                type='password'
-                                                value={password}
-                                                onChange={handlePwdInput}
-                                                required
-                                                aria-invalid={validPwd ? "false" : "true"}
-                                                aria-describedby="pwdnote"
-                                                onFocus={() => setPwdFocus(true)}
-                                            />
-                                            <p id="pwdnote"
-                                               className={pwdFocus && !validPwd && password ? s.instructions : s.offscreen}>
-                                                Пароль должен иметь не меньше 6 символов, содержать хотя бы одну
-                                                заглавную и цифры
-                                            </p>
-                                        </label>
+                                            {/*<p id="uidnote"*/}
+                                            {/*   className={!validEmail && email ? s.instructions : s.offscreen}>*/}
+                                            {/*    Неверный формат электронной почты*/}
+                                            {/*</p>*/}
+                                        </div>
+                                        <div className={s.wrapper}>
+                                            <label>
+                                                <label
+                                                    className={`${s.labelPassword} ${!validPwd && password ? s.wrongPassword : pwdFocus ? s.labelPasswordFocused : ''}`}>
+                                                    Пароль
+                                                </label>
+                                                <div
+                                                    className={`${s.underPassword} ${!validPwd && password ? s.wrongUnderPassword : pwdFocus ? s.underPasswordFocused : ''}`}>8-100
+                                                </div>
+                                                <input
+                                                    id="password"
+                                                    className={!validPwd && password ? s.wrong : ''}
+                                                    placeholder='Пароль'
+                                                    type='password'
+                                                    value={password}
+                                                    onChange={handlePwdInput}
+                                                    required
+                                                    // aria-invalid={validPwd ? "false" : "true"}
+                                                    aria-describedby="pwdnote"
+                                                    onFocus={() => setPwdFocus(true)}
+                                                    onBlur={() => setPwdFocus(false)}
+                                                />
+                                                {/*<p id="pwdnote"*/}
+                                                {/*   className={pwdFocus && !validPwd && password ? s.instructions : s.offscreen}>*/}
+                                                {/*    Пароль должен иметь не меньше 6 символов, содержать хотя бы одну*/}
+                                                {/*    заглавную и цифры*/}
+                                                {/*</p>*/}
+                                            </label>
+                                        </div>
+                                        <div className={s.wrapper}>
+                                            <label>
+                                                <label
+                                                    className={`${s.labelPassword} ${password !== passwordAgain && passwordAgain ? s.wrongPassword : pwdAgainFocus ? s.labelPasswordFocused : ''}`}>
+                                                    Повторите пароль
+                                                </label>
+                                                {/*<div*/}
+                                                {/*    className={`${s.underPassword} ${pwdAgainFocus ? s.underPasswordFocused : ''}`}>8-100*/}
+                                                {/*</div>*/}
+                                                <input
+                                                    id="password"
+                                                    className={password !== passwordAgain && passwordAgain ? s.wrong : ''}
+                                                    placeholder='Повторите пароль'
+                                                    type='password'
+                                                    value={passwordAgain}
+                                                    onChange={handlePwdAgainInput}
+                                                    required
+                                                    // aria-invalid={validPwd ? "false" : "true"}
+                                                    aria-describedby="pwdnote"
+                                                    onFocus={() => setPwdAgainFocus(true)}
+                                                    onBlur={() => setPwdAgainFocus(false)}
+                                                />
 
+                                            </label>
+                                        </div>
                                     </div>
-                                    {isLoading ?
-                                        <button disabled={!validEmail || !validPwd} className={s.loginButtonLoading}
-                                                type='submit'><InfinitySpin width='150' color="#000"/></button> :
-                                        <button disabled={!validEmail || !validPwd} className={s.loginButton}
+                                    {/*<div className={s.policy}>*/}
+                                    {/*    <p>Нажимая кнопку «Начать», вы соглашаетесь с <NavLink to={'/'} className={s.policySpan}>Политикой конфиденциальности</NavLink> </p>*/}
+                                    {/*</div>*/}
+                                    {/*{isLoading ?*/}
+                                    {/*    <button disabled={!validEmail || !validPwd} className={s.loginButtonLoading}*/}
+                                    {/*            type='submit'><InfinitySpin width='150' color="#000"/></button> :*/
+                                        <button disabled={!validEmail || !validPwd || password !== passwordAgain} className={s.loginButton}
                                                 type='submit'>Зарегистрироваться</button>}
 
                                 </form>
-                                <NavLink to={'/login'} className={s.secondButton}>Есть акаунт?</NavLink>
-                                <h3>Зарегистрироваться с помощью</h3>
+                                <p className={s.socialHeader}>Зарегистрироваться через соцсеть: </p>
                                 <div className={s.social}>
-                                    <a onClick={handleGoogleLogin}><img src="auth/ico/google.svg" alt="google"/></a>
-                                    <a onClick={handleDiscordLogin}><img src="auth/ico/discord.svg" alt="discord"/></a>
+                                    <a onClick={handleGoogleLogin}><img src="auth/ico/google.png" alt="google"/> Google</a>
+                                    <a onClick={handleDiscordLogin}><img src="auth/ico/discord.png" alt="discord"/> Discord</a>
+                                </div>
+                                <div className={s.redirect}>
+                                    <p>Есть аккаунт? <NavLink to={'/login'} className={s.redirectButton}>Войти</NavLink></p>
                                 </div>
                             </div>
                         </>

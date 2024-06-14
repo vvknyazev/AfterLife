@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.798bde06.css",
+    "main.js": "/static/js/main.2f5ed495.js",
+    "static/js/787.d5fa4d18.chunk.js": "/static/js/787.d5fa4d18.chunk.js",
+    "static/media/host-background.png": "/static/media/host-background.6e29ac899b6ff4c52914.png",
+    "static/media/auth-back.png": "/static/media/auth-back.19a953a44518a26f7444.png",
+    "static/media/Dymaxion scriptС.ttf": "/static/media/Dymaxion scriptС.eab2f84eba523e0ddeb0.ttf",
+    "static/media/signup.svg": "/static/media/signup.2b1598fbb158bb8f19f0e039de27db7e.svg",
+    "index.html": "/index.html",
+    "static/media/login.svg": "/static/media/login.a331dfddfb8f17310d3c392d9cfc4680.svg",
+    "static/media/navigate_prev.svg": "/static/media/navigate_prev.5be367128158f2f22f93.svg",
+    "static/media/navigate_next.svg": "/static/media/navigate_next.95db89e0e25c10d2e63a.svg",
+    "main.798bde06.css.map": "/static/css/main.798bde06.css.map",
+    "main.2f5ed495.js.map": "/static/js/main.2f5ed495.js.map",
+    "787.d5fa4d18.chunk.js.map": "/static/js/787.d5fa4d18.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.798bde06.css",
+    "static/js/main.2f5ed495.js"
+  ]
+}

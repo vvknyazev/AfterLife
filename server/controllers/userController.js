@@ -85,7 +85,7 @@ class UserController {
             // return next(ApiError.internal('Пользователь не найден'))
             return res.sendStatus(401);
         }
-        let comparePassword = bcrypt.compareSync(password, user.password)
+        let comparePassword = bcrypt.compareSync(password, user.password);
         if (!comparePassword || email !== user.email) {
             // return next(ApiError.internal('Указан неверный пароль или имя пользователя'))
             return res.sendStatus(401);

@@ -123,6 +123,7 @@ const Login = () => {
     //         color="#000"
     //     />
     // </div> :
+    console.log("pwdFocus: ", pwdFocus);
     return (
         <div className={s.background}>
             <ToastContainer
@@ -144,32 +145,24 @@ const Login = () => {
                 <div className={s.authForm}>
 
                     <div className={s.topRow}>
-                        <div className={s.back}>
-                            <NavLink to='/'>
-                                <img src="auth/ico/close.svg" alt="close"/>
-                            </NavLink>
-                        </div>
                         <div className={s.name}>
-                            <img src="auth/afterlife.svg" alt="afterlife"/>
+                            <NavLink to={'/'}><img src="auth/afterlife.svg" alt="afterlife"/></NavLink>
                         </div>
-                        <div className={s.langForm}>
-                            <a href="">
-                                <img src="auth/ico/lang3.svg" alt="lang"/>
-                            </a>
-                        </div>
-                        {/*<div className={s.lang}>*/}
-                        {/*    <img src="auth/ico/lang.svg" alt="lang"/>*/}
-                        {/*</div>*/}
                     </div>
                     <h4>Войти</h4>
                     <div className={s.authContainer}>
 
                         <form onSubmit={handleSubmit}>
                             <div className={s.formInputs}>
-                                <label>
+                                <div className={s.wrapper}>
+                                    <label
+                                        className={`${s.labelEmail} ${!validEmail && email ? s.wrongLabel : emailFocus ? s.labelEmailFocused : ''}`}>
+                                        Почта
+                                    </label>
+                                    {/*<label className={s.labelEmail}></label>*/}
                                     <input
                                         id="email"
-                                        className=''
+                                        className={!validEmail && email ? s.wrong : ''}
                                         placeholder='Email'
                                         autoFocus={false}
                                         ref={userRef}
@@ -181,14 +174,20 @@ const Login = () => {
                                         aria-invalid={validEmail ? "false" : "true"}
                                         aria-describedby="uidnote"
                                         onFocus={() => setEmailFocus(true)}
-                                        //onBlur={() => setEmailFocus(false)}
+                                        onBlur={() => setEmailFocus(false)}
                                     />
-                                    <p id="uidnote"
-                                       className={emailFocus && !validEmail && email ? s.instructions : s.offscreen}>
-                                        Неверный формат электронной почты
-                                    </p>
-                                </label>
-                                <label>
+                                    {/*<p id="uidnote"*/}
+                                    {/*   className={emailFocus && !validEmail && email ? s.instructions : s.offscreen}>*/}
+                                    {/*    Неверный формат электронной почты*/}
+                                    {/*</p>*/}
+                                </div>
+                                <div className={s.wrapper}>
+                                    <label className={`${s.labelPassword} ${pwdFocus ? s.labelPasswordFocused : ''}`}>
+                                        Пароль
+                                    </label>
+                                    <div
+                                        className={`${s.underPassword} ${pwdFocus ? s.underPasswordFocused : ''}`}>8-100
+                                    </div>
                                     <input
                                         id="password"
                                         className=''
@@ -200,28 +199,35 @@ const Login = () => {
                                         // aria-invalid={validPwd ? "false" : "true"}
                                         aria-describedby="pwdnote"
                                         onFocus={() => setPwdFocus(true)}
-                                        //onBlur={() => setPwdFocus(false)}
+                                        onBlur={() => setPwdFocus(false)}
                                     />
                                     {/*<p id="pwdnote" className={pwdFocus && !validPwd && password ? s.instructions : s.offscreen}>*/}
                                     {/*    Пожалуйста, введите 6-17 букв или цифр*/}
                                     {/*</p>*/}
-                                </label>
+                                </div>
                             </div>
                             <div className={s.forgot}>
-                                <NavLink to='/'>Не помню</NavLink>
+                                <NavLink to='/' className={s.forgotBtn}>Забыли пароль?</NavLink>
                             </div>
-                            {isLoading ? <button disabled={!validEmail} className={s.loginButtonLoading}
-                                                 type='submit'><InfinitySpin width='150' color="#000"/></button> :
+                            {/*<div className={s.policy}>*/}
+                            {/*    <p>Нажимая кнопку «Начать», вы соглашаетесь с <NavLink to={'/'} className={s.policySpan}>Политикой конфиденциальности</NavLink> </p>*/}
+                            {/*</div>*/}
+                            {/*{isLoading ? <button disabled={!validEmail} className={s.loginButtonLoading}*/}
+                            {/*                     type='submit'><InfinitySpin width='150' color="#000"/></button> :*/
                                 <button disabled={!validEmail} className={s.loginButton}
                                         type='submit'>Войти</button>}
 
 
                         </form>
-                        <NavLink to={'/register'} className={s.secondButton}>Зарегистрироваться</NavLink>
-                        <h3>Войти с помощью</h3>
+
+                        {/*<h3>Регистрация через соцсеть</h3>*/}
+                        <p className={s.socialHeader}>Войти через соцсеть: </p>
                         <div className={s.social}>
-                            <a onClick={handleGoogleLogin}><img src="auth/ico/google.svg" alt="google"/></a>
-                            <a onClick={handleDiscordLogin}><img src="auth/ico/discord.svg" alt="discord"/></a>
+                            <a onClick={handleGoogleLogin}><img src="auth/ico/google.png" alt="google"/> Google</a>
+                            <a onClick={handleDiscordLogin}><img src="auth/ico/discord.png" alt="discord"/> Discord</a>
+                        </div>
+                        <div className={s.redirect}>
+                            <p>Нет аккаунта? <NavLink to={'/register'} className={s.redirectButton}>Зарегистрироваться</NavLink></p>
                         </div>
                     </div>
                 </div>
