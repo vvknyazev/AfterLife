@@ -5,7 +5,7 @@ const uuid = require('uuid');
 const mailService = require('../service/mail-service');
 const UserDto = require('../dtos/user-dto');
 const refresh = require('passport-oauth2-refresh');
-const { generateFromEmail } = require('unique-username-generator');
+const {generateFromEmail} = require('unique-username-generator');
 
 function generateActivationCode() {
     const min = 100000;
@@ -27,13 +27,14 @@ const generateRefreshJwt = (id, email, role, isActivated) => {
         {expiresIn: '30d'}
     )
 }
+
 async function generateUniqueUsername(email) {
     let username;
     let isUnique = false;
 
     while (!isUnique) {
         username = generateFromEmail(email, 3);
-        const existingUser = await User.findOne({ username });
+        const existingUser = await User.findOne({username});
         if (!existingUser) {
             isUnique = true;
         }
@@ -41,6 +42,7 @@ async function generateUniqueUsername(email) {
 
     return username;
 }
+
 class UserController {
 
     async registration(req, res) {
@@ -92,7 +94,8 @@ class UserController {
         });
         return res.json({accessToken})
     }
-    async resend (req, res){
+
+    async resend(req, res) {
         const {email} = req.body;
         console.log("req.body: ", req.body);
         if (!email) {
@@ -100,10 +103,17 @@ class UserController {
         }
         try {
             const activationCode = generateActivationCode();
+
+            const user = await User.findOne({email});
+            user.activationCode = activationCode;
+            user.activationCodeGeneratedAt = new Date();
+            await user.save();
+
             await mailService.sendActivationToMail(email, activationCode);
-            return res.status(200).json({ 'message': 'Activation code sent successfully.' });
+
+            return res.status(200).json({'message': 'Activation code sent successfully.'});
         } catch (error) {
-            return res.status(500).json({ 'message': 'Failed to send activation code. Please try again later.' });
+            return res.status(500).json({'message': 'Failed to send activation code. Please try again later.'});
         }
     }
 
@@ -146,7 +156,7 @@ class UserController {
 
         if (cookies?.session) {
             console.log("req.session passport user refreshtoken: ", req.session.passport.user.refreshToken);
-            if (req?.session?.passport?.user.source === 'discord'){
+            if (req?.session?.passport?.user.source === 'discord') {
 
                 refresh.requestNewAccessToken(
                     'discord',
@@ -159,7 +169,7 @@ class UserController {
                         res.json({accessToken})
                     },);
 
-            } else if (req?.session?.passport?.user?.source === 'google'){
+            } else if (req?.session?.passport?.user?.source === 'google') {
                 refresh.requestNewAccessToken(
                     'google',
                     req.session.passport.user.refreshToken,
@@ -170,7 +180,7 @@ class UserController {
                         req.session.passport.user.refreshToken = accessToken;
                         res.json({accessToken})
                     },);
-            } else{
+            } else {
                 res.sendStatus(200);
             }
         } else if (cookies?.jwt) {
@@ -221,9 +231,10 @@ class UserController {
 
         const activationCodeParsed = parseInt(activationCode.join(''), 10);
 
+        console.log("activationCodeParsed: ", activationCodeParsed)
+
         const user = await User.findOne({activationCode: activationCodeParsed});
-
-
+        console.log("USER WHEN EXPIRED: ", user);
         if (!user) {
             return res.status(400).json({message: 'Неверный код активации'});
         }
@@ -234,8 +245,8 @@ class UserController {
         // const fifteenMinutes = 15;
 
         if (now - activationCodeGeneratedAt > fifteenMinutes) {
-            await User.deleteOne({ _id: user._id });
-            return res.status(400).json({ message: 'Activation code has expired' });
+            // await User.deleteOne({ _id: user._id });
+            return res.status(400).json({message: 'Activation code has expired'});
         }
 
         user.isActivated = true;

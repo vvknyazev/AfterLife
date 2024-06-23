@@ -5,9 +5,12 @@ import {useDispatch} from "react-redux";
 import {useLoginMutation} from "../../features/auth/authApiSlice";
 import {setCredentials} from "../../features/auth/authSlice";
 import usePersist from "../../hooks/usePersist";
-import {InfinitySpin} from "react-loader-spinner";
+import {InfinitySpin, ThreeDots} from "react-loader-spinner";
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ActivationStep from "../../components/Auth/ActivationStep/ActivationStep";
+import jwtDecode from "jwt-decode";
+import {useResendMutation} from "../../features/commonApiSlice";
 
 const Login = () => {
     const userRef = useRef();
@@ -80,7 +83,9 @@ const Login = () => {
         window.open(`${process.env.REACT_APP_API_URL}/api/user/login/discord`, "_self");
     }
 
-
+    const [resend, {
+        isLoading: isLoadingResend,
+    }] = useResendMutation();
     const handleSubmit = async (e) => {
         e.preventDefault();
         const v1 = EMAIL_REGEX.test(email);
@@ -94,12 +99,22 @@ const Login = () => {
             dispatch(setCredentials({...userData, email}));
             console.log("userdata: ");
             console.log(userData);
-            setIsLoggedIn(true);
-            setEmail('');
-            setPassword('');
+            const decoded = jwtDecode(userData?.accessToken);
+            console.log("decoded: ", decoded)
+            if (!decoded?.isActivated) {
+                const data = { step: 2 };
+                await resend({email: email})
+                navigate('/register', { state: data });
+            } else{
+                setIsLoggedIn(true);
+                setEmail('');
+                setPassword('');
 
-            navigate('/profile')
-            window.location.reload(false);
+                navigate('/profile')
+                window.location.reload(false);
+            }
+
+
 
         } catch (err) {
             if (!err?.originalStatus) {
@@ -212,8 +227,8 @@ const Login = () => {
                             {/*<div className={s.policy}>*/}
                             {/*    <p>Нажимая кнопку «Начать», вы соглашаетесь с <NavLink to={'/'} className={s.policySpan}>Политикой конфиденциальности</NavLink> </p>*/}
                             {/*</div>*/}
-                            {/*{isLoading ? <button disabled={!validEmail} className={s.loginButtonLoading}*/}
-                            {/*                     type='submit'><InfinitySpin width='150' color="#000"/></button> :*/
+                            {isLoading ? <button disabled={!validEmail} className={s.loginButtonLoading}
+                                                 type='submit'><ThreeDots width='50' color="#fff"/></button> :
                                 <button disabled={!validEmail} className={s.loginButton}
                                         type='submit'>Войти</button>}
 
@@ -227,7 +242,8 @@ const Login = () => {
                             <a onClick={handleDiscordLogin}><img src="auth/ico/discord.png" alt="discord"/> Discord</a>
                         </div>
                         <div className={s.redirect}>
-                            <p>Нет аккаунта? <NavLink to={'/register'} className={s.redirectButton}>Зарегистрироваться</NavLink></p>
+                            <p>Нет аккаунта? <NavLink to={'/register'}
+                                                      className={s.redirectButton}>Зарегистрироваться</NavLink></p>
                         </div>
                     </div>
                 </div>

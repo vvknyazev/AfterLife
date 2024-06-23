@@ -193,7 +193,7 @@ const Nav = (props) => {
                     <div className={n.menuButtons}>
                         <NavLink to="#" className={n.navItem}>О нас</NavLink>
                         <NavLink to="#" className={n.navItem}>FAQ</NavLink>
-                        <NavLink to="#" className={n.navItem}>Сервисы</NavLink>
+                        <NavLink to="#" className={n.navItem}>Найти пару</NavLink>
                     </div>
                     <NavLink to='/' className={n.logo}>{props?.user ? `A` : `Afterlife`}</NavLink>
                     <div className={n.menuButtons}>

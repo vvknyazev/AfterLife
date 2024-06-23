@@ -1,0 +1,104 @@
+.activationStep {
+
+}
+
+.activationStep h3 {
+    width: 238px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.50);
+    text-align: center;
+    font-family: Onest, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.activationStep h2 {
+    color: #FFF;
+    font-family: Onest, sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 145%; /* 34.8px */
+    text-align: center;
+}
+
+.formInput {
+
+}
+
+.codeInput {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 25px;
+
+
+}
+
+.codeInput input {
+    width: 55px;
+    height: 55px;
+    border-radius: 20px;
+    border: 1px solid rgba(233, 233, 233, 0.05);
+    text-align: center;
+    padding: 0;
+    background: transparent;
+    color: white;
+    font-size: 25px;
+}
+
+.buttonNext {
+    display: flex;
+    justify-content: center;
+
+    position: relative;
+}
+
+.buttonNext button {
+    display: flex;
+    width: 359px;
+    height: 60px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    background: transparent;
+    color: #D9D9D9;
+    text-align: center;
+    font-family: Onest, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.name img {
+    width: 253px;
+
+}
+.resend{
+    text-align: center;
+}
+.resend p{
+    color: rgba(255, 255, 255, 0.50);
+    font-family: Onest, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 145%; /* 23.2px */
+}
+.resend p span{
+    color: #D9D9D9;
+    font-family: Onest, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 145%;
+    text-decoration-line: underline;
+    cursor: pointer;
+}
