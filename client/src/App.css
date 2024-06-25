@@ -486,12 +486,10 @@ body {
     cursor: pointer;
     min-width: 128px;
     height: 48px;
-
     margin: 10px;
     padding: 5px;
     border-radius: 18px;
     background: rgba(255, 255, 255, 0.94);
-    box-shadow: 0 2px 30px rgba(105, 209, 255, 0.4);
     border: 2px solid black;
     color: #191919;
     font-size: 24px;

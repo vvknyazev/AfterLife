@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ActivationStep from "../../components/Auth/ActivationStep/ActivationStep";
 import jwtDecode from "jwt-decode";
 import {useResendMutation} from "../../features/commonApiSlice";
+import ImageComponent from "../../components/ImageComponent/ImageComponent";
 
 const Login = () => {
     const userRef = useRef();
@@ -102,10 +103,10 @@ const Login = () => {
             const decoded = jwtDecode(userData?.accessToken);
             console.log("decoded: ", decoded)
             if (!decoded?.isActivated) {
-                const data = { step: 2 };
+                const data = {step: 2};
                 await resend({email: email})
-                navigate('/register', { state: data });
-            } else{
+                navigate('/register', {state: data});
+            } else {
                 setIsLoggedIn(true);
                 setEmail('');
                 setPassword('');
@@ -113,7 +114,6 @@ const Login = () => {
                 navigate('/profile')
                 window.location.reload(false);
             }
-
 
 
         } catch (err) {
@@ -140,7 +140,18 @@ const Login = () => {
     // </div> :
 
     return (
-        <div className={s.background}>
+        <>
+            {/*L8A0zO8^IT_401ogxuRjD+x]RjMx*/}
+            {/*<div className={s.backgroundImage}>*/}
+            {/*    <ImageComponent hash={'L8A0zO8^IT_401ogxuRjD+x]RjMx'} width={'100%'} height={'100vh'}*/}
+            {/*                    src="/auth/back.png" alt="Background"/>*/}
+            {/*</div>*/}
+            <img
+                loading={"lazy"}
+                src="/auth/back.png"
+                alt="Background"
+                className={s.backgroundImage}
+            />
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -248,7 +259,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
         ;
 };

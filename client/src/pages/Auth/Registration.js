@@ -2,21 +2,18 @@ import React, {useEffect, useRef, useState} from 'react';
 import s from "./Auth.module.css";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {useRegisterMutation} from "../../features/auth/authApiSlice";
-import commonApiSlice, {useActivateCodeMutation, useResendMutation} from "../../features/commonApiSlice";
 import {useDispatch} from "react-redux";
 import usePersist from "../../hooks/usePersist";
 import {setCredentials} from "../../features/auth/authSlice";
-import {InfinitySpin, ThreeDots} from "react-loader-spinner";
+import {ThreeDots} from "react-loader-spinner";
 import {ToastContainer, toast, Bounce} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {apiSlice} from "../../app/api/apiSlice";
 import ActivationStep from "../../components/Auth/ActivationStep/ActivationStep";
 import ProfileStep from "../../components/Auth/ProfileStep/ProfileStep";
 
 const Registration = () => {
     const userRef = useRef();
     const errRef = userRef;
-    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [emailNextStep, setEmailNextStep] = useState('');
@@ -140,14 +137,23 @@ const Registration = () => {
     }
 
 
-    const handleUserInput = (e) => setUsername(e.target.value)
+    // const handleUserInput = (e) => setUsername(e.target.value)
     const handleEmailInput = (e) => setEmail(e.target.value)
     const handlePwdInput = (e) => setPassword(e.target.value)
     const handlePwdAgainInput = (e) => setPasswordAgain(e.target.value)
 
     return (
-        <div className={s.background}>
-
+        <>
+            {/*<div className={s.backgroundImage}>*/}
+            {/*    <ImageComponent hash={'L8A0zO8^IT_401ogxuRjD+x]RjMx'} width={'100%'} height={'100vh'}*/}
+            {/*                    src="/auth/back.png" alt="Background"/>*/}
+            {/*</div>*/}
+            <img
+                loading={"lazy"}
+                src="/auth/back.png"
+                alt="Background"
+                className={s.backgroundImage}
+            />
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -313,9 +319,9 @@ const Registration = () => {
                     :
                     <ProfileStep/>
             }
-        </div>
-)
-    ;
+        </>
+    )
+        ;
 };
 
 export default Registration;

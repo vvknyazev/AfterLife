@@ -107,6 +107,7 @@ class UserController {
             const user = await User.findOne({email});
             user.activationCode = activationCode;
             user.activationCodeGeneratedAt = new Date();
+            user.currentStep = 2;
             await user.save();
 
             await mailService.sendActivationToMail(email, activationCode);
@@ -250,6 +251,7 @@ class UserController {
         }
 
         user.isActivated = true;
+        user.currentStep = 3;
         await user.save();
 
         return res.json({message: 'Аккаунт успешно активирован'});
@@ -265,6 +267,23 @@ class UserController {
         //     console.log("Ссылка активации говно");
         // }
 
+    }
+
+    async step(req, res) {
+        const cookies_jwt = req.cookies.jwt;
+        if (!cookies_jwt) return res.sendStatus(204); // No Content
+        const refreshToken = cookies_jwt;
+
+        // Is refreshToken in db?
+        const user = await User.findOne({refreshToken});
+
+        console.log("refreshToken ", refreshToken)
+        console.log("user: ", user)
+
+        if (user){
+            return res.json(user.currentStep);
+        }
+        return res.sendStatus(204);
     }
 
     async check(req, res) {

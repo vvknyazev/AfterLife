@@ -31,7 +31,7 @@ const ImageComponent = ({src, hash, width, height, alt}) => {
                     punch={1}
                     style={{
                         opacity: imageLoaded ? 0 : 1 ,
-                        transition: 'opacity 0.3s ease'
+                        transition: 'opacity 0.5s ease'
                     }}
                 />
                 <img
@@ -42,7 +42,7 @@ const ImageComponent = ({src, hash, width, height, alt}) => {
                         top: 0,
                         left: 0,
                         opacity: imageLoaded ? 1 : 0 ,
-                        transition: 'opacity 0.3s ease',
+                        transition: 'opacity 0.5s ease',
                         width: '100%',
                         height: '100%',
                         objectFit: "cover"

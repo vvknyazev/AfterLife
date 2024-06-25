@@ -131,6 +131,9 @@ const commonApiSlice = createApi({
                 body: {...credentials}
             })
         }),
+        getStep: builder.query({
+            query: () => '/api/user/step',
+        }),
     }),
 });
 
@@ -152,6 +155,7 @@ export const {
     useGetNotificationsMutation,
     useActivateCodeMutation,
     useResendMutation,
+    useGetStepQuery,
 } = commonApiSlice;
 
 export default commonApiSlice;

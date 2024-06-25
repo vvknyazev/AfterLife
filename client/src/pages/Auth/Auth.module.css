@@ -1,6 +1,15 @@
 .background {
     background: url("../../../public/auth/back.png") lightgray 50% / cover no-repeat;
 }
+.backgroundImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* Позволяет остальному контенту быть поверх фона */
+}
 
 .container {
     display: flex;

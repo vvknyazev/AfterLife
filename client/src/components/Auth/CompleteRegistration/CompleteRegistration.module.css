@@ -1,0 +1,120 @@
+.back {
+
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 25px;
+
+}
+
+.content {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.content h2 {
+    color: #FFF;
+    font-family: Onest, sans-serif;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 145%;
+}
+
+.content h2 span {
+    color: #79A1DD;
+    font-family: Onest, sans-serif;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 145%;
+}
+.profileSetting{
+
+}
+.profileSetting p{
+    color: #79A1DD;
+    text-align: center;
+    font-family: Onest, sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 145%; /* 34.8px */
+}
+.photoPreview {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    position: relative;
+    transition: 0.5s all ease;
+    width: 274px;
+    margin: 0 auto;
+}
+
+.photoPreview p {
+    font-size: 20px;
+}
+
+.photoPreviewImg {
+    width: 242px;
+    height: 242px;
+    border-radius: 137px;
+    border: 5px solid rgba(233, 233, 233, 0.05);
+    object-fit: cover;
+    margin-top: 12.5px;
+    transition: 0.5s all ease;
+}
+.photoBorder{
+    width: 274px;
+    height: 274px;
+    border-radius: 137px;
+    border: 1px solid rgba(233, 233, 233, 0.05);
+    position: absolute;
+    top: 0;
+}
+.uploadForm {
+
+}
+
+.labelInputFile {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    min-width: 125px;
+    transition: 0.5s all ease;
+    color: #79A1DD;
+    font-family: Onest, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    line-height: 145%; /* 26.1px */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    opacity: 0;
+
+}
+.labelInputFile img{
+    width: 40px;
+    height: 40px;
+}
+.inputFile {
+    display: none;
+}
+.photoPreview:hover .photoPreviewImg{
+    opacity: 0.2;
+    transition: 0.5s all ease;
+}
+.photoPreview:hover .labelInputFile{
+    opacity: 1;
+    transition: 0.5s all ease;
+}
+.dataBlock{
+    display: flex;
+    justify-content: center;
+}

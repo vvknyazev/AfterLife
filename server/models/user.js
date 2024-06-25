@@ -10,6 +10,7 @@ const User = new Schema({
     activationCodeGeneratedAt: { type: Date },
     isActivated: {type: Boolean, default: false},
     photo: {type: String, default: 'media/default.jpeg'},
+    currentStep: Number,
     name: String,
     bio: String,
     games: {type: [String]}

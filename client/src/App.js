@@ -22,6 +22,7 @@ import Sessions from "./pages/Sessions/Sessions";
 import CreateModel from "./pages/Admin/CreateModel/CreateModel";
 import MessageChecker from "./features/MessageChecker";
 import SessionBuilder from "./pages/SessionBuilder/SessionBuilder";
+import CompleteRegistration from "./components/Auth/CompleteRegistration/CompleteRegistration";
 
 // import Login from "./features/auth/Login";
 
@@ -51,6 +52,7 @@ function App() {
                                     <Route path="admin/model/create" element={<CreateModel/>}/>
                                     <Route path="admin/model/:modelId" element={<EditModel/>}/>
                                 </Route>
+                                <Route path="complete" element={<CompleteRegistration/>}/>
                                 <Route path="profile" element={<Profile/>}/>
                                 <Route path="/:modelId" element={<ModelProfile/>}/>
                                 <Route path="settings" element={<Settings/>}/>
