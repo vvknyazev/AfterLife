@@ -16,6 +16,13 @@ const CompleteRegistration = () => {
     const [openCrop, setOpenCrop] = useState(false);
     const [fileName, setFileName] = useState('');
     const [selectedImage, setSelectedImage] = useState();
+    const [localStep, setLocalStep] = useState(null);
+
+    useEffect(() => {
+        if (step !== undefined) {
+            setLocalStep(step);
+        }
+    }, [step]);
 
     function handleFileChange(e) {
         setSelectedImage(e.target.files[0]);
@@ -69,13 +76,14 @@ const CompleteRegistration = () => {
     const handleForm = (e) => {
         e.preventDefault();
     }
+    console.log("localsteP: ", localStep)
 
     return (
         <div className={s.back}>
             <div className={s.nav}>
                 <img src="A-single.svg" alt="a-single"/>
             </div>
-            {step === 3 &&
+            {localStep === 3 &&
                 <div className={s.content}>
                     <h2>Завершение регистрации <span>1/4</span></h2>
                     <div className={s.profileSetting}>
@@ -114,12 +122,15 @@ const CompleteRegistration = () => {
                         }}/>
                     }
                     <div className={s.dataBlock}>
-                        <form onSubmit={handleForm}>
+                        {/*<form onSubmit={handleForm}>*/}
 
-                        </form>
-                        <FormComponent username={user?.username}/>
+                        {/*</form>*/}
+                        <FormComponent username={user?.username} localStep={localStep} setLocalStep={setLocalStep}/>
                     </div>
                 </div>
+            }
+            {localStep === 4 &&
+                <h2>THIS IS STEP 4</h2>
             }
 
         </div>

@@ -117,7 +117,7 @@ const Registration = () => {
             setPassword('');
             setStep(2);
             // console.log("NAVIGATE /ACTIVE");
-            // navigate('/activate')
+
 
         } catch (err) {
             if (!err?.originalStatus) {
@@ -313,7 +313,7 @@ const Registration = () => {
                                     <NavLink to={'/'}><img src="auth/afterlife.svg" alt="afterlife"/></NavLink>
                                 </div>
                             </div>
-                            <ActivationStep emailNextStep={emailNextStep}/>
+                            <ActivationStep emailNextStep={emailNextStep} setStep={setStep}/>
                         </div>
                     </div>
                     :

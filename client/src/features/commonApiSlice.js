@@ -134,6 +134,20 @@ const commonApiSlice = createApi({
         getStep: builder.query({
             query: () => '/api/user/step',
         }),
+        checkUsername: builder.mutation({
+            query: credentials => ({
+                url: '/api/user/check-username',
+                method: 'POST',
+                body: {...credentials}
+            })
+        }),
+        completeRegistration: builder.mutation({
+            query: credentials => ({
+                url: '/api/user/complete-registration',
+                method: 'POST',
+                body: {...credentials}
+            })
+        }),
     }),
 });
 
@@ -154,6 +168,8 @@ export const {
     useAddNotificationsMutation,
     useGetNotificationsMutation,
     useActivateCodeMutation,
+    useCheckUsernameMutation,
+    useCompleteRegistrationMutation,
     useResendMutation,
     useGetStepQuery,
 } = commonApiSlice;

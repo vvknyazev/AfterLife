@@ -269,18 +269,65 @@ class UserController {
 
     }
 
-    async step(req, res) {
+    async checkUsername(req, res) {
+        const {nickname} = req.body;
+
+        if (!nickname) {
+            return res.status(400).json({message: 'Username is required'});
+        }
         const cookies_jwt = req.cookies.jwt;
-        if (!cookies_jwt) return res.sendStatus(204); // No Content
+        if (!cookies_jwt) return res.sendStatus(204);
+        const refreshToken = cookies_jwt;
+        const selfUser = await User.findOne({refreshToken});
+
+        try {
+            const user = await User.findOne({username: nickname});
+
+            if (user && user.username !== selfUser.username) {
+                return res.status(200).json({exists: true, message: 'Username already exists'});
+            } else {
+                return res.status(200).json({exists: false, message: 'Username is available'});
+            }
+        } catch (error) {
+            console.error('Error checking username:', error);
+            return res.status(500).json({message: 'Internal server error'});
+        }
+
+    }
+
+    async completeRegistration(req, res) {
+        const {username, dob, gender} = req.body;
+
+        if (!username || !dob || !gender) {
+            return res.status(400).json({message: 'Data required'});
+        }
+
+        const cookies_jwt = req.cookies.jwt;
+        if (!cookies_jwt) return res.sendStatus(204);
         const refreshToken = cookies_jwt;
 
-        // Is refreshToken in db?
+        try {
+            const user = await User.findOne({refreshToken});
+            user.username = username;
+            user.dob = dob;
+            user.gender = gender;
+            user.currentStep = 4;
+            await user.save();
+
+            return res.status(200).json({message: 'Username updated'});
+        } catch (error) {
+            return res.status(500).json({message: 'Internal server error'});
+        }
+    }
+
+    async step(req, res) {
+        const cookies_jwt = req.cookies.jwt;
+        if (!cookies_jwt) return res.sendStatus(204);
+        const refreshToken = cookies_jwt;
+
         const user = await User.findOne({refreshToken});
 
-        console.log("refreshToken ", refreshToken)
-        console.log("user: ", user)
-
-        if (user){
+        if (user) {
             return res.json(user.currentStep);
         }
         return res.sendStatus(204);

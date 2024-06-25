@@ -13,7 +13,9 @@ const User = new Schema({
     currentStep: Number,
     name: String,
     bio: String,
-    games: {type: [String]}
+    games: {type: [String]},
+    dob: String,
+    gender: String,
 })
 
 module.exports = model('User', User);

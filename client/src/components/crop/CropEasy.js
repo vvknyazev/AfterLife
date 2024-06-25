@@ -48,9 +48,10 @@ const CropEasy = ({photoURL, setOpenCrop, setPhotoURL, setSelectedImage, user, f
             const formData = new FormData();
             formData.append('pic', myFile);
             await upload(formData);
-            dispatch(commonApiSlice.util.resetApiState())
-            dispatch(apiSlice.util.resetApiState())
+            // dispatch(commonApiSlice.util.resetApiState())
+            // dispatch(apiSlice.util.resetApiState())
             setOpenCrop(false);
+            // window.location.reload(false);
 
         } catch (error) {
             console.log(error);

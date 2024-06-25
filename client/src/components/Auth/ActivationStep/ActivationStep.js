@@ -7,7 +7,7 @@ import {ThreeDots} from "react-loader-spinner";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
-const ActivationStep = ({emailNextStep}) => {
+const ActivationStep = ({emailNextStep, setStep}) => {
 
     const [activateCode, {
         isLoading: isLoadingActivate,
@@ -125,7 +125,7 @@ const ActivationStep = ({emailNextStep}) => {
 
                 dispatch(commonApiSlice.util.resetApiState())
                 dispatch(apiSlice.util.resetApiState())
-                navigate('/profile');
+                navigate('/complete');
             }
         }).catch(error => {
             toast.error('Неверный код активации', {

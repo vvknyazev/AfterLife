@@ -57,6 +57,8 @@ router.post('/activate', userController.activate);
 router.post('/resend', userController.resend);
 router.get('/refresh', userController.refresh)
 router.get('/step', userController.step)
+router.post('/check-username', userController.checkUsername)
+router.post('/complete-registration', userController.completeRegistration)
 
 router.get('/auth', userController.check)
 
