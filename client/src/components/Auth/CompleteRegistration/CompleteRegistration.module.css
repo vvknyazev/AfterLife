@@ -18,7 +18,7 @@
 .content h2 {
     color: #FFF;
     font-family: Onest, sans-serif;
-    font-size: 36px;
+    font-size: 32px;
     font-style: normal;
     font-weight: 700;
     line-height: 145%;
@@ -117,4 +117,13 @@
 .dataBlock{
     display: flex;
     justify-content: center;
+}
+.pheader{
+    color: #79A1DD;
+    text-align: center;
+    font-family: Onest, sans-serif;
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 145%; /* 34.8px */
 }

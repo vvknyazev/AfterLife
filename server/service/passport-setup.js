@@ -51,17 +51,22 @@ passportSetup.deserializeUser(async ({id, source, refreshToken}, done) => {
 });
 
 let singInCb = function (accessToken, refreshToken, profile, done, source) {
+    console.log("SOURCE: ", source)
     User.findOne({userId: profile.id, source: source}).then(async (currentUser) => {
         console.log(profile);
         if (currentUser) {
             console.log("user is: ", currentUser)
             done(null, currentUser);
         } else {
+            console.log("user was not found: ");
             const profileData = getProfileData(profile, source);
             const user = await User.findOne({email: profileData.email});
             if (user) {
                 done(null, false);
             } else {
+                console.log("creating new user ")
+                console.log("userId: ", profile.id)
+                console.log("source: ", source)
                 new User({
                     username: profileData.username,
                     email: profileData.email,
@@ -70,6 +75,8 @@ let singInCb = function (accessToken, refreshToken, profile, done, source) {
                     userId: profile.id,
                     source: source,
                     isActivated: true,
+                    isNewUser: true,
+                    currentStep: 3,
                 }).save().then((newUser) => {
                     console.log('new user created' + newUser);
                     done(null, newUser);

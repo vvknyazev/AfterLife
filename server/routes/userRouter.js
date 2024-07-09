@@ -15,10 +15,18 @@ router.get('/login/google', passport.authenticate('google', {
 }));
 
 router.get('/login/google/redirect', passport.authenticate("google", {
-    successRedirect: `${process.env.CLIENT_URL}/profile`,
+    // successRedirect: `${process.env.CLIENT_URL}/profile`,
     failureRedirect: `${process.env.CLIENT_URL}/login`,
     failureMessage: true,
-}));
+}), (req, res) => {
+    if (req?.user) {
+        if (req.user?.isNewUser) {
+            res.redirect(`${process.env.CLIENT_URL}/complete`);
+        } else {
+            res.redirect(`${process.env.CLIENT_URL}/profile`);
+        }
+    }
+});
 
 router.get('/login/discord', passport.authenticate('discord', {
     scope: ['identify', 'email'],
@@ -27,10 +35,19 @@ router.get('/login/discord', passport.authenticate('discord', {
 }));
 
 router.get('/login/discord/redirect', passport.authenticate("discord", {
-    successRedirect: `${process.env.CLIENT_URL}/profile`,
-    failureRedirect: `${process.env.CLIENT_URL}/login`,
-    failureMessage: true,
-}));
+        // successRedirect: `${process.env.CLIENT_URL}/profile`,
+        failureRedirect: `${process.env.CLIENT_URL}/login`,
+        failureMessage: true,
+    }), (req, res) => {
+        if (req?.user) {
+            if (req.user?.isNewUser) {
+                res.redirect(`${process.env.CLIENT_URL}/complete`);
+            } else {
+                res.redirect(`${process.env.CLIENT_URL}/profile`);
+            }
+        }
+    }
+);
 
 router.get("/login/success", (req, res) => {
     if (req.user) {
@@ -41,12 +58,13 @@ router.get("/login/success", (req, res) => {
             user: req.user,
             //   cookies: req.cookies
         });
-    } else{
+    } else {
+        console.log("req.user: ", req?.user);
         res.sendStatus(204);
     }
 });
 
-router.get('/google/logout', function (req, res){
+router.get('/google/logout', function (req, res) {
     req.session = null;
     res.redirect(process.env.CLIENT_URL);
 });

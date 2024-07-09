@@ -16,6 +16,9 @@ const User = new Schema({
     games: {type: [String]},
     dob: String,
     gender: String,
+    userId: String,
+    source: String,
+    isNewUser: Boolean,
 })
 
 module.exports = model('User', User);

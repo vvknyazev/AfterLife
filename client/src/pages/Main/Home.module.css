@@ -1,0 +1,124 @@
+
+.activites {
+    color: white;
+    text-align: center;
+}
+
+.activites h3, .spotlight h3, .sessions h3, .hosts h3 {
+    color: #FFF;
+    text-align: center;
+    font-feature-settings: 'ss01' on;
+
+    font-family: Onest, sans-serif;
+    font-size: 2.5vw;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%; /* 3rem */
+    margin-bottom: 0;
+    margin-top: 5rem;
+
+}
+
+.activites p, .spotlight p, .sessions p, .hosts p {
+    color: #FFF;
+    text-align: center;
+    font-family: Onest, sans-serif;
+    font-size: 0.83vw;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 3rem;
+}
+
+.games {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.gameItem img {
+    width: 17.7vw;
+    height: 10vw;
+    border-radius: 1rem;
+}
+
+.spotlight {
+    text-align: center;
+    margin-top: 70px;
+
+}
+
+.spotlight img {
+    width: 45vw;
+    margin-top: 4rem;
+}
+
+.sessions {
+    margin-top: 2rem;
+}
+
+.sessionsType {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 4rem;
+}
+
+.typeItem {
+    /*width: 28.8125rem;*/
+    /*height: 28.75rem;*/
+    width: 24vw;
+    height: 24vw;
+    flex-shrink: 0;
+    border-radius: 1rem;
+    background: rgba(233, 233, 233, 0.05);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+}
+
+/*.typeItem img {*/
+/*    !*width: 10.21vw;*!*/
+/*}*/
+.us{
+    width: 9vw;
+}
+.joint{
+    width: 9vw;
+}
+.alone{
+    width: 13.5vw;
+}
+
+.typeItem h4 {
+    color: #FFF;
+    font-feature-settings: 'ss01' on;
+
+    font-family: Onest, sans-serif;
+    /*font-size: 2rem;*/
+    font-size: 1.6vw;
+    font-style: normal;
+    font-weight: 500;
+    margin: 0;
+    margin-top: 2rem;
+}
+
+.typeItem p {
+    color: #FFF;
+    text-align: center;
+
+    font-family: Onest, sans-serif;
+    font-size: 0.83vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 0 2rem 0;
+}

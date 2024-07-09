@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import styles from './FormComponent.module.css';
-import {useCheckUsernameMutation, useCompleteRegistrationMutation} from "../../../../features/commonApiSlice";
+import commonApiSlice, {useCheckUsernameMutation, useCompleteRegistrationMutation} from "../../../../features/commonApiSlice";
 import s from "../../../../pages/Auth/Auth.module.css";
 import {ThreeDots} from "react-loader-spinner";
+import {useNavigate} from "react-router-dom";
+import {apiSlice} from "../../../../app/api/apiSlice";
+import {useDispatch} from "react-redux";
 
 const FormComponent = ({username, localStep, setLocalStep}) => {
     const [gender, setGender] = useState('male');
@@ -13,7 +16,7 @@ const FormComponent = ({username, localStep, setLocalStep}) => {
     const [checkUsername, {isLoading}] = useCheckUsernameMutation();
     const [completeRegistration, {isLoading: isLoadingCompleteRegistration}] = useCompleteRegistrationMutation();
 
-    console.log("localsteP in formcomponent: ", localStep)
+    const navigate = useNavigate();
     useEffect(() => {
         setNickname(username);
     }, [])
@@ -58,11 +61,13 @@ const FormComponent = ({username, localStep, setLocalStep}) => {
     const handleSkip = () => {
         setLocalStep(4);
     }
+    const dispatch = useDispatch();
     const handleContinue = async () => {
         try {
             const result = await completeRegistration({username: nickname, dob: dob, gender: gender});
-            console.log("result: ", result);
-            setLocalStep(4)
+            dispatch(commonApiSlice.util.resetApiState())
+            dispatch(apiSlice.util.resetApiState())
+            navigate('/profile');
         } catch (error) {
             console.error('Error checking username:', error);
         }

@@ -9,7 +9,7 @@
     transform: translate(-50%, -50%);
     font-family: 'dymaxon', sans-serif;
     font-weight: normal;
-    font-size: 50px;
+    font-size: 3.7vw;
 
 }
 
@@ -52,14 +52,53 @@ a {
 }
 
 .lang {
-    position: relative;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    --webkit-backdrop-filter: blur(10px);
+
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10;
+    border-radius: 1em;
+    border: 1px solid rgba(233, 233, 233, 0.05);
+    height: 2.8vw;
+    width: 3.3vw;
+
+
+    color: #FFF;
+    text-align: center;
+    font-family: Onest, sans-serif;
+    /*font-size: clamp(12px, 1.05vw, 16px);*/
+    font-size: 0.85vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 145%;
+
+}
+.lang:hover{
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+.search {
+    width: 12vw;
+    height: 2.8vw;
+    border-radius: 1em;
+    border: 1px solid rgba(233, 233, 233, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 0.875em;
+    padding-left: 18px;
+
+    color: rgba(255, 255, 255, 0.50);
+    font-family: Onest, sans-serif;
+    /*font-size: 1.05vw;*/
+    /*font-size: clamp(12px, 1.05vw, 16px);*/
+    font-size: 0.85vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 135%;
+}
+.search img{
+    width: 1em;
+
 }
 
 .profileBack {
@@ -69,8 +108,16 @@ a {
     position: relative;
 
 }
-.profileText{
-    padding-left: 7px;
+
+.profileText {
+    color: #FFF;
+    text-align: center;
+    font-family: Onest, sans-serif;
+    /*font-size: clamp(12px, 1.05vw, 16px);*/
+    font-size: 0.85vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 145%;
 }
 
 .profileLogin {
@@ -81,25 +128,30 @@ a {
     border: 1px solid rgba(170, 120, 186, 0.2);
     filter: drop-shadow(0px 2px 8px #a574b4);
     border-radius: 50px;
-    cursor: pointer ;
+    cursor: pointer;
     object-fit: cover;
 }
-.menuButtons{
+
+.menuButtons {
     display: flex;
-    gap: 40px;
+    gap: 0.9375em;
     align-items: center;
+
 }
-.navItem{
+
+.navItem {
     color: rgba(255, 255, 255, 0.80);
     font-family: Nunito Sans, serif;
-    font-size: 16px;
+    /*font-size: clamp(12px, 1.05vw, 16px);*/
+    font-size: 0.85vw;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     letter-spacing: 0.8px;
     text-transform: uppercase;
 }
-.navButton{
+
+.navButton {
     border-radius: 18px;
     border: 0.5px solid #FFF;
     background: rgba(255, 255, 255, 0.05);
@@ -108,7 +160,7 @@ a {
     color: #FFF;
     text-align: center;
     font-family: Nunito Sans, sans-serif;
-    font-size: 16px;
+    font-size: 0.85vw;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -141,10 +193,11 @@ a {
 /*    transform-origin: center;*/
 /*    border-radius: 5px;*/
 /*}*/
-.active{
+.active {
     transition: transform 0.5s;
 }
-.active::before{
+
+.active::before {
     content: '';
     width: 100%;
     height: 1px;
@@ -161,14 +214,17 @@ a {
     transform-origin: center;
     border-radius: 5px;
 }
-.currency{
+
+.currency {
     margin-left: 4px;
     margin-right: 2px;
 }
-.notification{
+
+.notification {
     position: relative;
 }
-.notificationVar{
+
+.notificationVar {
     position: absolute;
     top: 34px;
     right: -2px;
@@ -181,12 +237,14 @@ a {
     justify-content: center;
     align-items: center;
 }
-.notification h3{
+
+.notification h3 {
     margin: 0;
     font-size: 12px;
     font-weight: 500;
 }
-.notificationVarInDropdownItem{
+
+.notificationVarInDropdownItem {
     position: absolute;
     top: 5px;
     right: 48px;
@@ -202,16 +260,33 @@ a {
     filter: drop-shadow(0px 2px 30px rgba(222, 25, 0, 0.4));
 
 }
-.notificationVarInDropdownItem h3{
+
+.notificationVarInDropdownItem h3 {
     margin: 0;
     font-size: 14px;
     font-weight: 500;
 }
 
-.menu{
-    width: 90%;
+.menu {
+    width: 93.5%;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 6.5vw;
+}
+.menuButtonsLeft{
+    display: flex;
+    justify-content: center;
+    gap: 3.125em;
+}
+.navItemLeft{
+    color: rgba(255, 255, 255, 0.50);
+    text-align: center;
+    font-family: Onest, sans-serif;
+    /*font-size: clamp(12px, 1.05vw, 16px);*/
+    font-size: 0.85vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 145%; /* 23.2px */
 }

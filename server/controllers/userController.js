@@ -156,8 +156,8 @@ class UserController {
         console.log("cookies: ", cookies);
 
         if (cookies?.session) {
-            console.log("req.session passport user refreshtoken: ", req.session.passport.user.refreshToken);
-            if (req?.session?.passport?.user.source === 'discord') {
+            // console.log("req.session passport user refreshtoken: ", req.session.passport.user.refreshToken);
+            if (req?.session?.passport?.user?.source === 'discord') {
 
                 refresh.requestNewAccessToken(
                     'discord',
@@ -276,18 +276,31 @@ class UserController {
             return res.status(400).json({message: 'Username is required'});
         }
         const cookies_jwt = req.cookies.jwt;
-        if (!cookies_jwt) return res.sendStatus(204);
-        const refreshToken = cookies_jwt;
-        const selfUser = await User.findOne({refreshToken});
+
+
 
         try {
-            const user = await User.findOne({username: nickname});
+            if (cookies_jwt) {
+                const refreshToken = cookies_jwt;
+                const selfUser = await User.findOne({refreshToken});
 
-            if (user && user.username !== selfUser.username) {
-                return res.status(200).json({exists: true, message: 'Username already exists'});
-            } else {
-                return res.status(200).json({exists: false, message: 'Username is available'});
+                const user = await User.findOne({username: nickname});
+
+                if (user && user.username !== selfUser.username) {
+                    return res.status(200).json({exists: true, message: 'Username already exists'});
+                } else {
+                    return res.status(200).json({exists: false, message: 'Username is available'});
+                }
+            } else if (req?.user){
+                const selfUser = await User.findOne({email: req.user.email})
+                const user = await User.findOne({username: nickname});
+                if (user && user.username !== selfUser.username) {
+                    return res.status(200).json({exists: true, message: 'Username already exists'});
+                } else {
+                    return res.status(200).json({exists: false, message: 'Username is available'});
+                }
             }
+
         } catch (error) {
             console.error('Error checking username:', error);
             return res.status(500).json({message: 'Internal server error'});
@@ -303,18 +316,32 @@ class UserController {
         }
 
         const cookies_jwt = req.cookies.jwt;
-        if (!cookies_jwt) return res.sendStatus(204);
-        const refreshToken = cookies_jwt;
+        // if (!cookies_jwt) return res.sendStatus(204);
+
 
         try {
-            const user = await User.findOne({refreshToken});
-            user.username = username;
-            user.dob = dob;
-            user.gender = gender;
-            user.currentStep = 4;
-            await user.save();
+            if (cookies_jwt) {
+                const refreshToken = cookies_jwt;
+                const user = await User.findOne({refreshToken});
+                user.username = username;
+                user.dob = dob;
+                user.gender = gender;
+                user.currentStep = 4;
+                await user.save();
+                return res.status(200).json({message: 'Username updated'});
+            } else if (req?.user) {
+                const user = await User.findOne({email: req.user.email})
+                user.username = username;
+                user.dob = dob;
+                user.gender = gender;
+                user.currentStep = 4;
+                await user.save();
+                return res.status(200).json({message: 'Username updated'});
+            } else{
+                return res.sendStatus(204);
+            }
 
-            return res.status(200).json({message: 'Username updated'});
+
         } catch (error) {
             return res.status(500).json({message: 'Internal server error'});
         }
@@ -322,14 +349,22 @@ class UserController {
 
     async step(req, res) {
         const cookies_jwt = req.cookies.jwt;
-        if (!cookies_jwt) return res.sendStatus(204);
-        const refreshToken = cookies_jwt;
 
-        const user = await User.findOne({refreshToken});
-
-        if (user) {
-            return res.json(user.currentStep);
+        if (cookies_jwt) {
+            const refreshToken = cookies_jwt;
+            const user = await User.findOne({refreshToken});
+            if (user) {
+                return res.json(user.currentStep);
+            }
+        } else if (req?.user) {
+            if (req.user.isNewUser){
+                const user = await User.findOne({email: req.user.email})
+                user.isNewUser = false;
+                await user.save();
+            }
+            return res.json(req.user.currentStep);
         }
+
         return res.sendStatus(204);
     }
 

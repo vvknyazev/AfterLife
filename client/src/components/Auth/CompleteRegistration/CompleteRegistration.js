@@ -8,9 +8,9 @@ import FormComponent from "./FormComponent/FormComponent";
 
 const CompleteRegistration = () => {
 
-    const {data: step, isLoading} = useGetStepQuery();
-
     const [user] = useOutletContext();
+
+    const {data: step, isLoading} = useGetStepQuery();
 
     const [photoURL, setPhotoURL] = useState(null);
     const [openCrop, setOpenCrop] = useState(false);
@@ -23,7 +23,8 @@ const CompleteRegistration = () => {
             setLocalStep(step);
         }
     }, [step]);
-
+    console.log("step: ", step);
+    console.log("localStep: ", localStep);
     function handleFileChange(e) {
         setSelectedImage(e.target.files[0]);
         setFileName(e.target.files[0]?.name);
@@ -76,7 +77,6 @@ const CompleteRegistration = () => {
     const handleForm = (e) => {
         e.preventDefault();
     }
-    console.log("localsteP: ", localStep)
 
     return (
         <div className={s.back}>
@@ -129,9 +129,12 @@ const CompleteRegistration = () => {
                     </div>
                 </div>
             }
-            {localStep === 4 &&
-                <h2>THIS IS STEP 4</h2>
-            }
+            {/*{localStep === 4 &&*/}
+            {/*    <div className={s.content}>*/}
+            {/*        <h2>Настройка Spotlight <span>2/4</span></h2>*/}
+            {/*        <p className={s.pheader}>Выберите до 3х ваших любимых игр</p>*/}
+            {/*    </div>*/}
+            {/*}*/}
 
         </div>
     );

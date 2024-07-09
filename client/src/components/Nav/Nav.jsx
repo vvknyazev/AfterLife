@@ -53,6 +53,7 @@ function NavItem(props) {
         setIsFistTimeOpen(false);
     }
 
+    console.log("props in nav: ", props);
     return (
         <div>
             {!isFistTimeOpen &&
@@ -129,8 +130,15 @@ function NavItem(props) {
                             unmountOnExit
                             onEnter={calcHeight}>
                             <div className="menu">
-                                <p className={'menu-item__text menu-greetings'}>Здравствуйте {props.name}</p>
-                                <p className={'menu-item__text menu-balance'}>Баланс: 0 <img src="/profile/currency.svg"
+                                <div className="menu-item__header">
+                                    <img src={props.icon} alt="photo"/>
+                                    <div className="menu-item__underheader">
+                                        <p className={'menu-item__text menu-item__name'}>{props.username}</p>
+                                        <p className={'menu-item__text menu-item__undername'}>@{props.username}</p>
+                                    </div>
+                                </div>
+
+                                <p className={'menu-item__text'}>Баланс: 0 <img src="/profile/currency.svg"
                                                                                              alt="currency"
                                                                                              className={n.currency}/>
                                 </p>
@@ -190,31 +198,37 @@ const Nav = (props) => {
             {/*<Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>*/}
             <div className={`${nav}`}>
                 <div className={n.menu}>
-                    <div className={n.menuButtons}>
-                        <NavLink to="#" className={n.navItem}>О нас</NavLink>
-                        <NavLink to="#" className={n.navItem}>FAQ</NavLink>
-                        <NavLink to="#" className={n.navItem}>Найти пару</NavLink>
+                    <div className={n.menuButtonsLeft}>
+                        <NavLink to="#" className={n.navItemLeft}>О нас</NavLink>
+                        <NavLink to="#" className={n.navItemLeft}>FAQ</NavLink>
+                        <NavLink to="#" className={n.navItemLeft}>Найти пару</NavLink>
                     </div>
                     <NavLink to='/' className={n.logo}>{props?.user ? `A` : `Afterlife`}</NavLink>
                     <div className={n.menuButtons}>
-                        <NavLink to="/models" className={n.navButton}>Найти пару</NavLink>
+                        {/*<NavLink to="/models" className={n.navButton}>Найти пару</NavLink>*/}
+                        <a href="#" className={n.search}><img src="/nav/search.svg" alt="search"/>Поиск</a>
+                        <a href="#" className={n.lang}>RU</a>
+
                         {props?.user?.isActivated === false
                             ? <li className={n.rightSide}>
-                                <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
+                                {/*<a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>*/}
                                 <div className={`${profileButtonStyle}`}>
                                     <NavLink to={'/login'} className={n.profileText}>Войти</NavLink>
                                 </div>
                             </li>
                             :
                             props.user ? <li className={n.rightSide}>
-                            <NavItem icon={props.user?.photo.includes('http') ? props.user?.photo : `${process.env.REACT_APP_API_URL}/${props.user?.photo}`} isLoggedIn={true}
-                                     isActivated={props.user.isActivated} name={props.user?.name}></NavItem>
-                        </li> : <li className={n.rightSide}>
-                            <a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>
-                            <div className={`${profileButtonStyle}`}>
-                                <NavLink to={'/login'} className={n.profileText}>Войти</NavLink>
-                            </div>
-                        </li>}
+                                <NavItem
+                                    icon={props.user?.photo.includes('http') ? props.user?.photo : `${process.env.REACT_APP_API_URL}/${props.user?.photo}`}
+                                    isLoggedIn={true}
+                                    isActivated={props.user.isActivated} name={props.user?.name}
+                                    username={props.user?.username}></NavItem>
+                            </li> : <li className={n.rightSide}>
+                                {/*<a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>*/}
+                                <div className={`${profileButtonStyle}`}>
+                                    <NavLink to={'/login'} className={n.profileText}>Войти</NavLink>
+                                </div>
+                            </li>}
                     </div>
 
                     {/*{props.userPicture ? <li className={n.rightSide}>*/}
