@@ -12,6 +12,9 @@ const allowedOrigins = [
     'https://afterlife.pp.ua',
     'https://google.com',
     'https://accounts.google.com',
+    'https://master--superb-conkies-1f0ed1.netlify.app/',
+    'https://afterlife-production-7d67.up.railway.app/',
+    'http://afterlife-production-7d67.up.railway.app/'
 ];
 
 module.exports = allowedOrigins;
