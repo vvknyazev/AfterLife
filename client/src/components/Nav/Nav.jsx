@@ -5,6 +5,7 @@ import n from './Nav.module.css'
 import {CSSTransition} from 'react-transition-group';
 import {NavLink, useLocation} from "react-router-dom";
 import {useChat} from "../../context/ChatProvider";
+import ColorThief from "colorthief";
 
 function NavItem(props) {
     const [open, setOpen] = useState(false);
@@ -54,13 +55,43 @@ function NavItem(props) {
     }
 
     console.log("props in nav: ", props);
+    const [dominantColor, setDominantColor] = useState(null);
+    const [style, setStyle] = useState({});
+    const imgRef = useRef(null);
+
+    useEffect(() => {
+        const img = imgRef.current;
+        const colorThief = new ColorThief();
+
+        if (img.complete) {
+            setDominantColor(colorThief.getColor(img));
+        } else {
+            img.addEventListener('load', () => {
+                setDominantColor(colorThief.getColor(img));
+            });
+        }
+    }, [props?.icon]);
+
+    useEffect(()=>{
+        const hexColor = dominantColor ? `#${dominantColor.map(c => c.toString(16).padStart(2, '0')).join('')}` : '#000000';
+        const style = {
+            filter: `drop-shadow(0px 0px 10px ${hexColor})`
+        };
+        setStyle(style);
+
+    },[dominantColor])
+
     return (
         <div>
             {!isFistTimeOpen &&
                 <a href={undefined} className={n.profile} onClick={() => setOpen(!open)}>
                     {props.isActivated ? <div className={n.notification}>
                             <img src={props.icon} alt="profile"
-                                 className={n.profileLogin}/>
+                                 className={n.profileLogin}
+                                 ref={imgRef}
+                                 crossOrigin="anonymous"
+                                 style={style}
+                            />
                             <div className={notifications.length > 0 ? n.notificationVar : ''}>
                                 <h3>{notifications.length > 9 ? '9+' : notifications.length > 0 ? notifications.length : ''}</h3>
                             </div>
@@ -68,7 +99,11 @@ function NavItem(props) {
                         :
                         <div className={n.notification}>
                             <img src={props.icon} alt="profile"
-                                 className={n.profileLogin}/>
+                                 className={n.profileLogin}
+                                 ref={imgRef}
+                                 crossOrigin="anonymous"
+                                 style={style}
+                            />
                             <div className={notifications.length > 0 ? n.notificationVar : ''}>
                                 <h3>{notifications.length > 9 ? '9+' : notifications.length > 0 ? notifications.length : ''}</h3>
                             </div>
@@ -86,7 +121,11 @@ function NavItem(props) {
                     {props.isActivated ?
                         <div className={n.notification}>
                             <img src={props.icon} alt="profile"
-                                 className={n.profileLogin}/>
+                                 className={n.profileLogin}
+                                 ref={imgRef}
+                                 crossOrigin="anonymous"
+                                 style={style}
+                            />
                             <div className={notifications.length > 0 ? n.notificationVar : ''}>
                                 <h3>{notifications.length > 9 ? '9+' : notifications.length > 0 ? notifications.length : ''}</h3>
                             </div>
@@ -131,7 +170,7 @@ function NavItem(props) {
                             onEnter={calcHeight}>
                             <div className="menu">
                                 <div className="menu-item__header">
-                                    <img src={props.icon} alt="photo"/>
+                                    <img src={props.icon} alt="photo" crossOrigin="anonymous" style={style}/>
                                     <div className="menu-item__underheader">
                                         <p className={'menu-item__text menu-item__name'}>{props.username}</p>
                                         <p className={'menu-item__text menu-item__undername'}>@{props.username}</p>

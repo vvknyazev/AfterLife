@@ -18,8 +18,11 @@
     margin-top: 5rem;
 
 }
-
-.activites p, .spotlight p, .sessions p, .hosts p {
+.spotlightMask{
+    border-radius: 120rem;
+    background: radial-gradient(50% 50% at 50% 50%, #0C1826 0%, rgba(0, 0, 0, 0.00) 100%);
+}
+.underHeader {
     color: #FFF;
     text-align: center;
     font-family: Onest, sans-serif;
@@ -122,3 +125,47 @@
     line-height: normal;
     padding: 0 2rem 0;
 }
+.footer{
+    color: white;
+    width: 47.9vw;
+    margin: 42vw auto;
+}
+.footerFlex{
+    display: flex;
+    justify-content: space-between;
+}
+.logo{
+    width: 17.55vw;
+    height: 2.96vw;
+    margin-top: 1rem;
+}
+.footerColumns{
+    display: flex;
+    gap: 9.6875vw;
+}
+.footerColumns div p{
+    color: #FFF;
+
+    font-family: Onest, sans-serif;
+    font-size: 0.83vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+}
+.underFooter{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2vw;
+    padding-bottom: 1vw;
+}
+.underFooter p{
+    color: #646B72;
+    font-family: Onest, sans-serif;
+    font-size: 0.83vw;
+    font-weight: 400;
+}
+.mask{
+    background: linear-gradient(290deg, #0C1826 0%, #000 25%);
+}
+

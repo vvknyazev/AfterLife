@@ -59,7 +59,7 @@ const CropAdmin = ({photoURL, setOpenCrop, setPhotoURL, setSelectedImage}) => {
                                 image={photoURL}
                                 crop={crop}
                                 zoom={zoom}
-                                aspect={53/70}
+                                aspect={2/3}
                                 onZoomChange={setZoom}
                                 onCropChange={setCrop}
                                 onCropComplete={cropComplete}

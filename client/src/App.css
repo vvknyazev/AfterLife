@@ -12,9 +12,11 @@
         animation: App-logo-spin infinite 20s linear;
     }
 }
-.afterlife-back{
+
+.afterlife-back {
     background: linear-gradient(202deg, #0C1826 0%, #000 38.5%);
 }
+
 .App-header {
     background-color: #282c34;
     min-height: 100vh;
@@ -245,23 +247,27 @@ Note: Beware of modifying this element as it can break the animations - you shou
     transform-origin: center;
     border-radius: 5px;
 }
-.menu-item__header{
+
+.menu-item__header {
     display: flex;
 }
-.menu-item__header img{
+
+.menu-item__header img {
     width: 3.125rem;
     height: 3.125rem;
     flex-shrink: 0;
 
     border-radius: 3.5625rem;
 
-    box-shadow: 0 0 8px 4px rgba(208, 164, 196, 0.35);
+    /*box-shadow: 0 0 8px 4px rgba(208, 164, 196, 0.35);*/
 }
-.menu-item__underheader{
+
+.menu-item__underheader {
     display: flex;
     flex-direction: column;
 }
-.menu-item__name{
+
+.menu-item__name {
     color: #D9D9D9 !important;
     font-family: Onest, sans-serif;
     font-size: 1.125rem;
@@ -270,7 +276,8 @@ Note: Beware of modifying this element as it can break the animations - you shou
     line-height: 135%; /* 1.51875rem */
     padding: 0;
 }
-.menu-item__undername{
+
+.menu-item__undername {
     padding: 0;
     color: rgba(255, 255, 255, 0.50) !important;
     font-family: Onest, sans-serif;
@@ -279,6 +286,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
     font-weight: 400;
     line-height: 135%; /* 1.18125rem */
 }
+
 .icon-right {
     margin-left: auto;
 }
@@ -466,7 +474,8 @@ body {
     backdrop-filter: blur(10px);
 
 }
-.profile:hover{
+
+.profile:hover {
     border: 1px solid rgba(255, 255, 255, 0.5);
     transition: all 0.3s ease;
 }
@@ -752,6 +761,7 @@ body {
     box-shadow: 0 0 4px 0 #FFF;
     transition: 0.2s all ease;
 }
+
 .react-calendar--selectRange .react-calendar__tile--hover {
     background-color: #e6e6e6;
 }
@@ -809,13 +819,15 @@ body {
     background-position: center !important;
 }
 
-.react-calendar__month-view__days{
+.react-calendar__month-view__days {
     width: 100% !important;
 }
-.react-calendar__month-view__days__day{
+
+.react-calendar__month-view__days__day {
     flex: 0 0 13.7% !important;
 }
-.selected-calendar-date{
+
+.selected-calendar-date {
     border-radius: 100px;
     background: #FFF;
     color: #1F1F1F;
@@ -831,7 +843,114 @@ body {
 /*    }*/
 /*}*/
 
-.test-deploy{
+.test-deploy {
 
 }
 
+.swiper-button-next,
+.swiper-button-prev {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 2.86vw !important;
+    height: 2.86vw !important;
+
+    flex-shrink: 0;
+
+    border-radius: 1vw;
+    border: 1px solid rgba(233, 233, 233, 0.05);
+    background: rgba(233, 233, 233, 0.05) no-repeat center;
+    backdrop-filter: blur(10px);
+
+    color: white !important;
+}
+
+.swiper-button-prev {
+    background-image: url("icons/prev.svg") !important;
+}
+
+.swiper-button-next {
+    background-image: url("icons/next.svg") !important;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    content: "" !important;
+}
+
+.faq-section {
+    width: 47.9vw;
+    height: 5.3125vw;
+
+    margin: 50px auto;
+    padding: 20px;
+
+    color: white;
+    border-radius: 10px;
+
+}
+
+.faq-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #FFF;
+    font-feature-settings: 'ss01' on;
+    font-family: Montserrat, sans-serif;
+    font-size: 2.5vw;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%; /* 3rem */
+}
+
+.faq-item {
+    cursor: pointer;
+    border-radius: 1rem;
+    background: rgba(233, 233, 233, 0.05);
+    margin-bottom: 1.5vw;
+    padding: 1.6vw;
+
+}
+
+.faq-question {
+    color: #FFF;
+    font-feature-settings: 'ss01' on;
+    font-family: Onest, sans-serif;
+    font-size: 1.66vw;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%; /* 2rem */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    color: #FFF;
+    width: 29.6875vw;
+    font-family: Onest, sans-serif;
+    font-size: 0.83vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.faq-answer.active {
+    max-height: 200px;
+    margin-top: 10px;
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+}
+
+.faq-question .arrow {
+    font-size: 18px;
+}
+
+.faq-question .arrow.active {
+
+}

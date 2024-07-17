@@ -1,26 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
 // import {InfinitySpin} from "react-loader-spinner";
 import Nav from "../../components/Nav/Nav";
 import HeaderHomePage from "./HeaderHomePage/HeaderHomePage";
-import Strip from "./Strip/Strip";
-import ConceptHomePage from "./ConceptHomePage/ConceptHomePage";
-import FooterHomePage from "./FooterHomePage/FooterHomePage";
 import {useOutletContext} from "react-router-dom";
 import s from './Home.module.css'
 import ImageComponent from "../../components/ImageComponent/ImageComponent";
+import Card from "../../components/Card/Card";
+import {useGetModelsQuery} from "../../features/commonApiSlice";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {FreeMode, Navigation} from 'swiper/modules';
+import 'swiper/css/free-mode';
+
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 const Home = () => {
     const [user] = useOutletContext();
+    const {data: models, isLoading: isLoadingModels} = useGetModelsQuery();
 
-    const imaginativeUser = {
-        username: 'Ма',
-        homePagePhoto: '/imaginative-user.png'
-    }
-
-    const imaginativeModel = {
-        name: 'Ким',
-        homePagePhoto: '/imaginative-model.png'
-    }
+    // const imaginativeUser = {
+    //     username: 'Ма',
+    //     homePagePhoto: '/imaginative-user.png'
+    // }
+    //
+    // const imaginativeModel = {
+    //     name: 'Ким',
+    //     homePagePhoto: '/imaginative-model.png'
+    // }
 
     const games = [
         {id: 1, img: "/home/games/1.png"},
@@ -32,14 +39,50 @@ const Home = () => {
         {id: 7, img: "/home/games/7.png"},
         {id: 8, img: "/home/games/8.png"},
         {id: 9, img: "/home/games/9.png"},
-        {id: 9, img: "/home/games/10.png"},
-        {id: 9, img: "/home/games/11.png"},
-        {id: 9, img: "/home/games/12.png"},
-        {id: 9, img: "/home/games/13.png"},
-        {id: 9, img: "/home/games/14.png"},
-        {id: 9, img: "/home/games/15.png"},
+        {id: 10, img: "/home/games/10.png"},
+        {id: 11, img: "/home/games/11.png"},
+        {id: 12, img: "/home/games/12.png"},
+        {id: 13, img: "/home/games/13.png"},
+        {id: 14, img: "/home/games/14.png"},
+        {id: 15, img: "/home/games/15.png"},
     ]
 
+    const [activeIndex, setActiveIndex] = useState(null);
+
+    const toggleFAQ = (index) => {
+        setActiveIndex(activeIndex === index ? null : index);
+    };
+
+    const faqs = [
+        {
+            question: "Как работает площадка?",
+            answer: "Spotlight AI — современная система, которая анализирует ваши предпочтения — фильмы, музыку, игры, в которые вы играете, чтобы подобрать вам наиболее подходящих Хостов и пользователей, создавая яркое и увлекательное сообщество, подобного которому нет нигде."
+        },
+        {
+            question: "Что такое сессии и как они работают?",
+            answer: "Spotlight AI — современная система, которая анализирует ваши предпочтения — фильмы, музыку, игры, в которые вы играете, чтобы подобрать вам наиболее подходящих Хостов и пользователей, создавая яркое и увлекательное сообщество, подобного которому нет нигде."
+        },
+        {
+            question: "Что такое Spotlight AI?",
+            answer: "Spotlight AI — современная система, которая анализирует ваши предпочтения — фильмы, музыку, игры, в которые вы играете, чтобы подобрать вам наиболее подходящих Хостов и пользователей, создавая яркое и увлекательное сообщество, подобного которому нет нигде."
+        },
+        {
+            question: "Как быстро отвечают хосты?",
+            answer: "Spotlight AI — современная система, которая анализирует ваши предпочтения — фильмы, музыку, игры, в которые вы играете, чтобы подобрать вам наиболее подходящих Хостов и пользователей, создавая яркое и увлекательное сообщество, подобного которому нет нигде."
+        },
+        {
+            question: "Есть ли у вас какие-либо фильтры поиска хоста?",
+            answer: "Spotlight AI — современная система, которая анализирует ваши предпочтения — фильмы, музыку, игры, в которые вы играете, чтобы подобрать вам наиболее подходящих Хостов и пользователей, создавая яркое и увлекательное сообщество, подобного которому нет нигде."
+        }
+    ];
+
+    if (isLoadingModels) {
+        return <div>
+            <Nav user={user}/>
+
+        </div>
+    }
+    console.log("models: ", models);
     return (
         <div className='afterlife-back'>
             <div>
@@ -49,7 +92,8 @@ const Home = () => {
                 </div>
                 <div className={s.activites}>
                     <h3>Активности и события</h3>
-                    <p>Более 100 вариантов активностей <br/> для проведения времени с тиммейтом</p>
+                    <p className={s.underHeader}>Более 100 вариантов активностей <br/> для проведения времени с
+                        тиммейтом</p>
                     <div className={s.games}>
                         {
                             games.map((game) => (
@@ -64,14 +108,17 @@ const Home = () => {
             </div>
             <div className={s.spotlight}>
                 <h3>Spotlight AI</h3>
-                <p>Современная система анализирует ваши предпочтения, чтобы <br/> подобрать вам наиболее подходящих
+                <p className={s.underHeader}>Современная система анализирует ваши предпочтения, чтобы <br/> подобрать
+                    вам наиболее подходящих
                     Хостов и пользователей, создавая <br/> яркое и увлекательное сообщество, подобного которому нет
                     нигде</p>
-                <img src="/home/spotlight.png" alt="spotlight"/>
+                <div className={s.spotlightMask}>
+                    <img src="/home/spotlight.png" alt="spotlight"/>
+                </div>
             </div>
             <div className={s.sessions}>
                 <h3>Сессии</h3>
-                <p>Три типа сессий, подходящие под разные активности</p>
+                <p className={s.underHeader}>Три типа сессий, подходящие под разные активности</p>
                 <div className={s.sessionsType}>
                     <div className={s.typeItem}>
                         <img src="/home/2us.png" alt="2us" className={s.us}/>
@@ -96,7 +143,81 @@ const Home = () => {
             </div>
             <div className={s.hosts}>
                 <h3>Хосты</h3>
-                <p>Пользователи, с которыми вы можете создать сессии прямо сейчас</p>
+                <p className={s.underHeader}>Пользователи, с которыми вы можете создать сессии прямо сейчас</p>
+                <div className={s.models}>
+                    <Swiper
+                        slidesPerView={5.6} // Number of slides per view
+                        freeMode={true}
+                        // loop={true}
+                        navigation={true}
+                        scrollbar={{draggable: true}} // Enable scrollbar
+                        grabCursor={true}
+
+                        modules={[FreeMode, Navigation]}
+                    >
+                        {models.map((e) => (
+                            <SwiperSlide key={e._id}>
+                                <Card img={`${process.env.REACT_APP_API_URL}/${e.photo}`} name={e.name}
+                                      desc={e.bio} games={e.games}
+                                      key={e._id} id={e._id}/>
+                            </SwiperSlide>
+                        ))}
+                        {models.map((e) => (
+                            <SwiperSlide key={e._id}>
+                                <Card img={`${process.env.REACT_APP_API_URL}/${e.photo}`} name={e.name}
+                                      desc={e.bio} games={e.games}
+                                      key={e._id} id={e._id}/>
+                            </SwiperSlide>
+                        ))}
+
+                    </Swiper>
+                </div>
+
+            </div>
+            <div className={s.mask}>
+                <div className="faq-section">
+                    <h2>FAQs</h2>
+                    {faqs.map((faq, index) => (
+                        <div key={index} className="faq-item" onClick={() => toggleFAQ(index)}>
+                            <div className="faq-question">
+                                {faq.question}
+                                <span className="arrow">
+                                {activeIndex === index ?
+                                    <img src="/home/arrow-active.svg" alt="arrow"/>
+                                    :
+                                    <img src="/home/arrow-disable.svg" alt="arrow"/>
+                                }
+                            </span>
+                            </div>
+                            <div className={`faq-answer ${activeIndex === index ? 'active' : ''}`}>
+                                {faq.answer}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <div className={s.footer}>
+                    <div className={s.footerFlex}>
+                        <img className={s.logo} src="/home/afterlife-logo.svg" alt="logo"/>
+                        <div className={s.footerColumns}>
+                            <div>
+                                <p>О нас</p>
+                                <p>Spotlight AI</p>
+                                <p>Найти напарника</p>
+                                <p>FAQs</p>
+                            </div>
+                            <div>
+                                <p>Email</p>
+                                <p>Telegram</p>
+                                <p>Instagram</p>
+                                <p>TikTok</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={s.underFooter}>
+                        <p>© Afterlife, 2024</p>
+                        <p>Все права защищены</p>
+                    </div>
+                </div>
             </div>
         </div>
     );

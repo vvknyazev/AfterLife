@@ -17,6 +17,7 @@ class AdminController {
     async getFullAll(req, res) {
         try {
             const models = await User.find({role: 'MODEL'});
+            console.log("models: ", models);
             res.json(models);
         } catch (err) {
             console.error(err);
