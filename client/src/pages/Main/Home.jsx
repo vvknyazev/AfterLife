@@ -203,14 +203,14 @@ const Home = () => {
                         grabCursor={true}
                         modules={[FreeMode, Navigation]}
                     >
-                        {models.map((e) => (
+                        {models?.map((e) => (
                             <SwiperSlide key={e._id}>
                                 <Card img={`${process.env.REACT_APP_API_URL}/${e.photo}`} name={e.name}
                                       desc={e.bio} games={e.games}
                                       key={e._id} id={e._id}/>
                             </SwiperSlide>
                         ))}
-                        {models.map((e) => (
+                        {models?.map((e) => (
                             <SwiperSlide key={e._id}>
                                 <Card img={`${process.env.REACT_APP_API_URL}/${e.photo}`} name={e.name}
                                       desc={e.bio} games={e.games}
