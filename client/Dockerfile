@@ -42,7 +42,7 @@ RUN chmod +x /var/lib/nginx -R
 RUN chown -R nginx:nginx /var/lib/nginx
 
 # Expose volumes
-VOLUME ["/etc/nginx/conf.d", "/var/log/nginx", "/www"]
+#VOLUME ["/etc/nginx/conf.d", "/var/log/nginx", "/www"]
 
 # Expose ports
 EXPOSE 80 443
