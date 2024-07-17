@@ -15,7 +15,7 @@ const HeaderHomePage = () => {
                 <div className={s.headerContent}>
                     <h2 className={s.headMessage}>Найди своего<br/>идеального «Player 2»</h2>
                     <p className={s.underHeadMessage}>
-                        Платформа использующая AI для того, чтобы <br/> найти напарника для различных активностей
+                        Платформа использующая AI для того, чтобы найти напарника для различных активностей
                     </p>
                     <NavLink to={'/'} className={s.playButton}><img src="/home/play.svg" alt="play"/>Найти пару</NavLink>
                 </div>

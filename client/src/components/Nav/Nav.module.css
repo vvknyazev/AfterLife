@@ -10,7 +10,6 @@
     font-family: 'dymaxon', sans-serif;
     font-weight: normal;
     font-size: 3.7vw;
-
 }
 
 ul {
@@ -72,7 +71,8 @@ a {
     line-height: 145%;
 
 }
-.lang:hover{
+
+.lang:hover {
     border: 1px solid rgba(255, 255, 255, 0.5);
     transition: all 0.3s ease;
 }
@@ -96,7 +96,8 @@ a {
     font-weight: 400;
     line-height: 135%;
 }
-.search img{
+
+.search img {
     width: 1em;
 
 }
@@ -214,10 +215,27 @@ a {
     transform-origin: center;
     border-radius: 5px;
 }
-
+.currencyContainer{
+    display: flex;
+    align-items: center;
+    height: 2.1875rem;
+    padding: 0 0.5rem;
+    justify-content: center;
+    gap: 0.3125rem;
+    border-radius: 0.75rem;
+    background: rgba(106, 106, 118, 0.12);
+    backdrop-filter: blur(10px);
+}
 .currency {
     margin-left: 4px;
     margin-right: 2px;
+
+    color: #77EF19;
+    font-family: Onest, sans-serif;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 145%;
 }
 
 .notification {
@@ -275,12 +293,14 @@ a {
     justify-content: space-between;
     height: 6.5vw;
 }
-.menuButtonsLeft{
+
+.menuButtonsLeft {
     display: flex;
     justify-content: center;
     gap: 3.125em;
 }
-.navItemLeft{
+
+.navItemLeft {
     color: rgba(255, 255, 255, 0.50);
     text-align: center;
     font-family: Onest, sans-serif;
@@ -289,4 +309,57 @@ a {
     font-style: normal;
     font-weight: 400;
     line-height: 145%; /* 23.2px */
+}
+
+@media screen and (max-width: 1000px) {
+    .menuButtonsLeft {
+        display: none;
+    }
+
+    .menuButtons {
+        display: none;
+    }
+
+    .logo{
+        font-size: 2.8rem;
+    }
+}
+@media (max-width: 1000px) {
+    .menuButtonsLeft {
+        display: none;
+    }
+    .searchIcon {
+        display: flex;
+        align-items: center;
+        margin-left: 1.5rem;
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+}
+
+/* Показать меню и скрыть иконку поиска при ширине экрана >= 1000px */
+@media (min-width: 1000px) {
+    .menuButtonsLeft {
+        display: flex;
+    }
+    .searchIcon {
+        display: none;
+    }
+}
+
+.burgerIcon{
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    .burgerIcon{
+        display: inline-flex;
+        padding: 1rem;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1rem;
+        border: 1px solid rgba(233, 233, 233, 0.05);
+        background: rgba(255, 255, 255, 0.01);
+        backdrop-filter: blur(8px);
+    }
 }

@@ -2,8 +2,8 @@
 
 .formContainer {
     background-color: #000; /* Black background */
-    padding: 20px;
-    border-radius: 10px;
+    padding: 1.04vw;
+    border-radius: 0.52vw;
 
     color: #fff; /* White text */
 }
@@ -15,22 +15,22 @@
 
 .resultUsername {
     position: absolute;
-    top: -17px;
-    right: 15px;
+    top: -0.885vw;
+    right: 0.78125vw;
 }
 
 .userCheckBlock {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 17px;
+    gap: 0.88vw;
 }
 
 .taken {
     color: #FF6565;
     text-align: center;
     font-family: Onest, sans-serif;
-    font-size: 16px;
+    font-size: 0.83vw;
     font-style: normal;
     font-weight: 300;
     line-height: 145%;
@@ -40,29 +40,30 @@
     color: #AAFFAD;
     text-align: right;
     font-family: Onest, sans-serif;
-    font-size: 16px;
+    font-size: 0.83vw;
     font-style: normal;
     font-weight: 300;
     line-height: 145%;
+
 }
 
 .inputField {
     border: 1px solid #ccc;
     color: #fff;
-    width: 510px;
-    height: 65px;
+    width: 26.5625vw;
+    height: 3.385vw;
     flex-shrink: 0;
-    border-radius: 20px;
+    border-radius: 1.04vw;
     border: 1px solid rgba(233, 233, 233, 0.05);
     background: rgba(233, 233, 233, 0.05);
 
     color: rgba(255, 255, 255, 0.60);
     font-family: Onest, sans-serif;
-    font-size: 20px;
+    font-size: 1.04vw;
     font-style: normal;
     font-weight: 400;
     line-height: 145%;
-    padding-left: 16px;
+    padding-left: 0.83vw;
 
 }
 
@@ -77,17 +78,17 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    width: 222px;
-    height: 34px;
+    width: 11.5625vw;
+    height: 1.77vw;
     align-self: stretch;
-    border-radius: 20px;
-    padding: 16px;
-    margin: 8px;
+    border-radius: 1.04vw;
+    padding: 0.83vw;
+    margin: 0.41vw;
     background: rgba(170, 255, 173, 0.05);
 
     color: rgba(255, 255, 255, 0.60);
     font-family: Onest, sans-serif;
-    font-size: 20px;
+    font-size: 1.04vw;
     font-style: normal;
     font-weight: 400;
     line-height: 145%; /* 29px */
@@ -97,12 +98,12 @@
 
     appearance: none;
     position: absolute;
-    width: 34px;
-    height: 34px;
+    width: 1.77vw;
+    height: 1.77vw;
     margin-bottom: 3px;
     border: 1px solid rgba(233, 233, 233, 0.05);
     background: rgba(233, 233, 233, 0.05);
-    border-radius: 18px;
+    border-radius: 0.9375vw;
 
     cursor: pointer;
     outline: none;
@@ -128,14 +129,14 @@
 }
 
 .genderButton span {
-    margin-left: 50px;
+    margin-left: 2.6vw;
     transition: color 0.3s ease;
 }
 
 .checkboxIcon {
     z-index: 88;
-    width: 20px;
-    height: 20px;
+    width: 1.04vw;
+    height: 1.04vw;
     border: 2px solid #72ff72;
     border-radius: 50%;
     display: inline-block;
@@ -146,8 +147,8 @@
 .checkboxIcon::after {
     content: '\2714';
     display: block;
-    width: 10px;
-    height: 10px;
+    width: 0.52vw;
+    height: 0.52vw;
     margin: 3px;
     background-color: transparent;
     border-radius: 50%;
@@ -155,8 +156,8 @@
 }
 
 .dateField {
-    width: 492px;
-    height: 66px;
+    width: 25.625vw;
+    height: 3.4375vw;
     flex-shrink: 0;
     border-radius: 18px;
     border: 1px solid rgba(233, 233, 233, 0.05);
@@ -164,27 +165,27 @@
 
     color: rgba(255, 255, 255, 0.60);
     font-family: Onest, sans-serif;
-    font-size: 20px;
+    font-size: 1.04vw;
     font-style: normal;
     font-weight: 400;
     line-height: 145%;
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-left: 0.9375vw;
+    padding-right: 0.9375vw;
 }
 
 .check {
     background: #FFFFFF;
 }
 .nextButtons{
-    margin: 40px auto;
+    margin: 2.08vw auto;
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 1.04vw;
     margin-bottom: 0px !important;
 }
 .nextButtons button{
-    width: 250px;
-    height: 56px;
+    width: 13vw;
+    height: 2.91vw;
     margin-bottom: 0px;
     display: flex;
     justify-content: center;
@@ -194,12 +195,12 @@
     align-items: center;
 
     flex-shrink: 0;
-    border-radius: 18px;
+    border-radius: 0.9375vw;
     background: #FFF;
     color: #0F0F0F;
     text-align: center;
     font-family: Onest, sans-serif;
-    font-size: 20px;
+    font-size: 1.04vw;
     font-style: normal;
     font-weight: 500;
     line-height: normal;

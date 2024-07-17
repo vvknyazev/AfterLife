@@ -72,14 +72,14 @@ function NavItem(props) {
         }
     }, [props?.icon]);
 
-    useEffect(()=>{
+    useEffect(() => {
         const hexColor = dominantColor ? `#${dominantColor.map(c => c.toString(16).padStart(2, '0')).join('')}` : '#000000';
         const style = {
             filter: `drop-shadow(0px 0px 10px ${hexColor})`
         };
         setStyle(style);
 
-    },[dominantColor])
+    }, [dominantColor])
 
     return (
         <div>
@@ -177,9 +177,11 @@ function NavItem(props) {
                                     </div>
                                 </div>
 
-                                <p className={'menu-item__text'}>Баланс: 0 <img src="/profile/currency.svg"
-                                                                                             alt="currency"
-                                                                                             className={n.currency}/>
+                                <p className={'menu-item__text'}>Баланс:
+                                    {/*<img src="/profile/currency.svg"*/}
+                                    {/*     alt="currency"*/}
+                                    {/*     className={n.currency}/>*/}
+                                    <div className={n.currencyContainer}><p>0</p><span className={n.currency}>金</span></div>
                                 </p>
                                 <DropdownItem
                                     auth='/chats'
@@ -231,7 +233,11 @@ const Nav = (props) => {
     } else {
         nav = 'navBlack'
     }
+    const [menuOpen, setMenuOpen] = useState(false);
 
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
+    };
     return (
         <div>
             {/*<Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>*/}
@@ -242,7 +248,16 @@ const Nav = (props) => {
                         <NavLink to="#" className={n.navItemLeft}>FAQ</NavLink>
                         <NavLink to="#" className={n.navItemLeft}>Найти пару</NavLink>
                     </div>
+                    <div className={`${n.searchIcon} ${n.menuButtons}`}>
+                        <img src="/home/search-mobile.svg" alt="search"/>
+                    </div>
+
                     <NavLink to='/' className={n.logo}>{props?.user ? `A` : `Afterlife`}</NavLink>
+
+                    <div className={n.burgerIcon} onClick={toggleMenu}>
+                        <img src="/home/burger.svg" alt="Menu"/>
+                    </div>
+
                     <div className={n.menuButtons}>
                         {/*<NavLink to="/models" className={n.navButton}>Найти пару</NavLink>*/}
                         <a href="#" className={n.search}><img src="/nav/search.svg" alt="search"/>Поиск</a>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 // import {InfinitySpin} from "react-loader-spinner";
 import Nav from "../../components/Nav/Nav";
 import HeaderHomePage from "./HeaderHomePage/HeaderHomePage";
@@ -76,13 +76,30 @@ const Home = () => {
         }
     ];
 
+    const [visibleGames, setVisibleGames] = useState(games);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 1000) {
+                setVisibleGames(games.slice(0, 8));
+            } else {
+                setVisibleGames(games);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Initial check
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     if (isLoadingModels) {
         return <div>
             <Nav user={user}/>
 
         </div>
     }
-    console.log("models: ", models);
+
     return (
         <div className='afterlife-back'>
             <div>
@@ -95,14 +112,18 @@ const Home = () => {
                     <p className={s.underHeader}>Более 100 вариантов активностей <br/> для проведения времени с
                         тиммейтом</p>
                     <div className={s.games}>
-                        {
-                            games.map((game) => (
-                                <div className={s.gameItem} key={game.id}>
-                                    <ImageComponent hash={'LgLyZT80^+={-:tRIVM{-ptRNHV@'} width={'17.7vw'}
-                                                    height={'10vw'} src={game.img} alt={game.id}/>
-                                </div>
-                            ))
-                        }
+                        {visibleGames.map((game) => (
+                            <div className={s.gameItem} key={game.id}>
+                                {/*<ImageComponent*/}
+                                {/*    hash={'LgLyZT80^+={-:tRIVM{-ptRNHV@'}*/}
+                                {/*    width={'17.7vw'}*/}
+                                {/*    height={'10vw'}*/}
+                                {/*    src={game.img}*/}
+                                {/*    alt={game.id}*/}
+                                {/*/>*/}
+                                <img src={game.img} alt={game.id}/>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -146,13 +167,40 @@ const Home = () => {
                 <p className={s.underHeader}>Пользователи, с которыми вы можете создать сессии прямо сейчас</p>
                 <div className={s.models}>
                     <Swiper
-                        slidesPerView={5.6} // Number of slides per view
+                        breakpoints={{
+                            0: {
+                                slidesPerView: 2,
+                            },
+                            453: {
+                                slidesPerView: 2.5,
+                            },
+                            546: {
+                                slidesPerView: 3,
+                            },
+                            639: {
+                                slidesPerView: 3.5,
+                            },
+                            771: {
+                                slidesPerView: 4
+                            },
+                            865: {
+                                slidesPerView: 4.5
+                            },
+                            999: {
+                                slidesPerView: 5
+                            },
+                            1000: {
+                                slidesPerView: 5.6
+                            },
+                            1700: {
+                                slidesPerView: 5.6
+                            }
+                        }}
                         freeMode={true}
                         // loop={true}
                         navigation={true}
                         scrollbar={{draggable: true}} // Enable scrollbar
                         grabCursor={true}
-
                         modules={[FreeMode, Navigation]}
                     >
                         {models.map((e) => (
@@ -198,6 +246,7 @@ const Home = () => {
                 <div className={s.footer}>
                     <div className={s.footerFlex}>
                         <img className={s.logo} src="/home/afterlife-logo.svg" alt="logo"/>
+                        <p className={s.mobileText}>Afterlife — площадка для поиска напарника</p>
                         <div className={s.footerColumns}>
                             <div>
                                 <p>О нас</p>

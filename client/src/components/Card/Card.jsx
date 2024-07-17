@@ -53,7 +53,6 @@ const Card = (props) => {
         navigate('/' + id);
     }
 
-    console.log('props id:', props.id);
     return (
         <div className={s.card} onClick={() => handleModelProfile(props.id)}>
             <img src={props.img} alt="model" className={s.cardImg}/>

@@ -40,7 +40,8 @@
 }
 
 .underHeadMessage {
-    margin: 0;
+    width: 19.1vw;
+    margin: 0 auto;
     padding: 0;
     margin-top: 1em;
     text-align: center;
@@ -101,3 +102,51 @@
     transform: rotate(-10deg);
 }
 
+@media screen and (max-width: 1000px) {
+    .header {
+        padding-top: 10px;
+        height: calc(100vh - 5.5vw);
+        background: url("../../../../public/home/background-mobile.jpg") center;
+        background-size: cover;
+        border-radius: 2rem;
+    }
+    .headMessage{
+        font-size: 1.75rem;
+        margin-top: 3.5rem;
+    }
+    .underHeadMessage{
+        font-size: 1rem;
+        width: 16rem !important;
+        font-weight: 400;
+    }
+    .playButton{
+        width: 9rem;
+        height: 3.125rem;
+        font-size: 1rem;
+        font-weight: 400;
+    }
+    .playButton img{
+        width: 1rem;
+        height: 1rem;
+    }
+    /*.right{*/
+    /*    width: 3.875rem;*/
+    /*    height: 2.1875rem;*/
+    /*    border-radius: 0.75rem;*/
+    /*    right: 13%;*/
+    /*    top: 53%;*/
+    /*}*/
+    /*.left{*/
+    /*    width: 3.875rem;*/
+    /*    height: 2.1875rem;*/
+    /*    border-radius: 0.75rem;*/
+    /*    left: 15%;*/
+    /*    top: 58%;*/
+    /*}*/
+    .right{
+        display: none;
+    }
+    .left{
+        display: none;
+    }
+}

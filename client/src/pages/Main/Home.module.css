@@ -18,10 +18,12 @@
     margin-top: 5rem;
 
 }
-.spotlightMask{
+
+.spotlightMask {
     border-radius: 120rem;
     background: radial-gradient(50% 50% at 50% 50%, #0C1826 0%, rgba(0, 0, 0, 0.00) 100%);
 }
+
 .underHeader {
     color: #FFF;
     text-align: center;
@@ -91,13 +93,15 @@
 /*.typeItem img {*/
 /*    !*width: 10.21vw;*!*/
 /*}*/
-.us{
+.us {
     width: 9vw;
 }
-.joint{
+
+.joint {
     width: 9vw;
 }
-.alone{
+
+.alone {
     width: 13.5vw;
 }
 
@@ -125,25 +129,30 @@
     line-height: normal;
     padding: 0 2rem 0;
 }
-.footer{
+
+.footer {
     color: white;
     width: 47.9vw;
-    margin: 42vw auto;
+    margin: 0 auto;
 }
-.footerFlex{
+
+.footerFlex {
     display: flex;
     justify-content: space-between;
 }
-.logo{
+
+.logo {
     width: 17.55vw;
     height: 2.96vw;
     margin-top: 1rem;
 }
-.footerColumns{
+
+.footerColumns {
     display: flex;
     gap: 9.6875vw;
 }
-.footerColumns div p{
+
+.footerColumns div p {
     color: #FFF;
 
     font-family: Onest, sans-serif;
@@ -153,19 +162,141 @@
     line-height: normal;
     cursor: pointer;
 }
-.underFooter{
+
+.underFooter {
     display: flex;
     justify-content: space-between;
     padding-top: 2vw;
     padding-bottom: 1vw;
 }
-.underFooter p{
+
+.underFooter p {
     color: #646B72;
     font-family: Onest, sans-serif;
     font-size: 0.83vw;
     font-weight: 400;
 }
-.mask{
+
+.mask {
     background: linear-gradient(290deg, #0C1826 0%, #000 25%);
 }
 
+.mobileText{
+    display: none;
+}
+
+@media screen and (max-width: 1000px) {
+    .activites h3, .spotlight h3, .sessions h3, .hosts h3 {
+        font-size: 1.75rem;
+        font-weight: 500;
+    }
+    .activites p, .spotlight p, .sessions p, .hosts p {
+        font-size: 1rem;
+        font-weight: 400;
+    }
+    .gameItem img {
+        width: 10.5rem ;
+        height: 6rem ;
+        border-radius: 0.5rem;
+    }
+    .games {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .underHeader{
+        width: 19.5rem;
+        margin: 0.75rem auto;
+    }
+    .spotlight {
+        text-align: center;
+        margin-top: 70px;
+    }
+
+    .spotlight img {
+        width: 100%;
+        margin-top: 4rem;
+    }
+
+    .sessionsType {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        margin-top: 4rem;
+        flex-wrap: wrap;
+    }
+
+    .typeItem {
+        width: 22.5625rem;
+        height: 24.9375rem;
+    }
+    .us {
+        width: 40%;
+    }
+
+    .joint {
+        width: 50%;
+    }
+
+    .alone {
+        width: 65%;
+    }
+
+    .typeItem h4 {
+        font-size: 1.5rem;
+    }
+
+    .typeItem p {
+        font-size: 1rem;
+    }
+
+    .footer {
+        width: 23rem;
+    }
+    .footerFlex{
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .logo {
+        width: 11.93931rem;
+        height: 2rem;
+        margin-bottom: 1rem;
+        padding-left: 1rem;
+    }
+
+    .footerColumns {
+        gap: 3.44rem;
+        align-self: center;
+    }
+
+    .footerColumns div p {
+        font-size: 1rem;
+    }
+
+    .underFooter {
+        padding-top: 2vw;
+        padding-bottom: 1vw;
+    }
+
+    .underFooter p {
+        font-size: 1rem;
+    }
+    .mobileText{
+        display: block;
+        color: #646B72;
+        font-family: Onest, sans-serif;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin: 0 0 2rem;
+        padding-left: 1rem;
+    }
+
+}
