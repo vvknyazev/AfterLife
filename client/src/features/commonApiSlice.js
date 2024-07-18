@@ -7,6 +7,7 @@ const commonApiSlice = createApi({
         credentials: 'include',
         headers: {
             'Access-Control-Allow-Credentials': true,
+            "Access-Control-Allow-Origin": "*",
         },
     }),
     endpoints: (builder) => ({
