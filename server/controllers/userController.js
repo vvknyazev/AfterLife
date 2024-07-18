@@ -90,6 +90,7 @@ class UserController {
         res.cookie('jwt', refreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
+            sameSite:'none',
             maxAge: 30 * 24 * 60 * 60 * 1000,
         });
         return res.json({accessToken})
@@ -143,6 +144,7 @@ class UserController {
         res.cookie('jwt', refreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
+            sameSite: 'none',
             maxAge: 30 * 24 * 60 * 60 * 1000,
 
         });
@@ -278,7 +280,6 @@ class UserController {
         const cookies_jwt = req.cookies.jwt;
 
 
-
         try {
             if (cookies_jwt) {
                 const refreshToken = cookies_jwt;
@@ -291,7 +292,7 @@ class UserController {
                 } else {
                     return res.status(200).json({exists: false, message: 'Username is available'});
                 }
-            } else if (req?.user){
+            } else if (req?.user) {
                 const selfUser = await User.findOne({email: req.user.email})
                 const user = await User.findOne({username: nickname});
                 if (user && user.username !== selfUser.username) {
@@ -337,7 +338,7 @@ class UserController {
                 user.currentStep = 4;
                 await user.save();
                 return res.status(200).json({message: 'Username updated'});
-            } else{
+            } else {
                 return res.sendStatus(204);
             }
 
@@ -357,7 +358,7 @@ class UserController {
                 return res.json(user.currentStep);
             }
         } else if (req?.user) {
-            if (req.user.isNewUser){
+            if (req.user.isNewUser) {
                 const user = await User.findOne({email: req.user.email})
                 user.isNewUser = false;
                 await user.save();
