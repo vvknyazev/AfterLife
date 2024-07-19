@@ -50,7 +50,7 @@ const Card = (props) => {
     const navigate = useNavigate();
 
     function handleModelProfile(id) {
-        navigate('/' + id);
+        navigate('/host/' + id);
     }
 
     return (

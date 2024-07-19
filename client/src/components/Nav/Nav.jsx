@@ -6,6 +6,24 @@ import {CSSTransition} from 'react-transition-group';
 import {NavLink, useLocation} from "react-router-dom";
 import {useChat} from "../../context/ChatProvider";
 import ColorThief from "colorthief";
+import {useTranslation} from "react-i18next";
+import cookies from 'js-cookie'
+import i18next from 'i18next'
+
+const languages = [
+    {
+        code: 'ru',
+        name: 'Русский',
+    },
+    {
+        code: 'ua',
+        name: 'Українська',
+    },
+    {
+        code: 'en',
+        name: 'English',
+    },
+]
 
 function NavItem(props) {
     const [open, setOpen] = useState(false);
@@ -181,7 +199,8 @@ function NavItem(props) {
                                     {/*<img src="/profile/currency.svg"*/}
                                     {/*     alt="currency"*/}
                                     {/*     className={n.currency}/>*/}
-                                    <div className={n.currencyContainer}><p>0</p><span className={n.currency}>金</span></div>
+                                    <div className={n.currencyContainer}><p>0</p><span className={n.currency}>金</span>
+                                    </div>
                                 </p>
                                 <DropdownItem
                                     auth='/chats'
@@ -238,21 +257,59 @@ const Nav = (props) => {
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };
+
+    const {t} = useTranslation()
+    const currentLanguageCode = cookies.get('i18next') || 'en'
+    const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
+
+    const [isOpen, setIsOpen] = useState(false);
+    const dropdownLangRef = useRef(null);
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const handleClickOutside = (event) => {
+        if (dropdownLangRef.current && !dropdownLangRef.current.contains(event.target)) {
+            setIsOpen(false);
+        }
+    };
+
+    const handleLanguageChange = (code) => {
+        i18next.changeLanguage(code);
+        setIsOpen(false); // Закриваємо меню після вибору мови
+    };
+
+    useEffect(() => {
+        if (isOpen) {
+            document.addEventListener('click', handleClickOutside);
+        } else {
+            document.removeEventListener('click', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [isOpen]);
     return (
         <div>
             {/*<Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>*/}
             <div className={`${nav}`}>
                 <div className={n.menu}>
                     <div className={n.menuButtonsLeft}>
-                        <NavLink to="#" className={n.navItemLeft}>О нас</NavLink>
+                        <NavLink to="#" className={n.navItemLeft}>{t('nav.about')}</NavLink>
                         <NavLink to="#" className={n.navItemLeft}>FAQ</NavLink>
-                        <NavLink to="#" className={n.navItemLeft}>Найти пару</NavLink>
+                        <NavLink to="#" className={n.navItemLeft}>{t('nav.find_someone')}</NavLink>
                     </div>
                     <div className={`${n.searchIcon} ${n.menuButtons}`}>
                         <img src="/home/search-mobile.svg" alt="search"/>
                     </div>
 
-                    <NavLink to='/' className={n.logo}>{props?.user ? `A` : `Afterlife`}</NavLink>
+                    <NavLink to='/' className={n.logo}>{props?.user ?
+                        <img src="/home/a-logo.svg" alt="logo"/>
+                        :
+                        <img src="/home/afterlife-logo.svg" alt="logo"/>
+                    }
+                    </NavLink>
 
                     <div className={n.burgerIcon} onClick={toggleMenu}>
                         <img src="/home/burger.svg" alt="Menu"/>
@@ -260,14 +317,44 @@ const Nav = (props) => {
 
                     <div className={n.menuButtons}>
                         {/*<NavLink to="/models" className={n.navButton}>Найти пару</NavLink>*/}
-                        <a href="#" className={n.search}><img src="/nav/search.svg" alt="search"/>Поиск</a>
-                        <a href="#" className={n.lang}>RU</a>
+                        <a href="#" className={n.search}><img src="/nav/search.svg" alt="search"/>{t('nav.search')}</a>
+
+                        {/*<a href="#" className={n.lang}>RU</a>*/}
+                        <div className={n.dropdownLang} ref={dropdownLangRef}>
+                            <button onClick={toggleDropdown} className={n.lang}>
+                                {currentLanguageCode}
+                            </button>
+                            {isOpen && (
+                                <ul className={n.dropdownLangMenu}>
+                                    {languages.map(({code, name}) => (
+                                        <li key={code}>
+                                            <a
+                                                href="#"
+                                                onClick={() => handleLanguageChange(code)}
+                                            >
+                                            <span
+                                                // style={{
+                                                //     opacity: currentLanguageCode === code ? 0.5 : 1,
+                                                // }}
+                                            >
+                                              {name}
+                                            </span>
+                                                {currentLanguageCode === code &&
+                                                    <img src="/home/lang-checked.svg" alt="lang-checked"/>
+                                                }
+                                            </a>
+
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
 
                         {props?.user?.isActivated === false
                             ? <li className={n.rightSide}>
                                 {/*<a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>*/}
                                 <div className={`${profileButtonStyle}`}>
-                                    <NavLink to={'/login'} className={n.profileText}>Войти</NavLink>
+                                    <NavLink to={'/login'} className={n.profileText}>{t('nav.login')}</NavLink>
                                 </div>
                             </li>
                             :
@@ -280,7 +367,7 @@ const Nav = (props) => {
                             </li> : <li className={n.rightSide}>
                                 {/*<a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>*/}
                                 <div className={`${profileButtonStyle}`}>
-                                    <NavLink to={'/login'} className={n.profileText}>Войти</NavLink>
+                                    <NavLink to={'/login'} className={n.profileText}>{t('nav.login')}</NavLink>
                                 </div>
                             </li>}
                     </div>

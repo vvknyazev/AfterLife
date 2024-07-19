@@ -16,6 +16,7 @@ const ModelProfile = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    console.log("modelID: ", modelId);
 
     const {data: model, isLoading} = useGetOneModelQuery(modelId);
 

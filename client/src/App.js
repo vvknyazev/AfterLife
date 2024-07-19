@@ -54,7 +54,7 @@ function App() {
                                 </Route>
                                 <Route path="complete" element={<CompleteRegistration/>}/>
                                 <Route path="profile" element={<Profile/>}/>
-                                <Route path="/:modelId" element={<ModelProfile/>}/>
+                                <Route path="/host/:modelId" element={<ModelProfile/>}/>
                                 <Route path="settings" element={<Settings/>}/>
                                 <Route path="sessions" element={<Sessions/>}/>
                                 <Route path="chats" element={<Chats/>}/>

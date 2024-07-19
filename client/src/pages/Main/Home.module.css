@@ -32,7 +32,16 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    margin-bottom: 3rem;
+    margin: 12px auto 3rem;
+}
+.activitywidth{
+    width: 15.72vw
+}
+.spotlightWidth{
+    width: 29.6875vw;
+}
+.hostsWidth{
+    width: 16.25vw;
 }
 
 .games {
@@ -181,7 +190,7 @@
     background: linear-gradient(290deg, #0C1826 0%, #000 25%);
 }
 
-.mobileText{
+.mobileText {
     display: none;
 }
 
@@ -190,15 +199,18 @@
         font-size: 1.75rem;
         font-weight: 500;
     }
+
     .activites p, .spotlight p, .sessions p, .hosts p {
         font-size: 1rem;
         font-weight: 400;
     }
+
     .gameItem img {
-        width: 10.5rem ;
-        height: 6rem ;
+        width: 10.5rem;
+        height: 6rem;
         border-radius: 0.5rem;
     }
+
     .games {
         margin-top: 2rem;
         display: flex;
@@ -207,10 +219,12 @@
         flex-wrap: wrap;
         gap: 1rem;
     }
-    .underHeader{
+
+    .underHeader {
         width: 19.5rem;
         margin: 0.75rem auto;
     }
+
     .spotlight {
         text-align: center;
         margin-top: 70px;
@@ -234,6 +248,7 @@
         width: 22.5625rem;
         height: 24.9375rem;
     }
+
     .us {
         width: 40%;
     }
@@ -257,7 +272,8 @@
     .footer {
         width: 23rem;
     }
-    .footerFlex{
+
+    .footerFlex {
         display: flex;
         flex-direction: column;
 
@@ -287,7 +303,8 @@
     .underFooter p {
         font-size: 1rem;
     }
-    .mobileText{
+
+    .mobileText {
         display: block;
         color: #646B72;
         font-family: Onest, sans-serif;

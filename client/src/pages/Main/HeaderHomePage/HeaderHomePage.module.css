@@ -28,7 +28,7 @@
     font-size: 3.33vw;
     font-style: normal;
     font-weight: 600;
-    line-height: 100%; /* 64px */
+    line-height: 120%; /* 64px */
     font-feature-settings: "ss01";
     -webkit-font-feature-settings: "ss01";
     -moz-font-feature-settings: "ss01";
@@ -37,6 +37,8 @@
     margin: 0;
     padding: 0;
     margin-top: 3vw;
+    width: 40.8vw;
+
 }
 
 .underHeadMessage {

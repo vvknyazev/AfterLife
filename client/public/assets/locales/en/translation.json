@@ -1,0 +1,35 @@
+{
+  "language": "Language",
+  "nav": {
+    "about": "About us",
+    "find_someone": "Find a partner",
+    "search": "Search",
+    "login": "Log in"
+  },
+  "home": {
+    "header": "Find your perfect «Player 2»",
+    "underheader": "A platform using AI to find a partner for various activities",
+    "find_someone": "Find a partner",
+    "activity_header": "Activities and events",
+    "activity_underheader": "Over 100 activity options for spending time with your teammate",
+    "spotlight": "A state-of-the-art system analyzes your preferences to match you with the most suitable hosts and users, creating a vibrant and engaging community like no other.",
+    "sessions": "Sessions",
+    "sessions_underheader": "Three types of sessions to suit different activities",
+    "2us": "One-host, one-user session. A personalized and targeted experience allows you to focus on one person's needs and interests",
+    "joint": "Two users and one host. This configuration offers a more dynamic collaborative experience, involving multiple viewpoints and sets of interests",
+    "alone": "A group session with four users and one host. This format promotes social interaction, group activities, and shared experiences among participants",
+    "hosts": "Hosts",
+    "hosts_underheader": "Users you can create sessions with right now",
+    "faq1": "How does the platform work?",
+    "faq2": "What are sessions and how do they work?",
+    "faq3": "What is Spotlight AI?",
+    "faq4": "How fast do the hosts respond?",
+    "faq5": "Do you have any host search filters?",
+    "ans1": "Spotlight AI is a state-of-the-art system that analyzes your preferences - movies, music, games you play - to match you with the most relevant Hosts and users, creating a vibrant and engaging community like no other.",
+    "ans2": "Spotlight AI is a state-of-the-art system that analyzes your preferences - movies, music, games you play - to match you with the most relevant Hosts and users, creating a vibrant and engaging community like no other.",
+    "ans3": "Spotlight AI is a state-of-the-art system that analyzes your preferences - movies, music, games you play - to match you with the most relevant Hosts and users, creating a vibrant and engaging community like no other.",
+    "ans4": "Spotlight AI is a state-of-the-art system that analyzes your preferences - movies, music, games you play - to match you with the most relevant Hosts and users, creating a vibrant and engaging community like no other.",
+    "ans5": "Spotlight AI is a state-of-the-art system that analyzes your preferences - movies, music, games you play - to match you with the most relevant Hosts and users, creating a vibrant and engaging community like no other.",
+    "rights": "All rights reserved"
+  }
+}

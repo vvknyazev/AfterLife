@@ -9,15 +9,19 @@ import Card from "../../components/Card/Card";
 import {useGetModelsQuery} from "../../features/commonApiSlice";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {FreeMode, Navigation} from 'swiper/modules';
+import {useTranslation} from "react-i18next";
 import 'swiper/css/free-mode';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
+
 const Home = () => {
     const [user] = useOutletContext();
     const {data: models, isLoading: isLoadingModels} = useGetModelsQuery();
+
+    const { t } = useTranslation()
 
     // const imaginativeUser = {
     //     username: 'Ма',
@@ -55,24 +59,24 @@ const Home = () => {
 
     const faqs = [
         {
-            question: "Как работает площадка?",
-            answer: "Spotlight AI — современная система, которая анализирует ваши предпочтения — фильмы, музыку, игры, в которые вы играете, чтобы подобрать вам наиболее подходящих Хостов и пользователей, создавая яркое и увлекательное сообщество, подобного которому нет нигде."
+            question: t("home.faq1"),
+            answer: t("home.ans1"),
         },
         {
-            question: "Что такое сессии и как они работают?",
-            answer: "Spotlight AI — современная система, которая анализирует ваши предпочтения — фильмы, музыку, игры, в которые вы играете, чтобы подобрать вам наиболее подходящих Хостов и пользователей, создавая яркое и увлекательное сообщество, подобного которому нет нигде."
+            question: t("home.faq2"),
+            answer: t("home.ans2"),
         },
         {
-            question: "Что такое Spotlight AI?",
-            answer: "Spotlight AI — современная система, которая анализирует ваши предпочтения — фильмы, музыку, игры, в которые вы играете, чтобы подобрать вам наиболее подходящих Хостов и пользователей, создавая яркое и увлекательное сообщество, подобного которому нет нигде."
+            question: t("home.faq3"),
+            answer: t("home.ans3"),
         },
         {
-            question: "Как быстро отвечают хосты?",
-            answer: "Spotlight AI — современная система, которая анализирует ваши предпочтения — фильмы, музыку, игры, в которые вы играете, чтобы подобрать вам наиболее подходящих Хостов и пользователей, создавая яркое и увлекательное сообщество, подобного которому нет нигде."
+            question: t("home.faq4"),
+            answer: t("home.ans4"),
         },
         {
-            question: "Есть ли у вас какие-либо фильтры поиска хоста?",
-            answer: "Spotlight AI — современная система, которая анализирует ваши предпочтения — фильмы, музыку, игры, в которые вы играете, чтобы подобрать вам наиболее подходящих Хостов и пользователей, создавая яркое и увлекательное сообщество, подобного которому нет нигде."
+            question: t("home.faq5"),
+            answer: t("home.ans5"),
         }
     ];
 
@@ -100,6 +104,8 @@ const Home = () => {
         </div>
     }
 
+
+
     return (
         <div className='afterlife-back'>
             <div>
@@ -108,9 +114,8 @@ const Home = () => {
                     <HeaderHomePage/>
                 </div>
                 <div className={s.activites}>
-                    <h3>Активности и события</h3>
-                    <p className={s.underHeader}>Более 100 вариантов активностей <br/> для проведения времени с
-                        тиммейтом</p>
+                    <h3>{t('home.activity_header')}</h3>
+                    <p className={`${s.underHeader} ${s.activitywidth}`}>{t('home.activity_underheader')}</p>
                     <div className={s.games}>
                         {visibleGames.map((game) => (
                             <div className={s.gameItem} key={game.id}>
@@ -129,42 +134,36 @@ const Home = () => {
             </div>
             <div className={s.spotlight}>
                 <h3>Spotlight AI</h3>
-                <p className={s.underHeader}>Современная система анализирует ваши предпочтения, чтобы <br/> подобрать
-                    вам наиболее подходящих
-                    Хостов и пользователей, создавая <br/> яркое и увлекательное сообщество, подобного которому нет
-                    нигде</p>
+                <p className={`${s.underHeader} ${s.spotlightWidth}`}>{t('home.spotlight')}</p>
                 <div className={s.spotlightMask}>
                     <img src="/home/spotlight.png" alt="spotlight"/>
                 </div>
             </div>
             <div className={s.sessions}>
-                <h3>Сессии</h3>
-                <p className={s.underHeader}>Три типа сессий, подходящие под разные активности</p>
+                <h3>{t("home.sessions")}</h3>
+                <p className={s.underHeader}>{t("home.sessions_underheader")}</p>
                 <div className={s.sessionsType}>
                     <div className={s.typeItem}>
                         <img src="/home/2us.png" alt="2us" className={s.us}/>
                         <h4>2 of Us</h4>
-                        <p>Сессия с одним хостом и одним пользователем. Персонализированный и целенаправленный опыт
-                            позволяет сосредоточиться на потребностях и интересах одного человека</p>
+                        <p>{t("home.2us")}</p>
                     </div>
                     <div className={s.typeItem}>
                         <img src="/home/joint.png" alt="joint" className={s.joint}/>
                         <h4>Double Joint</h4>
-                        <p>Два пользователя и один хост. Такая конфигурация предлагает более динамичный совместный опыт,
-                            с участием нескольких точек зрения и наборов интересов</p>
+                        <p>{t("home.joint")}</p>
                     </div>
                     <div className={s.typeItem}>
                         <img src="/home/alone.png" alt="alone" className={s.alone}/>
                         <h4>You are (Not) Alone</h4>
-                        <p>Групповая сессия с четырьмя пользователями и одним хостом. Этот формат способствует
-                            социальному взаимодействию, групповым мероприятиям и общему опыту среди участников</p>
+                        <p>{t("home.alone")}</p>
                     </div>
 
                 </div>
             </div>
             <div className={s.hosts}>
-                <h3>Хосты</h3>
-                <p className={s.underHeader}>Пользователи, с которыми вы можете создать сессии прямо сейчас</p>
+                <h3>{t("home.hosts")}</h3>
+                <p className={`${s.underHeader} ${s.hostsWidth}`}>{t("home.hosts_underheader")}</p>
                 <div className={s.models}>
                     <Swiper
                         breakpoints={{
@@ -249,9 +248,9 @@ const Home = () => {
                         <p className={s.mobileText}>Afterlife — площадка для поиска напарника</p>
                         <div className={s.footerColumns}>
                             <div>
-                                <p>О нас</p>
+                                <p>{t('nav.about')}</p>
                                 <p>Spotlight AI</p>
-                                <p>Найти напарника</p>
+                                <p>{t('nav.find_someone')}</p>
                                 <p>FAQs</p>
                             </div>
                             <div>
@@ -264,7 +263,7 @@ const Home = () => {
                     </div>
                     <div className={s.underFooter}>
                         <p>© Afterlife, 2024</p>
-                        <p>Все права защищены</p>
+                        <p>{t("home.rights")}</p>
                     </div>
                 </div>
             </div>
