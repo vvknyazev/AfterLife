@@ -330,8 +330,8 @@ a {
         display: none;
     }
 
-    .logo {
-        font-size: 2.8rem;
+    .logo img {
+        height: 2rem;
     }
 }
 
@@ -403,13 +403,17 @@ a {
     margin-top: 0.729vw;
 }
 
-.dropdownLangMenu li a {
+.dropdownLangMenu li button {
     text-decoration: none;
     display: flex;
     color: #D9D9D9;
     padding: 0.833vw;
     font-size: 0.9375vw;
     gap:0.52vw;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 100%;
 
 }
 

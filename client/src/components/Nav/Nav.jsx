@@ -328,10 +328,7 @@ const Nav = (props) => {
                                 <ul className={n.dropdownLangMenu}>
                                     {languages.map(({code, name}) => (
                                         <li key={code}>
-                                            <a
-                                                href="#"
-                                                onClick={() => handleLanguageChange(code)}
-                                            >
+                                            <button onClick={() => handleLanguageChange(code)}                                          >
                                             <span
                                                 // style={{
                                                 //     opacity: currentLanguageCode === code ? 0.5 : 1,
@@ -342,7 +339,7 @@ const Nav = (props) => {
                                                 {currentLanguageCode === code &&
                                                     <img src="/home/lang-checked.svg" alt="lang-checked"/>
                                                 }
-                                            </a>
+                                            </button>
 
                                         </li>
                                     ))}
