@@ -290,6 +290,7 @@ const Nav = (props) => {
             document.removeEventListener('click', handleClickOutside);
         };
     }, [isOpen]);
+
     return (
         <div>
             {/*<Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>*/}
@@ -317,7 +318,8 @@ const Nav = (props) => {
 
                     <div className={n.menuButtons}>
                         {/*<NavLink to="/models" className={n.navButton}>Найти пару</NavLink>*/}
-                        <a href="#" className={n.search}><img src="/nav/search.svg" alt="search"/>{t('nav.search')}</a>
+                        <button className={n.search} onClick={props.openModal}>
+                            <img src="/nav/search.svg" alt="search"/>{t('nav.search')}</button>
 
                         {/*<a href="#" className={n.lang}>RU</a>*/}
                         <div className={n.dropdownLang} ref={dropdownLangRef}>

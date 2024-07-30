@@ -1,0 +1,124 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.noScroll {
+    overflow: hidden;
+}
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99;
+    animation: fadeIn 0.15s ease-in-out;
+}
+
+.container {
+    width: 44.79vw;
+    height: 26.875vw;
+    border-radius: 1.25rem;
+    border: 1px solid #79A1DD;
+    background: rgba(4, 5, 6, 0.60);
+    backdrop-filter: blur(12px);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99;
+
+    padding-left: 1.04vw;
+    padding-top: 1.197vw;
+
+    animation: fadeIn 0.15s ease-in-out;
+}
+
+.container input {
+    background: transparent;
+
+    width: 40vw;
+    height: 1.09vw;
+
+    color: #79A1DD;
+    font-family: Onest, sans-serif;
+    font-size: 0.9375vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 135%;
+    border: none;
+}
+
+.container input:focus {
+    outline: none;
+}
+
+.searchLabel img {
+    width: 2.5%;
+}
+
+.searchLabel {
+    display: flex;
+    gap: 1.041vw;
+    padding-bottom: 1.25vw;
+    border-bottom: 2px solid rgba(106, 106, 118, 0.12);
+}
+
+.games {
+    display: flex;
+    gap: 1.04vw;
+    margin-top: 0.83vw;
+}
+
+.game {
+    display: flex;
+    gap: 0.41vw;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 1.041vw;
+    border: 1px solid rgba(106, 106, 118, 0.12);
+    backdrop-filter: blur(10px);
+    padding-left: 1.041vw;
+    padding-right: 1.041vw;
+    cursor: pointer;
+}
+
+.game img {
+    width: 1.45vw;
+    height: 1.45vw;
+}
+
+.game p {
+    color: #D9D9D9;
+    text-align: center;
+    font-family: Onest, sans-serif;
+    font-size: 0.9375vw;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.recommendList {
+
+}
+
+.recHeader {
+    color: rgba(255, 255, 255, 0.50);
+
+    font-family: Onest, sans-serif;
+    font-size: 0.9375vw;
+    font-style: normal;
+    font-weight: 300;
+    margin-bottom: 0;
+}
+

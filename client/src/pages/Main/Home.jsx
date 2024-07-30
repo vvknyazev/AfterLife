@@ -15,6 +15,7 @@ import 'swiper/css/free-mode';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import SearchModal from "../../components/SearchModal/SearchModal";
 
 
 const Home = () => {
@@ -97,10 +98,17 @@ const Home = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = () => {
+        setIsModalOpen(true);
+    }
+    const closeModal = () => {
+        setIsModalOpen(false);
+    }
+
     if (isLoadingModels) {
         return <div>
             <Nav user={user}/>
-
         </div>
     }
 
@@ -109,7 +117,9 @@ const Home = () => {
     return (
         <div className='afterlife-back'>
             <div>
+                <SearchModal isModalOpen={isModalOpen} closeModal={closeModal} setIsModalOpen={setIsModalOpen}/>
                 <div>
+                    {/*<Nav user={user} openModal={openModal}/>*/}
                     <Nav user={user}/>
                     <HeaderHomePage/>
                 </div>

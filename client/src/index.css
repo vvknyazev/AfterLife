@@ -25,8 +25,12 @@ code {
     monospace;
 }
 
-body::-webkit-scrollbar {
-  width: 11px;               /* ширина всей полосы прокрутки */
+/*body::-webkit-scrollbar {*/
+/*  width: 11px;               !* ширина всей полосы прокрутки *!*/
+/*}*/
+::-webkit-scrollbar { /* chrome based */
+  width: 0;  /* ширина scrollbar'a */
+  background: transparent;  /* опционально */
 }
 
 body::-webkit-scrollbar-track {
