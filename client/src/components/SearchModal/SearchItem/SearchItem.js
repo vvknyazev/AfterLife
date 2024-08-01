@@ -46,10 +46,13 @@ const SearchItem = (props) => {
         navigate('/host/' + id);
     }
 
-
     return (
         <div className={s.card} onClick={() => handleModelProfile(props.id)}>
             <img src={props.img} alt="model" className={s.cardImg}/>
+            <div className={s.names}>
+                <p className={s.name}>{props.name}</p>
+                <p className={s.tag}>@{props.username}</p>
+            </div>
             <div className={s.top}>
                 <div className={s.gameSection}>
                     {gameIcons}

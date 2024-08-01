@@ -98,13 +98,7 @@ const Home = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const openModal = () => {
-        setIsModalOpen(true);
-    }
-    const closeModal = () => {
-        setIsModalOpen(false);
-    }
+
 
     if (isLoadingModels) {
         return <div>
@@ -117,7 +111,7 @@ const Home = () => {
     return (
         <div className='afterlife-back'>
             <div>
-                <SearchModal isModalOpen={isModalOpen} closeModal={closeModal} setIsModalOpen={setIsModalOpen}/>
+
                 <div>
                     {/*<Nav user={user} openModal={openModal}/>*/}
                     <Nav user={user}/>

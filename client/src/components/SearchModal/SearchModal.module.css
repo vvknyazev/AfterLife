@@ -30,15 +30,13 @@
     height: 26.875vw;
     border-radius: 1.25rem;
     border: 1px solid #79A1DD;
-    background: rgba(4, 5, 6, 0.60);
+    background: #030304;
     backdrop-filter: blur(12px);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 99;
-
-    padding-left: 1.04vw;
     padding-top: 1.197vw;
 
     animation: fadeIn 0.15s ease-in-out;
@@ -72,12 +70,14 @@
     gap: 1.041vw;
     padding-bottom: 1.25vw;
     border-bottom: 2px solid rgba(106, 106, 118, 0.12);
+    padding-left: 1.04vw;
 }
 
 .games {
     display: flex;
     gap: 1.04vw;
     margin-top: 0.83vw;
+    padding-left: 1.04vw;
 }
 
 .game {
@@ -114,11 +114,17 @@
 
 .recHeader {
     color: rgba(255, 255, 255, 0.50);
-
+    padding-left: 1.04vw;
+    padding-bottom: 0.4vw;
     font-family: Onest, sans-serif;
     font-size: 0.9375vw;
     font-style: normal;
     font-weight: 300;
     margin-bottom: 0;
 }
+.loading{
+    height: 100%;
+    display: flex;
+    justify-content: center;
 
+}

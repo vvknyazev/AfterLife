@@ -9,6 +9,7 @@ import ColorThief from "colorthief";
 import {useTranslation} from "react-i18next";
 import cookies from 'js-cookie'
 import i18next from 'i18next'
+import SearchModal from "../SearchModal/SearchModal";
 
 const languages = [
     {
@@ -279,6 +280,14 @@ const Nav = (props) => {
         setIsOpen(false); // Закриваємо меню після вибору мови
     };
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = () => {
+        setIsModalOpen(true);
+    }
+    const closeModal = () => {
+        setIsModalOpen(false);
+    }
+
     useEffect(() => {
         if (isOpen) {
             document.addEventListener('click', handleClickOutside);
@@ -293,6 +302,7 @@ const Nav = (props) => {
 
     return (
         <div>
+            <SearchModal isModalOpen={isModalOpen} closeModal={closeModal} setIsModalOpen={setIsModalOpen}/>
             {/*<Menu customBurgerIcon={<img src="/BurgerButton.svg" alt={'burger icon'}/>}/>*/}
             <div className={`${nav}`}>
                 <div className={n.menu}>
@@ -318,7 +328,7 @@ const Nav = (props) => {
 
                     <div className={n.menuButtons}>
                         {/*<NavLink to="/models" className={n.navButton}>Найти пару</NavLink>*/}
-                        <button className={n.search} onClick={props.openModal}>
+                        <button className={n.search} onClick={openModal}>
                             <img src="/nav/search.svg" alt="search"/>{t('nav.search')}</button>
 
                         {/*<a href="#" className={n.lang}>RU</a>*/}

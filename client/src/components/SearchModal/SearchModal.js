@@ -1,15 +1,20 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import s from './SearchModal.module.css'
 import {useSelector} from "react-redux";
 import Category from "../Categories/Category/Category";
 import {SwiperSlide} from "swiper/react";
-import {useGetModelsQuery} from "../../features/commonApiSlice";
+import {useGetModelsQuery, useGetSearchModelsQuery} from "../../features/commonApiSlice";
 import SearchItem from "./SearchItem/SearchItem";
+import {ThreeDots} from "react-loader-spinner";
 
 const SearchModal = ({isModalOpen, closeModal}) => {
+    const [query, setQuery] = useState("");
 
     const games = useSelector((state) => state.games);
+
     const {data: models, isLoading: isLoadingModels} = useGetModelsQuery();
+
+    const {data: searchResults, isLoading: isLoadingSearchResults} = useGetSearchModelsQuery(query);
 
     useEffect(() => {
         if (isModalOpen) {
@@ -22,7 +27,6 @@ const SearchModal = ({isModalOpen, closeModal}) => {
             document.body.classList.remove(s.noScroll);
         };
     }, [isModalOpen]);
-
     const handleClickOutside = (e) => {
         if (e.target.classList.contains(s.background)) {
             closeModal();
@@ -37,7 +41,7 @@ const SearchModal = ({isModalOpen, closeModal}) => {
             <div className={s.container}>
                 <label className={s.searchLabel}>
                     <img src="/home/search-mobile.svg" alt="search img"/>
-                    <input type="text"/>
+                    <input type="text" onChange={(e) => setQuery(e.target.value.toLowerCase())}/>
                 </label>
                 <div className={s.games}>
                     {games.map((el) => (
@@ -50,11 +54,19 @@ const SearchModal = ({isModalOpen, closeModal}) => {
                 <div className={s.recommendList}>
                     <p className={s.recHeader}>Рекомендации</p>
                     <div className={s.list}>
-                        {models?.slice(0, 5).map((e) => (
-                            <SearchItem img={`${process.env.REACT_APP_API_URL}/${e.photo}`} name={e.name}
-                                        desc={e.bio} games={e.games}
-                                        key={e._id} id={e._id}/>
-                        ))}
+                        {!isLoadingSearchResults ?
+                            searchResults?.map((e) => (
+                                    <SearchItem img={`${process.env.REACT_APP_API_URL}/${e.photo}`} name={e.name}
+                                                desc={e.bio} games={e.games}
+                                                username={e.username}
+                                                key={e._id} id={e._id}/>
+                                )
+                            )
+                            :
+                            <div className={s.loading}>
+                                <ThreeDots width='50' color="#fff"/>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
