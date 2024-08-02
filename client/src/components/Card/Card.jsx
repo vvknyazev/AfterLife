@@ -15,7 +15,7 @@ const Card = (props) => {
     for (let game of props.games) {
         if (gameIcons.length < 3) {
             switch (game) {
-                case "CS:GO":
+                case "CS2":
                     gameIcons.push(<img src={csgo} alt="csgo"/>)
                     break;
                 case "Dota 2":

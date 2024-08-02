@@ -9,12 +9,14 @@ import {ThreeDots} from "react-loader-spinner";
 
 const SearchModal = ({isModalOpen, closeModal}) => {
     const [query, setQuery] = useState("");
+    const [selectedGames, setSelectedGames] = useState([]);
 
     const games = useSelector((state) => state.games);
 
-    const {data: models, isLoading: isLoadingModels} = useGetModelsQuery();
-
-    const {data: searchResults, isLoading: isLoadingSearchResults} = useGetSearchModelsQuery(query);
+    // const {data: models, isLoading: isLoadingModels} = useGetModelsQuery();
+    const gamesString = selectedGames.join(',');
+    const searchQuery = `q=${query}&games=${gamesString}`;
+    const {data: searchResults, isLoading: isLoadingSearchResults} = useGetSearchModelsQuery(searchQuery);
 
     useEffect(() => {
         if (isModalOpen) {
@@ -29,10 +31,20 @@ const SearchModal = ({isModalOpen, closeModal}) => {
     }, [isModalOpen]);
     const handleClickOutside = (e) => {
         if (e.target.classList.contains(s.background)) {
+            setQuery('');
             closeModal();
         }
     };
-    if (isLoadingModels) return <></>
+    const handleGame = (game) => {
+        setSelectedGames(prevState => {
+            if (prevState.includes(game)) {
+                return prevState.filter(name => name !== game)
+            } else {
+                return [...prevState, game]
+            }
+        })
+    }
+
 
     if (!isModalOpen) return null;
 
@@ -45,7 +57,8 @@ const SearchModal = ({isModalOpen, closeModal}) => {
                 </label>
                 <div className={s.games}>
                     {games.map((el) => (
-                        <div className={s.game} key={el.id}>
+                        <div className={selectedGames.includes(el.name) ? `${s.game} ${s.activeGame}` : s.game}
+                             key={el.id} onClick={() => handleGame(el.name)}>
                             <img src={el.img} alt={el.img}/>
                             <p>{el.name}</p>
                         </div>

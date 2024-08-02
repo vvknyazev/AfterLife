@@ -85,13 +85,21 @@
     gap: 0.41vw;
     align-items: center;
     justify-content: center;
-
     border-radius: 1.041vw;
     border: 1px solid rgba(106, 106, 118, 0.12);
     backdrop-filter: blur(10px);
     padding-left: 1.041vw;
     padding-right: 1.041vw;
     cursor: pointer;
+
+    transition: 0.3s all ease;
+}
+.game:hover{
+    background: rgba(20, 20, 24, 0.5);
+}
+.activeGame{
+    transition: 0.3s all ease;
+    background: rgba(20, 20, 24, 0.5);
 }
 
 .game img {

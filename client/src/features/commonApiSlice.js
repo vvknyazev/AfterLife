@@ -37,7 +37,7 @@ const commonApiSlice = createApi({
             query: (id) => '/api/admin/getFullOne/' + id
         }),
         getSearchModels: builder.query({
-            query: (q) => `/api/model/search?q=${q}`
+            query: (q) => `/api/model/search?` + q
         }),
         changeModel: builder.mutation({
             query: (data) => ({
@@ -151,10 +151,6 @@ const commonApiSlice = createApi({
                 body: {...credentials}
             })
         }),
-        // searchModel: builder.query({
-        //     // query: (q) => `/api/model/search?q=${q}`
-        //     // query: (id) => '/api/admin/getFullOne/' + id
-        // }),
     }),
 });
 

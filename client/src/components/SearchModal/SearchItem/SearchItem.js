@@ -14,30 +14,28 @@ const SearchItem = (props) => {
 
     let gameIcons = [];
     for (let game of props.games) {
-        if (gameIcons.length < 3) {
-            switch (game) {
-                case "CS:GO":
-                    gameIcons.push(<img src={csgo} alt="csgo"/>)
-                    break;
-                case "Dota 2":
-                    gameIcons.push(<img src={dota} alt="dota"/>)
-                    break;
-                case "LOL":
-                    gameIcons.push(<img src={lol} alt="lol"/>)
-                    break;
-                case "Valorant":
-                    gameIcons.push(<img src={valorant} alt="valorant"/>)
-                    break;
-                case "Overwatch":
-                    gameIcons.push(<img src={overwatch} alt="overwatch"/>)
-                    break;
-                case "Fortnite":
-                    gameIcons.push(<img src={fortnite} alt="fortnite"/>)
-                    break;
-                case "PUBG":
-                    gameIcons.push(<img src={pubg} alt="pubg"/>)
-                    break;
-            }
+        switch (game) {
+            case "CS2":
+                gameIcons.push(<img src={csgo} alt="csgo"/>)
+                break;
+            case "Dota 2":
+                gameIcons.push(<img src={dota} alt="dota"/>)
+                break;
+            case "LOL":
+                gameIcons.push(<img src={lol} alt="lol"/>)
+                break;
+            case "Valorant":
+                gameIcons.push(<img src={valorant} alt="valorant"/>)
+                break;
+            case "Overwatch":
+                gameIcons.push(<img src={overwatch} alt="overwatch"/>)
+                break;
+            case "Fortnite":
+                gameIcons.push(<img src={fortnite} alt="fortnite"/>)
+                break;
+            case "PUBG":
+                gameIcons.push(<img src={pubg} alt="pubg"/>)
+                break;
         }
     }
     const navigate = useNavigate();

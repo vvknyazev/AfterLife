@@ -45,36 +45,39 @@ class ModelController {
 
     async search(req, res) {
         try {
-            const {q} = req.query;
+            const { q, games } = req.query;
 
-            console.log("q: ", q);
+            // Преобразуем games в массив, если он передан
+            const searchGames = games ? games.split(',') : [];
+            console.log("searchGames: ", searchGames);
 
-            const models = await User.find({role: 'MODEL'}, {
+            // Основной критерий поиска
+            let searchCriteria = { role: 'MODEL' };
+
+            // Добавляем критерии поиска по username или name, если q задан
+            if (q) {
+                searchCriteria.$or = [
+                    { username: { $regex: q, $options: 'i' } },
+                    { name: { $regex: q, $options: 'i' } }
+                ];
+            }
+
+            // Добавляем критерий поиска по категориям игр, если games заданы
+            if (searchGames.length > 0) {
+                searchCriteria.games = { $in: searchGames };
+            }
+
+            // Получаем всех пользователей, соответствующих критериям поиска, исключая некоторые поля
+            const models = await User.find(searchCriteria, {
                 password: 0,
                 refreshToken: 0,
                 email: 0,
                 activationLink: 0,
                 isActivated: 0
             });
-            let found;
-            if (q) {
-                found = await User.find({
-                    role: 'MODEL',
-                    $or: [
-                        { username: { $regex: q, $options: 'i' } },
-                        { name: { $regex: q, $options: 'i' } }
-                    ]
-                }, {
-                    password: 0,
-                    refreshToken: 0,
-                    email: 0,
-                    activationLink: 0,
-                    isActivated: 0,
-                });
-                console.log("found: ", found);
-            }
 
-            q ? res.json(found.slice(0, 5)) : res.json(models.slice(0, 5));
+            // Возвращаем первые 5 результатов
+            res.json(models.slice(0, 5));
 
         } catch (err) {
             console.error(err);

@@ -30,7 +30,7 @@ const EditModel = () => {
 
     const gameOptions = [
         {value: 'Dota 2', label: 'Dota 2'},
-        {value: 'CS:GO', label: 'CS:GO'},
+        {value: 'CS2', label: 'CS2'},
         {value: 'LOL', label: 'LOL'},
         {value: 'Valorant', label: 'Valorant'},
         {value: 'Fortnite', label: 'Fortnite'},
