@@ -1,5 +1,5 @@
 .modelProfileBackground {
-    background: linear-gradient(196deg, #341010 -10.52%, #3A2D42 -1.38%, #000 26.76%);
+    /*background: linear-gradient(196deg, #341010 -10.52%, #3A2D42 -1.38%, #000 26.76%);*/
 }
 
 .profile {
@@ -12,30 +12,32 @@
 }
 
 .header {
-    background: url("../../../public/profile/host-background.png") center no-repeat;
+    background: url("../../../public/profile/host-background.jpg") center no-repeat;
     background-size: cover;
-    height: 500px;
+    height: 38.28125vw;
     width: 100%;
     position: relative;
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    border-radius: 24px;
+    border-radius: 1.25vw;
 }
 
 .mask {
     width: 100%;
     background: linear-gradient(0deg, #000 20%, rgba(0, 0, 0, 0.00) 93%);
-    height: 350px;
+    height: 18.22vw;
 }
 
 .mask2 {
     position: absolute;
-    height: 500px;
-    background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.00) 100%);
+    height: 26vw;
+    /*background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.00) 100%);*/
+
+    filter: blur(50px);
     top: 0;
     left: 0;
-    width: 500px;
+    width: 26vw;
 }
 
 .profileContainer {
@@ -51,28 +53,28 @@
 .name {
     color: #FFF;
     font-family: Onest, sans-serif;
-    font-size: 36px;
+    font-size: 1.875vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    margin: 15px 2px 0;
+    margin: 0.78125vw 0.1vw 0;
 }
 
 .bio {
     color: #829FCA;
     font-family: Onest, sans-serif;
-    font-size: 22px;
+    font-size: 1.1458vw;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
     text-transform: lowercase;
-    margin: 10px 2px 0;
+    margin: 0.52vw 0.1vw 0;
 }
 
 .profileContainer {
     position: absolute;
-    top: 15px;
-    left: 50px;
+    top: 0.78125vw;
+    left: 2.6vw;
 
 }
 
@@ -86,19 +88,19 @@
 }
 
 .profileInfo img {
-    width: 240px;
-    height: 340px;
+    width: 12.5vw;
+    height: 17.7vw;
 }
 
 .lang {
     font-family: Nunito, sans-serif;
     font-weight: normal;
-    font-size: 14px;
+    font-size: 0.729vw;
     color: #8d8e93;
     text-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
     position: absolute;
-    margin-top: 30px;
-    width: 500px;
+    margin-top: 1.5625vw;
+    width: 26vw;
 }
 
 .lang span {
@@ -107,26 +109,26 @@
 
 .edit {
     position: absolute;
-    right: -1100px;
+    right: -57.29vw;
     top: 0;
 }
 
 .secondButton {
     border: none;
-    width: 250px;
-    height: 50px;
+    width: 13vw;
+    height: 2.6vw;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px auto 0;
+    margin: 1.04vw auto 0;
     border-radius: 20px;
     background: #FFF;
 
     color: #000;
     text-align: center;
     font-family: Nunito Sans, sans-serif;
-    font-size: 20px;
+    font-size: 1.04vw;
     font-style: normal;
     font-weight: 800;
     line-height: 145%; /* 29px */
@@ -135,23 +137,23 @@
 
 .connectContainer {
     position: absolute;
-    bottom: -5px;
-    left: 230px;
+    bottom: -0.26vw;
+    left: 11.97vw;
 }
 
 .connect {
     display: flex;
-    width: 200px;
-    height: 50px;
+    width: 10.41vw;
+    height: 2.6vw;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    border-radius: 18px;
+    gap: 0.52vw;
+    border-radius: 0.9375vw;
     background: #FFF;
     color: #000;
     text-align: center;
     font-family: Onest, serif;
-    font-size: 20px;
+    font-size: 1.04vw;
     font-style: normal;
     font-weight: 500;
     line-height: 145%;
@@ -161,7 +163,7 @@
 .content {
     position: relative;
     width: 88%;
-    margin-top: 24px;
+    margin-top: 1.25vw;
 }
 
 .descContainer {
@@ -182,9 +184,9 @@
 
 .shining {
     position: absolute;
-    width: 517px;
-    height: 517px;
-    border-radius: 517px;
+    width: 26.92vw;
+    height: 26.92vw;
+    border-radius: 26.92vw;
     background: rgba(58, 45, 66, 0.75);
     filter: blur(150px);
     z-index: 2;
@@ -197,7 +199,7 @@
 
 .smallBio {
     display: flex;
-    gap: 26px;
+    gap: 1.35vw;
 }
 
 .smallBioItem {
@@ -205,25 +207,24 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 120px;
-    height: 120px;
-    border-radius: 14px;
+    width: 6.25vw;
+    height: 6.25vw;
+    border-radius: 0.729vw;
     background: rgba(255, 255, 255, 0.05);
 }
 
 .achievements {
-    width: 170px !important;
-
+    width: 8.85vw !important;
 }
 
 .achievements p {
-    margin-top: 2px !important;
+    margin-top: 0.1vw !important;
 }
 
 .smallBioItem h4 {
     text-align: center;
     font-family: Onest, sans-serif;
-    font-size: 32px;
+    font-size: 1.66vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -231,21 +232,21 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin: 0 0 10px;
+    margin: 0 0 0.52vw;
 }
 
 .smallBioItem p {
     margin: 0;
     color: #FFF;
     font-family: Onest, sans-serif;
-    font-size: 16px;
+    font-size: 0.83vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
 }
 
 .smallBioItem img {
-    width: 48px;
+    width: 2.5vw;
 }
 
 .infoBio {
@@ -255,12 +256,12 @@
 .infoBio h3 {
     color: #FFF;
     font-family: Onest, sans-serif;
-    font-size: 30px;
+    font-size: 1.5625vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
     text-transform: capitalize;
-    margin: 30px 0 0;
+    margin: 1.5625vw 0 0;
 }
 
 .infoBio p {
@@ -271,16 +272,16 @@
     font-weight: 300;
     line-height: 135%; /* 32.4px */
     margin-top: 17px;
-    margin-bottom: 30px;
+    margin-bottom: 1.5625vw;
 }
 
 .langBio {
     display: flex;
-    gap: 10px;
+    gap: 0.52vw;
 }
 
 .langBioItem {
-    padding: 10px 15px;
+    padding: 0.52vw 0.78125vw;
     border-radius: 14px;
     background: rgba(255, 255, 255, 0.05);
 }
@@ -310,16 +311,16 @@
 
 .categories {
     display: flex;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 0.52vw;
+    margin-top: 0.78125vw;
 }
 
 .categoriesItem {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 15px;
-    border-radius: 14px;
+    padding: 0.52vw 0.78125vw;
+    border-radius: 0.729vw;
     background: #141414;
     backdrop-filter: blur(10px);
     cursor: pointer;
@@ -333,7 +334,7 @@
     margin: 0;
     color: #FFF;
     font-family: Onest, sans-serif;
-    font-size: 18px;
+    font-size: 0.9375vw;
     font-style: normal;
     font-weight: 400;
     line-height: 145%;
@@ -347,25 +348,25 @@
     display: flex;
     gap: 5px;
     flex-wrap: wrap;
-    width: 500px;
-    margin-top: 35px;
+    width: 26vw;
+    margin-top: 1.82vw;
 }
 
 .categoryContentItem {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 240px;
-    height: 105px;
-    border-radius: 8px;
+    width: 12.5vw;
+    height: 5.46875vw;
+    border-radius: 0.41vw;
     background: #0F0F0F;
     backdrop-filter: blur(10px);
     text-overflow: ellipsis;
 }
 
 .categoryContentItem img {
-    width: 64px;
-    height: 85px;
+    width: 3.33vw;
+    height: 4.42vw;
     border-radius: 2px;
 }
 
@@ -374,28 +375,28 @@
     color: #8F8F8F;
     text-overflow: ellipsis;
     font-family: Nunito Sans, sans-serif;
-    font-size: 12px;
+    font-size: 0.625vw;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     text-transform: uppercase;
-    width: 100px;
+    width: 5.2vw;
     white-space: nowrap;
-    margin: 0 0 4px 12px;
+    margin: 0 0 0.2vw 0.625vw;
 }
 
 .categoryContentItem h4 {
-    margin: 0 0 0 12px;
+    margin: 0 0 0 0.625vw;
     overflow: hidden;
     color: #FFF;
     text-overflow: ellipsis;
     white-space: nowrap;
     font-family: Nunito Sans, sans-serif;
-    font-size: 20px;
+    font-size: 1.041vw;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    width: 144px;
+    width: 7.5vw;
 }
 .shiningBackground2{
     position: absolute;
@@ -405,8 +406,8 @@
 
 .shining2 {
     position: absolute;
-    width: 561px;
-    height: 561px;
+    width: 29.21875vw;
+    height: 29.21875vw;
     background: rgba(181, 209, 251, 0.15);
     filter: blur(200px);
     z-index: 2;
@@ -414,8 +415,8 @@
 
 }
 .beforePlayer{
-    margin-top: 70px;
+    margin-top: 3.64vw;
 }
 .afterPlayer{
-    padding: 50px;
+    padding: 2.60vw;
 }

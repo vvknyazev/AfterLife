@@ -31,6 +31,7 @@
     border-radius: 1.25rem;
     border: 1px solid #79A1DD;
     background: #030304;
+    /*background: rgba(4, 5, 6, 0.60);*/
     backdrop-filter: blur(12px);
     position: absolute;
     top: 50%;
@@ -87,19 +88,47 @@
     justify-content: center;
     border-radius: 1.041vw;
     border: 1px solid rgba(106, 106, 118, 0.12);
-    backdrop-filter: blur(10px);
     padding-left: 1.041vw;
     padding-right: 1.041vw;
     cursor: pointer;
+    transition: 0.3s all ease;
+    /*background: transparent;*/
+    position: relative;
+    overflow: hidden;
 
-    transition: 0.3s all ease;
 }
-.game:hover{
-    background: rgba(20, 20, 24, 0.5);
+
+/*.game:hover {*/
+/*    transition: 1s all ease;*/
+/*    background: linear-gradient(49deg, rgba(106, 106, 118, 0.12) 35.24%, rgba(255, 255, 255, 0.10) 103.52%);*/
+/*    backdrop-filter: blur(10px);*/
+/*    !*background: rgba(106, 106, 118, 0.12);*!*/
+/*}*/
+
+.game::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(49deg, rgba(106, 106, 118, 0.12) 35.24%, rgba(255, 255, 255, 0.10) 103.52%);
+    opacity: 0;
+    transition: all 0.3s ease;
 }
-.activeGame{
+
+.game:hover::before {
+    opacity: 1;
+}
+
+.game:hover {
+    backdrop-filter: blur(10px);
+}
+
+.activeGame {
     transition: 0.3s all ease;
-    background: rgba(20, 20, 24, 0.5);
+    background: rgba(106, 106, 118, 0.12);
+    backdrop-filter: blur(10px);
 }
 
 .game img {
@@ -130,7 +159,8 @@
     font-weight: 300;
     margin-bottom: 0;
 }
-.loading{
+
+.loading {
     height: 100%;
     display: flex;
     justify-content: center;

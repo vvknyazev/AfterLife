@@ -309,7 +309,7 @@ const Nav = (props) => {
                     <div className={n.menuButtonsLeft}>
                         <NavLink to="#" className={n.navItemLeft}>{t('nav.about')}</NavLink>
                         <NavLink to="#" className={n.navItemLeft}>FAQ</NavLink>
-                        <NavLink to="#" className={n.navItemLeft}>{t('nav.find_someone')}</NavLink>
+                        {/*<NavLink to="#" className={n.navItemLeft}>{t('nav.find_someone')}</NavLink>*/}
                     </div>
                     <div className={`${n.searchIcon} ${n.menuButtons}`}>
                         <img src="/home/search-mobile.svg" alt="search"/>

@@ -18,7 +18,8 @@ const Player = () => {
                 interact: false,
                 cursorWidth: 0,
                 fillParent: true,
-                minPxPerSec: 50,
+                minPxPerSec: 1,
+                height:80,
             });
             waveform.current.on('finish', () => {
                 setIsPlaying(false);

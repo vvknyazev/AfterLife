@@ -71,15 +71,15 @@ const ModelProfile = () => {
                                     </div>
                                     <div className={s.description}>
                                         <p className={s.name}>{model?.name}</p>
-                                        <p className={s.bio}>{`@${model?.name}`}</p>
+                                        <p className={s.bio}>{`@${model?.username}`}</p>
                                     </div>
                                     <div className={s.connectContainer}>
                                         <NavLink to={`/create-session/${modelId}`} className={s.connect}>Подключить</NavLink>
                                     </div>
                                 </div>
-                                <div className={s.edit}>
-                                    <button onClick={addUser} className={s.secondButton}>Написать (тест чата)</button>
-                                </div>
+                                {/*<div className={s.edit}>*/}
+                                {/*    <button onClick={addUser} className={s.secondButton}>Написать (тест чата)</button>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                     </div>
