@@ -78,6 +78,18 @@ const Home = () => {
         {
             question: t("home.faq5"),
             answer: t("home.ans5"),
+        },
+        {
+            question: t("home.faq6"),
+            answer: t("home.ans6"),
+        },
+        {
+            question: t("home.faq7"),
+            answer: t("home.ans7"),
+        },
+        {
+            question: t("home.faq8"),
+            answer: t("home.ans8"),
         }
     ];
 
