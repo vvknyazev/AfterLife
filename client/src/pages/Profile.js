@@ -99,8 +99,8 @@ const Profile = () => {
                         <div className={s.profileImage}>
                             <ImageComponent
                                 hash={'L6D]o5NL00-5~Cxu0LMw-UayNxjb'}
-                                width={'213px'}
-                                height={'213px'}
+                                width={'11.45vw'}
+                                height={'11.45vw'}
                                 src={user?.photo.includes('http') ? user?.photo : `${process.env.REACT_APP_API_URL}/${user?.photo}`}
                                 alt="profile-photo"
                             />
@@ -109,9 +109,9 @@ const Profile = () => {
                             <p className={s.name}>{user?.username}</p>
                             <p className={s.nameTag}>{`@${user?.username}`}</p>
                         </div>
-                        <div className={s.connectContainer}>
-                            <NavLink to={''} className={s.connect}>Пригласить</NavLink>
-                        </div>
+                        {/*<div className={s.connectContainer}>*/}
+                        {/*    <NavLink to={''} className={s.connect}>Пригласить</NavLink>*/}
+                        {/*</div>*/}
                     </div>
                     <div className={s.contentBackground}>
                         <div className={s.content}>
@@ -185,22 +185,22 @@ const Profile = () => {
                         <div className={s.secondBlockContainer}>
                             <div className={s.secondBlock}>
                                 <div className={s.activity}>
-                                    <h3>Активности</h3>
+                                    <h3 className={s.activityHeader}>Активности</h3>
                                     <div className={s.activityItems}>
-                                        <ImageComponent hash={'LLC~xFRjR.M|~UR*f7WBMxafaxof'} width={'216px'} height={'324px'} src="/profile/activity/watch.png" alt="watch"/>
-                                        <ImageComponent hash={'LcK,]Wxt_MkWrDbHtRoL?HNGWBen'} width={'216px'} height={'324px'}  src="/profile/activity/apex.jpg" alt="apex"/>
-                                        <ImageComponent hash={'LJL-s{0%0kEj}nEj$$NI^3WXs-Nd'} width={'216px'} height={'324px'}  src="/profile/activity/cs2.png" alt="cs2"/>
-                                        <ImageComponent hash={'LSI}#D%MxVNH%jkCRoaxK8RPIpjF'} width={'216px'} height={'324px'}  src="/profile/activity/genshin.png" alt="genshin"/>
-                                        <ImageComponent hash={'L371fuV?0Lxv^$j?JDofZyNG-=V?'} width={'216px'} height={'324px'}  src="/profile/activity/aoe.png" alt="aoe"/>
-                                        <ImageComponent hash={'LiHT$+o0NHWB~TkCNHWC-.oLM}WV'} width={'216px'} height={'324px'}  src="/profile/activity/dota2.png" alt="dota2"/>
+                                        <ImageComponent hash={'LLC~xFRjR.M|~UR*f7WBMxafaxof'} width={'11.25vw'} height={'16.875vw'} src="/profile/activity/watch.png" alt="watch"/>
+                                        <ImageComponent hash={'LcK,]Wxt_MkWrDbHtRoL?HNGWBen'} width={'11.25vw'} height={'16.875vw'}  src="/profile/activity/apex.jpg" alt="apex"/>
+                                        <ImageComponent hash={'LJL-s{0%0kEj}nEj$$NI^3WXs-Nd'} width={'11.25vw'} height={'16.875vw'}  src="/profile/activity/cs2.png" alt="cs2"/>
+                                        <ImageComponent hash={'LSI}#D%MxVNH%jkCRoaxK8RPIpjF'} width={'11.25vw'} height={'16.875vw'}  src="/profile/activity/genshin.png" alt="genshin"/>
+                                        <ImageComponent hash={'L371fuV?0Lxv^$j?JDofZyNG-=V?'} width={'11.25vw'} height={'16.875vw'}  src="/profile/activity/aoe.png" alt="aoe"/>
+                                        <ImageComponent hash={'LiHT$+o0NHWB~TkCNHWC-.oLM}WV'} width={'11.25vw'} height={'16.875vw'}  src="/profile/activity/dota2.png" alt="dota2"/>
                                     </div>
                                 </div>
                                 <div className={s.friends}>
-                                    <img src="/profile/friends-logo.png" alt="friends-logo"/>
+                                    <img src="/profile/friends-logo.png" alt="friends-logo" className={s.friendsLogo}/>
                                     <div className={s.friendsList}>
                                         {Array.from({length: 5}).map((_, index) => (
                                             <div key={index} className={s.friendItem}>
-                                                <div><img src="/profile/friend.png" alt="friend-ava"/></div>
+                                                <div><img src="/profile/friend.png" alt="friend-ava" className={s.friendsIco}/></div>
                                                 <div className={s.friendInfo}>
                                                     <h4>Victoria</h4>
                                                     <p>@Saigon</p>
@@ -213,9 +213,9 @@ const Profile = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={s.x}>
-                        <h2>{`${user?.name}'s `} <img src="/profile/x-logo.svg" alt="x-logo"/></h2>
-                    </div>
+                    {/*<div className={s.x}>*/}
+                    {/*    <h2>{`${user?.name}'s `} <img src="/profile/x-logo.svg" alt="x-logo"/></h2>*/}
+                    {/*</div>*/}
                 </div>
 
                 {/*{logoutButton}*/}

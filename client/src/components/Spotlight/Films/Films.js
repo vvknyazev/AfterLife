@@ -7,21 +7,21 @@ const Films = ({sessionBuilder}) => {
         <div>
             <div className={s.categoryContent}>
                 <div className={s.categoryContentItem}>
-                    <ImageComponent hash={'L49@S5004nIA~qIU-;IoNGoLjFWV'} width={'64px'} height={'85px'}  src="/profile/spotlight/movies/film1.jpg" alt="film1"/>
+                    <ImageComponent hash={'L49@S5004nIA~qIU-;IoNGoLjFWV'} width={'3.333vw'} height={'4.42vw'}  src="/profile/spotlight/movies/film1.jpg" alt="film1"/>
                     <div>
                         <p>ЛУНА</p>
                         <h4>Deo mun / The Moon</h4>
                     </div>
                 </div>
                 <div className={s.categoryContentItem}>
-                    <ImageComponent hash={'L2AJ.-_300b^vLX8PAt8009F8wVs'} width={'64px'} height={'85px'}  src="/profile/spotlight/movies/film2.jpg" alt="film2"/>
+                    <ImageComponent hash={'L2AJ.-_300b^vLX8PAt8009F8wVs'} width={'3.333vw'} height={'4.42vw'}  src="/profile/spotlight/movies/film2.jpg" alt="film2"/>
                     <div>
                         <p>Человек-паук: Лотос</p>
                         <h4>Spider-Man: Lotus</h4>
                     </div>
                 </div>
                 <div className={s.categoryContentItem}>
-                    <ImageComponent hash={'LFFXn,s.D5aK~BoLrDo09abFXSS5'} width={'64px'} height={'85px'}  src="/profile/spotlight/movies/film3.jpg" alt="film3"/>
+                    <ImageComponent hash={'LFFXn,s.D5aK~BoLrDo09abFXSS5'} width={'3.333vw'} height={'4.42vw'}  src="/profile/spotlight/movies/film3.jpg" alt="film3"/>
                     <div>
                         <p>Китайский пинг-понг</p>
                         <h4>Zhong Guo ping pang zhi jue di fan ji / Ping Pong: The
@@ -37,7 +37,7 @@ const Films = ({sessionBuilder}) => {
                     </div>
                     :
                     <div className={s.categoryContentItem}>
-                        <ImageComponent hash={'LAOCAF.8~2rq?5r:adf5}#IVA2Xo'} width={'64px'} height={'85px'}  src="/profile/spotlight/movies/film4.jpg" alt="film4"/>
+                        <ImageComponent hash={'LAOCAF.8~2rq?5r:adf5}#IVA2Xo'} width={'3.333vw'} height={'4.42vw'}  src="/profile/spotlight/movies/film4.jpg" alt="film4"/>
                         <div>
                             <p>Стефен Карри: Недооцененный</p>
                             <h4>Stephen Curry: Underrated</h4>

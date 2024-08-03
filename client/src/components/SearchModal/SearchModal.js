@@ -53,7 +53,7 @@ const SearchModal = ({isModalOpen, closeModal}) => {
             <div className={s.container}>
                 <label className={s.searchLabel}>
                     <img src="/home/search-mobile.svg" alt="search img"/>
-                    <input type="text" onChange={(e) => setQuery(e.target.value.toLowerCase())}/>
+                    <input type="text" autoFocus={true} onChange={(e) => setQuery(e.target.value.toLowerCase())}/>
                 </label>
                 <div className={s.games}>
                     {games.map((el) => (

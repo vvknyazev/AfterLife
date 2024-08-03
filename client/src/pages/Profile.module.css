@@ -1,49 +1,8 @@
-.userProfileBackground {
-
-}
-
-.header {
-    /*background: url("../../public/profile/profile-background.png") center no-repeat;*/
-    /*background-size: cover;*/
-    height: 250px;
-    width: 1000px;
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-}
-
-.greetings {
-    position: absolute;
-    font-family: 'dymaxon', sans-serif;
-    font-size: 36px;
-    left: 17px;
-    top: 7px;
-}
-
-.header img {
-    width: 100px;
-    height: 100px;
-    border-radius: 100px;
-    margin-left: 55px;
-    border: 1px solid rgba(170, 120, 186, 0.2);
-    filter: drop-shadow(0px 2px 8px #a574b4);
-    margin-bottom: 5px;
-    object-fit: cover;
-}
-
-.description {
-    margin-left: 15px;
-    margin-bottom: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100px;
-}
 
 .name {
     color: #FFF;
     font-family: Onest, sans-serif;
-    font-size: 40px;
+    font-size: 2vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -53,7 +12,7 @@
 .nameTag {
     color: #829FCA;
     font-family: Onest, sans-serif;
-    font-size: 24px;
+    font-size: 1.25vw;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -62,26 +21,8 @@
 
 .edit {
     position: absolute;
-    right: 58px;
-    bottom: 36px;
-
-}
-
-.secondButton {
-    width: 130px;
-    height: 50px;
-    border-radius: 25px;
-    background: #151517;
-    border: 1px solid #7dabc3;
-    cursor: pointer;
-    color: white;
-    font-size: 14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px auto 0;
-    font-family: 'Nunito Sans', sans-serif;
-    font-weight: 500;
+    right: 3vw;
+    bottom: 1.875vw;
 
 }
 
@@ -91,14 +32,14 @@
     justify-content: center;
     transform: translate(-50%, -50%);
     left: 50%;
-    top: 240px;
+    top: 12.5vw;
     z-index: 50;
 }
 
 .topGames img {
-    width: 180px;
-    height: 250px;
-    border-radius: 12px;
+    width: 9.375vw;
+    height: 12.5vw;
+    border-radius: 0.625vw;
     transition: transform 0.5s ease; /* добавлен переход для плавного эффекта */
 }
 
@@ -152,7 +93,7 @@
 
 .headerInfo {
     position: relative;
-    height: 450px;
+    height: 23.4375vw;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -160,16 +101,17 @@
 }
 
 .profileImage {
-    margin-left: 109px;
+    margin-left: 5.46vw;
     transition: 0.3s all ease;
 }
-.profileImage div{
-    border-radius: 220px;
-    filter: drop-shadow(0px 2px 8px #a574b4);
+
+.profileImage div {
+    border-radius: 11.45vw;
+    /*filter: drop-shadow(0px 2px 8px #a574b4);*/
 }
 
 .profileImage canvas {
-    border-radius: 220px;
+    border-radius: 11.45vw;
     transition: 0.3s all ease;
     margin: 8px !important;
 }
@@ -179,36 +121,36 @@
 }
 
 .headerDescription p {
-    margin: 0 0 0 109px;
+    margin: 0 0 0 5.677vw;
 }
 
 .name {
-    margin-top: 30px !important;
+    margin-top: 1.5625vw !important;
 }
 
 .nameTag {
-    margin-top: 11px !important;
+    margin-top: 0.57vw !important;
 }
 
 .connectContainer {
     position: absolute;
-    bottom: 40px;
-    left: 500px;
+    bottom: 2.08vw;
+    left: 26vw;
     background: #1441DF;
-    border-radius: 36px;
+    border-radius: 1.875vw;
 }
 
 .connect {
     color: #FFF;
     text-align: center;
     font-family: Onest, sans-serif;
-    font-size: 15px;
+    font-size: 0.78125vw;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
     letter-spacing: 0.75px;
-    width: 160px;
-    height: 40.587px;
+    width: 8.3333vw;
+    height: 2.1vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -221,8 +163,8 @@
 .content {
     position: relative;
     width: 88%;
-    margin: 100px auto 0;
-    height: 400px;
+    margin: 5.2vw auto 0;
+    height: 20.8vw;
 }
 
 .descContainer {
@@ -244,9 +186,9 @@
 
 .shining {
     position: absolute;
-    width: 517px;
-    height: 517px;
-    border-radius: 517px;
+    width: 26.9vw;
+    height: 26.9vw;
+    border-radius: 26.9vw;
     background: rgba(12, 24, 38, 0.75);
     filter: blur(150px);
     z-index: 2;
@@ -259,7 +201,7 @@
 
 .smallBio {
     display: flex;
-    gap: 26px;
+    gap: 1.354vw;
 }
 
 .smallBioItem {
@@ -267,14 +209,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 120px;
-    height: 120px;
-    border-radius: 14px;
+    width: 6.25vw;
+    height: 6.25vw;
+    border-radius: 0.73vw;
     background: rgba(255, 255, 255, 0.05);
 }
 
 .achievements {
-    width: 170px !important;
+    width: 8.85vw !important;
 
 }
 
@@ -285,7 +227,7 @@
 .smallBioItem h4 {
     text-align: center;
     font-family: Onest, sans-serif;
-    font-size: 32px;
+    font-size: 1.66vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -293,21 +235,21 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin: 0 0 10px;
+    margin: 0 0 0.52vw;
 }
 
 .smallBioItem p {
     margin: 0;
     color: #FFF;
     font-family: Onest, sans-serif;
-    font-size: 16px;
+    font-size: 0.83vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
 }
 
 .smallBioItem img {
-    width: 48px;
+    width: 2.5vw;
 }
 
 .infoBio {
@@ -317,33 +259,33 @@
 .infoBio h3 {
     color: #FFF;
     font-family: Onest, sans-serif;
-    font-size: 30px;
+    font-size: 1.5625vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
     text-transform: capitalize;
-    margin: 30px 0 0;
+    margin: 1.5625vw 0 0;
 }
 
 .infoBio p {
     color: rgba(255, 255, 255, 0.80);
     font-family: Onest, sans-serif;
-    font-size: 22px;
+    font-size: 1.145vw;
     font-style: normal;
     font-weight: 300;
     line-height: 135%; /* 32.4px */
-    margin-top: 17px;
-    margin-bottom: 30px;
+    margin-top: 0.885vw;
+    margin-bottom: 1.5625vw;
 }
 
 .langBio {
     display: flex;
-    gap: 10px;
+    gap: 0.52vw;
 }
 
 .langBioItem {
-    padding: 10px 15px;
-    border-radius: 14px;
+    padding: 0.52vw 0.78125vw;
+    border-radius: 0.729vw;
     background: rgba(255, 255, 255, 0.05);
 }
 
@@ -351,7 +293,7 @@
     margin: 0;
     color: #FFF;
     font-family: Nunito Sans, sans-serif;
-    font-size: 18px;
+    font-size: 0.9375vw;
     font-style: normal;
     font-weight: 400;
     line-height: 145%;
@@ -361,27 +303,27 @@
     margin: 0;
     color: #FFF;
     font-family: DymaxionScript, sans-serif;
-    font-size: 36px;
+    font-size: 3vw;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     text-shadow: 0 0 8px #FFF;
     position: absolute;
-    top: -50px;
+    top: -4.5vw;
 }
 
 .categories {
     display: flex;
-    gap: 10px;
-    margin-top: 15px;
+    gap: 0.52vw;
+    margin-top: 0.78125vw;
 }
 
 .categoriesItem {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 15px;
-    border-radius: 14px;
+    padding: 0.52vw 0.78125vw;
+    border-radius: 0.729vw;
     background: #141414;
     backdrop-filter: blur(10px);
     cursor: pointer;
@@ -398,7 +340,7 @@
     margin: 0;
     color: #FFF;
     font-family: Onest, sans-serif;
-    font-size: 18px;
+    font-size: 0.9375vw;
     font-style: normal;
     font-weight: 400;
     line-height: 145%;
@@ -411,19 +353,19 @@
 
 .categoryContent {
     display: flex;
-    gap: 5px;
+    gap: 0.26vw;
     flex-wrap: wrap;
-    width: 500px;
-    margin-top: 35px;
+    width: 26vw;
+    margin-top: 1.82vw;
 }
 
 .categoryContentItem {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 240px;
-    height: 105px;
-    border-radius: 8px;
+    width: 12.5vw;
+    height: 5.46875vw;
+    border-radius: 0.41vw;
     background: #0F0F0F;
     backdrop-filter: blur(10px);
     text-overflow: ellipsis;
@@ -431,10 +373,11 @@
 }
 
 .categoryContentItem img {
-    width: 64px;
-    height: 85px;
+    width: 3.333vw;
+    height: 4.42vw;
     border-radius: 2px;
 }
+
 .categoryContentItem canvas {
     border-radius: 2px;
 }
@@ -444,28 +387,28 @@
     color: #8F8F8F;
     text-overflow: ellipsis;
     font-family: Nunito Sans, sans-serif;
-    font-size: 12px;
+    font-size: 0.625vw;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     text-transform: uppercase;
-    width: 100px;
+    width: 5.2vw;
     white-space: nowrap;
-    margin: 0 0 4px 12px;
+    margin: 0 0 0.2vw 0.625vw;
 }
 
 .categoryContentItem h4 {
-    margin: 0 0 0 12px;
+    margin: 0 0 0 0.625vw;
     overflow: hidden;
     color: #FFF;
     text-overflow: ellipsis;
     white-space: nowrap;
     font-family: Nunito Sans, sans-serif;
-    font-size: 20px;
+    font-size: 1.04vw;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    width: 144px;
+    width: 7.5vw;
 }
 
 .shiningBackground2 {
@@ -476,8 +419,8 @@
 
 .shining2 {
     position: absolute;
-    width: 461px;
-    height: 461px;
+    width: 24vw;
+    height: 24vw;
     background: rgba(181, 209, 251, 0.15);
     filter: blur(200px);
     z-index: 2;
@@ -487,11 +430,11 @@
 }
 
 .beforePlayer {
-    margin-top: 70px;
+    margin-top: 3.64vw;
 }
 
 .afterPlayer {
-    padding: 50px;
+    padding: 2.6vw;
 }
 
 .secondBlockContainer {
@@ -505,45 +448,59 @@
     width: 88%;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    gap: 20vw;
 }
 
 .activity h3 {
     color: #FFF;
     font-family: Onest, sans-serif;
-    font-size: 32px;
+    font-size: 1.66vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
     text-transform: capitalize;
-    margin: 35px 0 35px;
+    margin: 1.82vw 0 1.82vw;
+}
+
+.activityHeader {
+
 }
 
 .activityItems {
     display: flex;
     flex-wrap: wrap;
-    gap: 35px;
-    width: 800px;
+    gap: 1.822vw;
+    width: 41.66vw;
 
 }
 
 .activityItems canvas {
-    border-radius: 12px;
+    border-radius: 0.625vw;
 }
 
 .activityItems img {
-    width: 216px;
-    height: 324px;
+    width: 11.25vw;
+    height: 16.875vw;
 }
 
 .friends {
-    margin-right: 150px;
+
 }
 
 .friendsList {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+.friendsLogo {
+    width: 10.41vw;
+    margin-bottom: 1.3vw;
+}
+
+.friendsIco {
+    width: 4vw;
+    height: 4vw;
 }
 
 .friendItem {
@@ -557,7 +514,7 @@
     color: #FFF;
     text-align: center;
     font-family: Onest, sans-serif;
-    font-size: 18px;
+    font-size: 0.9375vw;
     font-style: normal;
     font-weight: 400;
     line-height: 145%; /* 26.1px */
@@ -569,7 +526,7 @@
     color: #829FCA;
     text-align: center;
     font-family: Onest, sans-serif;
-    font-size: 14px;
+    font-size: 0.7291vw;
     font-style: normal;
     font-weight: 400;
     line-height: 145%; /* 20.3px */
@@ -577,27 +534,27 @@
 }
 
 .x {
-    height: 500px;
+    height: 26vw;
     background: black;
 }
 
-.x h2 {
-    margin: 0;
-    padding-top: 100px;
-    padding-left: 100px;
-    padding-bottom: 300px;
-    color: #FFF;
-    font-family: Onest, sans-serif;
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    text-transform: capitalize;
-}
+/*.x h2 {*/
+/*    margin: 0;*/
+/*    padding-top: 100px;*/
+/*    padding-left: 100px;*/
+/*    padding-bottom: 300px;*/
+/*    color: #FFF;*/
+/*    font-family: Onest, sans-serif;*/
+/*    font-size: 32px;*/
+/*    font-style: normal;*/
+/*    font-weight: 600;*/
+/*    line-height: normal;*/
+/*    text-transform: capitalize;*/
+/*}*/
 
-.profileContainer {
+/*.profileContainer {*/
 
-}
+/*}*/
 
 /*@media only screen and (min-width: 1200px) {*/
 /*    .profileContainer {*/
