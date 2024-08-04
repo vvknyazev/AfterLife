@@ -90,6 +90,10 @@ const Home = () => {
         {
             question: t("home.faq8"),
             answer: t("home.ans8"),
+        },
+        {
+            question: t("home.faq9"),
+            answer: t("home.ans9"),
         }
     ];
 

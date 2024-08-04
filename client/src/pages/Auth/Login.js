@@ -148,7 +148,7 @@ const Login = () => {
             {/*</div>*/}
             <img
                 loading={"lazy"}
-                src="/auth/back.png"
+                src="/auth/back.jpg"
                 alt="Background"
                 className={s.backgroundImage}
             />
