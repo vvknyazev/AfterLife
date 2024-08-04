@@ -27,6 +27,7 @@
     width: 100%;
     background: linear-gradient(0deg, #000 20%, rgba(0, 0, 0, 0.00) 93%);
     height: 18.22vw;
+    z-index: 500;
 }
 
 .mask2 {
@@ -34,10 +35,10 @@
     height: 26vw;
     /*background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.00) 100%);*/
 
-    filter: blur(50px);
+    backdrop-filter: blur(10px);
     top: 0;
     left: 0;
-    width: 26vw;
+    width: 18vw;
 }
 
 .profileContainer {
@@ -47,7 +48,7 @@
 
 .description {
     position: relative;
-
+    margin-top: 1.5vw;
 }
 
 .name {
@@ -58,6 +59,15 @@
     font-weight: 600;
     line-height: normal;
     margin: 0.78125vw 0.1vw 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.description img {
+    width: 1.3vw !important;
+    height: 1.3vw !important;
+    margin-top: 0.1vw;
 }
 
 .bio {
@@ -73,7 +83,7 @@
 
 .profileContainer {
     position: absolute;
-    top: 0.78125vw;
+    margin-top: 13.8vw;
     left: 2.6vw;
 
 }
@@ -88,8 +98,10 @@
 }
 
 .profileInfo img {
-    width: 12.5vw;
-    height: 17.7vw;
+    width: 14.21875vw;
+    height: 21.35vw;
+    border-radius: 0.9375vw;
+
 }
 
 .lang {
@@ -137,33 +149,48 @@
 
 .connectContainer {
     position: absolute;
-    bottom: -0.26vw;
-    left: 11.97vw;
+    bottom: 2vw;
+    left: 11.5vw;
+}
+.favourite{
+    position: absolute;
+    bottom: 2vw;
+    left: 22.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1.041vw;
+    padding: 0.677vw;
+    background: rgba(106, 106, 118, 0.12);
+    backdrop-filter: blur(12px);
+    cursor: pointer;
+ }
+.favourite img{
+    width: 1.354vw;
+    height: 1.354vw
 }
 
 .connect {
     display: flex;
-    width: 10.41vw;
+    width: 10.26vw;
     height: 2.6vw;
     justify-content: center;
     align-items: center;
     gap: 0.52vw;
-    border-radius: 0.9375vw;
+    border-radius: 1.04vw;
     background: #FFF;
-    color: #000;
     text-align: center;
     font-family: Onest, serif;
-    font-size: 1.04vw;
+    font-size: 0.83vw;
     font-style: normal;
     font-weight: 500;
-    line-height: 145%;
-    text-transform: capitalize;
+    color: #0C1826;
 }
 
 .content {
     position: relative;
     width: 88%;
-    margin-top: 1.25vw;
+    /*margin-top: 1.25vw;*/
 }
 
 .descContainer {
@@ -177,7 +204,8 @@
     /*background: rgba(58, 45, 66, 0.75);*/
 
 }
-.shiningBackground{
+
+.shiningBackground {
     position: absolute;
     z-index: 555;
 }
@@ -200,6 +228,10 @@
 .smallBio {
     display: flex;
     gap: 1.35vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 120%);
 }
 
 .smallBioItem {
@@ -210,7 +242,9 @@
     width: 6.25vw;
     height: 6.25vw;
     border-radius: 0.729vw;
-    background: rgba(255, 255, 255, 0.05);
+    /*background: rgba(255, 255, 255, 0.05);*/
+    background: rgba(4, 5, 6, 0.60);
+    backdrop-filter: blur(12px);
 }
 
 .achievements {
@@ -300,13 +334,12 @@
     margin: 0;
     color: #FFF;
     font-family: DymaxionScript, sans-serif;
-    font-size: 36px;
+    font-size: 3vw;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     text-shadow: 0 0 8px #FFF;
-    position: absolute;
-    top: -50px;
+
 }
 
 .categories {
@@ -326,10 +359,12 @@
     cursor: pointer;
     border: 1px solid rgba(255, 255, 255, 0);
 }
-.categoriesItem:hover{
+
+.categoriesItem:hover {
     border: 1px solid #FFF;
     transition: all 0.3s ease;
 }
+
 .categoriesItem p {
     margin: 0;
     color: #FFF;
@@ -398,7 +433,8 @@
     line-height: normal;
     width: 7.5vw;
 }
-.shiningBackground2{
+
+.shiningBackground2 {
     position: absolute;
     z-index: 10;
     right: 5%;
@@ -414,9 +450,11 @@
     right: 5%;
 
 }
-.beforePlayer{
+
+.beforePlayer {
     margin-top: 3.64vw;
 }
-.afterPlayer{
+
+.afterPlayer {
     padding: 2.60vw;
 }

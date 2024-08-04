@@ -70,45 +70,52 @@ const ModelProfile = () => {
                                              alt="profile-photo"/>
                                     </div>
                                     <div className={s.description}>
-                                        <p className={s.name}>{model?.name}</p>
+                                        <p className={s.name}>{model?.name}<img src="/home/verified.svg"
+                                                                                alt="verified"/></p>
                                         <p className={s.bio}>{`@${model?.username}`}</p>
                                     </div>
                                     <div className={s.connectContainer}>
-                                        <NavLink to={`/create-session/${modelId}`} className={s.connect}>Подключить</NavLink>
+                                        <NavLink to={`/create-session/${modelId}`} className={s.connect}>Создать
+                                            сессию</NavLink>
+                                    </div>
+                                    <div className={s.favourite}>
+                                        <img src="/profile/heart.svg" alt="heart"/>
                                     </div>
                                 </div>
+
                                 {/*<div className={s.edit}>*/}
                                 {/*    <button onClick={addUser} className={s.secondButton}>Написать (тест чата)</button>*/}
                                 {/*</div>*/}
+                            </div>
+                        </div>
+                        <div className={s.smallBio}>
+                            <div className={s.smallBioItem}>
+                                <h4>8.7</h4>
+                                <p>Рейтинг</p>
+                            </div>
+                            <div className={s.smallBioItem}>
+                                <h4>52</h4>
+                                <p>Сессии</p>
+                            </div>
+                            <div className={`${s.smallBioItem} ${s.achievements}`}>
+                                <div>
+                                    <img src="/profile/achievements/1.png" alt="1"/>
+                                    <img src="/profile/achievements/2.png" alt="2"/>
+                                    <img src="/profile/achievements/3.png" alt="3"/>
+                                </div>
+                                <p>Достижения</p>
                             </div>
                         </div>
                     </div>
 
                 </div>
                 <div className={s.content}>
-                    <div className={s.shining2}></div>
+                    {/*<div className={s.shining2}></div>*/}
                     <div className={s.descContainer}>
                         <div className={s.info}>
-                            <div className={s.shining}></div>
-                            <div className={s.shiningBackground}>
-                                <div className={s.smallBio}>
-                                    <div className={s.smallBioItem}>
-                                        <h4>8.7</h4>
-                                        <p>Рейтинг</p>
-                                    </div>
-                                    <div className={s.smallBioItem}>
-                                        <h4>52</h4>
-                                        <p>Сессии</p>
-                                    </div>
-                                    <div className={`${s.smallBioItem} ${s.achievements}`}>
-                                        <div>
-                                            <img src="/profile/achievements/1.png" alt="1"/>
-                                            <img src="/profile/achievements/2.png" alt="2"/>
-                                            <img src="/profile/achievements/3.png" alt="3"/>
-                                        </div>
-                                        <p>Достижения</p>
-                                    </div>
-                                </div>
+                            {/*<div className={s.shining}></div>*/}
+                            {/*<div className={s.shiningBackground}>*/}
+
                                 <div className={s.infoBio}>
                                     <h3>Обо мне</h3>
                                     <p>{model?.bio}</p>
@@ -119,7 +126,7 @@ const ModelProfile = () => {
                                     <div className={s.langBioItem}><p>English</p></div>
                                 </div>
                             </div>
-                        </div>
+                        {/*</div>*/}
                         <div className={s.spotlight}>
                             <div className={s.shiningBackground2}>
                                 <h3>Spotlight</h3>
@@ -144,9 +151,9 @@ const ModelProfile = () => {
                                     </div>
                                 </div>
 
-                                {activeCategory === 'Смотрю' && <Films />}
-                                {activeCategory === 'Играю' && <Games />}
-                                {activeCategory === 'Слушаю' && <Music />}
+                                {activeCategory === 'Смотрю' && <Films/>}
+                                {activeCategory === 'Играю' && <Games/>}
+                                {activeCategory === 'Слушаю' && <Music/>}
                             </div>
 
                         </div>

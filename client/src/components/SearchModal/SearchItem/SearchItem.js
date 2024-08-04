@@ -41,6 +41,7 @@ const SearchItem = (props) => {
     const navigate = useNavigate();
 
     function handleModelProfile(id) {
+        props.closeModal();
         navigate('/host/' + id);
     }
 

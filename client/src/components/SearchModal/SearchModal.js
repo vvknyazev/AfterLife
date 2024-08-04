@@ -72,7 +72,9 @@ const SearchModal = ({isModalOpen, closeModal}) => {
                                     <SearchItem img={`${process.env.REACT_APP_API_URL}/${e.photo}`} name={e.name}
                                                 desc={e.bio} games={e.games}
                                                 username={e.username}
-                                                key={e._id} id={e._id}/>
+                                                key={e._id} id={e._id}
+                                                closeModal={closeModal}
+                                    />
                                 )
                             )
                             :
