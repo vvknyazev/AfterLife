@@ -86,7 +86,7 @@
 }
 
 .labelEmail {
-    background: #15130f;
+    background: #241b14;
 
     position: absolute;
     color: #325EB4;
@@ -108,7 +108,7 @@
     font-family: Onest, serif;
     font-weight: 400;
     font-size: 0.83vw;
-    background: #16130c;
+    background: #241a13;
     top: -1.2ex;
     z-index: 1;
     left: 1.3em;

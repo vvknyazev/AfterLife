@@ -7,7 +7,7 @@ const Films = ({sessionBuilder}) => {
         <div>
             <div className={s.categoryContent}>
                 <div className={s.categoryContentItem}>
-                    <ImageComponent hash={'L49@S5004nIA~qIU-;IoNGoLjFWV'} width={'3.333vw'} height={'4.42vw'}  src="/profile/spotlight/movies/film1.jpg" alt="film1"/>
+                        <ImageComponent hash={'L49@S5004nIA~qIU-;IoNGoLjFWV'} width={'3.333vw'} height={'4.42vw'}  src="/profile/spotlight/movies/film1.jpg" alt="film1"/>
                     <div>
                         <p>ЛУНА</p>
                         <h4>Deo mun / The Moon</h4>
