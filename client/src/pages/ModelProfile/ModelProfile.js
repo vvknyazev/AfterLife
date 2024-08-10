@@ -13,13 +13,13 @@ import n from "../../components/Nav/Nav.module.css";
 
 const activities = [
     {id: 1, img: "/profile/model-activity/1.png", hash: "LTFFgE~Ung%0_N%1M_oeE4NHM{WC", price: 12},
-    {id: 2, img: "/profile/model-activity/2.jpg", hash: "L4B3A;vy00Tz05xW~AM|00K6_1n1", price: 12},
-    {id: 3, img: "/profile/model-activity/3.png", hash: "L,F%43RQtmof%QofjdWEIpj^WAWB", price: 12},
-    {id: 4, img: "/profile/model-activity/4.png", hash: "LNKK4-0-~WogxeRjE2a{+cNaRO$x", price: 12},
-    {id: 5, img: "/profile/model-activity/5.jpg", hash: "LR9aQ_XU9ur=cuo}i^V@Oug3sjaK", price: 12},
+    {id: 2, img: "/profile/model-activity/2.jpg", hash: "L4B3A;vy00Tz05xW~AM|00K6_1n1", price: 14},
+    {id: 3, img: "/profile/model-activity/3.png", hash: "L,F%43RQtmof%QofjdWEIpj^WAWB", price: 6},
+    {id: 4, img: "/profile/model-activity/4.png", hash: "LNKK4-0-~WogxeRjE2a{+cNaRO$x", price: 8},
+    {id: 5, img: "/profile/model-activity/5.jpg", hash: "LR9aQ_XU9ur=cuo}i^V@Oug3sjaK", price: 10},
     {id: 6, img: "/profile/model-activity/1.png", hash: "LR9aQ_XU9ur=cuo}i^V@Oug3sjaK", price: 12},
-    {id: 7, img: "/profile/model-activity/5.jpg", hash: "LR9aQ_XU9ur=cuo}i^V@Oug3sjaK", price: 12},
-    {id: 8, img: "/profile/model-activity/5.jpg", hash: "LR9aQ_XU9ur=cuo}i^V@Oug3sjaK", price: 12},
+    {id: 7, img: "/profile/model-activity/5.jpg", hash: "LR9aQ_XU9ur=cuo}i^V@Oug3sjaK", price: 10},
+    {id: 8, img: "/profile/model-activity/5.jpg", hash: "LR9aQ_XU9ur=cuo}i^V@Oug3sjaK", price: 10},
     {id: 9, img: "/profile/model-activity/1.png", hash: "LR9aQ_XU9ur=cuo}i^V@Oug3sjaK", price: 12},
 ]
 
