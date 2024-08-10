@@ -34,23 +34,23 @@ const Home = () => {
     //     homePagePhoto: '/imaginative-model.png'
     // }
 
-    const games = [
-        {id: 1, img: "/home/games/1.png"},
-        {id: 2, img: "/home/games/2.png"},
-        {id: 3, img: "/home/games/3.png"},
-        {id: 4, img: "/home/games/4.png"},
-        {id: 5, img: "/home/games/5.png"},
-        {id: 6, img: "/home/games/6.png"},
-        {id: 7, img: "/home/games/7.png"},
-        {id: 8, img: "/home/games/8.png"},
-        {id: 9, img: "/home/games/9.png"},
-        {id: 10, img: "/home/games/10.png"},
-        {id: 11, img: "/home/games/11.png"},
-        {id: 12, img: "/home/games/12.png"},
-        {id: 13, img: "/home/games/13.png"},
-        {id: 14, img: "/home/games/14.png"},
-        {id: 15, img: "/home/games/15.png"},
-    ]
+        const games = [
+            {id: 1, img: "/home/games/1.png"},
+            {id: 2, img: "/home/games/2.png"},
+            {id: 3, img: "/home/games/3.png"},
+            {id: 4, img: "/home/games/4.png"},
+            {id: 5, img: "/home/games/5.png"},
+            {id: 6, img: "/home/games/6.png"},
+            {id: 7, img: "/home/games/7.png"},
+            {id: 8, img: "/home/games/8.png"},
+            {id: 9, img: "/home/games/9.png"},
+            {id: 10, img: "/home/games/10.png"},
+            {id: 11, img: "/home/games/11.png"},
+            {id: 12, img: "/home/games/12.png"},
+            {id: 13, img: "/home/games/13.png"},
+            {id: 14, img: "/home/games/14.png"},
+            {id: 15, img: "/home/games/15.png"},
+        ]
 
     const [activeIndex, setActiveIndex] = useState(null);
 

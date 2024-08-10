@@ -18,7 +18,8 @@
     width: 100%;
     z-index: 0;
 }
-.back img{
+
+.back img {
     border-radius: 2rem;
 }
 
@@ -76,13 +77,14 @@
     flex-shrink: 0;
     border-radius: 1rem;
     border: 1px solid rgba(233, 233, 233, 0.05);
-    background: rgba(255, 255, 255, 0.10);
+    background: #F8F8F8;
     backdrop-filter: blur(8px);
     margin-top: 2em;
     font-size: 0.83vw;
     font-family: Onest, sans-serif;
     font-weight: 500;
-    line-height: 145%;
+    color: #0C1826;
+
 }
 
 .playButton img {
@@ -119,7 +121,7 @@
     .header {
         padding-top: 10px;
         height: calc(100vh - 5.5vw);
-        background: url("../../../../public/home/background-mobile.jpg") center;
+        /*background: url("../../../../public/home/background-mobile.jpg") center;*/
         background-size: cover;
         border-radius: 2rem;
     }
@@ -127,6 +129,7 @@
     .headMessage {
         font-size: 1.75rem;
         margin-top: 3.5rem;
+        width: 380px;
     }
 
     .underHeadMessage {

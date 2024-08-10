@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './HeaderHomePage.module.css';
 import {NavLink, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
@@ -12,6 +12,19 @@ const HeaderHomePage = () => {
     // }
     const {t} = useTranslation()
 
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsSmallScreen(window.innerWidth <= 1000);
+        };
+
+        window.addEventListener('resize', handleResize);
+        handleResize();
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     return (
         <div className={s.header}>
             <div className={s.back}>
@@ -20,7 +33,7 @@ const HeaderHomePage = () => {
                     width={'100%'}
                     height={'calc(100vh - 5.5vw)'}
                     //     height={'100%'}
-                    src="/home/background.jpg"
+                    src={isSmallScreen ? "/home/background-mobile.jpg" : "/home/background.jpg"}
                     alt="back"
                 />
             </div>
@@ -30,8 +43,7 @@ const HeaderHomePage = () => {
                     <p className={s.underHeadMessage}>
                         {t('home.underheader')}
                     </p>
-                    <NavLink to={'/'} className={s.playButton}><img src="/home/play.svg"
-                                                                    alt="play"/>{t('home.find_someone')}</NavLink>
+                    <NavLink to={'/'} className={s.playButton}>{t('home.find_someone')}</NavLink>
                 </div>
                 <div>
                     <img src="/home/percent.svg" alt="perc1" className={s.left}/>
