@@ -8,6 +8,20 @@ import Player from "../../components/Player/Player";
 import Films from "../../components/Spotlight/Films/Films";
 import Games from "../../components/Spotlight/Games/Games";
 import Music from "../../components/Spotlight/Music/Music";
+import ImageComponent from "../../components/ImageComponent/ImageComponent";
+import n from "../../components/Nav/Nav.module.css";
+
+const activities = [
+    {id: 1, img: "/profile/model-activity/1.png", hash: "LTFFgE~Ung%0_N%1M_oeE4NHM{WC", price: 12},
+    {id: 2, img: "/profile/model-activity/2.jpg", hash: "L4B3A;vy00Tz05xW~AM|00K6_1n1", price: 12},
+    {id: 3, img: "/profile/model-activity/3.png", hash: "L,F%43RQtmof%QofjdWEIpj^WAWB", price: 12},
+    {id: 4, img: "/profile/model-activity/4.png", hash: "LNKK4-0-~WogxeRjE2a{+cNaRO$x", price: 12},
+    {id: 5, img: "/profile/model-activity/5.jpg", hash: "LR9aQ_XU9ur=cuo}i^V@Oug3sjaK", price: 12},
+    {id: 6, img: "/profile/model-activity/1.png", hash: "LR9aQ_XU9ur=cuo}i^V@Oug3sjaK", price: 12},
+    {id: 7, img: "/profile/model-activity/5.jpg", hash: "LR9aQ_XU9ur=cuo}i^V@Oug3sjaK", price: 12},
+    {id: 8, img: "/profile/model-activity/5.jpg", hash: "LR9aQ_XU9ur=cuo}i^V@Oug3sjaK", price: 12},
+    {id: 9, img: "/profile/model-activity/1.png", hash: "LR9aQ_XU9ur=cuo}i^V@Oug3sjaK", price: 12},
+]
 
 const ModelProfile = () => {
 
@@ -15,8 +29,6 @@ const ModelProfile = () => {
     const {modelId} = useParams();
     const navigate = useNavigate();
     const location = useLocation();
-
-    console.log("modelID: ", modelId);
 
     const {data: model, isLoading} = useGetOneModelQuery(modelId);
 
@@ -116,16 +128,16 @@ const ModelProfile = () => {
                             {/*<div className={s.shining}></div>*/}
                             {/*<div className={s.shiningBackground}>*/}
 
-                                <div className={s.infoBio}>
-                                    <h3>Обо мне</h3>
-                                    <p>{model?.bio}</p>
-                                </div>
-                                <div className={s.langBio}>
-                                    <div className={s.langBioItem}><p>Русский</p></div>
-                                    <div className={s.langBioItem}><p>Українська</p></div>
-                                    <div className={s.langBioItem}><p>English</p></div>
-                                </div>
+                            <div className={s.infoBio}>
+                                <h3>Обо мне</h3>
+                                <p>{model?.bio}</p>
                             </div>
+                            <div className={s.langBio}>
+                                <div className={s.langBioItem}><p>Русский</p></div>
+                                <div className={s.langBioItem}><p>Українська</p></div>
+                                <div className={s.langBioItem}><p>English</p></div>
+                            </div>
+                        </div>
                         {/*</div>*/}
                         <div className={s.spotlight}>
                             <div className={s.shiningBackground2}>
@@ -161,6 +173,24 @@ const ModelProfile = () => {
 
                     <Player/>
 
+                </div>
+                <div className={s.activity}>
+                    <div className={s.activityNav}>
+                        <div><p>Активности</p></div>
+                        <div><p>События</p></div>
+                    </div>
+                    <div className={s.activityContent}>
+                        {activities.map((e) => (
+                            <div className={s.activityItem}>
+                                <ImageComponent hash={e.hash} width={'30.2vw'} height={'16.66vw'} src={e.img}
+                                                alt="watch"
+                                                key={e.id}/>
+                                <div className={s.price}>
+                                    <p>от {e.price} <span className={s.currency}>金</span></p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </section>
         </div>

@@ -150,12 +150,13 @@
 .connectContainer {
     position: absolute;
     bottom: 2vw;
-    left: 11.5vw;
+    left: 14.5vw;
 }
-.favourite{
+
+.favourite {
     position: absolute;
     bottom: 2vw;
-    left: 22.5vw;
+    left: 25.5vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -164,8 +165,9 @@
     background: rgba(106, 106, 118, 0.12);
     backdrop-filter: blur(12px);
     cursor: pointer;
- }
-.favourite img{
+}
+
+.favourite img {
     width: 1.354vw;
     height: 1.354vw
 }
@@ -262,10 +264,11 @@
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    background: linear-gradient(201deg, #FFF 4.92%, #603E76 86.12%);
+    background: linear-gradient(184deg, #829FCA 3.46%, #FFF 96.97%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+
     margin: 0 0 0.52vw;
 }
 
@@ -275,7 +278,7 @@
     font-family: Onest, sans-serif;
     font-size: 0.83vw;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     line-height: normal;
 }
 
@@ -290,7 +293,7 @@
 .infoBio h3 {
     color: #FFF;
     font-family: Onest, sans-serif;
-    font-size: 1.5625vw;
+    font-size: 1.666vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -301,7 +304,7 @@
 .infoBio p {
     color: rgba(255, 255, 255, 0.80);
     font-family: Onest, sans-serif;
-    font-size: 22px;
+    font-size: 1.25vw;
     font-style: normal;
     font-weight: 300;
     line-height: 135%; /* 32.4px */
@@ -316,7 +319,7 @@
 
 .langBioItem {
     padding: 0.52vw 0.78125vw;
-    border-radius: 14px;
+    border-radius: 0.729vw;
     background: rgba(255, 255, 255, 0.05);
 }
 
@@ -324,14 +327,14 @@
     margin: 0;
     color: #FFF;
     font-family: Nunito Sans, sans-serif;
-    font-size: 18px;
+    font-size: 0.9375vw;
     font-style: normal;
     font-weight: 400;
     line-height: 145%;
 }
 
 .spotlight h3 {
-    margin: 0;
+    margin: 0 0 1.3vw 0;
     color: #FFF;
     font-family: DymaxionScript, sans-serif;
     font-size: 3vw;
@@ -438,18 +441,19 @@
     position: absolute;
     z-index: 10;
     right: 5%;
+    top: -5vw;
 }
 
-.shining2 {
-    position: absolute;
-    width: 29.21875vw;
-    height: 29.21875vw;
-    background: rgba(181, 209, 251, 0.15);
-    filter: blur(200px);
-    z-index: 2;
-    right: 5%;
+/*.shining2 {*/
+/*    position: absolute;*/
+/*    width: 29.21875vw;*/
+/*    height: 29.21875vw;*/
+/*    background: rgba(181, 209, 251, 0.15);*/
+/*    filter: blur(200px);*/
+/*    z-index: 2;*/
+/*    right: 5%;*/
 
-}
+/*}*/
 
 .beforePlayer {
     margin-top: 3.64vw;
@@ -457,4 +461,87 @@
 
 .afterPlayer {
     padding: 2.60vw;
+}
+
+.activity {
+
+}
+
+.activityNav {
+    display: flex;
+    justify-content: center;
+    gap: 0.52vw;
+    margin-bottom: 1.82vw;
+}
+.activityNav div{
+    width: 7.29vw;
+    height: 2.86vw;
+    border-radius: 1.04vw;
+    cursor: pointer;
+}
+.activityNav div:first-child{
+    background: rgba(106, 106, 118, 0.12);
+}
+.activityNav div p {
+    color: #D9D9D9;
+    text-align: center;
+    font-family: Onest, sans-serif;
+    font-size: 0.9375vw;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.activityContent {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.04vw;
+    transition: 0.3s all ease;
+}
+
+.activityContent img {
+
+    cursor: pointer;
+}
+.activityItem div{
+    border-radius: 1.05vw;
+    border: 2px solid transparent;
+}
+
+.activityItem div:first-child:hover {
+    border-radius: 1.05vw;
+    border: 2px solid #79A1DD;
+    box-shadow: 0 0 100px 0 rgba(121, 161, 221, 0.25), 0 4px 150px 0 rgba(255, 255, 255, 0.20);
+    transition: 0.3s all ease;
+}
+.currency{
+    color: #77EF19;
+}
+.price{
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    width: 5.3125vw;
+    height: 1.82vw;
+    border-radius: 0.625vw;
+    background: rgba(106, 106, 118, 0.12);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s all ease;
+    opacity: 0;
+}
+
+.price p{
+    margin: 0;
+    padding: 0;
+    margin-bottom: 0.2vw;
+}
+.activityItem{
+    position: relative;
+}
+.activityItem:hover .price {
+    opacity: 1;
+    transition: 0.3s all ease;
 }
