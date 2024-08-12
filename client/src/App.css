@@ -165,9 +165,9 @@ Note: Beware of modifying this element as it can break the animations - you shou
     position: absolute;
     top: 115%;
     width: 13.54vw;
-    min-height: 16.77vw;
+    min-height: 16.82vw;
     right: 25%;
-    border-radius: 1.5rem;
+    border-radius: 1.25vw;
     background: rgba(4, 5, 6, 0.60);
     backdrop-filter: blur(9px);
 
@@ -184,37 +184,48 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .menu-item__text {
     color: white;
     font-size: 0.9375vw;
-    height: 15px;
+
     display: flex;
     align-items: center;
     border-radius: var(--border-radius);
     transition: background var(--speed);
-    padding: 0.5rem;
+
     font-family: "Nunito Sans", sans-serif;
     font-weight: 500;
-    margin: 0 0 7px 0;
+    margin: 0 0 0.364vw 0;
     justify-content: space-between;
-    padding-left: 1rem;
+    padding-left: 1.2vw;
 }
 
 .menu-item {
     position: relative;
     color: white;
     font-size: 0.9375vw;
-    height: 15px;
+    height: 2.34375vw;
     display: flex;
     align-items: center;
-
+    cursor: pointer;
     transition: background var(--speed);
-    padding: 0.72vw;
+
     font-family: "Nunito Sans", sans-serif;
     font-weight: 500;
-    margin: 0 0 7px 0;
-    padding-left: 1rem;
+    /*margin: 0 0 7px 0;*/
+    padding-left: 1.2vw;
 }
-
+.logout-block{
+    display: flex;
+    gap: 0.625vw;
+    border-top: 1px solid rgba(106, 106, 118, 0.12);
+    margin-top: 0.5vw;
+    padding-top: 0.3vw;
+    padding-bottom: 0.3vw;
+}
+.logout-block img{
+    width: 0.859375vw;
+    height: 0.96vw;
+}
 .menu-item .icon-button {
-    margin-right: 1rem;
+    margin-right: 0.83vw;
 }
 
 
@@ -253,10 +264,10 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 .menu-item__header {
     display: flex;
-    gap: 1rem;
+    gap: 0.83vw;
     align-items: center;
     /*margin-bottom: 1rem;*/
-    padding-left: 1rem;
+    padding-left: 0.83vw;
 }
 
 .menu-item__header img {
@@ -282,7 +293,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
     font-weight: 500;
     line-height: 135%; /* 1.51875rem */
     padding: 0;
-    margin-top: 1rem;
+    margin-top: 0.8333vw;
 }
 
 .menu-item__undername {
@@ -294,9 +305,9 @@ Note: Beware of modifying this element as it can break the animations - you shou
     font-weight: 400;
     line-height: 135%; /* 1.18125rem */
 
-    border-radius: 1.25rem;
+    border-radius: 1.04vw;
     border: 1px solid rgba(106, 106, 118, 0.12);
-    padding: 0.4rem 0.5rem;
+    padding: 0.3125vw 0.41vw;
 }
 
 .icon-right {
@@ -581,8 +592,9 @@ body {
     /*background-color: rgba(255, 255, 255, 0.02);*/
     /*z-index: 999;*/
 }
+
 @media screen and (max-width: 1000px) {
-    .nav{
+    .nav {
         height: 5rem;
     }
 }
@@ -971,11 +983,12 @@ body {
 .faq-question .arrow.active {
 
 }
+
 @media screen and (max-width: 1000px) {
     .faq-section {
         width: 20rem;
         /*height: 35rem;*/
-        margin: 0 auto!important;
+        margin: 0 auto !important;
         padding: 0 !important;
 
 
@@ -1009,6 +1022,7 @@ body {
     .faq-question .arrow {
         font-size: 18px;
     }
+
     .swiper-button-next,
     .swiper-button-prev {
 

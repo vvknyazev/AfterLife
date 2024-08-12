@@ -2,3 +2,13 @@
     min-height: 100vh;
     margin-top: 10px;
 }
+.filters{
+
+}
+.contentModels{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 3.645vw;
+    gap: 4.8vw;
+    justify-content: center;
+}

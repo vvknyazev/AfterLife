@@ -3,13 +3,15 @@ import {ReactComponent as SignUpIcon} from '../../icons/signup.svg';
 import {ReactComponent as LoginIcon} from '../../icons/login.svg';
 import n from './Nav.module.css'
 import {CSSTransition} from 'react-transition-group';
-import {NavLink, useLocation} from "react-router-dom";
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {useChat} from "../../context/ChatProvider";
 import ColorThief from "colorthief";
 import {useTranslation} from "react-i18next";
 import cookies from 'js-cookie'
 import i18next from 'i18next'
 import SearchModal from "../SearchModal/SearchModal";
+import {useSendLogoutMutation} from "../../features/auth/authApiSlice";
+import {InfinitySpin} from "react-loader-spinner";
 
 const languages = [
     {
@@ -33,6 +35,13 @@ function NavItem(props) {
     const [activeMenu, setActiveMenu] = useState('main');
     const [menuHeight, setMenuHeight] = useState(null);
     const dropdownRef = useRef(null);
+
+    const [sendLogout, {
+        isLoading,
+        isSuccess,
+        isError,
+        error
+    }] = useSendLogoutMutation()
 
     const {notifications} = useChat();
 
@@ -73,7 +82,19 @@ function NavItem(props) {
         setIsFistTimeOpen(false);
     }
 
-    console.log("props in nav: ", props);
+    const navigate = useNavigate()
+    const handleLogout = () => {
+        if (props?.username) {
+            sendLogout();
+            navigate('/login')
+            window.location.reload(false);
+        }
+    };
+
+    // useEffect(() => {
+    //     if (isSuccess) navigate('/')
+    // }, [isSuccess, navigate])
+
     const [dominantColor, setDominantColor] = useState(null);
     const [style, setStyle] = useState({});
     const imgRef = useRef(null);
@@ -226,6 +247,11 @@ function NavItem(props) {
                                 >
                                     Настройки
                                 </DropdownItem>
+                                <div onClick={handleLogout} className='menu-item logout-block'>
+                                    Выход
+                                    <img src="/nav/logout.svg" alt="logout"/>
+                                </div>
+
                             </div>
                         </CSSTransition>
                     }
@@ -238,8 +264,9 @@ function NavItem(props) {
 
 const Nav = (props) => {
     const location = useLocation();
+
     const isHomePage = location.pathname === '/';
-    const isModelsPage = location.pathname === '/models';
+    const isModelsPage = location.pathname === '/hosts';
     // const isSettingsPage = location.pathname === '/settings';
     let profileButtonStyle;
     let nav;
@@ -287,6 +314,16 @@ const Nav = (props) => {
     const closeModal = () => {
         setIsModalOpen(false);
     }
+
+
+    // if (isLoading) {
+    //     return <div className={'loader'}>
+    //         <InfinitySpin
+    //             width='200'
+    //             color="#000"
+    //         />
+    //     </div>
+    // }
 
     useEffect(() => {
         if (isOpen) {

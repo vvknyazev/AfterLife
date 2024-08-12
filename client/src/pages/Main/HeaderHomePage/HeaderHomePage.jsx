@@ -43,7 +43,7 @@ const HeaderHomePage = () => {
                     <p className={s.underHeadMessage}>
                         {t('home.underheader')}
                     </p>
-                    <NavLink to={'/'} className={s.playButton}>{t('home.find_someone')}</NavLink>
+                    <NavLink to={'/hosts'} className={s.playButton}>{t('home.find_someone')}</NavLink>
                 </div>
                 <div>
                     <img src="/home/percent.svg" alt="perc1" className={s.left}/>

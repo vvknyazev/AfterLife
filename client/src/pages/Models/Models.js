@@ -6,6 +6,7 @@ import Categories from "../../components/Categories/Categories";
 import GirlsSection from "../Main/GirlsSection/GirlsSection";
 import {useGetModelsQuery} from "../../features/commonApiSlice";
 import {InfinitySpin} from "react-loader-spinner";
+import Card from "../../components/Card/Card";
 
 const Models = () => {
     const [user] = useOutletContext();
@@ -19,13 +20,13 @@ const Models = () => {
     const navigate = useNavigate();
     const isHomePage = location.pathname === '/';
 
-    function chooseCategory(category) {
-        setCurrentItems(models.filter(el => el.games.includes(category)))
-        setSelectedCategory(category);
-        if (isHomePage) {
-            navigate('/models')
-        }
-    }
+    // function chooseCategory(category) {
+    //     setCurrentItems(models.filter(el => el.games.includes(category)))
+    //     setSelectedCategory(category);
+    //     if (isHomePage) {
+    //         navigate('/hosts')
+    //     }
+    // }
 
     if (isLoadingModels) {
         return <div>
@@ -38,14 +39,28 @@ const Models = () => {
             </div>
         </div>
     }
-
+    console.log("models: ", models);
 
     return (
         <div style={{background: "#000"}}>
             <Nav user={user}/>
             <section className={s.models}>
-                <Categories chooseCategory={chooseCategory} selectedCategory={selectedCategory}/>
-                <GirlsSection girlsCategory={currentItems} models={models}/>
+                <div className={s.filters}>
+
+                </div>
+                <div className={s.contentModels}>
+                    {models.map((e)=>(
+                        <Card img={`${process.env.REACT_APP_API_URL}/${e.photo}`} name={e.name}
+                              desc={e.bio} games={e.games}
+                              key={e._id} id={e._id}
+                        />
+                    ))}
+                </div>
+
+
+
+                {/*<Categories chooseCategory={chooseCategory} selectedCategory={selectedCategory}/>*/}
+                {/*<GirlsSection girlsCategory={currentItems} models={models}/>*/}
             </section>
         </div>
     );

@@ -40,7 +40,7 @@ function App() {
                 <Route element={<PersistLogin/>}>
                     <Route element={<MessageChecker/>}>
                         <Route path='/' element={<Home/>}/>
-                        <Route path='/models' element={<Models/>}/>
+                        <Route path='/hosts' element={<Models/>}/>
 
                         <Route element={<RequireAuth/>}>
                             {/*<Route element={<PrivateActivateRoute/>}>*/}

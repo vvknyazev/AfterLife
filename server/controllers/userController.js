@@ -207,25 +207,41 @@ class UserController {
     }
 
     async logout(req, res) {
-        const cookies_jwt = req.cookies.jwt;
-        if (!cookies_jwt) return res.sendStatus(204); // No Content
-        const refreshToken = cookies_jwt;
+        console.log("logout func")
+        if (req?.user){
+            console.log("req.user: ", req.user);
+            console.log("cookies?.session: ", req.cookies?.session);
+            console.log("req.cookies: ", req.cookies);
+            res.clearCookie('session', {httpOnly: true, sameSite: 'None', secure: true});
+            const user = await User.findOne({email: req.user.email});
+            user.refreshToken = '';
+            const result = await user.save();
+            console.log("result: ", result);
+            req.session = null;
+            res.redirect(process.env.CLIENT_URL); // ????
+        } else {
+
+            const cookies_jwt = req.cookies.jwt;
+            console.log("logout another check coockie: ", cookies_jwt);
+            if (!cookies_jwt) return res.sendStatus(204); // No Content
+            const refreshToken = cookies_jwt;
 
 
-        // Is refreshToken in db?
-        const user = await User.findOne({refreshToken});
-        if (!user) {
+            // Is refreshToken in db?
+            const user = await User.findOne({refreshToken});
+            if (!user) {
+                res.clearCookie('jwt', {httpOnly: true, sameSite: 'None', secure: true});
+                return res.sendStatus(204);
+            }
+
+            // Delete refreshToken in db
+            user.refreshToken = '';
+            const result = await user.save();
+            console.log("result: ", result);
+
             res.clearCookie('jwt', {httpOnly: true, sameSite: 'None', secure: true});
-            return res.sendStatus(204);
+            res.sendStatus(204);
         }
-
-        // Delete refreshToken in db
-        user.refreshToken = '';
-        const result = await user.save();
-        console.log(result);
-
-        res.clearCookie('jwt', {httpOnly: true, sameSite: 'None', secure: true});
-        res.sendStatus(204);
     }
 
     async activate(req, res, next) {
