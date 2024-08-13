@@ -1,9 +1,5 @@
-import {NavLink, useLocation, useNavigate, useOutletContext} from "react-router-dom"
-import {useSendLogoutMutation} from "../features/auth/authApiSlice";
-import React, {useEffect, useState} from "react";
-import {faRightFromBracket} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {InfinitySpin} from "react-loader-spinner";
+import {useLocation, useOutletContext} from "react-router-dom"
+import React, {useState} from "react";
 import Nav from "../components/Nav/Nav";
 import s from "./Profile.module.css"
 import Films from "../components/Spotlight/Films/Films";
@@ -18,7 +14,7 @@ const USERS_REGEX = /^\/dash\/users(\/)?$/
 
 const Profile = () => {
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const {pathname} = useLocation()
 
     const [user] = useOutletContext();
@@ -29,53 +25,53 @@ const Profile = () => {
         setActiveCategory(category);
     };
 
-    const [sendLogout, {
-        isLoading,
-        isSuccess,
-        isError,
-        error
-    }] = useSendLogoutMutation()
+    // const [sendLogout, {
+    //     isLoading,
+    //     isSuccess,
+    //     isError,
+    //     error
+    // }] = useSendLogoutMutation()
 
 
-    const handleBothClicks = () => {
-        if (user) {
-            sendLogout();
-            navigate('/login')
-        }
-        // else if (oauthUser) {
-        //     window.open(`${process.env.REACT_APP_API_URL}/api/user/google/logout`, "_self");
-        // }
-    };
-
-    useEffect(() => {
-        if (isSuccess) navigate('/')
-    }, [isSuccess, navigate])
-
-    if (isLoading) {
-        return <div className={'loader'}>
-            <InfinitySpin
-                width='200'
-                color="#000"
-            />
-        </div>
-    }
-
-    if (isError) return <p>Error: {error.data?.message}</p>
+    // const handleBothClicks = () => {
+    //     if (user) {
+    //         sendLogout();
+    //         navigate('/login')
+    //     }
+    //     // else if (oauthUser) {
+    //     //     window.open(`${process.env.REACT_APP_API_URL}/api/user/google/logout`, "_self");
+    //     // }
+    // };
+    //
+    // useEffect(() => {
+    //     if (isSuccess) navigate('/')
+    // }, [isSuccess, navigate])
+    //
+    // if (isLoading) {
+    //     return <div className={'loader'}>
+    //         <InfinitySpin
+    //             width='200'
+    //             color="#000"
+    //         />
+    //     </div>
+    // }
+    //
+    // if (isError) return <p>Error: {error.data?.message}</p>
 
     let dashClass = null
     if (!DASH_REGEX.test(pathname) && !NOTES_REGEX.test(pathname) && !USERS_REGEX.test(pathname)) {
         dashClass = "dash-header__container--small"
     }
-
-    const logoutButton = (
-        <button
-            className="icon-button"
-            title="Logout"
-            onClick={handleBothClicks}
-        >
-            <FontAwesomeIcon icon={faRightFromBracket}/>
-        </button>
-    )
+    //
+    // const logoutButton = (
+    //     <button
+    //         className="icon-button"
+    //         title="Logout"
+    //         onClick={handleBothClicks}
+    //     >
+    //         <FontAwesomeIcon icon={faRightFromBracket}/>
+    //     </button>
+    // )
 
     return (
         <div>

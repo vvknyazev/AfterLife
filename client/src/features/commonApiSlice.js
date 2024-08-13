@@ -1,4 +1,6 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import {logOut} from "./auth/authSlice";
+import {apiSlice} from "../app/api/apiSlice";
 
 const commonApiSlice = createApi({
     reducerPath: 'commonApi',
@@ -10,6 +12,24 @@ const commonApiSlice = createApi({
         },
     }),
     endpoints: (builder) => ({
+        sendLogout: builder.mutation({
+            query: () => ({
+                url: '/api/user/logout',
+                method: 'POST',
+            }),
+            async onQueryStarted(arg, {dispatch, queryFulfilled}) {
+                try {
+                    const {data} = await queryFulfilled
+                    console.log(data)
+                    dispatch(logOut())
+                    setTimeout(() => {
+                        dispatch(apiSlice.util.resetApiState())
+                    }, 1000)
+                } catch (err) {
+                    console.log(err)
+                }
+            }
+        }),
         uploadPhoto: builder.mutation({
             query: (data) => ({
                 url: '/api/user/upload-photo',
@@ -155,6 +175,7 @@ const commonApiSlice = createApi({
 });
 
 export const {
+    useSendLogoutMutation,
     useUploadPhotoMutation,
     useSaveInfoMutation,
     useGetModelsQuery,

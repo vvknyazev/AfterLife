@@ -13,7 +13,7 @@ const PersistLogin = () => {
 
     const [trueSuccess, setTrueSuccess] = useState(false)
 
-    const {data: user, isLoading: isLoadingUser, isFetching} = useGetUserQuery();
+    const {data: user} = useGetUserQuery();
 
     const [refresh, {
         isUninitialized,
@@ -47,22 +47,22 @@ const PersistLogin = () => {
     }, [])
 
     console.log("user: ", user);
-    if (isLoadingUser) {
-        return <div className={'loader'}>
-            <InfinitySpin
-                width='200'
-                color="#000"
-            />
-        </div>
-    }
-    if (isFetching) {
-        return <div className={'loader'}>
-            <InfinitySpin
-                width='200'
-                color="#000"
-            />
-        </div>
-    }
+    // if (isLoadingUser) {
+    //     return <div className={'loader'}>
+    //         <InfinitySpin
+    //             width='200'
+    //             color="#000"
+    //         />
+    //     </div>
+    // }
+    // if (isFetching) {
+    //     return <div className={'loader'}>
+    //         <InfinitySpin
+    //             width='200'
+    //             color="#000"
+    //         />
+    //     </div>
+    // }
     let content
 
     if (!persist) { // persist: no

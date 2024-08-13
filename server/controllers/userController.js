@@ -90,7 +90,7 @@ class UserController {
         res.cookie('jwt', refreshToken, {
             httpOnly: true,
             secure: true,
-            sameSite:'none',
+            sameSite: 'none',
             maxAge: 30 * 24 * 60 * 60 * 1000,
         });
         return res.json({accessToken})
@@ -119,7 +119,7 @@ class UserController {
         }
     }
 
-    async login(req, res, next) {
+    async login(req, res) {
         const {email, password} = req.body
         console.log(req.body);
         console.log(email);
@@ -151,7 +151,7 @@ class UserController {
         res.json({accessToken});
     }
 
-    async refresh(req, res, next) {
+    async refresh(req, res) {
         console.log("refresh func")
         const cookies = req.cookies;
         console.log("cookies.jwt: ", cookies.jwt);
@@ -160,7 +160,7 @@ class UserController {
         if (cookies?.session) {
             // console.log("req.session passport user refreshtoken: ", req.session.passport.user.refreshToken);
             if (req?.session?.passport?.user?.source === 'discord') {
-
+                res.sendStatus(200);
                 refresh.requestNewAccessToken(
                     'discord',
                     req.session.passport.user.refreshToken,
@@ -173,6 +173,7 @@ class UserController {
                     },);
 
             } else if (req?.session?.passport?.user?.source === 'google') {
+                res.sendStatus(200);
                 refresh.requestNewAccessToken(
                     'google',
                     req.session.passport.user.refreshToken,
@@ -208,17 +209,38 @@ class UserController {
 
     async logout(req, res) {
         console.log("logout func")
-        if (req?.user){
-            console.log("req.user: ", req.user);
-            console.log("cookies?.session: ", req.cookies?.session);
-            console.log("req.cookies: ", req.cookies);
-            res.clearCookie('session', {httpOnly: true, sameSite: 'None', secure: true});
-            const user = await User.findOne({email: req.user.email});
-            user.refreshToken = '';
-            const result = await user.save();
-            console.log("result: ", result);
+        console.log("req.cookies: ", req?.cookies);
+        console.log("cookies?.session: ", req.cookies?.session);
+        res.clearCookie('test', {httpOnly: true, sameSite: 'None', secure: true});
+        // res.clearCookie('jwt', {httpOnly: true, sameSite: 'None', secure: true});
+        // res.end();
+        if (req?.user) {
             req.session = null;
-            res.redirect(process.env.CLIENT_URL); // ????
+            res.redirect(process.env.CLIENT_URL)
+            // Clear the session cookie by its name
+            // res.clearCookie('test', {httpOnly: true, sameSite: 'None', secure: true});
+            // res.sendStatus(204);
+            // Redirect to the desired location, such as the home page
+            // res.redirect(process.env.CLIENT_URL);
+            // req.logout();
+            // req.session = null;
+            // req.session.save();
+            // res.clearCookie('session', {httpOnly: true, sameSite: 'None', secure: true});
+            // res.clearCookie('session.sig', {httpOnly: true, sameSite: 'None', secure: true});
+            // res.end();
+            // res.sendStatus(204);
+            // req.session = null;
+            // console.log("req.user: ", req.user);
+            // console.log("cookies?.session: ", req.cookies?.session);
+            // console.log("req.cookies: ", req.cookies);
+            // res.clearCookie('session', {httpOnly: true, sameSite: 'None', secure: true});
+            // const user = await User.findOne({email: req.user.email});
+            // user.refreshToken = '';
+            // const result = await user.save();
+            // console.log("result: ", result);
+            // console.log("req.session.cookie: ", result);
+            //
+            // res.redirect(process.env.CLIENT_URL); // ????
         } else {
 
             const cookies_jwt = req.cookies.jwt;
@@ -239,12 +261,12 @@ class UserController {
             const result = await user.save();
             console.log("result: ", result);
 
-            res.clearCookie('jwt', {httpOnly: true, sameSite: 'None', secure: true});
+            // res.clearCookie('jwt', {httpOnly: true, sameSite: 'None', secure: true});
             res.sendStatus(204);
         }
     }
 
-    async activate(req, res, next) {
+    async activate(req, res) {
 
         const {activationCode} = req.body;
 

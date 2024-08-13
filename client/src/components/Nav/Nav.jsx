@@ -3,15 +3,15 @@ import {ReactComponent as SignUpIcon} from '../../icons/signup.svg';
 import {ReactComponent as LoginIcon} from '../../icons/login.svg';
 import n from './Nav.module.css'
 import {CSSTransition} from 'react-transition-group';
-import {NavLink, useLocation, useNavigate} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import {useChat} from "../../context/ChatProvider";
 import ColorThief from "colorthief";
 import {useTranslation} from "react-i18next";
 import cookies from 'js-cookie'
 import i18next from 'i18next'
 import SearchModal from "../SearchModal/SearchModal";
-import {useSendLogoutMutation} from "../../features/auth/authApiSlice";
-import {InfinitySpin} from "react-loader-spinner";
+import usePersist from "../../hooks/usePersist";
+import {useSendLogoutMutation} from "../../features/commonApiSlice";
 
 const languages = [
     {
@@ -37,10 +37,6 @@ function NavItem(props) {
     const dropdownRef = useRef(null);
 
     const [sendLogout, {
-        isLoading,
-        isSuccess,
-        isError,
-        error
     }] = useSendLogoutMutation()
 
     const {notifications} = useChat();
@@ -82,11 +78,17 @@ function NavItem(props) {
         setIsFistTimeOpen(false);
     }
 
-    const navigate = useNavigate()
+    const [persist, setPersist] = usePersist()
+    console.log("persist in Nav: ", persist);
+
     const handleLogout = () => {
         if (props?.username) {
             sendLogout();
-            navigate('/login')
+            // setPersist(false);
+            // localStorage.removeItem("persist");
+            // dispatch(commonApiSlice.util.resetApiState())
+            // dispatch(apiSlice.util.resetApiState())
+            // navigate('/login')
             window.location.reload(false);
         }
     };
@@ -217,13 +219,13 @@ function NavItem(props) {
                                     </div>
                                 </div>
 
-                                <p className={'menu-item__text'}>Баланс:
+                                <div className={'menu-item__text'}>Баланс:
                                     {/*<img src="/profile/currency.svg"*/}
                                     {/*     alt="currency"*/}
                                     {/*     className={n.currency}/>*/}
                                     <div className={n.currencyContainer}><p>0</p><span className={n.currency}>金</span>
                                     </div>
-                                </p>
+                                </div>
                                 <DropdownItem
                                     auth='/chats'
                                 >

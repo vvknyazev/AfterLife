@@ -480,7 +480,7 @@ body {
 }
 
 /*profile button style*/
-.profile {
+.profile a {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -498,7 +498,7 @@ body {
 
 }
 
-.profile:hover {
+.profile a:hover {
     border: 1px solid rgba(255, 255, 255, 0.5);
     transition: all 0.3s ease;
 }
