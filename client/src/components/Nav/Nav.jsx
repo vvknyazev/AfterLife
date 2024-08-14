@@ -89,7 +89,7 @@ function NavItem(props) {
             // dispatch(commonApiSlice.util.resetApiState())
             // dispatch(apiSlice.util.resetApiState())
             // navigate('/login')
-            window.location.reload(false);
+            // window.location.reload(false);
         }
     };
 

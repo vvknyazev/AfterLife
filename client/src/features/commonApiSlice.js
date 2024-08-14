@@ -23,7 +23,9 @@ const commonApiSlice = createApi({
                     console.log(data)
                     dispatch(logOut())
                     setTimeout(() => {
+                        dispatch(commonApiSlice.util.resetApiState())
                         dispatch(apiSlice.util.resetApiState())
+                        window.location.reload(false)
                     }, 1000)
                 } catch (err) {
                     console.log(err)
