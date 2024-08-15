@@ -23,6 +23,10 @@ import CreateModel from "./pages/Admin/CreateModel/CreateModel";
 import MessageChecker from "./features/MessageChecker";
 import SessionBuilder from "./pages/SessionBuilder/SessionBuilder";
 import CompleteRegistration from "./components/Auth/CompleteRegistration/CompleteRegistration";
+import SettingsActivity from "./pages/Settings/SettingsActivity/SettingsActivity";
+import SettingsBalance from "./pages/Settings/SettingsBalance/SettingsBalance";
+import SettingsFriends from "./pages/Settings/SettingsFriends/SettingsFriends";
+import SettingsAchievements from "./pages/Settings/SettingsAchievements/SettingsAchievements";
 
 // import Login from "./features/auth/Login";
 
@@ -55,7 +59,11 @@ function App() {
                                 <Route path="complete" element={<CompleteRegistration/>}/>
                                 <Route path="profile" element={<Profile/>}/>
                                 <Route path="/host/:modelId" element={<ModelProfile/>}/>
-                                <Route path="settings" element={<Settings/>}/>
+                                <Route path="settings/profile" element={<Settings/>}/>
+                                <Route path="settings/activity" element={<SettingsActivity/>}/>
+                                <Route path="settings/balance" element={<SettingsBalance/>}/>
+                                <Route path="settings/friends" element={<SettingsFriends/>}/>
+                                <Route path="settings/achievements" element={<SettingsAchievements/>}/>
                                 <Route path="sessions" element={<Sessions/>}/>
                                 <Route path="chats" element={<Chats/>}/>
                                 <Route path="create-session/:modelId" element={<SessionBuilder/>}/>

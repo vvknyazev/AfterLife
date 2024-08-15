@@ -1,0 +1,41 @@
+.navBlock{
+   position: relative;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.52vw;
+    margin-top: 1.8vw;
+}
+.navItem{
+    display: flex;
+    position: relative;
+    align-items: center;
+    gap: 0.52vw;
+    flex-shrink: 0;
+    border-radius: 0.9375vw;
+
+    background: transparent;
+    transition: 0.3s all ease;
+    padding-left: 1.3vw;
+}
+.navItem:hover{
+    background: rgba(106, 106, 118, 0.12);
+    transition: 0.3s all ease;
+}
+.navItem a{
+    color: #D9D9D9;
+    font-family: Onest, sans-serif;
+    font-size: 0.9375vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: 11.71875vw;
+    height: 2.864vw;
+    display: flex;
+    align-items: center;
+}
+.active{
+    background: rgba(106, 106, 118, 0.12);
+}

@@ -245,7 +245,7 @@ function NavItem(props) {
                                     Профиль
                                 </DropdownItem>
                                 <DropdownItem
-                                    auth='/settings'
+                                    auth='/settings/profile'
                                 >
                                     Настройки
                                 </DropdownItem>
@@ -268,15 +268,11 @@ const Nav = (props) => {
     const location = useLocation();
 
     const isHomePage = location.pathname === '/';
-    const isModelsPage = location.pathname === '/hosts';
+    // const isModelsPage = location.pathname === '/hosts';
     // const isSettingsPage = location.pathname === '/settings';
-    let profileButtonStyle;
+
     let nav;
-    if (isModelsPage) {
-        profileButtonStyle = 'profileBlack'
-    } else {
-        profileButtonStyle = 'profile';
-    }
+
     if (isHomePage) {
         nav = 'nav'
     } else {
@@ -401,7 +397,7 @@ const Nav = (props) => {
                         {props?.user?.isActivated === false
                             ? <li className={n.rightSide}>
                                 {/*<a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>*/}
-                                <div className={`${profileButtonStyle}`}>
+                                <div className={'profile'}>
                                     <NavLink to={'/login'} className={n.profileText}>{t('nav.login')}</NavLink>
                                 </div>
                             </li>
@@ -414,7 +410,7 @@ const Nav = (props) => {
                                     username={props.user?.username}></NavItem>
                             </li> : <li className={n.rightSide}>
                                 {/*<a href="#"><img src="/nav/lang-button.svg" alt="lang" className={n.lang}/></a>*/}
-                                <div className={`${profileButtonStyle}`}>
+                                <div className={'profile'}>
                                     <NavLink to={'/login'} className={n.profileText}>{t('nav.login')}</NavLink>
                                 </div>
                             </li>}

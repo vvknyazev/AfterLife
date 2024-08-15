@@ -8,7 +8,7 @@ const MiniNav = () => {
     const isChatsPage = location.pathname === '/chats';
     const isSessionsPage = location.pathname === '/sessions';
     const isProfilePage = location.pathname === '/profile';
-    const isSettingsPage = location.pathname === '/settings';
+    const isSettingsPage = location.pathname === '/settings/profile';
 
     return (
         <div className={s.layer}>
@@ -22,7 +22,7 @@ const MiniNav = () => {
                 <NavLink to={'/profile'} className={s.link}>Профиль</NavLink>
             </div>
             <div className={isSettingsPage ? s.active : ''}>
-                <NavLink to={'/settings'} className={s.link}>Настройки</NavLink>
+                <NavLink to={'/settings/profile'} className={s.link}>Настройки</NavLink>
             </div>
         </div>
     );

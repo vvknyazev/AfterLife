@@ -42,21 +42,42 @@ const Models = () => {
     console.log("models: ", models);
 
     return (
-        <div style={{background: "#000"}}>
+        <div >
             <Nav user={user}/>
             <section className={s.models}>
                 <div className={s.filters}>
-
+                    <div className={s.left}>
+                        <div className={s.hostButton}>
+                            <img src="/home/verified.svg" alt="verified"/>
+                            <p>Хосты</p>
+                        </div>
+                        <div className={s.userButton}>
+                            <p>Юзеры</p>
+                        </div>
+                    </div>
+                    <div className={s.right}>
+                        <div className={s.onlineFilter}>
+                            <img src="/hosts/online-icon.svg" alt="online-icon"/>
+                            <p>В Сети</p>
+                        </div>
+                        <div className={s.filterButton}>
+                            <img src="/hosts/filter-icon.svg" alt="filter-icon"/>
+                        </div>
+                        <div className={s.sort}>
+                            <img src="/hosts/sort-icon.svg" alt="sort-icon"/>
+                            <p>Сортировка</p>
+                            <img src="/hosts/sort-button.svg" alt="sort-button"/>
+                        </div>
+                    </div>
                 </div>
                 <div className={s.contentModels}>
-                    {models.map((e)=>(
+                    {models.map((e) => (
                         <Card img={`${process.env.REACT_APP_API_URL}/${e.photo}`} name={e.name}
                               desc={e.bio} games={e.games}
                               key={e._id} id={e._id}
                         />
                     ))}
                 </div>
-
 
 
                 {/*<Categories chooseCategory={chooseCategory} selectedCategory={selectedCategory}/>*/}
