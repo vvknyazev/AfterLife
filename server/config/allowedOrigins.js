@@ -7,6 +7,8 @@ const allowedOrigins = [
     'http://localhost',
     'https://localhost',
     'http://afterlife.pp.ua',
+    'http://afterlf.pp.ua',
+    'https://afterlf.pp.ua',
     'http://afterlf.com',
     'https://afterlf.com',
     'https://afterlife.pp.ua',
@@ -16,7 +18,8 @@ const allowedOrigins = [
     'https://afterlife-production-7d67.up.railway.app/',
     'https://66980c44e18e91000860477a--superb-conkies-1f0ed1.netlify.app',
     'http://afterlife-production-7d67.up.railway.app/',
-    'https://superb-conkies-1f0ed1.netlify.app'
+    'https://superb-conkies-1f0ed1.netlify.app',
+    'https://superb-conkies-1f0ed1.netlify.app/'
 ];
 
 module.exports = allowedOrigins;
