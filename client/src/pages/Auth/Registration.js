@@ -289,13 +289,13 @@ const Registration = () => {
                                             type='submit'>Зарегистрироваться</button>}
 
                             </form>
-                            <p className={s.socialHeader}>Зарегистрироваться через соцсеть: </p>
-                            <div className={s.social}>
-                                <a onClick={handleGoogleLogin}><img src="auth/ico/google.png"
-                                                                    alt="google"/> Google</a>
-                                <a onClick={handleDiscordLogin}><img src="auth/ico/discord.png"
-                                                                     alt="discord"/> Discord</a>
-                            </div>
+                            {/*<p className={s.socialHeader}>Зарегистрироваться через соцсеть: </p>*/}
+                            {/*<div className={s.social}>*/}
+                            {/*    <a onClick={handleGoogleLogin}><img src="auth/ico/google.png"*/}
+                            {/*                                        alt="google"/> Google</a>*/}
+                            {/*    <a onClick={handleDiscordLogin}><img src="auth/ico/discord.png"*/}
+                            {/*                                         alt="discord"/> Discord</a>*/}
+                            {/*</div>*/}
                             <div className={s.redirect}>
                                 <p>Есть аккаунт? <NavLink to={'/login'}
                                                           className={s.redirectButton}>Войти</NavLink>

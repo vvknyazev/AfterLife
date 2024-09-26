@@ -247,11 +247,11 @@ const Login = () => {
                         </form>
 
                         {/*<h3>Регистрация через соцсеть</h3>*/}
-                        <p className={s.socialHeader}>Войти через соцсеть: </p>
-                        <div className={s.social}>
-                            <a onClick={handleGoogleLogin}><img src="auth/ico/google.png" alt="google"/> Google</a>
-                            <a onClick={handleDiscordLogin}><img src="auth/ico/discord.png" alt="discord"/> Discord</a>
-                        </div>
+                        {/*<p className={s.socialHeader}>Войти через соцсеть: </p>*/}
+                        {/*<div className={s.social}>*/}
+                        {/*    <a onClick={handleGoogleLogin}><img src="auth/ico/google.png" alt="google"/> Google</a>*/}
+                        {/*    <a onClick={handleDiscordLogin}><img src="auth/ico/discord.png" alt="discord"/> Discord</a>*/}
+                        {/*</div>*/}
                         <div className={s.redirect}>
                             <p>Нет аккаунта? <NavLink to={'/register'}
                                                       className={s.redirectButton}>Зарегистрироваться</NavLink></p>
